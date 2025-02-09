@@ -8,6 +8,7 @@ import {
   faHeart,
   faHouse,
   faMagnifyingGlassPlus,
+  faPenToSquare,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,6 +45,8 @@ export const CustomIcon: FC<CustomIconProps> = props => {
     com = <FontAwesomeIcon icon={faFile} />;
   } else if (type === 'favorites') {
     com = <FontAwesomeIcon icon={faHeart} />;
+  } else if (type === 'info submission') {
+    com = <FontAwesomeIcon icon={faPenToSquare} />;;
   }
   // else {
   //   com = <GuideSvg />;

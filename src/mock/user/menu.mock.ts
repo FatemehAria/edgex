@@ -99,14 +99,14 @@ const mockMenuList: MenuList = [
     ],
   },
   {
-    code: 'enter info',
+    code: 'info submission',
     label: {
       // zh_CN: '首页',
-      en_US: 'Enter Info',
+      en_US: 'Info submission',
       fa_IR: 'ورود اطلاعات',
     },
-    icon: 'homepage',
-    path: '/',
+    icon: 'info submission',
+    path: '/info-submission',
     children: [
       {
         code: 'supplier',
@@ -115,7 +115,7 @@ const mockMenuList: MenuList = [
           en_US: 'Supplier',
           fa_IR: 'تامین کننده',
         },
-        path: '/main-tables/supplier',
+        path: '/info-submission',
       },
     ],
   },
@@ -136,7 +136,7 @@ const mockMenuList: MenuList = [
           en_US: 'Supplier',
           fa_IR: 'تامین کننده',
         },
-        path: '/main-tables/supplier',
+        path: '/reports',
       },
     ],
   },
