@@ -3,7 +3,7 @@ import type { MyFormOptions } from '@/components/core/form';
 import MyForm from '@/components/core/form';
 
 function MainInfo() {
-  const formOptions: MyFormOptions = [
+  const productMainInfoformOptions: MyFormOptions = [
     {
       name: 'product-info-title',
       label: 'عنوان',
@@ -44,7 +44,7 @@ function MainInfo() {
 
   return (
     <div>
-      <MyForm options={formOptions} onFinish={values => console.log('Submitted values:', values)} />
+      <MyForm options={productMainInfoformOptions} onFinish={values => console.log('Submitted values:', values)} />
     </div>
   );
 }
