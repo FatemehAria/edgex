@@ -2,6 +2,7 @@ import { faIR_account } from './account';
 import { faIR_advancedSearch } from './advanced-search';
 import { fa_IR_component } from './component';
 import { faIR_globalTips } from './global/tips';
+import { faIR_groupingSpecifications } from './grouping-specifications';
 import { faIR_home } from './home/index';
 import { fa_IR_metadata } from './metadata';
 import { faIR_notice } from './notice';
@@ -22,6 +23,7 @@ const fa_IR = {
   ...faIR_notice,
   ...fa_IR_component,
   ...faIR_home,
+  ...faIR_groupingSpecifications,
 };
 
 export default fa_IR;

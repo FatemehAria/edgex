@@ -2,6 +2,7 @@ import { enUS_account } from './account';
 import { enUS_advancedSearch } from './advanced-search';
 import { en_US_component } from './component';
 import { enUS_globalTips } from './global/tips';
+import { enUS_groupingSpecifications } from './grouping-specifications';
 import { enUs_home } from './home/index';
 import { en_US_metadata } from './metadata';
 import { enUS_notice } from './notice';
@@ -22,6 +23,7 @@ const en_US = {
   ...enUS_notice,
   ...en_US_component,
   ...enUs_home,
+  ...enUS_groupingSpecifications,
 };
 
 export default en_US;

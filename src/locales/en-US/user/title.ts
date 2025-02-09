@@ -1,6 +1,7 @@
 export const enUS_title = {
   'title.login': 'Login',
   'title.homepage': 'Home',
+  'title.grouping': 'Grouping Specifications',
   'title.account': 'Profile',
   'title.metadata': 'Metadata',
   'title.advanced-search': 'Advanced Search',

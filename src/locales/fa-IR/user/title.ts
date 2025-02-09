@@ -1,6 +1,7 @@
 export const faIR_title = {
   'title.login': 'ورود',
   'title.homepage': 'صفحه اصلی',
+  'title.grouping': 'مشخصات گروهبندی',
   'title.account': 'حساب کاربری',
   'title.metadata': 'ورود متادیتا',
   'title.advanced-search': 'جستجوی پیشرفته',

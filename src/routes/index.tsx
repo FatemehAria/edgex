@@ -35,7 +35,7 @@ const routeList: RouteObject[] = [
       },
       {
         path: '/main-tables/grouping-specifications',
-        element: <WrapperRouteComponent element={<GroupingSpecifications />} titleId="title.homepage" />,
+        element: <WrapperRouteComponent element={<GroupingSpecifications />} titleId="title.grouping" />,
       },
       {
         path: '/:media_id',
