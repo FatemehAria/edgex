@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+
+import Grouping from './grouping';
 import MainInfo from './main-info';
 import Specifications from './specifications';
-import Grouping from './grouping';
 
 function ProductInfo() {
   const [tab, setTab] = useState(0);
