@@ -1,0 +1,23 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-page-form {
+  width: 300px;
+  padding: 50px 40px 10px;
+  border-radius: 10px;
+}
+.login-page-form h2 {
+  text-align: center;
+}
+.login-page-form_button {
+  width: 100%;
+}
+.login-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

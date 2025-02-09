@@ -1,0 +1,48 @@
+.drag-and-drop-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  overflow: hidden;
+}
+.drag-and-drop-field {
+  width: 100%;
+  height: 100%;
+}
+.drag-and-drop-show-field {
+  display: block;
+  background-color: #ffffff;
+}
+.drag-and-drop-hide-field {
+  display: none;
+}
+.drag-and-drop-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.drag-and-drop-gif {
+  width: 250px;
+  height: 200px;
+}
+.drag-and-drop-text {
+  font-size: 1.5rem;
+}
+.main-text-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.main-text {
+  font-size: 1rem;
+  background-color: green;
+}
+.main-container {
+  position: relative;
+}

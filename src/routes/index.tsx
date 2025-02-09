@@ -1,0 +1,73 @@
+import type { FC } from 'react';
+import type { RouteObject } from 'react-router';
+
+import { lazy } from 'react';
+// import { Navigate } from 'react-router';
+import { useRoutes } from 'react-router-dom';
+
+import LayoutPage from '@/pages/layout';
+import LoginPage from '@/pages/login';
+
+import WrapperRouteComponent from './config';
+
+const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
+const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
+const AdvancedSearchPage = lazy(() => import(/* webpackChunkName: "guide'"*/ '@/pages/advanced-search'));
+const FavoritesPage = lazy(() => import(/* webpackChunkName: "form'"*/ '@/pages/favorites'));
+const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));
+const HomePage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/home'));
+const DashboardPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/account'));
+const MediaDetailsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/media-details'));
+
+const routeList: RouteObject[] = [
+  {
+    path: '/login',
+    element: <WrapperRouteComponent element={<LoginPage />} titleId="title.login" />,
+  },
+  {
+    path: '/',
+    element: <WrapperRouteComponent element={<LayoutPage />} titleId="title.homepage" />,
+    children: [
+      {
+        path: '',
+        element: <WrapperRouteComponent element={<HomePage />} titleId="title.homepage" />,
+      },
+      {
+        path: '/:media_id',
+        element: <WrapperRouteComponent element={<MediaDetailsPage />} titleId="title.homepage" />,
+      },
+      {
+        path: 'account',
+        element: <WrapperRouteComponent element={<DashboardPage />} titleId="title.account" />,
+      },
+      {
+        path: 'metadata',
+        element: <WrapperRouteComponent element={<MetadataPage />} titleId="title.metadata" />,
+      },
+      {
+        path: 'advanced-search',
+        element: <WrapperRouteComponent element={<AdvancedSearchPage />} titleId="title.advanced-search" />,
+      },
+      {
+        path: 'favorites',
+        element: <WrapperRouteComponent element={<FavoritesPage />} titleId="title.favorites" />,
+      },
+      {
+        path: 'reports',
+        element: <WrapperRouteComponent element={<ReportsPage />} titleId="title.reports" />,
+      },
+      {
+        path: '*',
+        element: <WrapperRouteComponent element={<NotFound />} titleId="title.notFount" />,
+      },
+    ],
+  },
+];
+
+const RenderRouter: FC = () => {
+  const element = useRoutes(routeList);
+
+  return element;
+};
+
+export default RenderRouter;
