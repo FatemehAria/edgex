@@ -1,8 +1,5 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
-
-import MyInput from '@/components/basic/input';
 import MyForm from '@/components/core/form';
 
 const formOptions: MyFormOptions = [
