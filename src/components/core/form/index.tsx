@@ -16,8 +16,15 @@ const BaseForm = <Values extends object>(props: MyFormProps<Values>) => {
 
   return (
     <Form<Values> {...rest}>
-      {options?.map(option => {
-        return <MyFormItem {...option} />;
+      {options?.map((option, index) => {
+        const key =
+          option.name !== undefined
+            ? Array.isArray(option.name)
+              ? option.name.join('-')
+              : option.name.toString()
+            : index;
+
+        return <MyFormItem {...option} key={key} />;
       })}
       {children}
     </Form>
