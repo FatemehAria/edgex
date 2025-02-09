@@ -5,6 +5,7 @@ import { lazy } from 'react';
 // import { Navigate } from 'react-router';
 import { useRoutes } from 'react-router-dom';
 
+import GroupingSpecifications from '@/pages/grouping-specifications';
 import LayoutPage from '@/pages/layout';
 import LoginPage from '@/pages/login';
 
@@ -31,6 +32,10 @@ const routeList: RouteObject[] = [
       {
         path: '',
         element: <WrapperRouteComponent element={<HomePage />} titleId="title.homepage" />,
+      },
+      {
+        path: '/main-tables/grouping-specifications',
+        element: <WrapperRouteComponent element={<GroupingSpecifications />} titleId="title.homepage" />,
       },
       {
         path: '/:media_id',

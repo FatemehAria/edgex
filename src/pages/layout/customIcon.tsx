@@ -46,7 +46,7 @@ export const CustomIcon: FC<CustomIconProps> = props => {
   } else if (type === 'favorites') {
     com = <FontAwesomeIcon icon={faHeart} />;
   } else if (type === 'info submission') {
-    com = <FontAwesomeIcon icon={faPenToSquare} />;;
+    com = <FontAwesomeIcon icon={faPenToSquare} />;
   }
   // else {
   //   com = <GuideSvg />;

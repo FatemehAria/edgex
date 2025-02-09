@@ -2,7 +2,7 @@ import type { MenuList } from '@/interface/layout/menu.interface';
 
 import { intercepter, mock } from '../config';
 
-const media_id = localStorage.getItem('M_id');
+// const media_id = localStorage.getItem('M_id');
 
 const mockMenuList: MenuList = [
   {
