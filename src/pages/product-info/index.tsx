@@ -10,7 +10,7 @@ function ProductInfo() {
   const [tab, setTab] = useState(0);
 
   return (
-    <div>
+    <div className="pro-info-container">
       <div className="tabs">
         <p onClick={() => setTab(0)} className={`single-tab ${tab === 0 ? 'active-tab' : ''}`}>
           اطلاعات اصلی

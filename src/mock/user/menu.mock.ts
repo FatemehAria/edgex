@@ -83,7 +83,7 @@ const mockMenuList: MenuList = [
         label: {
           // zh_CN: '首页',
           en_US: 'Grouping specifications',
-          fa_IR: 'مشخصات گروهبندی',
+          fa_IR: 'مشخصات گروه بندی',
         },
         path: '/main-tables/grouping-specifications',
       },
