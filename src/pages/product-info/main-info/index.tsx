@@ -1,43 +1,42 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import MyForm from '@/components/core/form';
 import FormLayout from '@/pages/layout/form-layout';
 
 function MainInfo() {
   const productMainInfoformOptions: MyFormOptions = [
     {
-      name: 'product-info-title',
-      label: 'عنوان',
+      name: 'product-info-title-english',
+      label: 'عنوان انگلیسی:',
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'product-info-title-persian',
-      label: 'TitlePersian',
+      label: 'عنوان فارسی:',
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'product-info-typeof-product',
-      label: 'نوع کالا',
+      label: 'نوع کالا:',
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'product-info-weight',
-      label: 'Weight',
+      label: 'وزن:',
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'product-info-nerkh',
-      label: 'نرخ',
+      label: 'نرخ:',
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'grp-specification-desc',
-      label: 'توضیحات',
+      label: 'توضیحات:',
       type: 'textarea',
       innerProps: { placeholder: '' },
     },
