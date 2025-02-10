@@ -25,13 +25,13 @@ function MainInfo() {
     {
       name: 'product-info-weight',
       label: 'وزن:',
-      type: 'input',
-      innerProps: { placeholder: '' },
+      type: 'input-number',
+      innerProps: { placeholder: '', min: 1 },
     },
     {
       name: 'product-info-nerkh',
       label: 'نرخ:',
-      type: 'input',
+      type: 'input-number',
       innerProps: { placeholder: '' },
     },
     {

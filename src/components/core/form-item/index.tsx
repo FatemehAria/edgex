@@ -31,13 +31,11 @@ type InnerProps = {
 
 export interface MyFormItemProps<T extends ControlTypes = ControlTypes> extends Omit<FormItemProps, 'required'> {
   type?: T;
-  /** 支持 options 的控件如 select checkbox radio 等，非必填 **/
   options?: {
     label: string;
     value: any;
     disabled?: boolean;
   }[];
-  /** 控件内部属性，非必填 **/
   innerProps?: InnerProps[T];
   required?: string | boolean;
 }
@@ -58,7 +56,7 @@ export class ControlMap {
   }
 
   'input-number'() {
-    return <InputNumber {...this.innerProps} />;
+    return <InputNumber {...this.innerProps} style={{ width: '100%' }} />;
   }
 
   switch() {
