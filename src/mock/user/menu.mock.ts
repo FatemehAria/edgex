@@ -67,7 +67,7 @@ const mockMenuList: MenuList = [
           en_US: 'Increasing/decreasing factors',
           fa_IR: 'عوامل افزاینده/کاهنده',
         },
-        path: '/main-tables/increasing-decreasing-factors',
+        path: '/main-tables/factors',
       },
       {
         code: 'product info',

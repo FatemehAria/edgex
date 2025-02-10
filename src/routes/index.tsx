@@ -14,6 +14,7 @@ import ProductInfo from '@/pages/product-info';
 import CompanyPersonInfo from '@/pages/person-company-info';
 import ProductSupplier from '@/pages/product-supplier';
 import CostumerInfo from '@/pages/costumer-info';
+import IncDecFactors from '@/pages/inc-dec-factors';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -56,6 +57,10 @@ const routeList: RouteObject[] = [
       {
         path: '/main-tables/costumer-info',
         element: <WrapperRouteComponent element={<CostumerInfo />} titleId="title.costumerInfo" />,
+      },
+      {
+        path: '/main-tables/factors',
+        element: <WrapperRouteComponent element={<IncDecFactors />} titleId="title.incDecFactors" />,
       },
       {
         path: '/:media_id',

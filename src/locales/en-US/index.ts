@@ -1,9 +1,11 @@
 import { enUS_account } from './account';
 import { enUS_advancedSearch } from './advanced-search';
 import { en_US_component } from './component';
+import { enUS_costumerInfo } from './costumer-info';
 import { enUS_globalTips } from './global/tips';
 import { enUS_groupingSpecifications } from './grouping-specifications';
 import { enUs_home } from './home/index';
+import { enUS_incDecFactors } from './inc-dec-factors';
 import { en_US_metadata } from './metadata';
 import { enUS_notice } from './notice';
 import { enUS_permissionRole } from './permission/role';
@@ -12,7 +14,6 @@ import { enUS_productSupplier } from './poduct-supplier';
 import { enUS_avatorDropMenu } from './user/avatorDropMenu';
 import { enUS_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { enUS_title } from './user/title';
-import { enUS_costumerInfo } from './costumer-info';
 
 const en_US = {
   ...enUS_account,
@@ -30,6 +31,7 @@ const en_US = {
   ...enUS_personCompanyInfo,
   ...enUS_productSupplier,
   ...enUS_costumerInfo,
+  ...enUS_incDecFactors,
 };
 
 export default en_US;

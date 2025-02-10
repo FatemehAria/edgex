@@ -6,6 +6,7 @@ export const enUS_title = {
   'title.personCompanyInfo': 'Person/Company Info',
   'title.productSupplier': 'Product - Supplier',
   'title.costumerInfo': 'Costumer Info',
+  'title.incDecFactors': 'Factors',
   'title.account': 'Profile',
   'title.metadata': 'Metadata',
   'title.advanced-search': 'Advanced Search',

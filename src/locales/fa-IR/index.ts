@@ -12,6 +12,7 @@ import { faIR_avatorDropMenu } from './user/avatorDropMenu';
 import { fa_IR_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { faIR_title } from './user/title';
 import { faIR_costumerInfo } from './costumer-info';
+import { faIR_incDecFactors } from './inc-dec-factors';
 
 const fa_IR = {
   ...faIR_account,
@@ -28,6 +29,7 @@ const fa_IR = {
   ...faIR_groupingSpecifications,
   ...faIR_personCompanyInfo,
   ...faIR_costumerInfo,
+  ...faIR_incDecFactors,
 };
 
 export default fa_IR;
