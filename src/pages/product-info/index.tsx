@@ -1,29 +1,38 @@
 import '@/styles/product-info.css';
 
+import { Tabs } from 'antd';
 import React, { useState } from 'react';
 
 import Grouping from './grouping';
 import MainInfo from './main-info';
 import Specifications from './specifications';
 
+const items = [
+  {
+    key: '1',
+    label: 'اطلاعات اصلی',
+  },
+  {
+    key: '2',
+    label: 'ویژگی ها',
+  },
+  {
+    key: '3',
+    label: 'گروه بندی',
+  },
+];
+
 function ProductInfo() {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState('1');
+
+  const handleChange = (key: string) => {
+    setTab(key);
+  };
 
   return (
-    <div className="pro-info-container">
-      <div className="tabs">
-        <p onClick={() => setTab(0)} className={`single-tab ${tab === 0 ? 'active-tab' : ''}`}>
-          اطلاعات اصلی
-        </p>
-        <p onClick={() => setTab(1)} className={`single-tab ${tab === 1 ? 'active-tab' : ''}`}>
-          ویژگی ها
-        </p>
-        <p onClick={() => setTab(2)} className={`single-tab ${tab === 2 ? 'active-tab' : ''}`}>
-          گروه بندی
-        </p>
-      </div>
-
-      {tab === 0 ? <MainInfo /> : tab === 1 ? <Specifications /> : <Grouping />}
+    <div>
+      <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
+      {tab === '1' ? <MainInfo /> : tab === '2' ? <Specifications /> : <Grouping />}
     </div>
   );
 }
