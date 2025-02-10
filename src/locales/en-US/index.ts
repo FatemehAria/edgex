@@ -12,6 +12,7 @@ import { enUS_productSupplier } from './poduct-supplier';
 import { enUS_avatorDropMenu } from './user/avatorDropMenu';
 import { enUS_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { enUS_title } from './user/title';
+import { enUS_costumerInfo } from './costumer-info';
 
 const en_US = {
   ...enUS_account,
@@ -28,6 +29,7 @@ const en_US = {
   ...enUS_groupingSpecifications,
   ...enUS_personCompanyInfo,
   ...enUS_productSupplier,
+  ...enUS_costumerInfo,
 };
 
 export default en_US;

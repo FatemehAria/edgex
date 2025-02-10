@@ -5,6 +5,7 @@ export const faIR_title = {
   'title.productInfo': 'مشخصات کالا',
   'title.personCompanyInfo': 'مشخصات شخص / شرکت',
   'title.productSupplier': 'کالا - تامین کننده',
+  'title.costumerInfo': 'مشخصات مشتری',
   'title.account': 'حساب کاربری',
   'title.metadata': 'ورود متادیتا',
   'title.advanced-search': 'جستجوی پیشرفته',

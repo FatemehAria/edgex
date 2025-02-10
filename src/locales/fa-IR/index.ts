@@ -11,6 +11,7 @@ import { faIR_personCompanyInfo } from './person-company-info';
 import { faIR_avatorDropMenu } from './user/avatorDropMenu';
 import { fa_IR_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { faIR_title } from './user/title';
+import { faIR_costumerInfo } from './costumer-info';
 
 const fa_IR = {
   ...faIR_account,
@@ -26,6 +27,7 @@ const fa_IR = {
   ...faIR_home,
   ...faIR_groupingSpecifications,
   ...faIR_personCompanyInfo,
+  ...faIR_costumerInfo,
 };
 
 export default fa_IR;
