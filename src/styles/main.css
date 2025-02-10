@@ -4,31 +4,27 @@ body,
 #root > * {
   height: 100%;
 }
-
 body {
   margin: 0;
   font-size: 14px;
 }
-
 a {
   text-decoration: underline;
   cursor: pointer;
 }
-
 #searchForm > .ant-row > .ant-row.ant-form-item {
   width: 100%;
   text-align: right;
   padding-right: 12px;
-  .ant-col {
-    flex: 1;
-    max-width: 100%;
-    width: 100%;
-    .ant-btn:first-child {
-      margin-right: 10px;
-    }
-  }
 }
-
+#searchForm > .ant-row > .ant-row.ant-form-item .ant-col {
+  flex: 1;
+  max-width: 100%;
+  width: 100%;
+}
+#searchForm > .ant-row > .ant-row.ant-form-item .ant-col .ant-btn:first-child {
+  margin-right: 10px;
+}
 .app-loading-wrapper.ant-spin-spinning {
   position: fixed;
   top: 0;
@@ -41,16 +37,13 @@ a {
   align-items: center;
   justify-content: center;
 }
-
 .btn-container {
   display: flex;
   justify-content: flex-end;
 }
-
 .submit-button {
   width: 100%;
 }
-
 .form-styling {
   padding: 0 1rem;
 }

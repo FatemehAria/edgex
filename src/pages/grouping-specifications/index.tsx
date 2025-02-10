@@ -50,7 +50,7 @@ function GroupingSpecifications() {
         options={groupingSpecificationsFormOptions}
         onFinish={values => console.log('Submitted values:', values)}
         layout="vertical"
-        style={{ padding: '0 1rem' }}
+        className="form-styling"
       >
         <Form.Item className="btn-container">
           <Button type="primary" htmlType="submit" className="submit-button">
