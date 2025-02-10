@@ -1,28 +1,24 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import './grp-spec.css';
-
-import { Button, Form } from 'antd';
-
-import MyForm from '@/components/core/form';
+import FormLayout from '../layout/form-layout';
 
 const groupingSpecificationsFormOptions: MyFormOptions = [
   {
     name: 'grp-specification-title-english',
-    label: 'عنوان انگلیسی',
+    label: 'عنوان انگلیسی:',
     type: 'input',
     innerProps: { placeholder: '' },
   },
   {
     name: 'grp-specification-title-persian',
     // label: 'TitlePersian',
-    label: 'عنوان فارسی',
+    label: 'عنوان فارسی:',
     type: 'input',
     innerProps: { placeholder: '' },
   },
   {
     name: 'grp-specification-existence-code',
-    label: 'موجودیت',
+    label: 'موجودیت:',
     type: 'select',
     innerProps: { placeholder: 'انتخاب موجودیت' },
     options: [
@@ -33,7 +29,7 @@ const groupingSpecificationsFormOptions: MyFormOptions = [
   },
   {
     name: 'grp-specification-level-code',
-    label: 'LevelCode',
+    label: 'LevelCode:',
     type: 'input',
     innerProps: { placeholder: '' },
   },
@@ -46,7 +42,12 @@ function GroupingSpecifications() {
 
   return (
     <div className="form-container">
-      <MyForm
+      <FormLayout
+        FormOptions={groupingSpecificationsFormOptions}
+        layoutDir="vertical"
+        submitForm={values => console.log('Submitted values:', values)}
+      />
+      {/* <MyForm
         options={groupingSpecificationsFormOptions}
         onFinish={values => console.log('Submitted values:', values)}
         layout="vertical"
@@ -57,7 +58,7 @@ function GroupingSpecifications() {
             ثبت
           </Button>
         </Form.Item>
-      </MyForm>
+      </MyForm> */}
     </div>
   );
 }

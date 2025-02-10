@@ -47,3 +47,6 @@ a {
 .form-styling {
   padding: 0 1rem;
 }
+label {
+  font-weight: 700;
+}
