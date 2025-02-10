@@ -1,3 +1,5 @@
+import '@/styles/product-info.css';
+
 import React, { useState } from 'react';
 
 import Grouping from './grouping';
