@@ -3,6 +3,7 @@ export const faIR_title = {
   'title.homepage': 'صفحه اصلی',
   'title.grouping': 'مشخصات گروه بندی',
   'title.productInfo': 'مشخصات کالا',
+  'title.personCompanyInfo': 'مشخصات شخص / شرکت',
   'title.account': 'حساب کاربری',
   'title.metadata': 'ورود متادیتا',
   'title.advanced-search': 'جستجوی پیشرفته',

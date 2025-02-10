@@ -3,6 +3,7 @@ export const enUS_title = {
   'title.homepage': 'Home',
   'title.grouping': 'Grouping Specifications',
   'title.productInfo': 'Product Info',
+  'title.personCompanyInfo': 'Person/Company Info',
   'title.account': 'Profile',
   'title.metadata': 'Metadata',
   'title.advanced-search': 'Advanced Search',
