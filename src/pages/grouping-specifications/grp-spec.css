@@ -1,0 +1,8 @@
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-button {
+    width: 100%;
+}

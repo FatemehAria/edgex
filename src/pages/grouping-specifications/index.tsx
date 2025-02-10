@@ -1,24 +1,28 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import './grp-spec.css';
+
+import { Button, Form } from 'antd';
+
 import MyForm from '@/components/core/form';
 
-const formOptions: MyFormOptions = [
+const groupingSpecificationsFormOptions: MyFormOptions = [
   {
-    name: 'grp-specification-title',
-    label: 'عنوان',
+    name: 'grp-specification-title-english',
+    label: 'عنوان انگلیسی',
     type: 'input',
-    required: true,
     innerProps: { placeholder: '' },
   },
   {
     name: 'grp-specification-title-persian',
-    label: 'TitlePersian',
+    // label: 'TitlePersian',
+    label: 'عنوان فارسی',
     type: 'input',
     innerProps: { placeholder: '' },
   },
   {
     name: 'grp-specification-existence-code',
-    label: 'ExistenceCode',
+    label: 'موجودیت',
     type: 'select',
     innerProps: { placeholder: 'انتخاب موجودیت' },
     options: [
@@ -41,9 +45,19 @@ function GroupingSpecifications() {
   // };
 
   return (
-    <div>
-      <p>ایجاد مشخصات گروهبندی</p>
-      <MyForm options={formOptions} onFinish={values => console.log('Submitted values:', values)} />
+    <div className="form-container">
+      <MyForm
+        options={groupingSpecificationsFormOptions}
+        onFinish={values => console.log('Submitted values:', values)}
+        layout="vertical"
+        style={{ padding: '0 1rem' }}
+      >
+        <Form.Item className="btn-container">
+          <Button type="primary" htmlType="submit" className="submit-button">
+            ثبت
+          </Button>
+        </Form.Item>
+      </MyForm>
     </div>
   );
 }
