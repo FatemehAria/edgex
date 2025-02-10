@@ -29,5 +29,12 @@
 }
 .grouping-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 20% 80%;
+  gap: 0.25rem;
+}
+/* On smaller screens, both take 100% so the table drops below the select */
+@media (max-width: 600px) {
+  .grouping-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

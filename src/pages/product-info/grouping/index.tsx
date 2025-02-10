@@ -1,6 +1,8 @@
 import type { TreeSelectProps } from 'antd';
 
-import { TreeSelect } from 'antd';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Table, TreeSelect } from 'antd';
 import React, { useState } from 'react';
 
 const treeData = [
@@ -51,12 +53,68 @@ const treeData = [
     ],
   },
 ];
+const dataSource = [
+  {
+    key: '1',
+    index: '1',
+    group: 'گروه یک',
+    product: 'کالا 1',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+  {
+    key: '2',
+    index: '2',
+    group: 'گروه دو',
+    product: 'کالا 2',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+  {
+    key: '3',
+    index: '3',
+    group: 'گروه سه',
+    product: 'کالا 3',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+];
 
 function Grouping() {
+  const columns = [
+    {
+      title: 'ردیف',
+      dataIndex: 'index',
+      key: 'index',
+    },
+    {
+      title: 'گروه',
+      dataIndex: 'group',
+      key: 'group',
+    },
+    {
+      title: 'کالا',
+      dataIndex: 'product',
+      key: 'product',
+    },
+    {
+      title: 'حذف',
+      dataIndex: 'delete',
+      key: 'delete',
+      render: (text: any, record: any) => (
+        <span onClick={() => handleDelete(record.index)} style={{ cursor: 'pointer' }}>
+          {text}
+        </span>
+      ),
+    },
+  ];
   const [value, setValue] = useState<string>();
+  const [tableData, setTableData] = useState(dataSource);
 
   const handleChange = (newValue: string) => {
     setValue(newValue);
+    // console.log("new value", newValue);
+  };
+
+  const handleDelete = (index: string | number) => {
+    setTableData(prevData => prevData.filter(item => item.index !== index));
   };
 
   const onPopupScroll: TreeSelectProps['onPopupScroll'] = e => {
@@ -65,19 +123,21 @@ function Grouping() {
 
   return (
     <div className="grouping-container">
-      <TreeSelect
-        showSearch
-        treeNodeFilterProp="title"
-        treeData={treeData}
-        style={{ width: '100%' }}
-        onPopupScroll={onPopupScroll}
-        onChange={handleChange}
-        value={value}
-        treeDefaultExpandAll
-        placeholder="جستجو"
-        allowClear
-      />
-      <div>2</div>
+      <div className="select-container">
+        <TreeSelect
+          showSearch
+          treeNodeFilterProp="title"
+          treeData={treeData}
+          style={{ width: '100%' }}
+          onPopupScroll={onPopupScroll}
+          onChange={handleChange}
+          value={value}
+          treeDefaultExpandAll
+          placeholder="جستجو"
+          allowClear
+        />
+      </div>
+      <div className="table-container">{value ? <Table dataSource={tableData} columns={columns} /> : ''}</div>
     </div>
   );
 }

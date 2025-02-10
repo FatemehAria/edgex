@@ -31,5 +31,29 @@
 
 .grouping-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 20% 80%;
+  gap: .25rem;
+
+  // display: flex;
+  // flex-wrap: nowrap;
+  // gap: 1rem;
+  // background-color: yellow;
+}
+// .select-container {
+//   flex: 0 1 30%;
+// }
+
+// .table-container {
+//   flex: 0 1 70%;
+// }
+
+/* On smaller screens, both take 100% so the table drops below the select */
+@media (max-width: 600px) {
+  .grouping-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  // .select-container,
+  // .table-container {
+  //   flex: 0 1 100%;
+  // }
 }
