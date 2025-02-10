@@ -8,6 +8,7 @@ import { en_US_metadata } from './metadata';
 import { enUS_notice } from './notice';
 import { enUS_permissionRole } from './permission/role';
 import { enUS_personCompanyInfo } from './person-company-info';
+import { enUS_productSupplier } from './poduct-supplier';
 import { enUS_avatorDropMenu } from './user/avatorDropMenu';
 import { enUS_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { enUS_title } from './user/title';
@@ -26,6 +27,7 @@ const en_US = {
   ...enUs_home,
   ...enUS_groupingSpecifications,
   ...enUS_personCompanyInfo,
+  ...enUS_productSupplier,
 };
 
 export default en_US;

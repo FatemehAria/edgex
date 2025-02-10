@@ -12,6 +12,7 @@ import LoginPage from '@/pages/login';
 import WrapperRouteComponent from './config';
 import ProductInfo from '@/pages/product-info';
 import CompanyPersonInfo from '@/pages/person-company-info';
+import ProductSupplier from '@/pages/product-supplier';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -46,6 +47,10 @@ const routeList: RouteObject[] = [
       {
         path: '/main-tables/person-company-info',
         element: <WrapperRouteComponent element={<CompanyPersonInfo />} titleId="title.personCompanyInfo" />,
+      },
+      {
+        path: '/main-tables/product-supplier',
+        element: <WrapperRouteComponent element={<ProductSupplier />} titleId="title.productSupplier" />,
       },
       {
         path: '/:media_id',
