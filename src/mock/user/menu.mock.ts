@@ -12,7 +12,7 @@ const mockMenuList: MenuList = [
       en_US: 'Main Tables',
       fa_IR: 'جداول پایه',
     },
-    icon: 'homepage',
+    icon: 'main tables',
     path: '/',
     children: [
       {
