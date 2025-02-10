@@ -27,12 +27,12 @@ const groupingSpecificationsFormOptions: MyFormOptions = [
       { label: '3', value: '3' },
     ],
   },
-  {
-    name: 'grp-specification-level-code',
-    label: 'LevelCode:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
+  // {
+  //   name: 'grp-specification-level-code',
+  //   label: 'LevelCode:',
+  //   type: 'input',
+  //   innerProps: { placeholder: '' },
+  // },
 ];
 
 function GroupingSpecifications() {
@@ -46,6 +46,7 @@ function GroupingSpecifications() {
         FormOptions={groupingSpecificationsFormOptions}
         layoutDir="vertical"
         submitForm={values => console.log('Submitted values:', values)}
+        isGrid={false}
       />
       {/* <MyForm
         options={groupingSpecificationsFormOptions}

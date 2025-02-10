@@ -10,14 +10,22 @@ function FormLayout({
   FormOptions,
   layoutDir,
   submitForm,
+  isGrid,
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
   submitForm: (values?: any) => void;
+  isGrid: boolean;
 }) {
   return (
     <div>
-      <MyForm options={FormOptions} onFinish={() => submitForm()} layout={layoutDir} className="form-styling">
+      <MyForm
+        options={FormOptions}
+        onFinish={() => submitForm()}
+        layout={layoutDir}
+        isGrid={isGrid}
+        style={{ padding: '0 1rem' }}
+      >
         <Form.Item className="btn-container">
           <Button type="primary" htmlType="submit" className="submit-button">
             ثبت

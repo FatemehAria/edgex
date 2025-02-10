@@ -1,6 +1,7 @@
 import type { MyFormOptions } from '@/components/core/form';
 
 import MyForm from '@/components/core/form';
+import FormLayout from '@/pages/layout/form-layout';
 
 function MainInfo() {
   const productMainInfoformOptions: MyFormOptions = [
@@ -44,7 +45,12 @@ function MainInfo() {
 
   return (
     <div>
-      <MyForm options={productMainInfoformOptions} onFinish={values => console.log('Submitted values:', values)} />
+      <FormLayout
+        FormOptions={productMainInfoformOptions}
+        layoutDir="vertical"
+        submitForm={values => console.log('Submitted values:', values)}
+        isGrid={true}
+      />
     </div>
   );
 }

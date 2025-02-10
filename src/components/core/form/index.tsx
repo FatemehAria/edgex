@@ -9,13 +9,14 @@ export interface MyFormOptions extends Array<MyFormItemProps<ControlTypes>> {}
 
 export interface MyFormProps<T> extends FormProps<T> {
   options?: MyFormOptions;
+  isGrid?: boolean;
 }
 
 const BaseForm = <Values extends object>(props: MyFormProps<Values>) => {
-  const { options, children, ...rest } = props;
+  const { options, children, isGrid, ...rest } = props;
 
   return (
-    <Form<Values> {...rest}>
+    <Form<Values> {...rest} className={`${isGrid ? 'two-column-grid' : ''}`}>
       {options?.map((option, index) => {
         const key =
           option.name !== undefined
