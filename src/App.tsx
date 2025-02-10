@@ -122,7 +122,7 @@ const App: React.FC = () => {
           </HistoryRouter>
         </IntlProvider>
       </ConfigProvider>
-      <CopyRight />
+      {/* <CopyRight /> */}
     </div>
   );
 };
