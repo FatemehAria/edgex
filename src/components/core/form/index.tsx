@@ -16,17 +16,19 @@ const BaseForm = <Values extends object>(props: MyFormProps<Values>) => {
   const { options, children, isGrid, ...rest } = props;
 
   return (
-    <Form<Values> {...rest} className={`${isGrid ? 'two-column-grid' : ''}`}>
-      {options?.map((option, index) => {
-        const key =
-          option.name !== undefined
-            ? Array.isArray(option.name)
-              ? option.name.join('-')
-              : option.name.toString()
-            : index;
+    <Form<Values> {...rest}>
+      <div className={`${isGrid ? 'two-column-grid' : ''}`}>
+        {options?.map((option, index) => {
+          const key =
+            option.name !== undefined
+              ? Array.isArray(option.name)
+                ? option.name.join('-')
+                : option.name.toString()
+              : index;
 
-        return <MyFormItem {...option} key={key} />;
-      })}
+          return <MyFormItem {...option} key={key} />;
+        })}
+      </div>
       {children}
     </Form>
   );
