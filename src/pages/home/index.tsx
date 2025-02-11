@@ -9,6 +9,7 @@ import { Collapse, theme } from 'antd';
 import React from 'react';
 
 import FormLayout from '../layout/form-layout';
+import { useLocale } from '@/locales';
 
 const headerInfoFormOptions: MyFormOptions = [
   {
@@ -170,57 +171,56 @@ const incDecFormOptions: MyFormOptions = [
   },
 ];
 
-const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
-  {
-    key: '1',
-    label: 'اطلاعات هدر',
-    children: (
-      <div>
-        <FormLayout
-          FormOptions={headerInfoFormOptions}
-          layoutDir="vertical"
-          submitForm={values => console.log('Submitted values:', values)}
-          isGrid={true}
-        />
-      </div>
-    ),
-    style: panelStyle,
-  },
-  {
-    key: '2',
-    label: 'اطلاعات جزئیات',
-    children: (
-      <div>
-        <FormLayout
-          FormOptions={detailInfoFormOptions}
-          layoutDir="vertical"
-          submitForm={values => console.log('Submitted values:', values)}
-          isGrid={true}
-        />
-      </div>
-    ),
-    style: panelStyle,
-  },
-  {
-    key: '3',
-    label: 'عوامل افزاینده/کاهنده',
-    children: (
-      <div>
-        <FormLayout
-          FormOptions={incDecFormOptions}
-          layoutDir="vertical"
-          submitForm={values => console.log('Submitted values:', values)}
-          isGrid={true}
-        />
-      </div>
-    ),
-    style: panelStyle,
-  },
-];
-
 function Home() {
   const { token } = theme.useToken();
-
+  const { formatMessage } = useLocale();
+  const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
+    {
+      key: '1',
+      label: `${formatMessage({ id: 'app.home.headerInfo' })}`,
+      children: (
+        <div>
+          <FormLayout
+            FormOptions={headerInfoFormOptions}
+            layoutDir="vertical"
+            submitForm={values => console.log('Submitted values:', values)}
+            isGrid={true}
+          />
+        </div>
+      ),
+      style: panelStyle,
+    },
+    {
+      key: '2',
+      label: `${formatMessage({ id: 'app.home.detailInfo' })}`,
+      children: (
+        <div>
+          <FormLayout
+            FormOptions={detailInfoFormOptions}
+            layoutDir="vertical"
+            submitForm={values => console.log('Submitted values:', values)}
+            isGrid={true}
+          />
+        </div>
+      ),
+      style: panelStyle,
+    },
+    {
+      key: '3',
+      label: `${formatMessage({ id: 'app.home.incDecInfo' })}`,
+      children: (
+        <div>
+          <FormLayout
+            FormOptions={incDecFormOptions}
+            layoutDir="vertical"
+            submitForm={values => console.log('Submitted values:', values)}
+            isGrid={true}
+          />
+        </div>
+      ),
+      style: panelStyle,
+    },
+  ];
   const panelStyle: React.CSSProperties = {
     marginBottom: 24,
     background: token.colorFillAlter,
