@@ -25,4 +25,5 @@ export const enUs_home = {
   'app.home.incDecInfo.percDiscount': 'Percentage Discount:',
   'app.home.incDecInfo.tax': 'Percent Value Added Tax 10:',
   'app.home.incDecInfo.commute': 'Commute:',
+  'app.home.incDecInfo.priceDiscount': 'Price Discount:',
 };

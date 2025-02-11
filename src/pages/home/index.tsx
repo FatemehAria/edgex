@@ -15,6 +15,7 @@ import FormLayout from '../layout/form-layout';
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
+
   const headerInfoFormOptions: MyFormOptions = [
     {
       name: 'header-info-title',
@@ -145,7 +146,7 @@ function Home() {
     //   options: [
     //     { label: 'تخفیف درصدی', value: 'percentage discount' },
     //     { label: '10 درصد مالیات ارزش افزوده', value: 'tax' },
-    //     { label: 'ایاب ذهاب', value: 'transport' },
+    //     { label: 'ایاب ذهاب', value: 'commute' },
     //     { label: 'تخفیف مبلغی', value: 'price discount' },
     //   ],
     // },
@@ -162,18 +163,19 @@ function Home() {
       innerProps: { placeholder: '' },
     },
     {
-      name: 'incDec-transport',
+      name: 'incDec-commute',
       label: `${formatMessage({ id: 'app.home.incDecInfo.commute' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
     },
     {
       name: 'incDec-price-discount',
-      label: 'تخفیف مبلغی',
+      label: `${formatMessage({ id: 'app.home.incDecInfo.priceDiscount' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
     },
   ];
+
   const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
     {
       key: '1',
@@ -221,6 +223,7 @@ function Home() {
       style: panelStyle,
     },
   ];
+
   const panelStyle: React.CSSProperties = {
     marginBottom: 24,
     background: token.colorFillAlter,

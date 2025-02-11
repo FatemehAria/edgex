@@ -25,4 +25,5 @@ export const faIR_home = {
   'app.home.incDecInfo.percDiscount': 'تخفیف درصدی',
   'app.home.incDecInfo.tax': '10 درصد مالیات بر ارزش افزوده:',
   'app.home.incDecInfo.commute': 'ایاب ذهاب:',
+  'app.home.incDecInfo.priceDiscount': 'تخفیف مبلغی:',
 };
