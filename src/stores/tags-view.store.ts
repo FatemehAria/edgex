@@ -29,9 +29,9 @@ const tagsViewSlice = createSlice({
       const targetKey = action.payload;
       // dashboard cloud't be closed
 
-      if (targetKey === state.tags[0].path) {
-        return;
-      }
+      // if (targetKey === state.tags[0].path) {
+      //   return;
+      // }
 
       const activeTagId = state.activeTagId;
       let lastIndex = 0;

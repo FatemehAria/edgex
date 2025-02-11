@@ -54,7 +54,7 @@ const TagsView: FC = () => {
         dispatch(
           addTag({
             ...menu,
-            closable: menu.code !== 'account',
+            closable: menu.code !== 'proforma invoice',
           }),
         );
       }

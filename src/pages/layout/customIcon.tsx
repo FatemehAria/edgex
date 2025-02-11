@@ -4,8 +4,8 @@ import './customIcon.less';
 
 import {
   faCirclePlus,
-  faFile,
   faFileLines,
+  faFolder,
   faHeart,
   faHouse,
   faMagnifyingGlassPlus,
@@ -15,16 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-
-// import { ReactComponent as AccountSvg } from '@/assets/menu/account.svg';
-// import { ReactComponent as AdvancedSearchSvg } from '@/assets/menu/advanced-search.svg';
-// Account Svg
-// import { ReactComponent as DashboardSvg } from '@/assets/menu/dashboard.svg';
-// import { ReactComponent as FavoritesSvg } from '@/assets/menu/favorites.svg';
-// import { ReactComponent as GuideSvg } from '@/assets/menu/guide.svg';
-// import { ReactComponent as HomePageSvg } from '@/assets/menu/homepage.svg';
-// import { ReactComponent as MetadataSvg } from '@/assets/menu/metadata.svg';
-// import { ReactComponent as ReportsSvg } from '@/assets/menu/reports.svg';
 
 interface CustomIconProps {
   type: string;
@@ -44,7 +34,7 @@ export const CustomIcon: FC<CustomIconProps> = props => {
   } else if (type === 'advanced-search') {
     com = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
   } else if (type === 'reports') {
-    com = <FontAwesomeIcon icon={faFile} />;
+    com = <FontAwesomeIcon icon={faFolder} />;
   } else if (type === 'favorites') {
     com = <FontAwesomeIcon icon={faHeart} />;
   } else if (type === 'info submission') {
@@ -54,9 +44,6 @@ export const CustomIcon: FC<CustomIconProps> = props => {
   } else if (type === 'proforma invoice') {
     com = <FontAwesomeIcon icon={faFileLines} />;
   }
-  // else {
-  //   com = <GuideSvg />;
-  // }
 
   return <span className={`anticon ${theme === 'dark' ? 'icon-style-dark' : 'icon-style-light'}`}>{com}</span>;
 };
