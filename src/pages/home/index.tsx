@@ -8,172 +8,172 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, theme } from 'antd';
 import React from 'react';
 
-import FormLayout from '../layout/form-layout';
 import { useLocale } from '@/locales';
 
-const headerInfoFormOptions: MyFormOptions = [
-  {
-    name: 'header-info-title',
-    label: 'عنوان :',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'header-info-costumer',
-    label: 'مشتری:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'مشتری یک', value: '1' },
-      { label: 'مشتری دو', value: '2' },
-    ],
-  },
-  {
-    name: 'header-info-date',
-    label: 'تاریخ:',
-    type: 'date-picker',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'header-info-desc',
-    label: 'توضیحات:',
-    type: 'textarea',
-    innerProps: { placeholder: '' },
-  },
-];
-
-const detailInfoFormOptions: MyFormOptions = [
-  {
-    name: 'detail-info-category',
-    label: 'عنوان :',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'بخش یک', value: '1' },
-      { label: 'بخش دو', value: '2' },
-    ],
-  },
-  {
-    name: 'detail-info-supplier',
-    label: 'خدمات دهنده:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'خدمات دهنده یک', value: '1' },
-      { label: 'خدمات دهنده دو', value: '2' },
-    ],
-  },
-  {
-    name: 'detail-info-corrective-action',
-    label: 'عملیات اطلاحی:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'عملیات یک', value: '1' },
-      { label: 'عملیات دو', value: '2' },
-    ],
-  },
-  {
-    name: 'detail-info-desc',
-    label: 'توضیحات:',
-    type: 'textarea',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-cost',
-    label: 'هزینه:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-requirements',
-    label: 'نیازها:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'نیاز یک', value: '1' },
-      { label: 'نیاز دو', value: '2' },
-    ],
-  },
-  {
-    name: 'detail-info-qty',
-    label: 'مقدار:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-unitCost',
-    label: 'هزینه واحد:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-actionCost',
-    label: 'هزینه عملیات:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-reducing',
-    label: 'کسورات:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-increasing',
-    label: 'افزوده:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'detail-info-finalCost',
-    label: 'هزینه نهایی:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-];
-
-const incDecFormOptions: MyFormOptions = [
-  // {
-  //   name: 'incDec-factor',
-  //   label: '',
-  //   type: 'radio',
-  //   options: [
-  //     { label: 'تخفیف درصدی', value: 'percentage discount' },
-  //     { label: '10 درصد مالیات ارزش افزوده', value: 'tax' },
-  //     { label: 'ایاب ذهاب', value: 'transport' },
-  //     { label: 'تخفیف مبلغی', value: 'price discount' },
-  //   ],
-  // },
-  {
-    name: 'incDec-percentage-discount',
-    label: 'تخفیف درصدی',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'incDec-tax',
-    label: '10 درصد مالیات ارزش افزوده',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'incDec-transport',
-    label: 'ایاب ذهاب',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'incDec-price-discount',
-    label: 'تخفیف مبلغی',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-];
+import FormLayout from '../layout/form-layout';
 
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
+  const headerInfoFormOptions: MyFormOptions = [
+    {
+      name: 'header-info-title',
+      label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'header-info-costumer',
+      label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: 'مشتری یک', value: '1' },
+        { label: 'مشتری دو', value: '2' },
+      ],
+    },
+    {
+      name: 'header-info-date',
+      label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
+      type: 'date-picker',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'header-info-desc',
+      label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
+      type: 'textarea',
+      innerProps: { placeholder: '' },
+    },
+  ];
+
+  const detailInfoFormOptions: MyFormOptions = [
+    {
+      name: 'detail-info-category',
+      label: `${formatMessage({ id: 'app.home.detailInfo.category' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: 'بخش یک', value: '1' },
+        { label: 'بخش دو', value: '2' },
+      ],
+    },
+    {
+      name: 'detail-info-supplier',
+      label: `${formatMessage({ id: 'app.home.detailInfo.supplier' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: 'خدمات دهنده یک', value: '1' },
+        { label: 'خدمات دهنده دو', value: '2' },
+      ],
+    },
+    {
+      name: 'detail-info-corrective-action',
+      label: `${formatMessage({ id: 'app.home.detailInfo.corrective' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: 'عملیات یک', value: '1' },
+        { label: 'عملیات دو', value: '2' },
+      ],
+    },
+    {
+      name: 'detail-info-desc',
+      label: `${formatMessage({ id: 'app.home.detailInfo.desc' })}`,
+      type: 'textarea',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-cost',
+      label: `${formatMessage({ id: 'app.home.detailInfo.cost' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-requirements',
+      label: `${formatMessage({ id: 'app.home.detailInfo.requirements' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: 'نیاز یک', value: '1' },
+        { label: 'نیاز دو', value: '2' },
+      ],
+    },
+    {
+      name: 'detail-info-qty',
+      label: `${formatMessage({ id: 'app.home.detailInfo.qty' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-unitCost',
+      label: `${formatMessage({ id: 'app.home.detailInfo.unitCost' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-actionCost',
+      label: `${formatMessage({ id: 'app.home.detailInfo.actionCost' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-reducing',
+      label: `${formatMessage({ id: 'app.home.detailInfo.reduce' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-increasing',
+      label: `${formatMessage({ id: 'app.home.detailInfo.increase' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'detail-info-finalCost',
+      label: `${formatMessage({ id: 'app.home.detailInfo.finalCost' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+  ];
+
+  const incDecFormOptions: MyFormOptions = [
+    // {
+    //   name: 'incDec-factor',
+    //   label: '',
+    //   type: 'radio',
+    //   options: [
+    //     { label: 'تخفیف درصدی', value: 'percentage discount' },
+    //     { label: '10 درصد مالیات ارزش افزوده', value: 'tax' },
+    //     { label: 'ایاب ذهاب', value: 'transport' },
+    //     { label: 'تخفیف مبلغی', value: 'price discount' },
+    //   ],
+    // },
+    {
+      name: 'incDec-percentage-discount',
+      label: `${formatMessage({ id: 'app.home.incDecInfo.percDiscount' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'incDec-tax',
+      label: `${formatMessage({ id: 'app.home.incDecInfo.tax' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'incDec-transport',
+      label: `${formatMessage({ id: 'app.home.incDecInfo.commute' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'incDec-price-discount',
+      label: 'تخفیف مبلغی',
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+  ];
   const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
     {
       key: '1',
