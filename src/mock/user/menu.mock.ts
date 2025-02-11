@@ -150,16 +150,16 @@ const mockMenuList: MenuList = [
       },
     ],
   },
-  // {
-  //   code: 'account',
-  //   label: {
-  //     // zh_CN: '首页',
-  //     en_US: 'Account',
-  //     fa_IR: 'حساب کاربری',
-  //   },
-  //   icon: 'account',
-  //   path: '/account',
-  // },
+  {
+    code: 'account',
+    label: {
+      // zh_CN: '首页',
+      en_US: 'Account',
+      fa_IR: 'حساب کاربری',
+    },
+    icon: 'account',
+    path: '/account',
+  },
   // {
   //   code: 'enter-metadata',
   //   label: {
@@ -179,16 +179,6 @@ const mockMenuList: MenuList = [
   //   },
   //   icon: 'advanced-search',
   //   path: '/advanced-search',
-  // },
-  // {
-  //   code: 'reports',
-  //   label: {
-  //     // zh_CN: '权限',
-  //     en_US: 'Reports',
-  //     fa_IR: 'گزارشات',
-  //   },
-  //   icon: 'reports',
-  //   path: '/reports',
   // },
   // {
   //   code: 'favorites',

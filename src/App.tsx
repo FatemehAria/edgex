@@ -90,15 +90,35 @@ const App: React.FC = () => {
         locale={getAntdLocale()}
         componentSize="middle"
         theme={{
-          token: { colorPrimary: '#13c2c2' },
+          token: { colorPrimary: '#0b7474	' },
           algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
           components: {
             Input: {
-              colorBorder: `${theme === 'dark' ? '#13c2c2' : '#d9d9d9'}`,
-              colorTextPlaceholder: `${theme === 'dark' ? '#13c2c2' : '#d9d9d9'}`,
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+            },
+            Select: {
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+            },
+            DatePicker: {
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+            },
+            Radio: {
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+            },
+            Checkbox: {
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+            },
+            InputNumber: {
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
+              colorTextPlaceholder: `${theme === 'dark' ? '#0b7474	' : '#d9d9d9'}`,
             },
             Card: {
-              colorBorder: `${theme === 'dark' ? '#13c2c2' : '#E5E4E2'}`,
+              colorBorder: `${theme === 'dark' ? '#0b7474	' : '#E5E4E2'}`,
             },
           },
         }}
@@ -112,7 +132,7 @@ const App: React.FC = () => {
                   spinning={loading}
                   className="app-loading-wrapper"
                   style={{
-                    backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+                    backgroundColor: theme === 'dark' ? 'rgba(43, 43, 43, 0.8)' : 'rgba(255, 255, 255, 0.8)',
                   }}
                   tip={<LocaleFormatter id="gloabal.tips.loading" />}
                 ></Spin>
