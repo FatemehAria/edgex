@@ -1,13 +1,6 @@
 import type { FC } from 'react';
 
-import {
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PlusOutlined,
-  SearchOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Input, Layout, theme as antTheme, Tooltip } from 'antd';
 import { createElement, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +15,6 @@ import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
 import AntdSvg from '@/assets/logo/antd.svg';
 import ReactSvg from '@/assets/logo/react.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
-import { fileAddition } from '@/stores/files.store';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
 
@@ -97,33 +89,6 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = event.target.files;
-
-    if (selectedFiles) {
-      const fileArray = Array.from(selectedFiles);
-
-      const processedFiles = fileArray.map(file => ({
-        media_id: Math.random().toString(16).slice(2),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        lastModified: Date.now(),
-        preview: URL.createObjectURL(file),
-      }));
-
-      dispatch(fileAddition({ files: processedFiles }));
-    }
-
-    event.target.value = '';
-  };
-
-  // const handleSearch: SearchProps['onSearch'] = value => {
-  //   setSearchInput(value);
-  //   // const search_result = files.filter(file => file.name.includes(value));
-  //   console.log(value);
-  // };
-
   return (
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
       {device !== 'MOBILE' && (
@@ -147,18 +112,6 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
           <SearchOutlined className="search-icon" />
         </div>
         <div className="actions">
-          {/* Plus Icon for selecting file added */}
-          <label style={{ cursor: 'pointer' }}>
-            <Tooltip
-              title={formatMessage({
-                id: 'gloabal.tips.theme.addMedia',
-              })}
-            >
-              <PlusOutlined style={{ fontSize: '30px' }} />
-            </Tooltip>
-            <input type="file" style={{ display: 'none' }} onChange={handleFileChange} multiple />
-          </label>
-
           <Tooltip
             title={formatMessage({
               id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',

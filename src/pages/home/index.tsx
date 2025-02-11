@@ -1,114 +1,247 @@
-import './index.less';
+import type { MyFormOptions } from '@/components/core/form';
+import type { CollapseProps } from 'antd';
+import type { CSSProperties } from 'react';
 
-import { faArrowDown19, faArrowUp19 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Col, Image, Row, Typography } from 'antd';
-import { useCallback, useContext, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import './index.css';
 
-import FileUploadGif from '@/assets/home/file-upload-bgremoved-gif2.gif';
-import UplodIllustration from '@/assets/home/upload3-main.png';
-import { LocaleFormatter } from '@/locales';
-import { fileAddition } from '@/stores/files.store';
+import { CaretRightOutlined } from '@ant-design/icons';
+import { Collapse, theme } from 'antd';
+import React from 'react';
 
-import { SearchContext } from './context/SearchContext';
+import FormLayout from '../layout/form-layout';
+
+const headerInfoFormOptions: MyFormOptions = [
+  {
+    name: 'header-info-title',
+    label: 'عنوان :',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'header-info-costumer',
+    label: 'مشتری:',
+    type: 'select',
+    innerProps: { placeholder: '' },
+    options: [
+      { label: 'مشتری یک', value: '1' },
+      { label: 'مشتری دو', value: '2' },
+    ],
+  },
+  {
+    name: 'header-info-date',
+    label: 'تاریخ:',
+    type: 'date-picker',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'header-info-desc',
+    label: 'توضیحات:',
+    type: 'textarea',
+    innerProps: { placeholder: '' },
+  },
+];
+
+const detailInfoFormOptions: MyFormOptions = [
+  {
+    name: 'detail-info-category',
+    label: 'عنوان :',
+    type: 'select',
+    innerProps: { placeholder: '' },
+    options: [
+      { label: 'بخش یک', value: '1' },
+      { label: 'بخش دو', value: '2' },
+    ],
+  },
+  {
+    name: 'detail-info-supplier',
+    label: 'خدمات دهنده:',
+    type: 'select',
+    innerProps: { placeholder: '' },
+    options: [
+      { label: 'خدمات دهنده یک', value: '1' },
+      { label: 'خدمات دهنده دو', value: '2' },
+    ],
+  },
+  {
+    name: 'detail-info-corrective-action',
+    label: 'عملیات اطلاحی:',
+    type: 'select',
+    innerProps: { placeholder: '' },
+    options: [
+      { label: 'عملیات یک', value: '1' },
+      { label: 'عملیات دو', value: '2' },
+    ],
+  },
+  {
+    name: 'detail-info-desc',
+    label: 'توضیحات:',
+    type: 'textarea',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-cost',
+    label: 'هزینه:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-requirements',
+    label: 'نیازها:',
+    type: 'select',
+    innerProps: { placeholder: '' },
+    options: [
+      { label: 'نیاز یک', value: '1' },
+      { label: 'نیاز دو', value: '2' },
+    ],
+  },
+  {
+    name: 'detail-info-qty',
+    label: 'مقدار:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-unitCost',
+    label: 'هزینه واحد:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-actionCost',
+    label: 'هزینه عملیات:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-reducing',
+    label: 'کسورات:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-increasing',
+    label: 'افزوده:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'detail-info-finalCost',
+    label: 'هزینه نهایی:',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+];
+
+const incDecFormOptions: MyFormOptions = [
+  // {
+  //   name: 'incDec-factor',
+  //   label: '',
+  //   type: 'radio',
+  //   options: [
+  //     { label: 'تخفیف درصدی', value: 'percentage discount' },
+  //     { label: '10 درصد مالیات ارزش افزوده', value: 'tax' },
+  //     { label: 'ایاب ذهاب', value: 'transport' },
+  //     { label: 'تخفیف مبلغی', value: 'price discount' },
+  //   ],
+  // },
+  {
+    name: 'incDec-percentage-discount',
+    label: 'تخفیف درصدی',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'incDec-tax',
+    label: '10 درصد مالیات ارزش افزوده',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'incDec-transport',
+    label: 'ایاب ذهاب',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'incDec-price-discount',
+    label: 'تخفیف مبلغی',
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+];
+
+const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
+  {
+    key: '1',
+    label: 'اطلاعات هدر',
+    children: (
+      <div>
+        <FormLayout
+          FormOptions={headerInfoFormOptions}
+          layoutDir="vertical"
+          submitForm={values => console.log('Submitted values:', values)}
+          isGrid={true}
+        />
+      </div>
+    ),
+    style: panelStyle,
+  },
+  {
+    key: '2',
+    label: 'اطلاعات جزئیات',
+    children: (
+      <div>
+        <FormLayout
+          FormOptions={detailInfoFormOptions}
+          layoutDir="vertical"
+          submitForm={values => console.log('Submitted values:', values)}
+          isGrid={true}
+        />
+      </div>
+    ),
+    style: panelStyle,
+  },
+  {
+    key: '3',
+    label: 'عوامل افزاینده/کاهنده',
+    children: (
+      <div>
+        <FormLayout
+          FormOptions={incDecFormOptions}
+          layoutDir="vertical"
+          submitForm={values => console.log('Submitted values:', values)}
+          isGrid={true}
+        />
+      </div>
+    ),
+    style: panelStyle,
+  },
+];
 
 function Home() {
-  const { searchInput } = useContext(SearchContext);
-  const { files } = useSelector(state => state.files);
-  const [sortByDateAsc, setSortByDateAsc] = useState(true);
-  const dispatch = useDispatch();
-  const { theme } = useSelector(state => state.global);
-  const navigate = useNavigate();
+  const { token } = theme.useToken();
 
-  const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles);
-    const filesWithPreviews = acceptedFiles.map((file: any) => ({
-      media_id: Math.random().toString(16).slice(2),
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      lastModified: file.lastModified,
-      preview: URL.createObjectURL(file),
-    }));
-
-    dispatch(fileAddition({ files: filesWithPreviews }));
-    // if (acceptedFiles?.length !== 0) {
-    //   setFiles(last => [
-    //     ...last,
-    //     ...acceptedFiles.map((item: any) => Object.assign(item, { preview: URL.createObjectURL(item) })),
-    //   ]);
-    // }
-  }, []);
-
-  console.log(files);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, noClick: true });
+  const panelStyle: React.CSSProperties = {
+    marginBottom: 24,
+    background: token.colorFillAlter,
+    borderRadius: token.borderRadiusLG,
+    border: 'none',
+    fontWeight: 600,
+  };
 
   return (
-    <div className="main-container">
-      <div
-        {...getRootProps({
-          className: 'drag-and-drop-container',
-        })}
-      >
-        <input {...getInputProps()} />
-        <div
-          // className={`drag-and-drop-field`}
-          className={`drag-and-drop-field ${
-            theme === 'dark' ? 'drag-and-drop-show-field-dark' : 'drag-and-drop-show-field-light'
-          } ${isDragActive ? 'drag-and-drop-show-field' : 'drag-and-drop-hide-field'}
-           `}
-        >
-          <div className="drag-and-drop-content">
-            <p className="drag-and-drop-text">
-              <LocaleFormatter id="app.home.dragAndDropText" />
-            </p>
-            <Image src={FileUploadGif} alt="upload-gif" className="drag-and-drop-gif" preview={false} />
-          </div>
-        </div>
-      </div>
-      {files?.length === 0 ? (
-        <div className="main-text-container">
-          <img src={UplodIllustration} alt="nothing to show" className="main-text-image" />
-          <Typography className="main-text">
-            <LocaleFormatter id="app.home.noFiles" />
-          </Typography>
-        </div>
-      ) : (
-        <div>
-          <Typography className="media-content-header">
-            <LocaleFormatter id="app.home.uploadedFilesTitle" />
-            {/* Sort by time icon */}
-            {
-              <FontAwesomeIcon
-                icon={sortByDateAsc ? faArrowUp19 : faArrowDown19}
-                onClick={() => setSortByDateAsc(last => !last)}
-                className="show-sort-icon"
-              />
-            }
-          </Typography>
-          <Row align="middle" justify="end" wrap={true} gutter={[10, 15]}>
-            {files
-              .filter(item => item.name.includes(searchInput))
-              .sort((x, y) => (sortByDateAsc ? x.lastModified - y.lastModified : y.lastModified - x.lastModified))
-              .map(file => (
-                <Col span={6} key={file.name}>
-                  <Card size="small" bordered={true}>
-                    <img
-                      src={file.preview}
-                      alt={file.name}
-                      className="uploaded-files"
-                      onClick={() => navigate(`/${file.media_id}`)}
-                    />
-                  </Card>
-                </Col>
-              ))}
-          </Row>
-        </div>
-      )}
-    </div>
+    <Collapse
+      bordered={false}
+      defaultActiveKey={['1']}
+      expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+      style={{ background: token.colorBgContainer }}
+    >
+      {getItems(panelStyle).map((item: any) => (
+        <Collapse.Panel key={item.key} header={item.label} style={item.style}>
+          {item.children}
+        </Collapse.Panel>
+      ))}
+    </Collapse>
   );
 }
 

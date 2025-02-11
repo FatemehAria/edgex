@@ -64,7 +64,7 @@ export class ControlMap {
   }
 
   'date-picker'() {
-    return <DatePicker {...this.innerProps} />;
+    return <DatePicker {...this.innerProps} style={{ width: '100%' }} />;
   }
 
   checkbox() {
