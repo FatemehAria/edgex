@@ -4,6 +4,7 @@ import type { FormLayout as AntdFormLayout } from 'antd/es/form/Form';
 import { Button, Form } from 'antd';
 
 import MyForm from '@/components/core/form';
+import { useLocale } from '@/locales';
 
 function FormLayout({
   FormOptions,
@@ -16,6 +17,8 @@ function FormLayout({
   submitForm: (values?: any) => void;
   isGrid: boolean;
 }) {
+  const { formatMessage } = useLocale();
+
   return (
     <div>
       <MyForm
@@ -27,7 +30,7 @@ function FormLayout({
       >
         <Form.Item className="btn-container">
           <Button type="primary" htmlType="submit" className="submit-button">
-            ثبت
+            {formatMessage({ id: 'gloabal.tips.submitBtn' })}
           </Button>
         </Form.Item>
       </MyForm>

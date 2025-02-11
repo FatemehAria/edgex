@@ -25,4 +25,5 @@ export const enUS_globalTips = {
   'gloabal.tips.theme.lightTooltip': 'Switch to light theme',
   'gloabal.tips.theme.noticeTooltip': 'Notifications',
   'gloabal.tips.theme.addMedia': 'Upload',
+  'gloabal.tips.submitBtn': 'Submit',
 };

@@ -25,4 +25,5 @@ export const faIR_globalTips = {
   'gloabal.tips.theme.lightTooltip': 'تغییر به تم روشن',
   'gloabal.tips.theme.noticeTooltip': 'اعلانات',
   'gloabal.tips.theme.addMedia': 'بارگذاری',
+  'gloabal.tips.submitBtn': 'ثبت',
 };
