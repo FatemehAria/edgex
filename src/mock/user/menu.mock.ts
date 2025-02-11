@@ -6,6 +6,16 @@ import { intercepter, mock } from '../config';
 
 const mockMenuList: MenuList = [
   {
+    code: 'proforma invoice',
+    label: {
+      // zh_CN: '首页',
+      en_US: 'Proforma Invoice',
+      fa_IR: 'پیش فاکتور',
+    },
+    icon: 'proforma invoice',
+    path: '/',
+  },
+  {
     code: 'main-tables',
     label: {
       // zh_CN: '首页',

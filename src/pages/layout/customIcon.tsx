@@ -5,6 +5,7 @@ import './customIcon.less';
 import {
   faCirclePlus,
   faFile,
+  faFileLines,
   faHeart,
   faHouse,
   faMagnifyingGlassPlus,
@@ -50,6 +51,8 @@ export const CustomIcon: FC<CustomIconProps> = props => {
     com = <FontAwesomeIcon icon={faPenToSquare} />;
   } else if (type === 'main tables') {
     com = <FontAwesomeIcon icon={faTableList} />;
+  } else if (type === 'proforma invoice') {
+    com = <FontAwesomeIcon icon={faFileLines} />;
   }
   // else {
   //   com = <GuideSvg />;

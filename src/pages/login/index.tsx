@@ -4,9 +4,9 @@ import type { FC } from 'react';
 import './index.less';
 
 import { Button, Checkbox, Dropdown, Form, Input, theme as antTheme } from 'antd';
-import axios from 'axios';
-import { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import axios from 'axios';
+// import { useState } from 'react';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -34,8 +34,8 @@ const LoginForm: FC = () => {
   const { token } = antTheme.useToken();
   const { locale } = useSelector(state => state.user);
   const { theme } = useSelector(state => state.global);
-  const [capVerified, setCapVerified] = useState<boolean>(false);
-  const SITE_KEY = import.meta.env.VITE_SITE_KEY;
+  // const [capVerified, setCapVerified] = useState<boolean>(false);
+  // const SITE_KEY = import.meta.env.VITE_SITE_KEY;
 
   const onFinished = async (form: LoginParams) => {
     // if (!capVerified) {
@@ -59,11 +59,11 @@ const LoginForm: FC = () => {
     localStorage.setItem('locale', key);
   };
 
-  const verifyCaptcha = async (token: any) => {
-    const res = await axios.post('/verifyCap', { capVal: token });
+  // const verifyCaptcha = async (token: any) => {
+  //   const res = await axios.post('/verifyCap', { capVal: token });
 
-    setCapVerified(res.data.message.success);
-  };
+  //   setCapVerified(res.data.message.success);
+  // };
 
   return (
     <div>
@@ -160,7 +160,7 @@ const LoginForm: FC = () => {
             </Form.Item>
           </Form>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
           <ReCAPTCHA
             sitekey={`${SITE_KEY}`}
             onChange={val => {
@@ -169,7 +169,7 @@ const LoginForm: FC = () => {
             theme="dark"
             style={{ widows: '200px' }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
