@@ -1,28 +1,32 @@
 import type { MyFormOptions } from '@/components/core/form';
 
 import React from 'react';
+
+import { useLocale } from '@/locales';
+
 import FormLayout from '../layout/form-layout';
 
-const productSupplierFormOptions: MyFormOptions = [
-  {
-    name: 'product-supplier-type',
-    label: 'نوع شخص:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-    options: [
-      { label: 'حقیقی', value: 'Haghighi' },
-      { label: 'حقوقی', value: 'Hoghooghi' },
-    ],
-  },
-  {
-    name: 'product-supplier-province',
-    label: 'استان:',
-    type: 'select',
-    innerProps: { placeholder: '' },
-  },
-];
-
 function ProductSupplier() {
+  const { formatMessage } = useLocale();
+  const productSupplierFormOptions: MyFormOptions = [
+    {
+      name: 'product-supplier-type',
+      label: `${formatMessage({ id: 'app.productSupplier.personType' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+      options: [
+        { label: `${formatMessage({ id: 'app.productSupplier.personType.haghighi' })}`, value: 'Haghighi' },
+        { label: `${formatMessage({ id: 'app.productSupplier.personType.hoghooghi' })}`, value: 'Hoghooghi' },
+      ],
+    },
+    {
+      name: 'product-supplier-province',
+      label: `${formatMessage({ id: 'app.productSupplier.province' })}`,
+      type: 'select',
+      innerProps: { placeholder: '' },
+    },
+  ];
+
   return (
     <FormLayout
       FormOptions={productSupplierFormOptions}
