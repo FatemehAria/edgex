@@ -2,6 +2,7 @@ export const enUS_incDecFactors = {
   'app.incDecFactors.incDecFactors': 'Increasing/decreasing Factors',
   'app.incDecFactors.title': 'Title:',
   'app.incDecFactors.origin': 'Origin:',
+  'app.incDecFactors.origin.placeholder': 'Choose origin',
   'app.incDecFactors.typeOfInf': 'Type of factor:',
   'app.incDecFactors.typeOfInf.percentage': 'percentage',
   'app.incDecFactors.typeOfInf.price': 'price',

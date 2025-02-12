@@ -68,7 +68,7 @@ function IncDecFactors() {
       name: 'inc-dec-mahiyat',
       label: `${formatMessage({ id: 'app.incDecFactors.origin' })}`,
       type: 'select',
-      innerProps: { placeholder: 'انتخاب ماهیت' },
+      innerProps: { placeholder: `${formatMessage({ id: 'app.incDecFactors.origin.placeholder' })}` },
       options: [],
     },
     {
