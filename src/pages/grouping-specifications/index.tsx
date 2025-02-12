@@ -1,41 +1,42 @@
 import type { MyFormOptions } from '@/components/core/form';
 
 import FormLayout from '../layout/form-layout';
-
-const groupingSpecificationsFormOptions: MyFormOptions = [
-  {
-    name: 'grp-specification-title-english',
-    label: 'عنوان انگلیسی:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'grp-specification-title-persian',
-    // label: 'TitlePersian',
-    label: 'عنوان فارسی:',
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'grp-specification-existence-code',
-    label: 'موجودیت:',
-    type: 'select',
-    innerProps: { placeholder: 'انتخاب موجودیت' },
-    options: [
-      { label: '1', value: '1' },
-      { label: '2', value: '2' },
-      { label: '3', value: '3' },
-    ],
-  },
-  // {
-  //   name: 'grp-specification-level-code',
-  //   label: 'LevelCode:',
-  //   type: 'input',
-  //   innerProps: { placeholder: '' },
-  // },
-];
+import { useLocale } from '@/locales';
 
 function GroupingSpecifications() {
+  const { formatMessage } = useLocale();
+  const groupingSpecificationsFormOptions: MyFormOptions = [
+    {
+      name: 'grp-specification-title-english',
+      label: `${formatMessage({ id: 'app.grouping.engTitle' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'grp-specification-title-persian',
+      // label: 'TitlePersian',
+      label: `${formatMessage({ id: 'app.grouping.perTitle' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'grp-specification-existence-code',
+      label: `${formatMessage({ id: 'app.grouping.existance' })}`,
+      type: 'select',
+      innerProps: { placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}` },
+      options: [
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+      ],
+    },
+    // {
+    //   name: 'grp-specification-level-code',
+    //   label: 'LevelCode:',
+    //   type: 'input',
+    //   innerProps: { placeholder: '' },
+    // },
+  ];
   // const handleSubmit = () => {
   //   console.log('submittedّ');
   // };
