@@ -1,3 +1,15 @@
 export const faIR_incDecFactors = {
   'app.incDecFactors.incDecFactors': 'عوامل افزاینده/کاهنده',
+  'app.incDecFactors.title': 'عنوان::',
+  'app.incDecFactors.origin': 'ماهیت:',
+  'app.incDecFactors.typeOfInf': 'نوع تاثیر:',
+  'app.incDecFactors.typeOfInf.percentage': 'درصدی',
+  'app.incDecFactors.typeOfInf.price': 'مبلغی',
+  'app.incDecFactors.value': 'مبلغ تاثیر:',
+  'app.incDecFactors.status': 'وضعیت:',
+  'app.incDecFactors.status.active': 'فعال',
+  'app.incDecFactors.status.deactive': 'غیرفعال',
+  'app.incDecFactors.showIn': 'نمایش در:',
+  'app.incDecFactors.showIn.pen': 'قلم',
+  'app.incDecFactors.showIn.document': 'سند',
 };

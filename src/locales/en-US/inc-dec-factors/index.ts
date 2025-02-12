@@ -1,3 +1,15 @@
 export const enUS_incDecFactors = {
   'app.incDecFactors.incDecFactors': 'Increasing/decreasing Factors',
+  'app.incDecFactors.title': 'Title:',
+  'app.incDecFactors.origin': 'Origin:',
+  'app.incDecFactors.typeOfInf': 'Type of factor:',
+  'app.incDecFactors.typeOfInf.percentage': 'percentage',
+  'app.incDecFactors.typeOfInf.price': 'price',
+  'app.incDecFactors.value': 'price:',
+  'app.incDecFactors.status': 'Status:',
+  'app.incDecFactors.status.active': 'active',
+  'app.incDecFactors.status.deactive': 'deactive',
+  'app.incDecFactors.showIn': 'Show in:',
+  'app.incDecFactors.showIn.pen': 'pen',
+  'app.incDecFactors.showIn.document': 'document',
 };
