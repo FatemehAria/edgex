@@ -1,9 +1,17 @@
 export const faIR_productInfo = {
   'app.productInfo.productInfo': `مشخصات کالا`,
+  'app.productInfo.tabs.mainInfo': `اطلاعات اصلی`,
+  'app.productInfo.tabs.properties': `ویژگی ها`,
+  'app.productInfo.tabs.grouping': `گروه بندی`,
   'app.productInfo.mainInfo.englishTitle': `عنوان (انگلیسی):`,
   'app.productInfo.mainInfo.persianTitle': `عنوان (فارسی):`,
   'app.productInfo.mainInfo.typeOfProduct': `نوع کالا:`,
   'app.productInfo.mainInfo.weight': `ورن:`,
   'app.productInfo.mainInfo.rate': `نرخ:`,
   'app.productInfo.mainInfo.desc': `توضیحات:`,
+  'app.productInfo.grouping.columns.row': ` `,
+  'app.productInfo.grouping.columns.group': `گروه`,
+  'app.productInfo.grouping.columns.product': `کالا`,
+  'app.productInfo.grouping.columns.delete': `عملیات`,
+  'app.productInfo.grouping.tree.placeholder': `جستجو`,
 };

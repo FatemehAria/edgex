@@ -1,9 +1,17 @@
 export const enUS_productInfo = {
   'app.productInfo.productInfo': `Product Info`,
+  'app.productInfo.tabs.mainInfo': `Main Info`,
+  'app.productInfo.tabs.properties': `Properties`,
+  'app.productInfo.tabs.grouping': `Grouping`,
   'app.productInfo.mainInfo.englishTitle': `Title (English):`,
   'app.productInfo.mainInfo.persianTitle': `Title ( Persian):`,
   'app.productInfo.mainInfo.typeOfProduct': `Product Type:`,
   'app.productInfo.mainInfo.weight': `Weight:`,
   'app.productInfo.mainInfo.rate': `Rate:`,
   'app.productInfo.mainInfo.desc': `Description:`,
+  'app.productInfo.grouping.columns.row': ' ',
+  'app.productInfo.grouping.columns.group': `Group`,
+  'app.productInfo.grouping.columns.product': `Product`,
+  'app.productInfo.grouping.columns.delete': `Action`,
+  'app.productInfo.grouping.tree.placeholder': `Search`,
 };

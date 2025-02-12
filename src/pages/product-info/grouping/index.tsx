@@ -4,6 +4,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, TreeSelect } from 'antd';
 import React, { useState } from 'react';
+import { useLocale } from '@/locales';
 
 const treeData = [
   {
@@ -78,24 +79,26 @@ const dataSource = [
 ];
 
 function Grouping() {
+  const { formatMessage } = useLocale();
+
   const columns = [
     {
-      title: 'ردیف',
+      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.row' })}`,
       dataIndex: 'index',
       key: 'index',
     },
     {
-      title: 'گروه',
+      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.group' })}`,
       dataIndex: 'group',
       key: 'group',
     },
     {
-      title: 'کالا',
+      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.product' })}`,
       dataIndex: 'product',
       key: 'product',
     },
     {
-      title: 'حذف',
+      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.delete' })}`,
       dataIndex: 'delete',
       key: 'delete',
       render: (text: any, record: any) => (
@@ -133,7 +136,7 @@ function Grouping() {
           onChange={handleChange}
           value={value}
           treeDefaultExpandAll
-          placeholder="جستجو"
+          placeholder={`${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`}
           allowClear
         />
       </div>
