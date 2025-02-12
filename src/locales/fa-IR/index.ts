@@ -12,10 +12,11 @@ import { faIR_permissionRole } from './permission/role';
 import { faIR_personCompanyInfo } from './person-company-info';
 import { faIR_productSupplier } from './poduct-supplier';
 import { faIR_productInfo } from './product-info';
+import { faIR_supplier } from './supplier';
 import { faIR_avatorDropMenu } from './user/avatorDropMenu';
 import { fa_IR_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { faIR_title } from './user/title';
-import { faIR_supplier } from './supplier';
+
 const fa_IR = {
   ...faIR_account,
   ...faIR_avatorDropMenu,

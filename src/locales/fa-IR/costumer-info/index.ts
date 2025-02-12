@@ -1,7 +1,7 @@
 export const faIR_costumerInfo = {
   'app.costumerInfo.costumerInfo': 'مشخصات مشتری',
   'app.costumerInfo.type': 'نوع:',
-  'app.costumerInfo.costumerType': 'نوع شخص:',
+  'app.costumerInfo.costumerType': 'شخص/شرکت:',
   'app.costumerInfo.costumerType.haghighi': 'حقیقی:',
   'app.costumerInfo.costumerType.hoghooghi': 'حقوقی:',
   'app.costumerInfo.factorCode': 'کد فاکتور:',

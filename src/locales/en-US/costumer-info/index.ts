@@ -1,7 +1,7 @@
 export const enUS_costumerInfo = {
   'app.costumerInfo.costumerInfo': 'Costumer Info',
   'app.costumerInfo.type': 'Type:',
-  'app.costumerInfo.costumerType': 'Person Type:',
+  'app.costumerInfo.costumerType': 'Person/Company:',
   'app.costumerInfo.costumerType.haghighi': 'Haghighi:',
   'app.costumerInfo.costumerType.hoghooghi': 'Hoghoghi:',
   'app.costumerInfo.factorCode': 'Factor Code:',
