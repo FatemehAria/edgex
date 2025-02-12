@@ -15,7 +15,7 @@ import { faIR_productInfo } from './product-info';
 import { faIR_avatorDropMenu } from './user/avatorDropMenu';
 import { fa_IR_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { faIR_title } from './user/title';
-
+import { faIR_supplier } from './supplier';
 const fa_IR = {
   ...faIR_account,
   ...faIR_avatorDropMenu,
@@ -34,6 +34,7 @@ const fa_IR = {
   ...faIR_incDecFactors,
   ...faIR_productSupplier,
   ...faIR_productInfo,
+  ...faIR_supplier,
 };
 
 export default fa_IR;

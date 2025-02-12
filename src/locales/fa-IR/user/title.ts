@@ -7,6 +7,7 @@ export const faIR_title = {
   'title.productSupplier': 'کالا - تامین کننده',
   'title.costumerInfo': 'مشخصات مشتری',
   'title.incDecFactors': 'عوامل افزاینده/کاهنده',
+  'title.supplier': 'تامین کننده',
   'title.account': 'حساب کاربری',
   'title.metadata': 'ورود متادیتا',
   'title.advanced-search': 'جستجوی پیشرفته',

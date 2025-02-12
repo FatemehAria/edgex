@@ -7,6 +7,6 @@ export const enUS_costumerInfo = {
   'app.costumerInfo.factorCode': 'Factor Code:',
   'app.costumerInfo.orgCode': 'Organizational Code:',
   'app.costumerInfo.status': 'Status: ',
-  'app.costumerInfo.status.active': 'active',
-  'app.costumerInfo.status.deactive': 'deactive',
+  'app.costumerInfo.status.active': 'Active',
+  'app.costumerInfo.status.deactive': 'Deactive',
 };
