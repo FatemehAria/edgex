@@ -1,7 +1,8 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import FormLayout from '../layout/form-layout';
 import { useLocale } from '@/locales';
+
+import FormLayout from '../layout/form-layout';
 
 function GroupingSpecifications() {
   const { formatMessage } = useLocale();

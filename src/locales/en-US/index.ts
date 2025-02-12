@@ -11,6 +11,7 @@ import { enUS_notice } from './notice';
 import { enUS_permissionRole } from './permission/role';
 import { enUS_personCompanyInfo } from './person-company-info';
 import { enUS_productSupplier } from './poduct-supplier';
+import { enUS_productInfo } from './product-info';
 import { enUS_avatorDropMenu } from './user/avatorDropMenu';
 import { enUS_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { enUS_title } from './user/title';
@@ -32,6 +33,7 @@ const en_US = {
   ...enUS_productSupplier,
   ...enUS_costumerInfo,
   ...enUS_incDecFactors,
+  ...enUS_productInfo,
 };
 
 export default en_US;
