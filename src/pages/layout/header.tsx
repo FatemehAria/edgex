@@ -123,7 +123,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
               })}
             </span>
           </Tooltip>
-          <HeaderNoticeComponent />
+          {/* <HeaderNoticeComponent /> */}
           <Dropdown
             menu={{
               onClick: info => selectLocale(info),

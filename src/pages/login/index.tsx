@@ -4,9 +4,6 @@ import type { FC } from 'react';
 import './index.less';
 
 import { Button, Checkbox, Dropdown, Form, Input, theme as antTheme } from 'antd';
-// import axios from 'axios';
-// import { useState } from 'react';
-// import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -34,16 +31,8 @@ const LoginForm: FC = () => {
   const { token } = antTheme.useToken();
   const { locale } = useSelector(state => state.user);
   const { theme } = useSelector(state => state.global);
-  // const [capVerified, setCapVerified] = useState<boolean>(false);
-  // const SITE_KEY = import.meta.env.VITE_SITE_KEY;
 
   const onFinished = async (form: LoginParams) => {
-    // if (!capVerified) {
-    //   console.log('Captcha not verified!');
-
-    //   return; // Block submission if captcha is not verified
-    // }
-
     const res = dispatch(await loginAsync(form));
 
     if (!!res) {
@@ -59,19 +48,10 @@ const LoginForm: FC = () => {
     localStorage.setItem('locale', key);
   };
 
-  // const verifyCaptcha = async (token: any) => {
-  //   const res = await axios.post('/verifyCap', { capVal: token });
-
-  //   setCapVerified(res.data.message.success);
-  // };
-
   return (
     <div>
       <LoginCarousel />
-      <div
-        //  style={{ backgroundColor: token.colorBgContainer }}
-        className="login-container"
-      >
+      <div className="login-container">
         <Dropdown
           menu={{
             onClick: info => selectLocale(info),
@@ -160,16 +140,6 @@ const LoginForm: FC = () => {
             </Form.Item>
           </Form>
         </div>
-        {/* <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
-          <ReCAPTCHA
-            sitekey={`${SITE_KEY}`}
-            onChange={val => {
-              if (val) verifyCaptcha(val);
-            }}
-            theme="dark"
-            style={{ widows: '200px' }}
-          />
-        </div> */}
       </div>
     </div>
   );
