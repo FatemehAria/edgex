@@ -5,18 +5,44 @@ import type { CSSProperties } from 'react';
 import './index.css';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, theme } from 'antd';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Collapse, Table, theme } from 'antd';
 import React from 'react';
 
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 
+const dataSource = [
+  {
+    key: '1',
+    index: '1',
+    group: 'گروه یک',
+    product: 'کالا 1',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+  {
+    key: '2',
+    index: '2',
+    group: 'گروه دو',
+    product: 'کالا 2',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+  {
+    key: '3',
+    index: '3',
+    group: 'گروه سه',
+    product: 'کالا 3',
+    delete: <FontAwesomeIcon icon={faTrashCan} />,
+  },
+];
+
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
 
-  const headerInfoFormOptions: MyFormOptions = [
+  const proformaFormOptions: MyFormOptions = [
     {
       name: 'header-info-title',
       label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
@@ -45,9 +71,6 @@ function Home() {
       type: 'textarea',
       innerProps: { placeholder: '' },
     },
-  ];
-
-  const detailInfoFormOptions: MyFormOptions = [
     {
       name: 'detail-info-category',
       label: `${formatMessage({ id: 'app.home.detailInfo.category' })}`,
@@ -136,9 +159,6 @@ function Home() {
       type: 'input',
       innerProps: { placeholder: '' },
     },
-  ];
-
-  const incDecFormOptions: MyFormOptions = [
     // {
     //   name: 'incDec-factor',
     //   label: '',
@@ -183,7 +203,7 @@ function Home() {
       children: (
         <div>
           <FormLayout
-            FormOptions={headerInfoFormOptions}
+            FormOptions={proformaFormOptions}
             layoutDir="vertical"
             submitForm={values => console.log('Submitted values:', values)}
             isGrid={true}
@@ -197,27 +217,7 @@ function Home() {
       label: `${formatMessage({ id: 'app.home.detailInfo' })}`,
       children: (
         <div>
-          <FormLayout
-            FormOptions={detailInfoFormOptions}
-            layoutDir="vertical"
-            submitForm={values => console.log('Submitted values:', values)}
-            isGrid={true}
-          />
-        </div>
-      ),
-      style: panelStyle,
-    },
-    {
-      key: '3',
-      label: `${formatMessage({ id: 'app.home.incDecInfo' })}`,
-      children: (
-        <div>
-          <FormLayout
-            FormOptions={incDecFormOptions}
-            layoutDir="vertical"
-            submitForm={values => console.log('Submitted values:', values)}
-            isGrid={true}
-          />
+          <Table dataSource={dataSource} columns={columns} />
         </div>
       ),
       style: panelStyle,
@@ -231,6 +231,73 @@ function Home() {
     border: 'none',
     fontWeight: 600,
   };
+  const columns = [
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
+      dataIndex: 'index',
+      key: 'index',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.requirements' })}`,
+      dataIndex: 'requirements',
+      key: 'requirements',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.category' })}`,
+      dataIndex: 'category',
+      key: 'category',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.supplier' })}`,
+      dataIndex: 'supplier',
+      key: 'supplier',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.correctiveAction' })}`,
+      dataIndex: 'correctiveAction',
+      key: 'correctiveAction',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.qty' })}`,
+      dataIndex: 'qty',
+      key: 'qty',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.reqCost' })}`,
+      dataIndex: 'reqCost',
+      key: 'reqCost',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.corrActCost' })}`,
+      dataIndex: 'corrActCost',
+      key: 'corrActCost',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
+      dataIndex: 'price',
+      key: 'price',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.red' })}`,
+      dataIndex: 'red',
+      key: 'red',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.inc' })}`,
+      dataIndex: 'inc',
+      key: 'inc',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
+      dataIndex: 'totalPrice',
+      key: 'totalPrice',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
+      dataIndex: 'actions',
+      key: 'actions',
+    },
+  ];
 
   return (
     <Collapse

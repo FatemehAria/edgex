@@ -4,7 +4,9 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, TreeSelect } from 'antd';
 import React, { useState } from 'react';
+
 import { useLocale } from '@/locales';
+
 
 const treeData = [
   {
