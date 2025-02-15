@@ -1,8 +1,4 @@
 export const faIR_home = {
-  'app.home.noFiles': `فایلی جهت نمایش وجود ندارد`,
-  'app.home.dragAndDropText': 'فایل خود را بارگذاری کنید',
-  'app.home.uploadedFilesTitle': 'فایل های شما',
-  'app.home.mediaDetailPageTitle': 'اطلاعات',
   'app.home.headerInfo': 'ثبت اطلاعات',
   'app.home.headerInfo.title': 'عنوان:',
   'app.home.headerInfo.costumer': 'مشتری:',
@@ -32,11 +28,12 @@ export const faIR_home = {
   'app.home.detailInfo.table.supplier': 'خدمات دهنده',
   'app.home.detailInfo.table.correctiveAction': 'عملیات اصلاحی',
   'app.home.detailInfo.table.qty': 'تعداد',
-  'app.home.detailInfo.table.reqCost': 'هزینه نیازها',
+  'app.home.detailInfo.table.unitCost': 'هزینه نیازها',
   'app.home.detailInfo.table.corrActCost': 'هزینه عملیات اصلاحی',
   'app.home.detailInfo.table.price': 'هزینه',
   'app.home.detailInfo.table.red': 'کاهنده',
   'app.home.detailInfo.table.inc': 'افزاینده',
   'app.home.detailInfo.table.totalPrice': 'هزینه نهایی',
   'app.home.detailInfo.table.actions': 'عملیات',
+  'app.home.detailInfo.table.description': 'توضیحات',
 };

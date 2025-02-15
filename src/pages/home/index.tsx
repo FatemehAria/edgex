@@ -1,14 +1,11 @@
 import type { MyFormOptions } from '@/components/core/form';
-import type { CollapseProps } from 'antd';
 import type { CSSProperties } from 'react';
 
-import './index.css';
-
 import { CaretRightOutlined } from '@ant-design/icons';
-import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, Table, theme, Input } from 'antd';
-import React, { useState } from 'react';
+import { Collapse, Input, Table, theme } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
@@ -18,67 +15,84 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
 
-  // ------------------------------
-  // Editable Table Helpers
-  // ------------------------------
-
-  // Function to create a new empty row for the detail info table.
   const createEmptyRow = () => ({
     key: Date.now().toString(),
-    // The following keys match your table columns.
-    requirements: '',
     category: '',
+    requirements: '',
     supplier: '',
     correctiveAction: '',
     qty: '',
-    reqCost: '',
-    totalPrice: '',
+    unitCost: '',
+    corrActCost: '',
+    totalPriceWithFactors: '',
+    totalPriceWithoutFactors: '',
+    description: '',
+    factorValue: '',
   });
 
-  // Check if the row is considered “filled in” by verifying that each required field is non‑empty.
   const isRowFilled = (row: any) => {
-    // Adjust this check to include any fields you consider required.
-    return row.requirements && row.category && row.supplier && row.correctiveAction && row.qty && row.reqCost;
+    const requiredFields = [
+      'requirements',
+      'category',
+      'supplier',
+      'correctiveAction',
+      'qty',
+      'unitCost',
+      'corrActCost',
+    ];
+
+    return requiredFields.every(field => {
+      const value = row[field];
+
+      return value !== undefined && value !== null && value.toString().trim() !== '';
+    });
   };
 
-  // Initialize the table with one empty row.
   const [tableData, setTableData] = useState<any[]>([createEmptyRow()]);
 
-  // Update a specific cell’s value.
   const handleCellChange = (value: string, key: string, dataIndex: string) => {
     setTableData(prevData => {
       const newData = prevData.map(row => {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          // If quantity or cost changes, recalculate the total price.
-          if (dataIndex === 'qty' || dataIndex === 'reqCost') {
+          if (dataIndex === 'qty' || dataIndex === 'unitCost' || dataIndex === 'corrActCost') {
             const qty = parseFloat(updatedRow.qty) || 0;
-            const reqCost = parseFloat(updatedRow.reqCost) || 0;
-            updatedRow.totalPrice = qty * reqCost;
+            const unitCost = parseFloat(updatedRow.unitCost) || 0;
+            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
+
+            updatedRow.totalPriceWithoutFactors = corrActCost + qty * unitCost;
           }
+
           return updatedRow;
         }
+
         return row;
       });
 
-      // If the last row is completely filled, add a new empty row.
-      const lastRow = newData[newData.length - 1];
-      if (isRowFilled(lastRow)) {
-        newData.push(createEmptyRow());
-      }
       return newData;
     });
   };
 
-  // Remove a row (for example, when the trash icon is clicked).
-  const deleteRow = (key: string) => {
-    setTableData(prevData => prevData.filter(row => row.key !== key));
-  };
+  useEffect(() => {
+    const lastRow = tableData[tableData.length - 1];
 
-  // ------------------------------
-  // Table Column Definitions
-  // ------------------------------
+    if (lastRow && isRowFilled(lastRow)) {
+      setTableData(prevData => [...prevData, createEmptyRow()]);
+    }
+  }, [tableData]);
+
+  const deleteRow = (key: string) => {
+    setTableData(prevData => {
+      const rowToDelete = prevData.find(row => row.key === key);
+
+      if (rowToDelete && prevData[0].key === rowToDelete.key && !isRowFilled(rowToDelete)) {
+        return prevData;
+      }
+
+      return prevData.filter(row => row.key !== key);
+    });
+  };
 
   const columns = [
     {
@@ -149,17 +163,36 @@ function Home() {
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.reqCost' })}`,
-      dataIndex: 'reqCost',
-      key: 'reqCost',
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}`,
+      dataIndex: 'unitCost',
+      key: 'unitCost',
       render: (text: string, record: any) => (
         <Input
           value={text}
           placeholder="Enter cost"
           type="number"
-          onChange={e => handleCellChange(e.target.value, record.key, 'reqCost')}
+          onChange={e => handleCellChange(e.target.value, record.key, 'unitCost')}
         />
       ),
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.corrActCost' })}`,
+      dataIndex: 'corrActCost',
+      key: 'corrActCost',
+      render: (text: string, record: any) => (
+        <Input
+          value={text}
+          placeholder="Enter corrective action cost"
+          type="number"
+          onChange={e => handleCellChange(e.target.value, record.key, 'corrActCost')}
+        />
+      ),
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
+      dataIndex: 'totalPriceWithoutFactors',
+      key: 'totalPriceWithoutFactors',
+      render: (text: string) => <span>{text}</span>,
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
@@ -171,22 +204,30 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
       dataIndex: 'actions',
       key: 'actions',
-      render: (_: any, record: any) => (
-        <div>
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            onClick={() => deleteRow(record.key)}
-            style={{ cursor: 'pointer', marginRight: 8 }}
-          />
-          <FontAwesomeIcon icon={faEdit} style={{ cursor: 'pointer' }} />
-        </div>
-      ),
+      render: (_: any, record: any) => {
+        // Disable deletion on first row if it's not filled.
+        const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
+
+        return (
+          <div>
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              onClick={() => {
+                if (!isDisabled) {
+                  deleteRow(record.key);
+                }
+              }}
+              style={{
+                cursor: isDisabled ? 'not-allowed' : 'pointer',
+                marginRight: 8,
+                opacity: isDisabled ? 0.4 : 1,
+              }}
+            />
+          </div>
+        );
+      },
     },
   ];
-
-  // ------------------------------
-  // Header Form Options (Unchanged)
-  // ------------------------------
 
   const proformaFormOptions: MyFormOptions = [
     {
@@ -219,11 +260,15 @@ function Home() {
     },
   ];
 
-  // ------------------------------
-  // Collapse Panels Definition
-  // ------------------------------
+  const panelStyle: CSSProperties = {
+    marginBottom: 24,
+    background: token.colorFillAlter,
+    borderRadius: token.borderRadiusLG,
+    border: 'none',
+    fontWeight: 600,
+  };
 
-  const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
+  const getItems = (panelStyle: CSSProperties) => [
     {
       key: '1',
       label: `${formatMessage({ id: 'app.home.headerInfo' })}`,
@@ -233,7 +278,7 @@ function Home() {
             FormOptions={proformaFormOptions}
             layoutDir="vertical"
             isGrid={true}
-            submitForm={values => console.log(values)}
+            submitForm={() => console.log('first')}
           />
         </div>
       ),
@@ -250,14 +295,6 @@ function Home() {
       style: panelStyle,
     },
   ];
-
-  const panelStyle: React.CSSProperties = {
-    marginBottom: 24,
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: 'none',
-    fontWeight: 600,
-  };
 
   return (
     <Collapse

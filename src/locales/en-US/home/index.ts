@@ -1,8 +1,4 @@
 export const enUs_home = {
-  'app.home.noFiles': `Nothing To Show`,
-  'app.home.dragAndDropText': 'Upload Your Files',
-  'app.home.uploadedFilesTitle': 'Your Files',
-  'app.home.mediaDetailPageTitle': 'Details',
   'app.home.headerInfo': 'Registering Info',
   'app.home.headerInfo.title': 'Title: ',
   'app.home.headerInfo.costumer': 'Costumer: ',
@@ -32,11 +28,12 @@ export const enUs_home = {
   'app.home.detailInfo.table.supplier': 'Supplier',
   'app.home.detailInfo.table.correctiveAction': 'Corrective Action',
   'app.home.detailInfo.table.qty': 'Quantity',
-  'app.home.detailInfo.table.reqCost': 'Requirements Cost',
+  'app.home.detailInfo.table.unitCost': 'Requirements Cost',
   'app.home.detailInfo.table.corrActCost': 'Corrective ACtion Cost',
   'app.home.detailInfo.table.price': 'Price',
   'app.home.detailInfo.table.red': 'Reducing',
   'app.home.detailInfo.table.inc': 'Increasing',
   'app.home.detailInfo.table.totalPrice': 'Total Price',
   'app.home.detailInfo.table.actions': 'Actions',
+  'app.home.detailInfo.table.description': 'Description',
 };
