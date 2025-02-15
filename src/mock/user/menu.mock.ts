@@ -80,25 +80,6 @@ const mockMenuList: MenuList = [
     ],
   },
   {
-    code: 'info submission',
-    label: {
-      en_US: 'Info submission',
-      fa_IR: 'ورود اطلاعات',
-    },
-    icon: 'info submission',
-    path: '/info-submission',
-    children: [
-      {
-        code: 'supplier',
-        label: {
-          en_US: 'Supplier',
-          fa_IR: 'تامین کننده',
-        },
-        path: '/info-submission',
-      },
-    ],
-  },
-  {
     code: 'reports',
     label: {
       en_US: 'Reports',
@@ -108,25 +89,25 @@ const mockMenuList: MenuList = [
     path: '/reports',
     children: [
       {
-        code: 'supplier',
+        code: 'proforma-report',
         label: {
           // zh_CN: '首页',
-          en_US: 'Supplier',
-          fa_IR: 'تامین کننده',
+          en_US: 'Proforma report',
+          fa_IR: 'گزارش آیتم های پیش فاکتور',
         },
         path: '/reports',
       },
     ],
   },
-  {
-    code: 'account',
-    label: {
-      en_US: 'Account',
-      fa_IR: 'حساب کاربری',
-    },
-    icon: 'account',
-    path: '/account',
-  },
+  // {
+  //   code: 'account',
+  //   label: {
+  //     en_US: 'Account',
+  //     fa_IR: 'حساب کاربری',
+  //   },
+  //   icon: 'account',
+  //   path: '/account',
+  // },
 ];
 
 mock.mock('/user/menu', 'get', intercepter(mockMenuList));
