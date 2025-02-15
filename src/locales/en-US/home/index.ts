@@ -9,7 +9,7 @@ export const enUs_home = {
   'app.home.headerInfo.date': 'Date: ',
   'app.home.headerInfo.desc': 'Description: ',
   'app.home.detailInfo': 'Dispalying Info',
-  'app.home.detailInfo.category': 'Title:',
+  'app.home.detailInfo.category': 'Category:',
   'app.home.detailInfo.supplier': 'Supplier:',
   'app.home.detailInfo.corrective': 'Corrective Actions:',
   'app.home.detailInfo.desc': 'Description:',

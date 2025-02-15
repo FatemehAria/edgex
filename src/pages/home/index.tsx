@@ -14,29 +14,7 @@ import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 
-const dataSource = [
-  {
-    key: '1',
-    index: '1',
-    group: 'گروه یک',
-    product: 'کالا 1',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-  {
-    key: '2',
-    index: '2',
-    group: 'گروه دو',
-    product: 'کالا 2',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-  {
-    key: '3',
-    index: '3',
-    group: 'گروه سه',
-    product: 'کالا 3',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-];
+const dataSource: any[] = [];
 
 function Home() {
   const { token } = theme.useToken();
@@ -231,6 +209,7 @@ function Home() {
     border: 'none',
     fontWeight: 600,
   };
+
   const columns = [
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,

@@ -9,7 +9,7 @@ export const faIR_home = {
   'app.home.headerInfo.date': 'تاریخ:',
   'app.home.headerInfo.desc': 'توضیحات:',
   'app.home.detailInfo': 'نمایش اطلاعات',
-  'app.home.detailInfo.category': 'عنوان:',
+  'app.home.detailInfo.category': 'گروه:',
   'app.home.detailInfo.supplier': 'خدمات دهنده:',
   'app.home.detailInfo.corrective': 'عملیات اصلاحی:',
   'app.home.detailInfo.desc': 'توضیحات:',
