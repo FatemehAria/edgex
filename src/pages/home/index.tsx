@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, Input, Table, theme } from 'antd';
+import { Collapse, Input, Select, Table, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
@@ -14,21 +14,28 @@ import FormLayout from '../layout/form-layout';
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
+  const nextKeyRef = React.useRef(1);
 
-  const createEmptyRow = () => ({
-    key: Date.now().toString(),
-    category: '',
-    requirements: '',
-    supplier: '',
-    correctiveAction: '',
-    qty: '',
-    unitCost: '',
-    corrActCost: '',
-    totalPriceWithFactors: '',
-    totalPriceWithoutFactors: '',
-    description: '',
-    factorValue: '',
-  });
+  const createEmptyRow = () => {
+    const newRow = {
+      key: nextKeyRef.current,
+      category: '',
+      requirements: '',
+      supplier: '',
+      correctiveAction: '',
+      qty: '',
+      unitCost: '',
+      corrActCost: '',
+      totalPriceWithFactors: '',
+      totalPriceWithoutFactors: '',
+      description: '',
+      factorValue: '',
+    };
+
+    nextKeyRef.current++;
+
+    return newRow;
+  };
 
   const isRowFilled = (row: any) => {
     const requiredFields = [
@@ -106,10 +113,15 @@ function Home() {
       dataIndex: 'requirements',
       key: 'requirements',
       render: (text: string, record: any) => (
-        <Input
+        <Select
           value={text}
-          placeholder="Enter requirements"
-          onChange={e => handleCellChange(e.target.value, record.key, 'requirements')}
+          placeholder="Select requirement"
+          onChange={value => handleCellChange(value, record.key, 'requirements')}
+          options={[
+            { label: 'Requirement 1', value: 'req1' },
+            { label: 'Requirement 2', value: 'req2' },
+          ]}
+          style={{ width: '100%' }}
         />
       ),
     },
@@ -118,10 +130,15 @@ function Home() {
       dataIndex: 'category',
       key: 'category',
       render: (text: string, record: any) => (
-        <Input
+        <Select
           value={text}
-          placeholder="Enter category"
-          onChange={e => handleCellChange(e.target.value, record.key, 'category')}
+          placeholder="Select category"
+          onChange={value => handleCellChange(value, record.key, 'category')}
+          options={[
+            { label: 'category 1', value: 'category1' },
+            { label: 'category 2', value: 'category2' },
+          ]}
+          style={{ width: '100%' }}
         />
       ),
     },
@@ -130,10 +147,15 @@ function Home() {
       dataIndex: 'supplier',
       key: 'supplier',
       render: (text: string, record: any) => (
-        <Input
+        <Select
           value={text}
-          placeholder="Enter supplier"
-          onChange={e => handleCellChange(e.target.value, record.key, 'supplier')}
+          placeholder="Select supplier"
+          onChange={value => handleCellChange(value, record.key, 'supplier')}
+          options={[
+            { label: 'supplier 1', value: 'supplier1' },
+            { label: 'supplier 2', value: 'supplier2' },
+          ]}
+          style={{ width: '100%' }}
         />
       ),
     },
@@ -142,10 +164,15 @@ function Home() {
       dataIndex: 'correctiveAction',
       key: 'correctiveAction',
       render: (text: string, record: any) => (
-        <Input
+        <Select
           value={text}
-          placeholder="Enter corrective action"
-          onChange={e => handleCellChange(e.target.value, record.key, 'correctiveAction')}
+          placeholder="Select corrective action"
+          onChange={value => handleCellChange(value, record.key, 'correctiveAction')}
+          options={[
+            { label: 'corrective action 1', value: 'corrective action1' },
+            { label: 'corrective action 2', value: 'corrective action2' },
+          ]}
+          style={{ width: '100%' }}
         />
       ),
     },
