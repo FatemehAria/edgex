@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
+import { Button, Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
@@ -491,6 +491,9 @@ function Home() {
               );
             }}
           />
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="primary">{formatMessage({ id: 'app.home.submissionBtn' })}</Button>
+          </div>
         </div>
       ),
       style: panelStyle,

@@ -1,5 +1,6 @@
 export const enUs_home = {
   'app.home.headerInfo': 'Registering Info',
+  'app.home.submissionBtn': 'Submit',
   'app.home.headerInfo.title': 'Title: ',
   'app.home.headerInfo.costumer': 'Costumer: ',
   'app.home.headerInfo.date': 'Date: ',
