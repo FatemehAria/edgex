@@ -42,4 +42,5 @@ export const enUs_home = {
   'app.home.detailInfo.table.modalForm.commute': 'Commute',
   'app.home.detailInfo.table.modalForm.percentageDiscount': 'Percentage Discount',
   'app.home.detailInfo.table.modalForm.amountDiscount': 'Amount Discount',
+  'app.home.detailInfo.table.factor': 'Factors',
 };

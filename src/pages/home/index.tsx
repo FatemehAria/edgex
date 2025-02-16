@@ -15,20 +15,14 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const nextKeyRef = React.useRef(1);
-
-  // State to track the active row (the row whose modal is open)
   const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Create an Ant Design form instance for the modal
   const [modalForm] = Form.useForm();
 
-  // Dummy function for FormLayout's submitForm prop (not used because we trigger submission via handleOk)
   const handleModalFormSubmit = (values: any) => {
     console.log('Modal form submitted (unused):', values);
   };
 
-  // When the modal OK button is clicked, validate the form and update only the active row’s modal values.
   const handleOk = async () => {
     try {
       const values = await modalForm.validateFields();
@@ -37,17 +31,20 @@ function Home() {
         prevData.map(row => {
           if (row.key === activeRowKey) {
             const updatedRow = { ...row, modalValues: { ...values } };
-            // Recalculate totals for this row using its own modalValues
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
             const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
             const totalPriceWithoutFactors = corrActCost + qty * unitCost;
+
             const profitMargin = Number(updatedRow.modalValues['record-profit-margin'] || 0);
             const percentageDiscount = Number(updatedRow.modalValues['record-percentage-discount'] || 0);
             const commute = Number(updatedRow.modalValues['record-commute'] || 0);
             const amountDiscount = Number(updatedRow.modalValues['record-amount-discount'] || 0);
             const recordProfitMargin = (profitMargin / 100) * totalPriceWithoutFactors;
             const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
+            const factorsValue = commute + amountDiscount + recordProfitMargin + recordPercentageDiscount;
+
+            updatedRow.factor = factorsValue;
 
             updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
             updatedRow.totalPriceWithFactors =
@@ -73,7 +70,6 @@ function Home() {
     setActiveRowKey(null);
   };
 
-  // Create a new row with its own modalValues (initialized to zeros)
   const createEmptyRow = () => {
     const newRow = {
       key: nextKeyRef.current,
@@ -94,6 +90,7 @@ function Home() {
         'record-commute': 0,
         'record-amount-discount': 0,
       },
+      factor: '',
     };
 
     nextKeyRef.current++;
@@ -121,7 +118,6 @@ function Home() {
 
   const [tableData, setTableData] = useState<any[]>([createEmptyRow()]);
 
-  // Open the modal for a specific row and pre-fill the form with that row's modalValues.
   const showModal = (rowKey: number) => {
     setActiveRowKey(rowKey);
     setIsModalOpen(true);
@@ -134,7 +130,6 @@ function Home() {
     }
   };
 
-  // When a cell is changed in the table, update that row's values and recalc totals using its modalValues.
   const handleCellChange = (value: string, key: string, dataIndex: string) => {
     setTableData(prevData => {
       const newData = prevData.map(row => {
@@ -179,7 +174,6 @@ function Home() {
     });
   };
 
-  // When the last row is completely filled, add a new row.
   useEffect(() => {
     const lastRow = tableData[tableData.length - 1];
 
@@ -205,12 +199,14 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
       dataIndex: 'key',
       key: 'key',
+      width: 50,
       render: (text: string) => text,
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.requirements' })}`,
       dataIndex: 'requirements',
       key: 'requirements',
+      width: 200,
       render: (text: string, record: any) => (
         <Select
           value={text}
@@ -228,6 +224,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.category' })}`,
       dataIndex: 'category',
       key: 'category',
+      width: 200,
       render: (text: string, record: any) => (
         <Select
           value={text}
@@ -245,6 +242,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.supplier' })}`,
       dataIndex: 'supplier',
       key: 'supplier',
+      width: 200,
       render: (text: string, record: any) => (
         <Select
           value={text}
@@ -262,6 +260,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.correctiveAction' })}`,
       dataIndex: 'correctiveAction',
       key: 'correctiveAction',
+      width: 200,
       render: (text: string, record: any) => (
         <Select
           value={text}
@@ -279,6 +278,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.qty' })}`,
       dataIndex: 'qty',
       key: 'qty',
+      width: 100,
       render: (text: string, record: any) => (
         <Input
           value={text}
@@ -292,6 +292,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}`,
       dataIndex: 'unitCost',
       key: 'unitCost',
+      width: 120,
       render: (text: string, record: any) => (
         <Input
           value={text}
@@ -305,6 +306,7 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.corrActCost' })}`,
       dataIndex: 'corrActCost',
       key: 'corrActCost',
+      width: 120,
       render: (text: string, record: any) => (
         <Input
           value={text}
@@ -348,6 +350,12 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
       dataIndex: 'totalPriceWithFactors',
       key: 'totalPriceWithFactors',
+      render: (text: string) => <span>{text}</span>,
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.factor' })}`,
+      dataIndex: 'factor',
+      key: 'factor',
       render: (text: string) => <span>{text}</span>,
     },
     {
@@ -454,7 +462,7 @@ function Home() {
             FormOptions={proformaFormOptions}
             layoutDir="vertical"
             isGrid={true}
-            submitForm={() => console.log('first')}
+            submitForm={() => console.log('')}
           />
         </div>
       ),

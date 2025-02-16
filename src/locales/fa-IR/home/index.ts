@@ -42,4 +42,5 @@ export const faIR_home = {
   'app.home.detailInfo.table.modalForm.percentageDiscount': 'تخفیف درصدی',
   'app.home.detailInfo.table.modalForm.commute': 'ایاب ذهاب',
   'app.home.detailInfo.table.modalForm.amountDiscount': 'تخفیف مبلغی',
+  'app.home.detailInfo.table.factor': 'مقدار عوامل',
 };
