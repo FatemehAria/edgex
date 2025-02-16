@@ -16,7 +16,7 @@ function Home() {
   const { formatMessage } = useLocale();
   const nextKeyRef = React.useRef(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalFormValues, setModalFormValues] = useState({});
+  const [modalFormValues, setModalFormValues] = useState<any>({});
   const [modalForm] = Form.useForm();
 
   const showModal = () => {
@@ -26,9 +26,11 @@ function Home() {
   const handleOk = async () => {
     try {
       const values = await modalForm.validateFields();
+
       setModalFormValues(values);
       console.log('Modal Form Values:', values);
       setIsModalOpen(false);
+      modalForm.resetFields();
     } catch (error) {
       console.error('Form validation failed:', error);
     }
@@ -94,8 +96,25 @@ function Home() {
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
             const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
-
             updatedRow.totalPriceWithoutFactors = corrActCost + qty * unitCost;
+
+            const recordProfitMargin = modalFormValues['record-profit-margin']
+              ? (Number(modalFormValues['record-profit-margin']) / 100) * updatedRow.totalPriceWithoutFactors
+              : 0;
+            const recordPercentageDiscount = modalFormValues['record-percentage-discount']
+              ? (Number(modalFormValues['record-percentage-discount']) / 100) * updatedRow.totalPriceWithoutFactors
+              : 0;
+            const recordCommute = modalFormValues['record-commute'] ? Number(modalFormValues['record-commute']) : 0;
+            const recordAmountDiscount = modalFormValues['record-amount-discount']
+              ? Number(modalFormValues['record-amount-discount'])
+              : 0;
+
+            updatedRow.totalPriceWithFactors =
+              recordProfitMargin +
+              recordCommute +
+              updatedRow.totalPriceWithoutFactors -
+              recordAmountDiscount -
+              recordPercentageDiscount;
           }
 
           return updatedRow;
@@ -115,6 +134,40 @@ function Home() {
       setTableData(prevData => [...prevData, createEmptyRow()]);
     }
   }, [tableData]);
+
+  useEffect(() => {
+    // When modal form values change, recalc the totals for each row.
+    setTableData(prevData =>
+      prevData.map(row => {
+        const qty = parseFloat(row.qty) || 0;
+        const unitCost = parseFloat(row.unitCost) || 0;
+        const corrActCost = parseFloat(row.corrActCost) || 0;
+        const totalPriceWithoutFactors = corrActCost + qty * unitCost;
+
+        const recordProfitMargin = modalFormValues['record-profit-margin']
+          ? (Number(modalFormValues['record-profit-margin']) / 100) * totalPriceWithoutFactors
+          : 0;
+        const recordPercentageDiscount = modalFormValues['record-percentage-discount']
+          ? (Number(modalFormValues['record-percentage-discount']) / 100) * totalPriceWithoutFactors
+          : 0;
+        const recordCommute = modalFormValues['record-commute'] ? Number(modalFormValues['record-commute']) : 0;
+        const recordAmountDiscount = modalFormValues['record-amount-discount']
+          ? Number(modalFormValues['record-amount-discount'])
+          : 0;
+
+        return {
+          ...row,
+          totalPriceWithoutFactors,
+          totalPriceWithFactors:
+            recordProfitMargin +
+            recordCommute +
+            totalPriceWithoutFactors -
+            recordAmountDiscount -
+            recordPercentageDiscount,
+        };
+      }),
+    );
+  }, [modalFormValues]);
 
   const deleteRow = (key: string) => {
     setTableData(prevData => {
@@ -248,7 +301,7 @@ function Home() {
       key: 'factorValue',
       render: () => (
         <div>
-          <FontAwesomeIcon icon={faUpRightFromSquare} onClick={showModal} />
+          <FontAwesomeIcon icon={faUpRightFromSquare} onClick={showModal} style={{ cursor: 'pointer' }} />
           <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <FormLayout
               form={modalForm}
@@ -259,7 +312,6 @@ function Home() {
               submitForm={handleModalFormSubmit}
             />
           </Modal>
-          ;
         </div>
       ),
     },
@@ -271,8 +323,8 @@ function Home() {
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
-      dataIndex: 'totalPrice',
-      key: 'totalPrice',
+      dataIndex: 'totalPriceWithFactors',
+      key: 'totalPriceWithFactors',
       render: (text: string) => <span>{text}</span>,
     },
     {
