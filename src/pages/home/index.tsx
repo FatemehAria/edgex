@@ -45,6 +45,7 @@ function Home() {
             const factorsValue = commute + amountDiscount + recordProfitMargin + recordPercentageDiscount;
 
             updatedRow.factor = factorsValue;
+            updatedRow.incFactors = recordPercentageDiscount + amountDiscount;
 
             updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
             updatedRow.totalPriceWithFactors =
@@ -91,6 +92,7 @@ function Home() {
         'record-amount-discount': 0,
       },
       factor: '',
+      incFactors: 0,
     };
 
     nextKeyRef.current++;
@@ -488,12 +490,13 @@ function Home() {
                 (sum, row) => sum + (parseFloat(row.totalPriceWithFactors) || 0),
                 0,
               );
+              const totalIncremented = tableData.reduce((sum, row) => sum + (parseFloat(row.incFactors) || 0), 0);
 
               return (
                 <div style={{ textAlign: 'left', paddingRight: '1rem' }}>
                   <strong>
-                    Total Qty: {totalQty} | Total Cost Without Factors: {totalCostWithout} | Total Cost With Factors:{' '}
-                    {totalCostWith}
+                    Total Incremented: {totalIncremented} |Total Qty: {totalQty} | Total Cost Without Factors:{' '}
+                    {totalCostWithout} | Total Cost With Factors: {totalCostWith}
                   </strong>
                 </div>
               );
