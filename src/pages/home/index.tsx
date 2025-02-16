@@ -5,7 +5,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
@@ -14,67 +14,45 @@ import FormLayout from '../layout/form-layout';
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
-  const nextKeyRef = useRef(1);
+  const [nextKey, setNextKey] = useState(2);
+
+  const [tableData, setTableData] = useState<any[]>([
+    {
+      key: 1,
+      category: '',
+      requirements: '',
+      supplier: '',
+      correctiveAction: '',
+      qty: '',
+      unitCost: '',
+      corrActCost: '',
+      totalPriceWithFactors: '',
+      totalPriceWithoutFactors: '',
+      description: '',
+      factorValue: '',
+      modalValues: {
+        'record-profit-margin': 0,
+        'record-percentage-discount': 0,
+        'record-commute': 0,
+        'record-amount-discount': 0,
+      },
+      factor: '',
+      decFactors: 0,
+      incFactors: 0,
+    },
+  ]);
+
+  const [modalForm] = Form.useForm();
   const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalForm] = Form.useForm();
 
   const handleModalFormSubmit = (values: any) => {
     console.log('Modal form submitted (unused):', values);
   };
 
-  const handleOk = async () => {
-    try {
-      const values = await modalForm.validateFields();
-
-      setTableData(prevData =>
-        prevData.map(row => {
-          if (row.key === activeRowKey) {
-            const updatedRow = { ...row, modalValues: { ...values } };
-            const qty = parseFloat(updatedRow.qty) || 0;
-            const unitCost = parseFloat(updatedRow.unitCost) || 0;
-            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
-            const totalPriceWithoutFactors = corrActCost + qty * unitCost;
-
-            const profitMargin = Number(updatedRow.modalValues['record-profit-margin'] || 0);
-            const percentageDiscount = Number(updatedRow.modalValues['record-percentage-discount'] || 0);
-            const commute = Number(updatedRow.modalValues['record-commute'] || 0);
-            const amountDiscount = Number(updatedRow.modalValues['record-amount-discount'] || 0);
-            const recordProfitMargin = (profitMargin / 100) * totalPriceWithoutFactors;
-            const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
-            const factorsValue = commute + amountDiscount + recordProfitMargin + recordPercentageDiscount;
-
-            updatedRow.factor = factorsValue;
-            updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
-            updatedRow.incFactors = commute + profitMargin;
-
-            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
-            updatedRow.totalPriceWithFactors =
-              recordProfitMargin + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
-
-            return updatedRow;
-          }
-
-          return row;
-        }),
-      );
-      setIsModalOpen(false);
-      modalForm.resetFields();
-      setActiveRowKey(null);
-    } catch (error) {
-      console.error('Form validation failed:', error);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-    modalForm.resetFields();
-    setActiveRowKey(null);
-  };
-
   const createEmptyRow = () => {
     const newRow = {
-      key: nextKeyRef.current,
+      key: nextKey,
       category: '',
       requirements: '',
       supplier: '',
@@ -97,8 +75,7 @@ function Home() {
       incFactors: 0,
     };
 
-    console.log('first', nextKeyRef.current);
-    nextKeyRef.current++;
+    setNextKey(prev => prev + 1);
 
     return newRow;
   };
@@ -108,10 +85,10 @@ function Home() {
       'requirements',
       'category',
       'supplier',
-      'correctiveAction',
+      // 'correctiveAction',
       'qty',
       'unitCost',
-      'corrActCost',
+      // 'corrActCost',
     ];
 
     return requiredFields.every(field => {
@@ -121,23 +98,9 @@ function Home() {
     });
   };
 
-  const [tableData, setTableData] = useState<any[]>([createEmptyRow()]);
-
-  const showModal = (rowKey: number) => {
-    setActiveRowKey(rowKey);
-    setIsModalOpen(true);
-    const row = tableData.find(r => r.key === rowKey);
-
-    if (row && row.modalValues) {
-      modalForm.setFieldsValue(row.modalValues);
-    } else {
-      modalForm.resetFields();
-    }
-  };
-
   const handleCellChange = (value: string, key: string, dataIndex: string) => {
-    setTableData(prevData => {
-      const newData = prevData.map(row => {
+    setTableData(prevData =>
+      prevData.map(row => {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
@@ -173,10 +136,8 @@ function Home() {
         }
 
         return row;
-      });
-
-      return newData;
-    });
+      }),
+    );
   };
 
   useEffect(() => {
@@ -199,13 +160,73 @@ function Home() {
     });
   };
 
+  const showModal = (rowKey: number) => {
+    setActiveRowKey(rowKey);
+    setIsModalOpen(true);
+    const row = tableData.find(r => r.key === rowKey);
+
+    if (row && row.modalValues) {
+      modalForm.setFieldsValue(row.modalValues);
+    } else {
+      modalForm.resetFields();
+    }
+  };
+
+  const handleOk = async () => {
+    try {
+      const values = await modalForm.validateFields();
+
+      setTableData(prevData =>
+        prevData.map(row => {
+          if (row.key === activeRowKey) {
+            const updatedRow = { ...row, modalValues: { ...values } };
+            const qty = parseFloat(updatedRow.qty) || 0;
+            const unitCost = parseFloat(updatedRow.unitCost) || 0;
+            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
+            const totalPriceWithoutFactors = corrActCost + qty * unitCost;
+
+            const profitMargin = Number(values['record-profit-margin'] || 0);
+            const percentageDiscount = Number(values['record-percentage-discount'] || 0);
+            const commute = Number(values['record-commute'] || 0);
+            const amountDiscount = Number(values['record-amount-discount'] || 0);
+            const recordProfitMargin = (profitMargin / 100) * totalPriceWithoutFactors;
+            const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
+
+            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
+            updatedRow.totalPriceWithFactors =
+              recordProfitMargin + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
+
+            updatedRow.factor = commute + amountDiscount + recordProfitMargin + recordPercentageDiscount;
+            updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
+            updatedRow.incFactors = commute + profitMargin;
+
+            return updatedRow;
+          }
+
+          return row;
+        }),
+      );
+      setIsModalOpen(false);
+      modalForm.resetFields();
+      setActiveRowKey(null);
+    } catch (error) {
+      console.error('Form validation failed:', error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    modalForm.resetFields();
+    setActiveRowKey(null);
+  };
+
   const columns = [
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
       dataIndex: 'key',
       key: 'key',
       width: 50,
-      render: (text: string) => text,
+      render: (text: string) => <span>{text}</span>,
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.requirements' })}`,
