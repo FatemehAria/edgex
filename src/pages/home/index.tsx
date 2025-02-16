@@ -5,7 +5,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
@@ -14,7 +14,7 @@ import FormLayout from '../layout/form-layout';
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
-  const nextKeyRef = React.useRef(1);
+  const nextKeyRef = useRef(1);
   const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalForm] = Form.useForm();
@@ -97,6 +97,7 @@ function Home() {
       incFactors: 0,
     };
 
+    console.log('first', nextKeyRef.current);
     nextKeyRef.current++;
 
     return newRow;
@@ -289,6 +290,7 @@ function Home() {
           placeholder="Enter quantity"
           type="number"
           onChange={e => handleCellChange(e.target.value, record.key, 'qty')}
+          min={0}
         />
       ),
     },
@@ -303,6 +305,7 @@ function Home() {
           placeholder="Enter cost"
           type="number"
           onChange={e => handleCellChange(e.target.value, record.key, 'unitCost')}
+          min={0}
         />
       ),
     },
@@ -317,6 +320,7 @@ function Home() {
           placeholder="Enter corrective action cost"
           type="number"
           onChange={e => handleCellChange(e.target.value, record.key, 'corrActCost')}
+          min={0}
         />
       ),
     },
@@ -348,19 +352,19 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
       dataIndex: 'totalPriceWithoutFactors',
       key: 'totalPriceWithoutFactors',
-      render: (text: string) => <span>{text}</span>,
+      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
       dataIndex: 'totalPriceWithFactors',
       key: 'totalPriceWithFactors',
-      render: (text: string) => <span>{text}</span>,
+      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.factor' })}`,
       dataIndex: 'factor',
       key: 'factor',
-      render: (text: string) => <span>{text}</span>,
+      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
@@ -496,11 +500,41 @@ function Home() {
               const totalIncremented = tableData.reduce((sum, row) => sum + (parseFloat(row.incFactors) || 0), 0);
 
               return (
-                <div style={{ textAlign: 'left', paddingRight: '1rem' }}>
-                  <strong>
-                    Total Incremented: {totalIncremented} |Total Decremented: {totalDecremented} |Total Qty: {totalQty}{' '}
-                    | Total Cost Without Factors: {totalCostWithout} | Total Cost With Factors: {totalCostWith}
-                  </strong>
+                <div
+                  style={{
+                    textAlign: 'left',
+                    paddingRight: '1rem',
+                    backgroundColor: '#800000',
+                    borderRadius: '5px',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      color: 'white',
+                    }}
+                  >
+                    <p>
+                      {formatMessage({ id: 'app.home.detailInfo.table.footer.totalInc' })}: {totalIncremented}
+                    </p>
+                    <p>
+                      {formatMessage({ id: 'app.home.detailInfo.table.footer.totalDec' })}: {totalDecremented}
+                    </p>
+                    <p>
+                      {formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}: {totalQty}
+                    </p>
+                    <p>
+                      {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}:{' '}
+                      {totalCostWithout}
+                    </p>
+                    <p>
+                      {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
+                      {totalCostWith}
+                    </p>
+                  </div>
                 </div>
               );
             }}
