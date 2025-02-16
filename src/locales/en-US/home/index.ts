@@ -36,4 +36,9 @@ export const enUs_home = {
   'app.home.detailInfo.table.totalPrice': 'Total Price',
   'app.home.detailInfo.table.actions': 'Actions',
   'app.home.detailInfo.table.description': 'Description',
+  'app.home.detailInfo.table.factorValue': 'Factors',
+  'app.home.detailInfo.table.modalForm.profitMargin': 'Profit Margin',
+  'app.home.detailInfo.table.modalForm.commute': 'Commute',
+  'app.home.detailInfo.table.modalForm.percentageDiscount': 'Percentage Discount',
+  'app.home.detailInfo.table.modalForm.amountDiscount': 'Amount Discount',
 };

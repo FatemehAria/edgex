@@ -36,4 +36,9 @@ export const faIR_home = {
   'app.home.detailInfo.table.totalPrice': 'هزینه نهایی',
   'app.home.detailInfo.table.actions': 'عملیات',
   'app.home.detailInfo.table.description': 'توضیحات',
+  'app.home.detailInfo.table.factorValue': 'عوامل',
+  'app.home.detailInfo.table.modalForm.profitMargin': 'حاشیه سود',
+  'app.home.detailInfo.table.modalForm.percentageDiscount': 'تخفیف درصدی',
+  'app.home.detailInfo.table.modalForm.commute': 'ایاب ذهاب',
+  'app.home.detailInfo.table.modalForm.amountDiscount': 'تخفیف مبلغی',
 };

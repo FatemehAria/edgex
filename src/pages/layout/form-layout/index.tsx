@@ -11,17 +11,22 @@ function FormLayout({
   layoutDir,
   submitForm,
   isGrid,
+  showButton,
+  form,
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
   submitForm: (values?: any) => void;
   isGrid: boolean;
+  showButton?: boolean;
+  form?: any;
 }) {
   const { formatMessage } = useLocale();
 
   return (
     <div>
       <MyForm
+        form={form}
         options={FormOptions}
         onFinish={values => submitForm(values)}
         layout={layoutDir}
@@ -29,7 +34,12 @@ function FormLayout({
         style={{ padding: '0 1rem' }}
       >
         <Form.Item className="btn-container">
-          <Button type="primary" htmlType="submit" className="submit-button">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="submit-button"
+            style={{ display: showButton ? 'inline' : 'none' }}
+          >
             {formatMessage({ id: 'gloabal.tips.submitBtn' })}
           </Button>
         </Form.Item>

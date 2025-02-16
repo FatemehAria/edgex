@@ -2,9 +2,9 @@ import type { MyFormOptions } from '@/components/core/form';
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, Input, Select, Table, theme } from 'antd';
+import { Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
@@ -15,6 +15,33 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const nextKeyRef = React.useRef(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalFormValues, setModalFormValues] = useState({});
+  const [modalForm] = Form.useForm();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async () => {
+    try {
+      const values = await modalForm.validateFields();
+      setModalFormValues(values);
+      console.log('Modal Form Values:', values);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Form validation failed:', error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalFormSubmit = (values: any) => {
+    setModalFormValues({ ...values });
+    console.log('Modal Form Submitted: ', values);
+  };
 
   const createEmptyRow = () => {
     const newRow = {
@@ -216,6 +243,27 @@ function Home() {
       ),
     },
     {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
+      dataIndex: 'factorValue',
+      key: 'factorValue',
+      render: () => (
+        <div>
+          <FontAwesomeIcon icon={faUpRightFromSquare} onClick={showModal} />
+          <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <FormLayout
+              form={modalForm}
+              FormOptions={modalFormOptions}
+              isGrid={true}
+              layoutDir="vertical"
+              showButton={false}
+              submitForm={handleModalFormSubmit}
+            />
+          </Modal>
+          ;
+        </div>
+      ),
+    },
+    {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
       dataIndex: 'totalPriceWithoutFactors',
       key: 'totalPriceWithoutFactors',
@@ -256,6 +304,32 @@ function Home() {
     },
   ];
 
+  const modalFormOptions: MyFormOptions = [
+    {
+      name: 'record-profit-margin',
+      label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.profitMargin' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'record-percentage-discount',
+      label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.percentageDiscount' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'record-commute',
+      label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.commute' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+    {
+      name: 'record-amount-discount',
+      label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.amountDiscount' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+    },
+  ];
   const proformaFormOptions: MyFormOptions = [
     {
       name: 'header-info-title',
