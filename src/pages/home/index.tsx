@@ -15,22 +15,53 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const nextKeyRef = React.useRef(1);
+
+  // State to track the active row (the row whose modal is open)
+  const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalFormValues, setModalFormValues] = useState<any>({});
+
+  // Create an Ant Design form instance for the modal
   const [modalForm] = Form.useForm();
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  // Dummy function for FormLayout's submitForm prop (not used because we trigger submission via handleOk)
+  const handleModalFormSubmit = (values: any) => {
+    console.log('Modal form submitted (unused):', values);
   };
 
+  // When the modal OK button is clicked, validate the form and update only the active row’s modal values.
   const handleOk = async () => {
     try {
       const values = await modalForm.validateFields();
 
-      setModalFormValues(values);
-      console.log('Modal Form Values:', values);
+      setTableData(prevData =>
+        prevData.map(row => {
+          if (row.key === activeRowKey) {
+            const updatedRow = { ...row, modalValues: { ...values } };
+            // Recalculate totals for this row using its own modalValues
+            const qty = parseFloat(updatedRow.qty) || 0;
+            const unitCost = parseFloat(updatedRow.unitCost) || 0;
+            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
+            const totalPriceWithoutFactors = corrActCost + qty * unitCost;
+            const profitMargin = Number(updatedRow.modalValues['record-profit-margin'] || 0);
+            const percentageDiscount = Number(updatedRow.modalValues['record-percentage-discount'] || 0);
+            const commute = Number(updatedRow.modalValues['record-commute'] || 0);
+            const amountDiscount = Number(updatedRow.modalValues['record-amount-discount'] || 0);
+            const recordProfitMargin = (profitMargin / 100) * totalPriceWithoutFactors;
+            const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
+
+            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
+            updatedRow.totalPriceWithFactors =
+              recordProfitMargin + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
+
+            return updatedRow;
+          }
+
+          return row;
+        }),
+      );
       setIsModalOpen(false);
       modalForm.resetFields();
+      setActiveRowKey(null);
     } catch (error) {
       console.error('Form validation failed:', error);
     }
@@ -38,13 +69,11 @@ function Home() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    modalForm.resetFields();
+    setActiveRowKey(null);
   };
 
-  const handleModalFormSubmit = (values: any) => {
-    setModalFormValues({ ...values });
-    console.log('Modal Form Submitted: ', values);
-  };
-
+  // Create a new row with its own modalValues (initialized to zeros)
   const createEmptyRow = () => {
     const newRow = {
       key: nextKeyRef.current,
@@ -59,6 +88,12 @@ function Home() {
       totalPriceWithoutFactors: '',
       description: '',
       factorValue: '',
+      modalValues: {
+        'record-profit-margin': 0,
+        'record-percentage-discount': 0,
+        'record-commute': 0,
+        'record-amount-discount': 0,
+      },
     };
 
     nextKeyRef.current++;
@@ -86,34 +121,51 @@ function Home() {
 
   const [tableData, setTableData] = useState<any[]>([createEmptyRow()]);
 
+  // Open the modal for a specific row and pre-fill the form with that row's modalValues.
+  const showModal = (rowKey: number) => {
+    setActiveRowKey(rowKey);
+    setIsModalOpen(true);
+    const row = tableData.find(r => r.key === rowKey);
+
+    if (row && row.modalValues) {
+      modalForm.setFieldsValue(row.modalValues);
+    } else {
+      modalForm.resetFields();
+    }
+  };
+
+  // When a cell is changed in the table, update that row's values and recalc totals using its modalValues.
   const handleCellChange = (value: string, key: string, dataIndex: string) => {
     setTableData(prevData => {
       const newData = prevData.map(row => {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          if (dataIndex === 'qty' || dataIndex === 'unitCost' || dataIndex === 'corrActCost') {
+          if (
+            dataIndex === 'qty' ||
+            dataIndex === 'unitCost' ||
+            dataIndex === 'corrActCost' ||
+            dataIndex === 'factorValue'
+          ) {
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
             const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
-            updatedRow.totalPriceWithoutFactors = corrActCost + qty * unitCost;
 
-            const recordProfitMargin = modalFormValues['record-profit-margin']
-              ? (Number(modalFormValues['record-profit-margin']) / 100) * updatedRow.totalPriceWithoutFactors
-              : 0;
-            const recordPercentageDiscount = modalFormValues['record-percentage-discount']
-              ? (Number(modalFormValues['record-percentage-discount']) / 100) * updatedRow.totalPriceWithoutFactors
-              : 0;
-            const recordCommute = modalFormValues['record-commute'] ? Number(modalFormValues['record-commute']) : 0;
-            const recordAmountDiscount = modalFormValues['record-amount-discount']
-              ? Number(modalFormValues['record-amount-discount'])
-              : 0;
+            updatedRow.totalPriceWithoutFactors = corrActCost + qty * unitCost;
+            const {
+              'record-profit-margin': profitMargin = 0,
+              'record-percentage-discount': percentageDiscount = 0,
+              'record-commute': commute = 0,
+              'record-amount-discount': amountDiscount = 0,
+            } = updatedRow.modalValues || {};
+            const recordProfitMargin = (Number(profitMargin) / 100) * updatedRow.totalPriceWithoutFactors;
+            const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =
               recordProfitMargin +
-              recordCommute +
+              Number(commute) +
               updatedRow.totalPriceWithoutFactors -
-              recordAmountDiscount -
+              Number(amountDiscount) -
               recordPercentageDiscount;
           }
 
@@ -127,6 +179,7 @@ function Home() {
     });
   };
 
+  // When the last row is completely filled, add a new row.
   useEffect(() => {
     const lastRow = tableData[tableData.length - 1];
 
@@ -134,40 +187,6 @@ function Home() {
       setTableData(prevData => [...prevData, createEmptyRow()]);
     }
   }, [tableData]);
-
-  useEffect(() => {
-    // When modal form values change, recalc the totals for each row.
-    setTableData(prevData =>
-      prevData.map(row => {
-        const qty = parseFloat(row.qty) || 0;
-        const unitCost = parseFloat(row.unitCost) || 0;
-        const corrActCost = parseFloat(row.corrActCost) || 0;
-        const totalPriceWithoutFactors = corrActCost + qty * unitCost;
-
-        const recordProfitMargin = modalFormValues['record-profit-margin']
-          ? (Number(modalFormValues['record-profit-margin']) / 100) * totalPriceWithoutFactors
-          : 0;
-        const recordPercentageDiscount = modalFormValues['record-percentage-discount']
-          ? (Number(modalFormValues['record-percentage-discount']) / 100) * totalPriceWithoutFactors
-          : 0;
-        const recordCommute = modalFormValues['record-commute'] ? Number(modalFormValues['record-commute']) : 0;
-        const recordAmountDiscount = modalFormValues['record-amount-discount']
-          ? Number(modalFormValues['record-amount-discount'])
-          : 0;
-
-        return {
-          ...row,
-          totalPriceWithoutFactors,
-          totalPriceWithFactors:
-            recordProfitMargin +
-            recordCommute +
-            totalPriceWithoutFactors -
-            recordAmountDiscount -
-            recordPercentageDiscount,
-        };
-      }),
-    );
-  }, [modalFormValues]);
 
   const deleteRow = (key: string) => {
     setTableData(prevData => {
@@ -299,9 +318,13 @@ function Home() {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
       dataIndex: 'factorValue',
       key: 'factorValue',
-      render: () => (
+      render: (text: string, record: any) => (
         <div>
-          <FontAwesomeIcon icon={faUpRightFromSquare} onClick={showModal} style={{ cursor: 'pointer' }} />
+          <FontAwesomeIcon
+            icon={faUpRightFromSquare}
+            onClick={() => showModal(record.key)}
+            style={{ cursor: 'pointer' }}
+          />
           <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <FormLayout
               form={modalForm}
@@ -332,7 +355,6 @@ function Home() {
       dataIndex: 'actions',
       key: 'actions',
       render: (_: any, record: any) => {
-        // Disable deletion on first row if it's not filled.
         const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
@@ -382,6 +404,7 @@ function Home() {
       innerProps: { placeholder: '' },
     },
   ];
+
   const proformaFormOptions: MyFormOptions = [
     {
       name: 'header-info-title',
@@ -442,7 +465,32 @@ function Home() {
       label: `${formatMessage({ id: 'app.home.detailInfo' })}`,
       children: (
         <div>
-          <Table dataSource={tableData} columns={columns} pagination={false} rowClassName="editable-row" />
+          <Table
+            dataSource={tableData}
+            columns={columns}
+            pagination={false}
+            rowClassName="editable-row"
+            footer={() => {
+              const totalQty = tableData.reduce((sum, row) => sum + (parseFloat(row.qty) || 0), 0);
+              const totalCostWithout = tableData.reduce(
+                (sum, row) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
+                0,
+              );
+              const totalCostWith = tableData.reduce(
+                (sum, row) => sum + (parseFloat(row.totalPriceWithFactors) || 0),
+                0,
+              );
+
+              return (
+                <div style={{ textAlign: 'left', paddingRight: '1rem' }}>
+                  <strong>
+                    Total Qty: {totalQty} | Total Cost Without Factors: {totalCostWithout} | Total Cost With Factors:{' '}
+                    {totalCostWith}
+                  </strong>
+                </div>
+              );
+            }}
+          />
         </div>
       ),
       style: panelStyle,
@@ -466,321 +514,3 @@ function Home() {
 }
 
 export default Home;
-
-// import type { MyFormOptions } from '@/components/core/form';
-// import type { CollapseProps } from 'antd';
-// import type { CSSProperties } from 'react';
-
-// import './index.css';
-
-// import { CaretRightOutlined } from '@ant-design/icons';
-// import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { Collapse, Table, theme } from 'antd';
-// import React, { useState } from 'react';
-
-// import { useLocale } from '@/locales';
-
-// import FormLayout from '../layout/form-layout';
-
-// function Home() {
-//   const { token } = theme.useToken();
-//   const { formatMessage } = useLocale();
-
-//   const [tableData, setTableData] = useState<any[]>([]);
-
-//   const handleSubmit = (values: any) => {
-//     // Transform form values to match the table columns
-//     const newRow = {
-//       index: Date.now(),
-//       requirements: values['detail-info-requirements'] || '',
-//       category: values['detail-info-category'] || '',
-//       supplier: values['detail-info-supplier'] || '',
-//       correctiveAction: values['detail-info-corrective-action'] || '',
-//       qty: values['detail-info-qty'] || '',
-//       reqCost: values['detail-info-cost'] || '',
-//       // unitCost: values['detail-info-unitCost'] || '',
-//       // actionCost: values['detail-info-actionCost'] || '',
-//       totalPrice: values['detail-info-qty'] * values['detail-info-cost'] + values['detail-info-actionCost'],
-//       actions: (
-//         <div>
-//           <FontAwesomeIcon icon={faTrashCan} />
-//           <FontAwesomeIcon icon={faEdit} />
-//         </div>
-//       ),
-//       // ... include other mappings as needed
-//     };
-
-//     setTableData(prevData => [...prevData, newRow]);
-//   };
-
-//   const proformaFormOptions: MyFormOptions = [
-//     {
-//       name: 'header-info-title',
-//       label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'header-info-costumer',
-//       label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
-//       type: 'select',
-//       innerProps: { placeholder: '' },
-//       options: [
-//         { label: 'مشتری یک', value: '1' },
-//         { label: 'مشتری دو', value: '2' },
-//       ],
-//     },
-//     {
-//       name: 'header-info-date',
-//       label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
-//       type: 'date-picker',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'header-info-desc',
-//       label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
-//       type: 'textarea',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-category',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.category' })}`,
-//       type: 'select',
-//       innerProps: { placeholder: '' },
-//       options: [
-//         { label: 'بخش یک', value: '1' },
-//         { label: 'بخش دو', value: '2' },
-//       ],
-//     },
-//     {
-//       name: 'detail-info-supplier',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.supplier' })}`,
-//       type: 'select',
-//       innerProps: { placeholder: '' },
-//       options: [
-//         { label: 'خدمات دهنده یک', value: '1' },
-//         { label: 'خدمات دهنده دو', value: '2' },
-//       ],
-//     },
-//     {
-//       name: 'detail-info-corrective-action',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.corrective' })}`,
-//       type: 'select',
-//       innerProps: { placeholder: '' },
-//       options: [
-//         { label: 'عملیات یک', value: '1' },
-//         { label: 'عملیات دو', value: '2' },
-//       ],
-//     },
-//     {
-//       name: 'detail-info-desc',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.desc' })}`,
-//       type: 'textarea',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-cost',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.cost' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-requirements',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.requirements' })}`,
-//       type: 'select',
-//       innerProps: { placeholder: '' },
-//       options: [
-//         { label: 'نیاز یک', value: '1' },
-//         { label: 'نیاز دو', value: '2' },
-//       ],
-//     },
-//     {
-//       name: 'detail-info-qty',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.qty' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-unitCost',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.unitCost' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-actionCost',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.actionCost' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-reducing',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.reduce' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-increasing',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.increase' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'detail-info-finalCost',
-//       label: `${formatMessage({ id: 'app.home.detailInfo.finalCost' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     // {
-//     //   name: 'incDec-factor',
-//     //   label: '',
-//     //   type: 'radio',
-//     //   options: [
-//     //     { label: 'تخفیف درصدی', value: 'percentage discount' },
-//     //     { label: '10 درصد مالیات ارزش افزوده', value: 'tax' },
-//     //     { label: 'ایاب ذهاب', value: 'commute' },
-//     //     { label: 'تخفیف مبلغی', value: 'price discount' },
-//     //   ],
-//     // },
-//     {
-//       name: 'incDec-percentage-discount',
-//       label: `${formatMessage({ id: 'app.home.incDecInfo.percDiscount' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'incDec-tax',
-//       label: `${formatMessage({ id: 'app.home.incDecInfo.tax' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'incDec-commute',
-//       label: `${formatMessage({ id: 'app.home.incDecInfo.commute' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//     {
-//       name: 'incDec-price-discount',
-//       label: `${formatMessage({ id: 'app.home.incDecInfo.priceDiscount' })}`,
-//       type: 'input',
-//       innerProps: { placeholder: '' },
-//     },
-//   ];
-
-//   const getItems: (panelStyle: CSSProperties) => CollapseProps[] = panelStyle => [
-//     {
-//       key: '1',
-//       label: `${formatMessage({ id: 'app.home.headerInfo' })}`,
-//       children: (
-//         <div>
-//           <FormLayout FormOptions={proformaFormOptions} layoutDir="vertical" isGrid={true} submitForm={handleSubmit} />
-//         </div>
-//       ),
-//       style: panelStyle,
-//     },
-//     {
-//       key: '2',
-//       label: `${formatMessage({ id: 'app.home.detailInfo' })}`,
-//       children: (
-//         <div>
-//           <Table dataSource={tableData} columns={columns} />
-//         </div>
-//       ),
-//       style: panelStyle,
-//     },
-//   ];
-
-//   const panelStyle: React.CSSProperties = {
-//     marginBottom: 24,
-//     background: token.colorFillAlter,
-//     borderRadius: token.borderRadiusLG,
-//     border: 'none',
-//     fontWeight: 600,
-//   };
-
-//   const columns = [
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
-//       dataIndex: 'index',
-//       key: 'index',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.requirements' })}`,
-//       dataIndex: 'requirements',
-//       key: 'requirements',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.category' })}`,
-//       dataIndex: 'category',
-//       key: 'category',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.supplier' })}`,
-//       dataIndex: 'supplier',
-//       key: 'supplier',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.correctiveAction' })}`,
-//       dataIndex: 'correctiveAction',
-//       key: 'correctiveAction',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.qty' })}`,
-//       dataIndex: 'qty',
-//       key: 'qty',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.reqCost' })}`,
-//       dataIndex: 'reqCost',
-//       key: 'reqCost',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.corrActCost' })}`,
-//       dataIndex: 'corrActCost',
-//       key: 'corrActCost',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
-//       dataIndex: 'price',
-//       key: 'price',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.red' })}`,
-//       dataIndex: 'red',
-//       key: 'red',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.inc' })}`,
-//       dataIndex: 'inc',
-//       key: 'inc',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
-//       dataIndex: 'totalPrice',
-//       key: 'totalPrice',
-//     },
-//     {
-//       title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
-//       dataIndex: 'actions',
-//       key: 'actions',
-//     },
-//   ];
-
-//   return (
-//     <Collapse
-//       bordered={false}
-//       defaultActiveKey={['1']}
-//       expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-//       style={{ background: token.colorBgContainer }}
-//     >
-//       {getItems(panelStyle).map((item: any) => (
-//         <Collapse.Panel key={item.key} header={item.label} style={item.style}>
-//           {item.children}
-//         </Collapse.Panel>
-//       ))}
-//     </Collapse>
-//   );
-// }
-
-// export default Home;
