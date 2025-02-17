@@ -56,6 +56,9 @@ function ProformaTable({
           //   vat
           const vat = 0.1 * totalFinalSalePrice;
 
+          //   total
+          const total = vat + totalFinalSalePrice;
+
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
 
@@ -98,6 +101,9 @@ function ProformaTable({
                 </p>
                 <p>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{vat}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{total}
                 </p>
                 <p>
                   {/* footerInsuranceCoefficient */}
