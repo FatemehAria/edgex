@@ -47,10 +47,14 @@ function ProformaTable({
           insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
           setinsurancePrice(insurancePrice);
 
+          //   جمع قیمت فروش نهایی فاکتور
           const totalFinalSalePrice = tableData.reduce(
             (sum: any, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
             0,
           );
+
+          //   vat
+          const vat = 0.1 * totalFinalSalePrice;
 
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
@@ -91,6 +95,9 @@ function ProformaTable({
                 </p>
                 <p>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{totalFinalSalePrice}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{vat}
                 </p>
                 <p>
                   {/* footerInsuranceCoefficient */}

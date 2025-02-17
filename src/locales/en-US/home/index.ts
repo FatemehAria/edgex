@@ -48,6 +48,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.footer.totalCostWithFactors': 'Sales Total Price',
   'app.home.detailInfo.table.footerInsurancePrice': 'Insurance Price',
   'app.home.detailInfo.table.footer.totalCostWithoutFactors': 'Total Cost (factors included)',
+  'app.home.detailInfo.table.footer.vat': 'VAT',
   'app.home.detailInfo.table.footer.totalFinalSalePrice': 'Total Final Sale Price',
   'app.home.detailInfo.table.footer.totalQty': 'Total Cost (factors included)',
 };
