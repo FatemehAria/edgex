@@ -59,6 +59,9 @@ function ProformaTable({
           //   total
           const total = vat + totalFinalSalePrice;
 
+          //   10 درصد مالیات بر ارزش افزوده
+          const tenPercentTax = 0.1 * totalFinalSalePrice;
+
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
 
@@ -104,6 +107,9 @@ function ProformaTable({
                 </p>
                 <p>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{total}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{tenPercentTax}
                 </p>
                 <p>
                   {/* footerInsuranceCoefficient */}

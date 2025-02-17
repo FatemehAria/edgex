@@ -51,5 +51,6 @@ export const faIR_home = {
   'app.home.detailInfo.table.footer.totalFinalSalePrice': 'جمع قیمت فروش نهایی فاکتور',
   'app.home.detailInfo.table.footer.vat': 'VAT',
   'app.home.detailInfo.table.footer.total': 'مجموع',
+  'app.home.detailInfo.table.footer.tenPercentTax': '10% مالیات بر ارزش افزوده',
   'app.home.detailInfo.table.footer.totalQty': 'تعداد کل',
 };
