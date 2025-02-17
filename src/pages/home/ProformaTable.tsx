@@ -1,5 +1,6 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { Button, Select, Table } from 'antd';
-import { Dispatch, SetStateAction } from 'react';
 
 function ProformaTable({
   tableData,
@@ -7,12 +8,20 @@ function ProformaTable({
   formatMessage,
   setFooterInsuranceCoefficient,
   footerInsuranceCoefficient,
+  insurancePrice,
+  setinsurancePrice,
+  setTotalCostOfRows,
+  totalCostOfRows,
 }: {
   tableData: any;
   columns: any;
   formatMessage: any;
   setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
   footerInsuranceCoefficient: string;
+  insurancePrice: any;
+  setinsurancePrice: any;
+  setTotalCostOfRows: any;
+  totalCostOfRows: any;
 }) {
   return (
     <div>
@@ -28,12 +37,15 @@ function ProformaTable({
             (sum: any, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
             0,
           );
-          const totalCostOfRows = tableData.reduce(
-            (sum: any, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
-            0,
-          );
+          // جمع قیمت فروش
+
+          totalCostOfRows = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
+          setTotalCostOfRows(totalCostOfRows);
+
           //   مبلغ بیمه
-          const insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
+          insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
+          setinsurancePrice(insurancePrice);
 
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);

@@ -193,6 +193,12 @@ export const Columns = (
     render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
   },
   {
+    title: `${formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}`,
+    dataIndex: 'itemShareOfTaxAndIns',
+    key: 'itemShareOfTaxAndIns',
+    render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+  },
+  {
     title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
     dataIndex: 'totalPriceWithFactors',
     key: 'totalPriceWithFactors',

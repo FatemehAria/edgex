@@ -16,6 +16,8 @@ function Home() {
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
   const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState('');
+  const [insurancePrice, setinsurancePrice] = useState('');
+  const [totalCostOfRows, setTotalCostOfRows] = useState('');
   const [tableData, setTableData] = useState<any[]>([
     {
       key: 1,
@@ -118,6 +120,12 @@ function Home() {
             const itemTotalPrice = primarySalesPrice * Number(updatedRow.qty);
 
             updatedRow.itemTotalPrice = itemTotalPrice;
+
+            // سهم آیتم از بیمه و مالیات
+            const shareOfTaxAndInsModulo = Number(insurancePrice) / Number(totalCostOfRows) / Number(updatedRow.qty);
+            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * updatedRow.itemTotalPrice;
+
+            updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
 
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
@@ -280,6 +288,10 @@ function Home() {
           tableData={tableData}
           footerInsuranceCoefficient={footerInsuranceCoefficient}
           setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
+          insurancePrice={insurancePrice}
+          setinsurancePrice={setinsurancePrice}
+          setTotalCostOfRows={setTotalCostOfRows}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
       style: panelStyle,

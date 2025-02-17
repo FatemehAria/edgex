@@ -40,6 +40,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.modalForm.amountDiscount': 'Amount Discount',
   'app.home.detailInfo.table.factor': 'Factors',
   'app.home.detailInfo.table.desc': 'Description',
+  'app.home.detailInfo.table.itemShareOfTaxAndIns': 'Share of items from insurance and taxes',
   'app.home.detailInfo.table.footer.totalInc': 'Total Incrementation',
   'app.home.detailInfo.table.footer.totalDec': 'Total Decrementation',
   'app.home.detailInfo.table.footer.totalCostWithFactors': 'Sales Total Price',
