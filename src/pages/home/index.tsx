@@ -29,6 +29,7 @@ function Home() {
       totalPriceWithoutFactors: '',
       footerInsurancePrice: '',
       itemShareOfTaxAndIns: '',
+      itemSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -60,6 +61,7 @@ function Home() {
       itemTotalPrice: '',
       footerInsurancePrice: '',
       itemShareOfTaxAndIns: '',
+      itemSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -126,6 +128,11 @@ function Home() {
             const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * updatedRow.itemTotalPrice;
 
             updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
+
+            // قیمت فروش آیتم
+            const itemSalePrice = updatedRow.primarySalesPrice + updatedRow.itemShareOfTaxAndIns;
+
+            updatedRow.itemSalePrice = itemSalePrice;
 
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
