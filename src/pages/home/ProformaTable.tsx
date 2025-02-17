@@ -1,7 +1,9 @@
-import { Button, Table } from 'antd';
-import React from 'react';
+import { Button, Select, Table } from 'antd';
+import React, { useState } from 'react';
 
 function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; columns: any; formatMessage: any }) {
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState('');
+
   return (
     <div>
       <Table
@@ -21,7 +23,7 @@ function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; 
             0,
           );
           //   مبلغ بیمه
-          const insurancePrice = 0.085 * totalCostOfRows;
+          const insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
 
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
@@ -61,6 +63,18 @@ function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; 
                   {totalCostWithout}
                 </p>
                 <p>
+                  {/* footerInsuranceCoefficient */}
+                  <Select
+                    value={footerInsuranceCoefficient}
+                    placeholder="Select supplier"
+                    onChange={value => setFooterInsuranceCoefficient(value)}
+                    options={[
+                      { label: '0.085', value: '0.085' },
+                      { label: '0.2', value: '0.2' },
+                      { label: '0', value: '0' },
+                    ]}
+                    style={{ width: '100%' }}
+                  />
                   {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:{insurancePrice}
                 </p>
               </div>
