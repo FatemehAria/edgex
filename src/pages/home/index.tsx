@@ -15,7 +15,7 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
-
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState('');
   const [tableData, setTableData] = useState<any[]>([
     {
       key: 1,
@@ -26,6 +26,7 @@ function Home() {
       itemTotalPrice: '',
       totalPriceWithoutFactors: '',
       footerInsurancePrice: '',
+      itemShareOfTaxAndIns: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -56,6 +57,7 @@ function Home() {
       primarySalesPrice: '',
       itemTotalPrice: '',
       footerInsurancePrice: '',
+      itemShareOfTaxAndIns: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -271,7 +273,15 @@ function Home() {
     {
       key: '2',
       label: `${formatMessage({ id: 'app.home.detailInfo' })}`,
-      children: <ProformaTable columns={columns} formatMessage={formatMessage} tableData={tableData} />,
+      children: (
+        <ProformaTable
+          columns={columns}
+          formatMessage={formatMessage}
+          tableData={tableData}
+          footerInsuranceCoefficient={footerInsuranceCoefficient}
+          setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
+        />
+      ),
       style: panelStyle,
     },
   ];

@@ -1,9 +1,19 @@
 import { Button, Select, Table } from 'antd';
-import React, { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; columns: any; formatMessage: any }) {
-  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState('');
-
+function ProformaTable({
+  tableData,
+  columns,
+  formatMessage,
+  setFooterInsuranceCoefficient,
+  footerInsuranceCoefficient,
+}: {
+  tableData: any;
+  columns: any;
+  formatMessage: any;
+  setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
+  footerInsuranceCoefficient: string;
+}) {
   return (
     <div>
       <Table

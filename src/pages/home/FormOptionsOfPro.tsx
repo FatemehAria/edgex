@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
   {
     name: 'recordProfitMargin',
