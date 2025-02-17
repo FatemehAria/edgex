@@ -47,6 +47,11 @@ function ProformaTable({
           insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
           setinsurancePrice(insurancePrice);
 
+          const totalFinalSalePrice = tableData.reduce(
+            (sum: any, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
+            0,
+          );
+
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
 
@@ -83,6 +88,9 @@ function ProformaTable({
                 <p>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
                   {totalCostWithout}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{totalFinalSalePrice}
                 </p>
                 <p>
                   {/* footerInsuranceCoefficient */}

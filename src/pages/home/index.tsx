@@ -31,6 +31,7 @@ function Home() {
       itemShareOfTaxAndIns: '',
       itemSalePrice: '',
       finalSalePrice: '',
+      totalFinalSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -64,6 +65,7 @@ function Home() {
       itemShareOfTaxAndIns: '',
       itemSalePrice: '',
       finalSalePrice: '',
+      totalFinalSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -140,7 +142,7 @@ function Home() {
             const finalSalePrice = updatedRow.itemSalePrice * updatedRow.qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
-            
+
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =
