@@ -99,6 +99,7 @@ function Home() {
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
 
+            // هزینه کل
             updatedRow.totalPriceWithoutFactors = qty * unitCost;
 
             const {
@@ -106,6 +107,7 @@ function Home() {
               'record-commute': commute = 0,
               'record-amount-discount': amountDiscount = 0,
             } = updatedRow.modalValues || {};
+
             // قیمت فروش اولیه
             const primarySalesPrice =
               Number(updatedRow.recordProfitMargin) * updatedRow.unitCost + Number(updatedRow.unitCost);
@@ -177,7 +179,11 @@ function Home() {
             const updatedRow = { ...row, modalValues: { ...values } };
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
+
+            // هزینه کل
             const totalPriceWithoutFactors = qty * unitCost;
+
+            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
 
             const percentageDiscount = Number(values['record-percentage-discount'] || 0);
             const commute = Number(values['record-commute'] || 0);
@@ -194,8 +200,6 @@ function Home() {
             updatedRow.itemTotalPrice = itemTotalPrice;
 
             const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
-
-            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =
               primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
@@ -523,11 +527,11 @@ function Home() {
             scroll={{ x: 1500 }}
             footer={() => {
               const totalQty = tableData.reduce((sum, row) => sum + (parseFloat(row.qty) || 0), 0);
-              const totalCostWithout = tableData.reduce((sum, row) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
-              const totalCostWith = tableData.reduce(
-                (sum, row) => sum + (parseFloat(row.totalPriceWithFactors) || 0),
+              const totalCostWithout = tableData.reduce(
+                (sum, row) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
                 0,
               );
+              const totalCostOfRows = tableData.reduce((sum, row) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
               const totalDecremented = tableData.reduce((sum, row) => sum + (parseFloat(row.decFactors) || 0), 0);
               const totalIncremented = tableData.reduce((sum, row) => sum + (parseFloat(row.incFactors) || 0), 0);
 
@@ -560,11 +564,11 @@ function Home() {
                     </p>
                     <p>
                       {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}:{' '}
-                      {totalCostWithout}
+                      {totalCostOfRows}
                     </p>
                     <p>
                       {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
-                      {totalCostWith}
+                      {totalCostWithout}
                     </p>
                   </div>
                 </div>
