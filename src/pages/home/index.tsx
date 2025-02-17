@@ -30,6 +30,7 @@ function Home() {
       footerInsurancePrice: '',
       itemShareOfTaxAndIns: '',
       itemSalePrice: '',
+      finalSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -62,6 +63,7 @@ function Home() {
       footerInsurancePrice: '',
       itemShareOfTaxAndIns: '',
       itemSalePrice: '',
+      finalSalePrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -134,6 +136,11 @@ function Home() {
 
             updatedRow.itemSalePrice = itemSalePrice;
 
+            // قیمت فروش نهایی
+            const finalSalePrice = updatedRow.itemSalePrice * updatedRow.qty;
+
+            updatedRow.finalSalePrice = finalSalePrice;
+            
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =

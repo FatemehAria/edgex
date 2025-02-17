@@ -41,6 +41,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.factor': 'مقدار عوامل',
   'app.home.detailInfo.table.desc': 'توضیحات',
   'app.home.detailInfo.table.itemSalePrice': 'قیمت فروش آیتم',
+  'app.home.detailInfo.table.finalSalePrice': 'قیمت فروش نهایی',
   'app.home.detailInfo.table.itemShareOfTaxAndIns': 'سهم آیتم از بیمه و مالیات',
   'app.home.detailInfo.table.footer.totalInc': 'جمع افزوده',
   'app.home.detailInfo.table.footer.totalDec': 'جمع کسورات',
