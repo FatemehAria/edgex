@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
+import { AutoComplete, Button, Collapse, Form, Input, Modal, Select, Table, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
@@ -20,18 +20,16 @@ function Home() {
     {
       key: 1,
       category: '',
-      requirements: '',
       supplier: '',
-      correctiveAction: '',
+      recordProfitMargin: 0,
+      primarySalesPrice: '',
       qty: '',
       unitCost: '',
-      corrActCost: '',
       totalPriceWithFactors: '',
       totalPriceWithoutFactors: '',
       description: '',
       factorValue: '',
       modalValues: {
-        'record-profit-margin': 0,
         'record-percentage-discount': 0,
         'record-commute': 0,
         'record-amount-discount': 0,
@@ -54,18 +52,17 @@ function Home() {
     const newRow = {
       key: nextKey,
       category: '',
-      requirements: '',
+      items: '',
       supplier: '',
-      correctiveAction: '',
+      recordProfitMargin: 0,
+      primarySalesPrice: '',
       qty: '',
       unitCost: '',
-      corrActCost: '',
       totalPriceWithFactors: '',
       totalPriceWithoutFactors: '',
       description: '',
       factorValue: '',
       modalValues: {
-        'record-profit-margin': 0,
         'record-percentage-discount': 0,
         'record-commute': 0,
         'record-amount-discount': 0,
@@ -81,15 +78,7 @@ function Home() {
   };
 
   const isRowFilled = (row: any) => {
-    const requiredFields = [
-      'requirements',
-      'category',
-      'supplier',
-      // 'correctiveAction',
-      'qty',
-      'unitCost',
-      // 'corrActCost',
-    ];
+    const requiredFields = ['category', 'supplier', 'qty', 'unitCost'];
 
     return requiredFields.every(field => {
       const value = row[field];
@@ -104,28 +93,26 @@ function Home() {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          if (
-            dataIndex === 'qty' ||
-            dataIndex === 'unitCost' ||
-            dataIndex === 'corrActCost' ||
-            dataIndex === 'factorValue'
-          ) {
+          if (dataIndex === 'qty' || dataIndex === 'unitCost' || dataIndex === 'factorValue') {
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
-            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
 
-            updatedRow.totalPriceWithoutFactors = corrActCost + qty * unitCost;
+            updatedRow.totalPriceWithoutFactors = qty * unitCost;
             const {
-              'record-profit-margin': profitMargin = 0,
               'record-percentage-discount': percentageDiscount = 0,
               'record-commute': commute = 0,
               'record-amount-discount': amountDiscount = 0,
             } = updatedRow.modalValues || {};
-            const recordProfitMargin = (Number(profitMargin) / 100) * updatedRow.totalPriceWithoutFactors;
+            // قیمت فروش اولیه
+            const primarySalesPrice =
+              Number(updatedRow.recordProfitMargin) * updatedRow.unitCost + Number(updatedRow.unitCost);
+
+            updatedRow.primarySalesPrice = primarySalesPrice;
+
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =
-              recordProfitMargin +
+              primarySalesPrice +
               Number(commute) +
               updatedRow.totalPriceWithoutFactors -
               Number(amountDiscount) -
@@ -182,23 +169,27 @@ function Home() {
             const updatedRow = { ...row, modalValues: { ...values } };
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
-            const corrActCost = parseFloat(updatedRow.corrActCost) || 0;
-            const totalPriceWithoutFactors = corrActCost + qty * unitCost;
+            const totalPriceWithoutFactors = qty * unitCost;
 
-            const profitMargin = Number(values['record-profit-margin'] || 0);
             const percentageDiscount = Number(values['record-percentage-discount'] || 0);
             const commute = Number(values['record-commute'] || 0);
             const amountDiscount = Number(values['record-amount-discount'] || 0);
-            const recordProfitMargin = (profitMargin / 100) * totalPriceWithoutFactors;
+            // قیمت فروش اولیه
+            const primarySalesPrice =
+              Number(updatedRow.recordProfitMargin * updatedRow.unitCost) + Number(updatedRow.unitCost);
+
+            updatedRow.primarySalesPrice = primarySalesPrice;
+
             const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
-            updatedRow.totalPriceWithFactors =
-              recordProfitMargin + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
 
-            updatedRow.factor = commute + amountDiscount + recordProfitMargin + recordPercentageDiscount;
+            updatedRow.totalPriceWithFactors =
+              primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
+
+            updatedRow.factor = commute + amountDiscount + primarySalesPrice + recordPercentageDiscount;
             updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
-            updatedRow.incFactors = commute + profitMargin;
+            updatedRow.incFactors = commute + primarySalesPrice;
 
             return updatedRow;
           }
@@ -229,24 +220,6 @@ function Home() {
       render: (text: string) => <span>{text}</span>,
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.requirements' })}`,
-      dataIndex: 'requirements',
-      key: 'requirements',
-      width: 200,
-      render: (text: string, record: any) => (
-        <Select
-          value={text}
-          placeholder="Select requirement"
-          onChange={value => handleCellChange(value, record.key, 'requirements')}
-          options={[
-            { label: 'Requirement 1', value: 'req1' },
-            { label: 'Requirement 2', value: 'req2' },
-          ]}
-          style={{ width: '100%' }}
-        />
-      ),
-    },
-    {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.category' })}`,
       dataIndex: 'category',
       key: 'category',
@@ -259,6 +232,24 @@ function Home() {
           options={[
             { label: 'category 1', value: 'category1' },
             { label: 'category 2', value: 'category2' },
+          ]}
+          style={{ width: '100%' }}
+        />
+      ),
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.items' })}`,
+      dataIndex: 'items',
+      key: 'items',
+      width: 200,
+      render: (text: string, record: any) => (
+        <Select
+          value={text}
+          placeholder="Select items"
+          onChange={value => handleCellChange(value, record.key, 'items')}
+          options={[
+            { label: 'items 1', value: 'items1' },
+            { label: 'items 2', value: 'items2' },
           ]}
           style={{ width: '100%' }}
         />
@@ -283,19 +274,30 @@ function Home() {
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.correctiveAction' })}`,
-      dataIndex: 'correctiveAction',
-      key: 'correctiveAction',
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.desc' })}`,
+      dataIndex: 'description',
+      key: 'description',
       width: 200,
       render: (text: string, record: any) => (
-        <Select
+        <Input.TextArea
           value={text}
-          placeholder="Select corrective action"
-          onChange={value => handleCellChange(value, record.key, 'correctiveAction')}
-          options={[
-            { label: 'corrective action 1', value: 'corrective action1' },
-            { label: 'corrective action 2', value: 'corrective action2' },
-          ]}
+          placeholder="Enter description"
+          onChange={e => handleCellChange(e.target.value, record.key, 'description')}
+          style={{ width: '100%' }}
+        />
+      ),
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.profitPercentage' })}`,
+      dataIndex: 'recordProfitMargin',
+      key: 'recordProfitMargin',
+      width: 200,
+      render: (text: string, record: any) => (
+        <AutoComplete
+          value={text}
+          placeholder=""
+          onChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
+          options={[{ value: '100' }, { value: '200' }]}
           style={{ width: '100%' }}
         />
       ),
@@ -321,27 +323,13 @@ function Home() {
       key: 'unitCost',
       width: 120,
       render: (text: string, record: any) => (
-        <Input
+        <AutoComplete
           value={text}
+          options={[{ value: '100' }, { value: '200' }]}
           placeholder="Enter cost"
-          type="number"
-          onChange={e => handleCellChange(e.target.value, record.key, 'unitCost')}
-          min={0}
-        />
-      ),
-    },
-    {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.corrActCost' })}`,
-      dataIndex: 'corrActCost',
-      key: 'corrActCost',
-      width: 120,
-      render: (text: string, record: any) => (
-        <Input
-          value={text}
-          placeholder="Enter corrective action cost"
-          type="number"
-          onChange={e => handleCellChange(e.target.value, record.key, 'corrActCost')}
-          min={0}
+          onChange={value => handleCellChange(value, record.key, 'unitCost')}
+          style={{ width: '100%' }}
+          allowClear
         />
       ),
     },
@@ -368,6 +356,12 @@ function Home() {
           </Modal>
         </div>
       ),
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}`,
+      dataIndex: 'primarySalesPrice',
+      key: 'primarySalesPrice',
+      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
@@ -417,7 +411,7 @@ function Home() {
 
   const modalFormOptions: MyFormOptions = [
     {
-      name: 'record-profit-margin',
+      name: 'recordProfitMargin',
       label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.profitMargin' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
