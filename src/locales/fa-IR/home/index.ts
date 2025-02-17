@@ -27,6 +27,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.price': 'هزینه کل',
   'app.home.detailInfo.table.profitPercentage': 'درصد سود',
   'app.home.detailInfo.table.primarySalesPrice': 'قیمت فروش اولیه',
+  'app.home.detailInfo.table.itemTotalPrice': 'قیمت کل آیتم',
   'app.home.detailInfo.table.red': 'کاهنده',
   'app.home.detailInfo.table.inc': 'افزاینده',
   'app.home.detailInfo.table.totalPrice': 'هزینه نهایی',
@@ -41,7 +42,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.desc': 'توضیحات',
   'app.home.detailInfo.table.footer.totalInc': 'جمع افزوده',
   'app.home.detailInfo.table.footer.totalDec': 'جمع کسورات',
-  'app.home.detailInfo.table.footer.totalCostWithFactors': 'هزینه خالص',
+  'app.home.detailInfo.table.footer.totalCostWithFactors': 'جمع قیمت فروش',
   'app.home.detailInfo.table.footer.totalCostWithoutFactors': 'هزینه کل',
   'app.home.detailInfo.table.footer.totalQty': 'تعداد کل',
 };

@@ -23,10 +23,11 @@ function Home() {
       supplier: '',
       recordProfitMargin: 0,
       primarySalesPrice: '',
+      itemTotalPrice: '',
+      totalPriceWithoutFactors: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
-      totalPriceWithoutFactors: '',
       description: '',
       factorValue: '',
       modalValues: {
@@ -56,6 +57,7 @@ function Home() {
       supplier: '',
       recordProfitMargin: 0,
       primarySalesPrice: '',
+      itemTotalPrice: '',
       qty: '',
       unitCost: '',
       totalPriceWithFactors: '',
@@ -98,6 +100,7 @@ function Home() {
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
 
             updatedRow.totalPriceWithoutFactors = qty * unitCost;
+
             const {
               'record-percentage-discount': percentageDiscount = 0,
               'record-commute': commute = 0,
@@ -108,6 +111,11 @@ function Home() {
               Number(updatedRow.recordProfitMargin) * updatedRow.unitCost + Number(updatedRow.unitCost);
 
             updatedRow.primarySalesPrice = primarySalesPrice;
+
+            // قیمت کل آیتم
+            const itemTotalPrice = primarySalesPrice * Number(updatedRow.qty);
+
+            updatedRow.itemTotalPrice = itemTotalPrice;
 
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
@@ -179,6 +187,11 @@ function Home() {
               Number(updatedRow.recordProfitMargin * updatedRow.unitCost) + Number(updatedRow.unitCost);
 
             updatedRow.primarySalesPrice = primarySalesPrice;
+
+            // قیمت کل آیتم
+            const itemTotalPrice = primarySalesPrice * Number(updatedRow.qty);
+
+            updatedRow.itemTotalPrice = itemTotalPrice;
 
             const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
 
@@ -364,6 +377,12 @@ function Home() {
       render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
     },
     {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemTotalPrice' })}`,
+      dataIndex: 'itemTotalPrice',
+      key: 'itemTotalPrice',
+      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+    },
+    {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
       dataIndex: 'totalPriceWithoutFactors',
       key: 'totalPriceWithoutFactors',
@@ -501,12 +520,10 @@ function Home() {
             columns={columns}
             pagination={false}
             rowClassName="editable-row"
+            scroll={{ x: 1500 }}
             footer={() => {
               const totalQty = tableData.reduce((sum, row) => sum + (parseFloat(row.qty) || 0), 0);
-              const totalCostWithout = tableData.reduce(
-                (sum, row) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
-                0,
-              );
+              const totalCostWithout = tableData.reduce((sum, row) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
               const totalCostWith = tableData.reduce(
                 (sum, row) => sum + (parseFloat(row.totalPriceWithFactors) || 0),
                 0,
