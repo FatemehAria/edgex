@@ -43,6 +43,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.footer.totalInc': 'جمع افزوده',
   'app.home.detailInfo.table.footer.totalDec': 'جمع کسورات',
   'app.home.detailInfo.table.footer.totalCostWithFactors': 'جمع قیمت فروش',
+  'app.home.detailInfo.table.footerInsurancePrice': 'مبلغ بیمه',
   'app.home.detailInfo.table.footer.totalCostWithoutFactors': 'جمع هزینه',
   'app.home.detailInfo.table.footer.totalQty': 'تعداد کل',
 };

@@ -20,6 +20,9 @@ function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; 
             (sum: any, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
             0,
           );
+          //   مبلغ بیمه
+          const insurancePrice = 0.085 * totalCostOfRows;
+
           const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
           const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
 
@@ -56,6 +59,9 @@ function ProformaTable({ tableData, columns, formatMessage }: { tableData: any; 
                 <p>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
                   {totalCostWithout}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:{insurancePrice}
                 </p>
               </div>
             </div>
