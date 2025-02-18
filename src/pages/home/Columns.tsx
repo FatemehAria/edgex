@@ -1,8 +1,8 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import { faTrashCan, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AutoComplete, Input, Modal, Select } from 'antd';
+import { AutoComplete, Input, Select } from 'antd';
 
 import FormLayout from '../layout/form-layout';
 
@@ -88,7 +88,7 @@ export const Columns = (
     title: `${formatMessage({ id: 'app.home.detailInfo.table.desc' })}`,
     dataIndex: 'description',
     key: 'description',
-    width: 200,
+    width: 600,
     render: (text: string, record: any) => (
       <Input.TextArea
         value={text}
@@ -204,18 +204,18 @@ export const Columns = (
     key: 'itemShareOfTaxAndIns',
     render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
   },
-  {
-    title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
-    dataIndex: 'totalPriceWithFactors',
-    key: 'totalPriceWithFactors',
-    render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
-  },
-  {
-    title: `${formatMessage({ id: 'app.home.detailInfo.table.factor' })}`,
-    dataIndex: 'factor',
-    key: 'factor',
-    render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
-  },
+  // {
+  //   title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
+  //   dataIndex: 'totalPriceWithFactors',
+  //   key: 'totalPriceWithFactors',
+  //   render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+  // },
+  // {
+  //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factor' })}`,
+  //   dataIndex: 'factor',
+  //   key: 'factor',
+  //   render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+  // },
   {
     title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
     dataIndex: 'actions',

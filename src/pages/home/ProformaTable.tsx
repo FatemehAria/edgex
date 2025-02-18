@@ -43,7 +43,7 @@ function ProformaTable({
         columns={columns}
         pagination={false}
         rowClassName="editable-row"
-        scroll={{ x: 1500 }}
+        scroll={{ x: 2000 }}
         footer={() => {
           const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
           // جمع هزینه
