@@ -144,30 +144,30 @@ export const Columns = (
       />
     ),
   },
-  {
-    title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
-    dataIndex: 'factorValue',
-    key: 'factorValue',
-    render: (text: string, record: any) => (
-      <div>
-        <FontAwesomeIcon
-          icon={faUpRightFromSquare}
-          onClick={() => showModal(record.key)}
-          style={{ cursor: 'pointer' }}
-        />
-        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <FormLayout
-            form={modalForm}
-            FormOptions={modalFormOptions}
-            isGrid={true}
-            layoutDir="vertical"
-            showButton={false}
-            submitForm={handleModalFormSubmit}
-          />
-        </Modal>
-      </div>
-    ),
-  },
+  // {
+  //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
+  //   dataIndex: 'factorValue',
+  //   key: 'factorValue',
+  //   render: (text: string, record: any) => (
+  //     <div>
+  //       <FontAwesomeIcon
+  //         icon={faUpRightFromSquare}
+  //         onClick={() => showModal(record.key)}
+  //         style={{ cursor: 'pointer' }}
+  //       />
+  //       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+  //         <FormLayout
+  //           form={modalForm}
+  //           FormOptions={modalFormOptions}
+  //           isGrid={true}
+  //           layoutDir="vertical"
+  //           showButton={false}
+  //           submitForm={handleModalFormSubmit}
+  //         />
+  //       </Modal>
+  //     </div>
+  //   ),
+  // },
   {
     title: `${formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}`,
     dataIndex: 'primarySalesPrice',

@@ -49,8 +49,6 @@ function Home() {
         'record-amount-discount': 0,
       },
       factor: '',
-      decFactors: 0,
-      incFactors: 0,
     },
   ]);
 
@@ -90,8 +88,6 @@ function Home() {
         'record-amount-discount': 0,
       },
       factor: '',
-      decFactors: 0,
-      incFactors: 0,
     };
 
     setNextKey(prev => prev + 1);
