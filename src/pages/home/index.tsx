@@ -7,37 +7,39 @@ import { useEffect, useState } from 'react';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
-import { Columns } from './columns';
+import { Columns } from './Columns';
 import { ModalFormOptions, ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
 
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
+
+  // Use numbers for numeric states instead of empty strings.
   const [nextKey, setNextKey] = useState(2);
-  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState('');
-  const [insurancePrice, setinsurancePrice] = useState('');
-  const [totalCostOfRows, setTotalCostOfRows] = useState('');
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0"
+  const [insurancePrice, setinsurancePrice] = useState<number>(0);
+  const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
     {
       key: 1,
       category: '',
       supplier: '',
       recordProfitMargin: 0,
-      primarySalesPrice: '',
-      itemTotalPrice: '',
-      totalPriceWithoutFactors: '',
-      footerInsurancePrice: '',
-      itemShareOfTaxAndIns: '',
-      itemSalePrice: '',
-      finalSalePrice: '',
-      totalFinalSalePrice: '',
-      vat: '',
-      total: '',
-      tenPercentTax:'',
+      primarySalesPrice: 0,
+      itemTotalPrice: 0,
+      totalPriceWithoutFactors: 0,
+      footerInsurancePrice: 0,
+      itemShareOfTaxAndIns: 0,
+      itemSalePrice: 0,
+      finalSalePrice: 0,
+      totalFinalSalePrice: 0,
+      vat: 0,
+      total: 0,
+      tenPercentTax: 0,
       qty: '',
       unitCost: '',
-      totalPriceWithFactors: '',
+      totalPriceWithFactors: 0,
       description: '',
       factorValue: '',
       modalValues: {
@@ -62,20 +64,20 @@ function Home() {
       items: '',
       supplier: '',
       recordProfitMargin: 0,
-      primarySalesPrice: '',
-      itemTotalPrice: '',
-      footerInsurancePrice: '',
-      itemShareOfTaxAndIns: '',
-      itemSalePrice: '',
-      finalSalePrice: '',
-      totalFinalSalePrice: '',
-      vat: '',
-      total: '',
-      tenPercentTax: '',
+      primarySalesPrice: 0,
+      itemTotalPrice: 0,
+      footerInsurancePrice: 0,
+      itemShareOfTaxAndIns: 0,
+      itemSalePrice: 0,
+      finalSalePrice: 0,
+      totalFinalSalePrice: 0,
+      vat: 0,
+      total: 0,
+      tenPercentTax: 0,
       qty: '',
       unitCost: '',
-      totalPriceWithFactors: '',
-      totalPriceWithoutFactors: '',
+      totalPriceWithFactors: 0,
+      totalPriceWithoutFactors: 0,
       description: '',
       factorValue: '',
       modalValues: {
@@ -113,7 +115,7 @@ function Home() {
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
 
-            // هزینه کل
+            // Total price without factors
             updatedRow.totalPriceWithoutFactors = qty * unitCost;
 
             const {
@@ -122,30 +124,33 @@ function Home() {
               'record-amount-discount': amountDiscount = 0,
             } = updatedRow.modalValues || {};
 
-            // قیمت فروش اولیه
-            const primarySalesPrice =
-              Number(updatedRow.recordProfitMargin) * updatedRow.unitCost + Number(updatedRow.unitCost);
+            // Primary sales price calculation
+            const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
 
             updatedRow.primarySalesPrice = primarySalesPrice;
 
-            // قیمت کل آیتم
-            const itemTotalPrice = primarySalesPrice * Number(updatedRow.qty);
+            // Total item price
+            const itemTotalPrice = primarySalesPrice * qty;
 
             updatedRow.itemTotalPrice = itemTotalPrice;
 
+            // Guard against division by zero. If totalCostOfRows or qty is zero, use 1 as fallback.
+            const totalCost = totalCostOfRows || 1;
+            const qtyNumber = qty || 1;
+            const shareOfTaxAndInsModulo = Number(insurancePrice) / totalCost / qtyNumber;
             // سهم آیتم از بیمه و مالیات
-            const shareOfTaxAndInsModulo = Number(insurancePrice) / Number(totalCostOfRows) / Number(updatedRow.qty);
-            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * updatedRow.itemTotalPrice;
+            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
 
             updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
 
-            // قیمت فروش آیتم
-            const itemSalePrice = updatedRow.primarySalesPrice + updatedRow.itemShareOfTaxAndIns;
+            console.log(updatedRow.itemShareOfTaxAndIns);
+            // Item sale price = primary sales price + share of tax and insurance
+            const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
             updatedRow.itemSalePrice = itemSalePrice;
 
-            // قیمت فروش نهایی
-            const finalSalePrice = updatedRow.itemSalePrice * updatedRow.qty;
+            // Final sale price = item sale price * quantity
+            const finalSalePrice = itemSalePrice * qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
 
@@ -209,31 +214,22 @@ function Home() {
             const updatedRow = { ...row, modalValues: { ...values } };
             const qty = parseFloat(updatedRow.qty) || 0;
             const unitCost = parseFloat(updatedRow.unitCost) || 0;
-
-            // هزینه کل
             const totalPriceWithoutFactors = qty * unitCost;
 
             updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
-
             const percentageDiscount = Number(values['record-percentage-discount'] || 0);
             const commute = Number(values['record-commute'] || 0);
             const amountDiscount = Number(values['record-amount-discount'] || 0);
-            // قیمت فروش اولیه
-            const primarySalesPrice =
-              Number(updatedRow.recordProfitMargin * updatedRow.unitCost) + Number(updatedRow.unitCost);
+            const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
 
             updatedRow.primarySalesPrice = primarySalesPrice;
-
-            // قیمت کل آیتم
-            const itemTotalPrice = primarySalesPrice * Number(updatedRow.qty);
+            const itemTotalPrice = primarySalesPrice * qty;
 
             updatedRow.itemTotalPrice = itemTotalPrice;
-
             const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
 
             updatedRow.totalPriceWithFactors =
               primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
-
             updatedRow.factor = commute + amountDiscount + primarySalesPrice + recordPercentageDiscount;
             updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
             updatedRow.incFactors = commute + primarySalesPrice;
@@ -259,7 +255,6 @@ function Home() {
   };
 
   const modalFormOptions: any = ModalFormOptions(formatMessage);
-
   const columns = Columns(
     formatMessage,
     handleCellChange,
@@ -273,7 +268,6 @@ function Home() {
     handleOk,
     handleCancel,
   );
-
   const proformaFormOptions: any = ProformaFormOptions(formatMessage);
 
   const panelStyle: CSSProperties = {

@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
 import { Button, Select, Table } from 'antd';
+import { useEffect } from 'react';
 
 function ProformaTable({
   tableData,
@@ -18,11 +19,25 @@ function ProformaTable({
   formatMessage: any;
   setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
   footerInsuranceCoefficient: string;
-  insurancePrice: any;
-  setinsurancePrice: any;
-  setTotalCostOfRows: any;
-  totalCostOfRows: any;
+  insurancePrice: number;
+  setinsurancePrice: Dispatch<SetStateAction<number>>;
+  setTotalCostOfRows: Dispatch<SetStateAction<number>>;
+  totalCostOfRows: number;
 }) {
+  useEffect(() => {
+    // Calculate the total of itemTotalPrice values
+    // جمع قیمت فروش
+    const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
+    setTotalCostOfRows(totalCost);
+
+    // Calculate insurance price based on the coefficient and total cost.
+    //   مبلغ بیمه
+    const calculatedInsurancePrice = Number(footerInsuranceCoefficient) * totalCost;
+
+    setinsurancePrice(calculatedInsurancePrice);
+  }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
+
   return (
     <div>
       <Table
@@ -32,38 +47,30 @@ function ProformaTable({
         rowClassName="editable-row"
         scroll={{ x: 1500 }}
         footer={() => {
-          const totalQty = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.qty) || 0), 0);
+          const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
           const totalCostWithout = tableData.reduce(
-            (sum: any, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
+            (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
             0,
           );
-          // جمع قیمت فروش
-
-          totalCostOfRows = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
-
-          setTotalCostOfRows(totalCostOfRows);
-
-          //   مبلغ بیمه
-          insurancePrice = Number(footerInsuranceCoefficient) * totalCostOfRows;
-          setinsurancePrice(insurancePrice);
-
           //   جمع قیمت فروش نهایی فاکتور
           const totalFinalSalePrice = tableData.reduce(
-            (sum: any, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
+            (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
             0,
           );
-
-          //   vat
+          // vat
           const vat = 0.1 * totalFinalSalePrice;
-
-          //   total
+          // total
           const total = vat + totalFinalSalePrice;
-
-          //   10 درصد مالیات بر ارزش افزوده
+          // 10 درصد مالیات بر ارزش افزوده
           const tenPercentTax = 0.1 * totalFinalSalePrice;
-
-          const totalDecremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.decFactors) || 0), 0);
-          const totalIncremented = tableData.reduce((sum: any, row: any) => sum + (parseFloat(row.incFactors) || 0), 0);
+          const totalDecremented = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.decFactors) || 0),
+            0,
+          );
+          const totalIncremented = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.incFactors) || 0),
+            0,
+          );
 
           return (
             <div
@@ -100,22 +107,21 @@ function ProformaTable({
                   {totalCostWithout}
                 </p>
                 <p>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{totalFinalSalePrice}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}: {totalFinalSalePrice}
                 </p>
                 <p>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{vat}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}: {vat}
                 </p>
                 <p>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{total}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}: {total}
                 </p>
                 <p>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{tenPercentTax}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}: {tenPercentTax}
                 </p>
                 <p>
-                  {/* footerInsuranceCoefficient */}
                   <Select
                     value={footerInsuranceCoefficient}
-                    placeholder="Select supplier"
+                    placeholder="Select coefficient"
                     onChange={value => setFooterInsuranceCoefficient(value)}
                     options={[
                       { label: '0.085', value: '0.085' },

@@ -187,12 +187,6 @@ export const Columns = (
     render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
   },
   {
-    title: `${formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}`,
-    dataIndex: 'footerInsurancePrice',
-    key: 'footerInsurancePrice',
-    render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
-  },
-  {
     title: `${formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}`,
     dataIndex: 'itemSalePrice',
     key: 'itemSalePrice',
