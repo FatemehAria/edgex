@@ -48,6 +48,7 @@ function ProformaTable({
         scroll={{ x: 1500 }}
         footer={() => {
           const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
+          // جمع هزینه
           const totalCostWithout = tableData.reduce(
             (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
             0,
@@ -63,6 +64,13 @@ function ProformaTable({
           const total = vat + totalFinalSalePrice;
           // 10 درصد مالیات بر ارزش افزوده
           const tenPercentTax = 0.1 * totalFinalSalePrice;
+          // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
+          const finalProfit = totalFinalSalePrice - tenPercentTax - insurancePrice - totalCostWithout;
+          // حاشیه سود نهایی
+          const totalProfitMargin = (finalProfit * 100) / totalFinalSalePrice;
+          // چک مبلغ بیمه
+          const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
+
           const totalDecremented = tableData.reduce(
             (sum: number, row: any) => sum + (parseFloat(row.decFactors) || 0),
             0,
@@ -131,6 +139,16 @@ function ProformaTable({
                     style={{ width: '100%' }}
                   />
                   {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:{insurancePrice}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}: {finalProfit}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfitMargin' })}: {totalProfitMargin}
+                </p>
+                <p>
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}:{' '}
+                  {insuranceCheckAmount}
                 </p>
               </div>
             </div>

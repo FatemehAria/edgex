@@ -14,10 +14,8 @@ import ProformaTable from './ProformaTable';
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
-
-  // Use numbers for numeric states instead of empty strings.
   const [nextKey, setNextKey] = useState(2);
-  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0"
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -34,9 +32,12 @@ function Home() {
       itemSalePrice: 0,
       finalSalePrice: 0,
       totalFinalSalePrice: 0,
+      totalProfitMargin: 0,
+      insuranceCheckAmount: 0,
       vat: 0,
       total: 0,
       tenPercentTax: 0,
+      finalProfit: 0,
       qty: '',
       unitCost: '',
       totalPriceWithFactors: 0,
@@ -71,8 +72,11 @@ function Home() {
       itemSalePrice: 0,
       finalSalePrice: 0,
       totalFinalSalePrice: 0,
+      totalProfitMargin: 0,
+      insuranceCheckAmount: 0,
       vat: 0,
       total: 0,
+      finalProfit: 0,
       tenPercentTax: 0,
       qty: '',
       unitCost: '',

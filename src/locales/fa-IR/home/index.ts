@@ -52,5 +52,8 @@ export const faIR_home = {
   'app.home.detailInfo.table.footer.vat': 'VAT',
   'app.home.detailInfo.table.footer.total': 'مجموع',
   'app.home.detailInfo.table.footer.tenPercentTax': '10% مالیات بر ارزش افزوده',
+  'app.home.detailInfo.table.footer.finalProfit': 'مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها ',
+  'app.home.detailInfo.table.footer.finalProfitMargin': 'حاشیه سود نهایی ',
+  'app.home.detailInfo.table.footer.insuranceCheckAmount': 'چک مبلغ بیمه',
   'app.home.detailInfo.table.footer.totalQty': 'تعداد کل',
 };

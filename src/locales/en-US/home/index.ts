@@ -52,5 +52,9 @@ export const enUs_home = {
   'app.home.detailInfo.table.footer.total': 'Total',
   'app.home.detailInfo.table.footer.totalFinalSalePrice': 'Total Final Sale Price',
   'app.home.detailInfo.table.footer.tenPercentTax': '10% Tax',
+  'app.home.detailInfo.table.footer.finalProfit':
+    'The final profit amount after deducting taxes, insurance, and expenses',
+  'app.home.detailInfo.table.footer.finalProfitMargin': 'Final Profit Margin ',
+  'app.home.detailInfo.table.footer.insuranceCheckAmount': 'Insurance Check Amount',
   'app.home.detailInfo.table.footer.totalQty': 'Total Cost (factors included)',
 };
