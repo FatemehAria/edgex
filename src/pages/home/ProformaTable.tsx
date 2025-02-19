@@ -45,6 +45,7 @@ function ProformaTable({
         rowClassName="editable-row"
         scroll={{ x: 2000 }}
         footer={() => {
+          // تعداد
           const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
           // جمع هزینه
           const totalCostWithout = tableData.reduce(
@@ -91,23 +92,28 @@ function ProformaTable({
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}: {totalQty}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}: {totalCostOfRows}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}:{' '}
+                  {totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
-                  {totalCostWithout}
+                  {totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}: {totalFinalSalePrice}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{' '}
+                  {totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}: {vat}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{' '}
+                  {vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}: {total}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{' '}
+                  {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}: {tenPercentTax}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{' '}
+                  {tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
                   <Select
@@ -121,17 +127,23 @@ function ProformaTable({
                     ]}
                     style={{ width: '100%' }}
                   />
-                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:{insurancePrice}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:
+                  {Math.round(insurancePrice)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}: {finalProfit}
+                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}:{' '}
+                  {finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfitMargin' })}: {totalProfitMargin}
                 </span>
                 <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}:{' '}
-                  {insuranceCheckAmount}
+                  {Math.round(insuranceCheckAmount)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
               </p>
             </div>

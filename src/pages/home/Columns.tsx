@@ -179,37 +179,50 @@ export const Columns = (
       title: `${formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}`,
       dataIndex: 'primarySalesPrice',
       key: 'primarySalesPrice',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.itemTotalPrice' })}`,
       dataIndex: 'itemTotalPrice',
       key: 'itemTotalPrice',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
       dataIndex: 'totalPriceWithoutFactors',
       key: 'totalPriceWithoutFactors',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}`,
       dataIndex: 'itemSalePrice',
       key: 'itemSalePrice',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+    },
+    {
+      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemSalePriceRounded' })}`,
+      dataIndex: 'itemSalePriceRounded',
+      key: 'itemSalePriceRounded',
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.finalSalePrice' })}`,
       dataIndex: 'finalSalePrice',
       key: 'finalSalePrice',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}`,
       dataIndex: 'itemShareOfTaxAndIns',
       key: 'itemShareOfTaxAndIns',
-      render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
+      render: (text: string) =>
+        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
     },
     // {
     //   title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,

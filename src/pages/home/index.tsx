@@ -30,6 +30,7 @@ function Home() {
       footerInsurancePrice: 0,
       itemShareOfTaxAndIns: 0,
       itemSalePrice: 0,
+      itemSalePriceRounded: 0,
       finalSalePrice: 0,
       totalFinalSalePrice: 0,
       totalProfitMargin: 0,
@@ -72,6 +73,7 @@ function Home() {
       totalFinalSalePrice: 0,
       totalProfitMargin: 0,
       insuranceCheckAmount: 0,
+      itemSalePriceRounded: 0,
       vat: 0,
       total: 0,
       finalProfit: 0,
@@ -96,7 +98,7 @@ function Home() {
   };
 
   const isRowFilled = (row: any) => {
-    const requiredFields = ['category', 'supplier', 'qty', 'unitCost'];
+    const requiredFields = ['qty', 'unitCost'];
 
     return requiredFields.every(field => {
       const value = row[field];
@@ -141,13 +143,14 @@ function Home() {
             // سهم آیتم از بیمه و مالیات
             const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
 
-            updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
+            updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
 
             console.log(updatedRow.itemShareOfTaxAndIns);
             // Item sale price = primary sales price + share of tax and insurance
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
             updatedRow.itemSalePrice = itemSalePrice;
+            updatedRow.itemSalePriceRounded = Math.ceil(itemSalePrice);
 
             // Final sale price = item sale price * quantity
             const finalSalePrice = itemSalePrice * qty;

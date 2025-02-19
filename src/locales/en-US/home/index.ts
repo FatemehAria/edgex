@@ -41,6 +41,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.factor': 'Factors',
   'app.home.detailInfo.table.desc': 'Description',
   'app.home.detailInfo.table.app.home.detailInfo.table.itemSalePrice': 'Item Sales Price',
+  'app.home.detailInfo.table.app.home.detailInfo.table.itemSalePriceRounded': 'Item Sales Price (Rounded)',
   'app.home.detailInfo.table.finalSalePrice': 'Final Sales Price',
   'app.home.detailInfo.table.itemShareOfTaxAndIns': 'Share of items from insurance and taxes',
   'app.home.detailInfo.table.footer.totalInc': 'Total Incrementation',
