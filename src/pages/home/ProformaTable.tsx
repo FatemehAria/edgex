@@ -70,7 +70,7 @@ function ProformaTable({
           // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
           const finalProfit = totalFinalSalePrice - tenPercentTax - insurancePrice - totalCostWithout;
           // حاشیه سود نهایی
-          const totalProfitMargin = (finalProfit * 100) / totalFinalSalePrice;
+          const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
           // چک مبلغ بیمه
           const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
 
