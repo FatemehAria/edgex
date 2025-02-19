@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
 import { Button, Select, Table } from 'antd';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function ProformaTable({
   tableData,
@@ -37,7 +37,7 @@ function ProformaTable({
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
   return (
-    <div>
+    <React.Fragment>
       <Table
         dataSource={tableData}
         columns={columns}
@@ -78,7 +78,7 @@ function ProformaTable({
                 borderRadius: '5px',
               }}
             >
-              <div
+              <p
                 style={{
                   display: 'flex',
                   justifyContent: 'space-around',
@@ -87,29 +87,29 @@ function ProformaTable({
                   color: 'white',
                 }}
               >
-                <p>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}: {totalQty}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}: {totalCostOfRows}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
                   {totalCostWithout}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}: {totalFinalSalePrice}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}: {vat}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}: {total}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}: {tenPercentTax}
-                </p>
-                <p>
+                </span>
+                <span>
                   <Select
                     value={footerInsuranceCoefficient}
                     placeholder="Select coefficient"
@@ -122,18 +122,18 @@ function ProformaTable({
                     style={{ width: '100%' }}
                   />
                   {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:{insurancePrice}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}: {finalProfit}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfitMargin' })}: {totalProfitMargin}
-                </p>
-                <p>
+                </span>
+                <span>
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}:{' '}
                   {insuranceCheckAmount}
-                </p>
-              </div>
+                </span>
+              </p>
             </div>
           );
         }}
@@ -141,7 +141,7 @@ function ProformaTable({
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary">{formatMessage({ id: 'app.home.submissionBtn' })}</Button>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

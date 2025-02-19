@@ -1,14 +1,14 @@
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, Form, theme } from 'antd';
+import { Collapse, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 import { Columns } from './Columns';
-import { ModalFormOptions, ProformaFormOptions } from './FormOptionsOfPro';
+import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
 
 function Home() {
@@ -52,9 +52,9 @@ function Home() {
     },
   ]);
 
-  const [modalForm] = Form.useForm();
-  const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [modalForm] = Form.useForm();
+  // const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const createEmptyRow = () => {
     const newRow = {
@@ -192,81 +192,82 @@ function Home() {
     });
   };
 
-  const showModal = (rowKey: number) => {
-    setActiveRowKey(rowKey);
-    setIsModalOpen(true);
-    const row = tableData.find(r => r.key === rowKey);
+  // const showModal = (rowKey: number) => {
+  //   setActiveRowKey(rowKey);
+  //   setIsModalOpen(true);
+  //   const row = tableData.find(r => r.key === rowKey);
 
-    if (row && row.modalValues) {
-      modalForm.setFieldsValue(row.modalValues);
-    } else {
-      modalForm.resetFields();
-    }
-  };
+  //   if (row && row.modalValues) {
+  //     modalForm.setFieldsValue(row.modalValues);
+  //   } else {
+  //     modalForm.resetFields();
+  //   }
+  // };
 
-  const handleOk = async () => {
-    try {
-      const values = await modalForm.validateFields();
+  // const handleOk = async () => {
+  //   try {
+  //     const values = await modalForm.validateFields();
 
-      setTableData(prevData =>
-        prevData.map(row => {
-          if (row.key === activeRowKey) {
-            const updatedRow = { ...row, modalValues: { ...values } };
-            const qty = parseFloat(updatedRow.qty) || 0;
-            const unitCost = parseFloat(updatedRow.unitCost) || 0;
-            const totalPriceWithoutFactors = qty * unitCost;
+  //     setTableData(prevData =>
+  //       prevData.map(row => {
+  //         if (row.key === activeRowKey) {
+  //           const updatedRow = { ...row, modalValues: { ...values } };
+  //           const qty = parseFloat(updatedRow.qty) || 0;
+  //           const unitCost = parseFloat(updatedRow.unitCost) || 0;
+  //           const totalPriceWithoutFactors = qty * unitCost;
 
-            updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
-            const percentageDiscount = Number(values['record-percentage-discount'] || 0);
-            const commute = Number(values['record-commute'] || 0);
-            const amountDiscount = Number(values['record-amount-discount'] || 0);
-            const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
+  //           updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
+  //           const percentageDiscount = Number(values['record-percentage-discount'] || 0);
+  //           const commute = Number(values['record-commute'] || 0);
+  //           const amountDiscount = Number(values['record-amount-discount'] || 0);
+  //           const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
 
-            updatedRow.primarySalesPrice = primarySalesPrice;
-            const itemTotalPrice = primarySalesPrice * qty;
+  //           updatedRow.primarySalesPrice = primarySalesPrice;
+  //           const itemTotalPrice = primarySalesPrice * qty;
 
-            updatedRow.itemTotalPrice = itemTotalPrice;
-            const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
+  //           updatedRow.itemTotalPrice = itemTotalPrice;
+  //           const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
 
-            updatedRow.totalPriceWithFactors =
-              primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
-            updatedRow.factor = commute + amountDiscount + primarySalesPrice + recordPercentageDiscount;
-            updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
-            updatedRow.incFactors = commute + primarySalesPrice;
+  //           updatedRow.totalPriceWithFactors =
+  //             primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
+  //           updatedRow.factor = commute + amountDiscount + primarySalesPrice + recordPercentageDiscount;
+  //           updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
+  //           updatedRow.incFactors = commute + primarySalesPrice;
 
-            return updatedRow;
-          }
+  //           return updatedRow;
+  //         }
 
-          return row;
-        }),
-      );
-      setIsModalOpen(false);
-      modalForm.resetFields();
-      setActiveRowKey(null);
-    } catch (error) {
-      console.error('Form validation failed:', error);
-    }
-  };
+  //         return row;
+  //       }),
+  //     );
+  //     setIsModalOpen(false);
+  //     modalForm.resetFields();
+  //     setActiveRowKey(null);
+  //   } catch (error) {
+  //     console.error('Form validation failed:', error);
+  //   }
+  // };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-    modalForm.resetFields();
-    setActiveRowKey(null);
-  };
+  // const handleCancel = () => {
+  //   setIsModalOpen(false);
+  //   modalForm.resetFields();
+  //   setActiveRowKey(null);
+  // };
 
-  const modalFormOptions: any = ModalFormOptions(formatMessage);
+  // const modalFormOptions: any = ModalFormOptions(formatMessage);
+
   const columns = Columns(
     formatMessage,
     handleCellChange,
-    showModal,
+    // showModal,
     deleteRow,
     tableData,
     isRowFilled,
-    isModalOpen,
-    modalForm,
-    modalFormOptions,
-    handleOk,
-    handleCancel,
+    // isModalOpen,
+    // modalForm,
+    // modalFormOptions,
+    // handleOk,
+    // handleCancel,
   );
   const proformaFormOptions: any = ProformaFormOptions(formatMessage);
 
@@ -283,14 +284,12 @@ function Home() {
       key: '1',
       label: `${formatMessage({ id: 'app.home.headerInfo' })}`,
       children: (
-        <div>
-          <FormLayout
-            FormOptions={proformaFormOptions}
-            layoutDir="vertical"
-            isGrid={true}
-            submitForm={() => console.log('')}
-          />
-        </div>
+        <FormLayout
+          FormOptions={proformaFormOptions}
+          layoutDir="vertical"
+          isGrid={true}
+          submitForm={() => console.log('')}
+        />
       ),
       style: panelStyle,
     },

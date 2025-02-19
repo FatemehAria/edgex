@@ -1,29 +1,26 @@
-import type { MyFormOptions } from '@/components/core/form';
-
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AutoComplete, Input, Select } from 'antd';
-import { useState } from 'react';
+import { AutoComplete, Input } from 'antd';
 
-import FormLayout from '../layout/form-layout';
+// import FormLayout from '../layout/form-layout';
 import AddableSelect from './AddableSelect';
 
-const handleModalFormSubmit = (values: any) => {
-  console.log('Modal form submitted (unused):', values);
-};
+// const handleModalFormSubmit = (values: any) => {
+//   console.log('Modal form submitted (unused):', values);
+// };
 
 export const Columns = (
   formatMessage: (descriptor: any) => string,
   handleCellChange: (value: string, key: string, dataIndex: string) => void,
-  showModal: (rowKey: number) => void,
+  // showModal: (rowKey: number) => void,
   deleteRow: (key: string) => void,
   tableData: any[],
   isRowFilled: (row: any) => boolean,
-  isModalOpen: boolean,
-  modalForm: any,
-  modalFormOptions: MyFormOptions,
-  handleOk: () => void,
-  handleCancel: () => void,
+  // isModalOpen: boolean,
+  // modalForm: any,
+  // modalFormOptions: MyFormOptions,
+  // handleOk: () => void,
+  // handleCancel: () => void,
 ) => {
   return [
     {
@@ -81,15 +78,16 @@ export const Columns = (
       key: 'supplier',
       width: 200,
       render: (text: string, record: any) => (
-        <Select
-          value={text}
-          placeholder="Select supplier"
-          onChange={value => handleCellChange(value, record.key, 'supplier')}
-          options={[
-            { label: 'supplier 1', value: 'supplier1' },
-            { label: 'supplier 2', value: 'supplier2' },
+        <AddableSelect
+          dataIndex="supplier"
+          placeholder="تامین کننده"
+          text={text}
+          record={record}
+          handleCellChange={handleCellChange}
+          initialOptions={[
+            { label: 'supplier 1', value: 'category1' },
+            // { label: 'category 2', value: 'category2' },
           ]}
-          style={{ width: '100%' }}
         />
       ),
     },
@@ -233,7 +231,7 @@ export const Columns = (
         const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
-          <div>
+          <span>
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => {
@@ -247,7 +245,7 @@ export const Columns = (
                 opacity: isDisabled ? 0.4 : 1,
               }}
             />
-          </div>
+          </span>
         );
       },
     },

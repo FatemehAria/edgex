@@ -2,6 +2,7 @@ import type { MyFormOptions } from '@/components/core/form';
 import type { FormLayout as AntdFormLayout } from 'antd/es/form/Form';
 
 import { Button, Form } from 'antd';
+import React from 'react';
 
 import MyForm from '@/components/core/form';
 import { useLocale } from '@/locales';
@@ -24,7 +25,7 @@ function FormLayout({
   const { formatMessage } = useLocale();
 
   return (
-    <div>
+    <React.Fragment>
       <MyForm
         form={form}
         options={FormOptions}
@@ -44,7 +45,7 @@ function FormLayout({
           </Button>
         </Form.Item>
       </MyForm>
-    </div>
+    </React.Fragment>
   );
 }
 
