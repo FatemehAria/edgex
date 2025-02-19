@@ -1,3 +1,5 @@
+import './columns.css';
+
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AutoComplete, Input } from 'antd';
@@ -24,14 +26,14 @@ export const Columns = (
 ) => {
   return [
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
       dataIndex: 'key',
       key: 'key',
       width: 50,
-      render: (text: string) => <span>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.category' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.category' })}</span>,
       dataIndex: 'category',
       key: 'category',
       width: 200,
@@ -52,7 +54,7 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.items' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.items' })}</span>,
       dataIndex: 'items',
       key: 'items',
       width: 200,
@@ -73,7 +75,7 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.supplier' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.supplier' })}</span>,
       dataIndex: 'supplier',
       key: 'supplier',
       width: 200,
@@ -92,7 +94,7 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.desc' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.desc' })}</span>,
       dataIndex: 'description',
       key: 'description',
       width: 600,
@@ -106,7 +108,9 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.profitPercentage' })}`,
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.profitPercentage' })}</span>
+      ),
       dataIndex: 'recordProfitMargin',
       key: 'recordProfitMargin',
       width: 200,
@@ -121,10 +125,10 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.qty' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.qty' })}</span>,
       dataIndex: 'qty',
       key: 'qty',
-      width: 100,
+      width: 200,
       render: (text: string, record: any) => (
         <Input
           value={text}
@@ -136,7 +140,7 @@ export const Columns = (
       ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}</span>,
       dataIndex: 'unitCost',
       key: 'unitCost',
       width: 120,
@@ -151,6 +155,7 @@ export const Columns = (
         />
       ),
     },
+    // ******************Modal*********************
     // {
     //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
     //   dataIndex: 'factorValue',
@@ -176,75 +181,76 @@ export const Columns = (
     //   ),
     // },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}`,
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}</span>
+      ),
       dataIndex: 'primarySalesPrice',
       key: 'primarySalesPrice',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemTotalPrice' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemTotalPrice' })}</span>,
       dataIndex: 'itemTotalPrice',
       key: 'itemTotalPrice',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.price' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.price' })}</span>,
       dataIndex: 'totalPriceWithoutFactors',
       key: 'totalPriceWithoutFactors',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}</span>,
       dataIndex: 'itemSalePrice',
       key: 'itemSalePrice',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemSalePriceRounded' })}`,
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemSalePriceRounded' })}</span>
+      ),
       dataIndex: 'itemSalePriceRounded',
       key: 'itemSalePriceRounded',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.finalSalePrice' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.finalSalePrice' })}</span>,
       dataIndex: 'finalSalePrice',
       key: 'finalSalePrice',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}`,
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}</span>
+      ),
       dataIndex: 'itemShareOfTaxAndIns',
       key: 'itemShareOfTaxAndIns',
-      render: (text: string) =>
-        text ? <span style={{ color: '#36454f' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> : '-',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
     },
-    // {
-    //   title: `${formatMessage({ id: 'app.home.detailInfo.table.totalPrice' })}`,
-    //   dataIndex: 'totalPriceWithFactors',
-    //   key: 'totalPriceWithFactors',
-    //   render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
-    // },
-    // {
-    //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factor' })}`,
-    //   dataIndex: 'factor',
-    //   key: 'factor',
-    //   render: (text: string) => (text ? <span style={{ color: '#36454f' }}>{text}</span> : '-'),
-    // },
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.actions' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.actions' })}</span>,
       dataIndex: 'actions',
       key: 'actions',
       render: (_: any, record: any) => {
         const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
-          <span>
+          <span className="center-align">
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => {

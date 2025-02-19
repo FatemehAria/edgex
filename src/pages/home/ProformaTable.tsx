@@ -1,5 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
+import './columns.css';
+
 import { Button, Select, Table } from 'antd';
 import React, { useEffect } from 'react';
 
@@ -88,34 +90,34 @@ function ProformaTable({
                   color: 'white',
                 }}
               >
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}: {totalQty}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}:{' '}
                   {totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
                   {totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{' '}
                   {totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{' '}
                   {vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{' '}
                   {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{' '}
                   {tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   <Select
                     value={footerInsuranceCoefficient}
                     placeholder="Select coefficient"
@@ -132,14 +134,14 @@ function ProformaTable({
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}:{' '}
                   {finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfitMargin' })}: {totalProfitMargin}
                 </span>
-                <span>
+                <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}:{' '}
                   {Math.round(insuranceCheckAmount)
                     .toString()
