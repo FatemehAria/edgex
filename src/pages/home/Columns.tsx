@@ -2,13 +2,14 @@ import './columns.css';
 
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AutoComplete, Input } from 'antd';
-import { useState } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
 // import FormLayout from '../layout/form-layout';
-import AddableSelect from './AddableSelect';
+import AutoFocusAddableSelect from './AutoFocusAddableSelect';
+import AutoFocusAutoComplete from './AutoFocusAutoComplete';
+import AutoFocusInput from './AutoFocusInput';
+import AutoFocusTextArea from './AutoFocusTextArea';
 
 // const handleModalFormSubmit = (values: any) => {
 //   console.log('Modal form submitted (unused):', values);
@@ -43,18 +44,15 @@ export const Columns = (
       key: 'category',
       width: 200,
       render: (text: string, record: any) => (
-        <AddableSelect
+        <AutoFocusAddableSelect
+          id={`cell-${record.key}-category`}
+          nextId={`cell-${record.key}-items`}
           dataIndex="category"
           placeholder="گروه"
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={
-            [
-              // { label: 'category 1', value: 'category1' },
-              // { label: 'category 2', value: 'category2' },
-            ]
-          }
+          initialOptions={[]}
         />
       ),
     },
@@ -65,18 +63,15 @@ export const Columns = (
       key: 'items',
       width: 200,
       render: (text: string, record: any) => (
-        <AddableSelect
+        <AutoFocusAddableSelect
+          id={`cell-${record.key}-items`}
+          nextId={`cell-${record.key}-supplier`}
           dataIndex="items"
           placeholder="آیتم ها"
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={
-            [
-              // { label: 'category 1', value: 'category1' },
-              // { label: 'category 2', value: 'category2' },
-            ]
-          }
+          initialOptions={[]}
         />
       ),
     },
@@ -87,16 +82,15 @@ export const Columns = (
       key: 'supplier',
       width: 200,
       render: (text: string, record: any) => (
-        <AddableSelect
+        <AutoFocusAddableSelect
+          id={`cell-${record.key}-supplier`}
+          nextId={`cell-${record.key}-description`}
           dataIndex="supplier"
           placeholder="تامین کننده"
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[
-            { label: 'supplier 1', value: 'category1' },
-            // { label: 'category 2', value: 'category2' },
-          ]}
+          initialOptions={[{ label: 'supplier 1', value: 'supplier1' }]}
         />
       ),
     },
@@ -107,11 +101,14 @@ export const Columns = (
       key: 'description',
       width: 600,
       render: (text: string, record: any) => (
-        <Input.TextArea
+        <AutoFocusTextArea
+          id={`cell-${record.key}-description`}
+          nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder="Enter description"
-          onChange={e => handleCellChange(e.target.value, record.key, 'description')}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
           style={{ width: '100%' }}
+          debounceTime={3000}
         />
       ),
     },
@@ -124,12 +121,18 @@ export const Columns = (
       key: 'recordProfitMargin',
       width: 200,
       render: (text: string, record: any) => (
-        <AutoComplete
+        <AutoFocusAutoComplete
+          id={`cell-${record.key}-recordProfitMargin`}
+          nextId={`cell-${record.key}-qty`}
           value={text}
           placeholder=""
-          onChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
-          options={[{ value: '100' }, { value: '200' }]}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
+          options={[
+            { label: '100', value: '100' },
+            { label: '200', value: '200' },
+          ]}
+          debounceTime={3000}
         />
       ),
     },
@@ -140,12 +143,15 @@ export const Columns = (
       key: 'qty',
       width: 200,
       render: (text: string, record: any) => (
-        <Input
+        <AutoFocusInput
+          id={`cell-${record.key}-qty`}
+          nextId={`cell-${record.key}-unitCost`}
           value={text}
           placeholder="Enter quantity"
           type="number"
-          onChange={e => handleCellChange(e.target.value, record.key, 'qty')}
-          min={0}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
+          style={{ width: '100%' }}
+          debounceTime={3000}
         />
       ),
     },
@@ -156,13 +162,20 @@ export const Columns = (
       key: 'unitCost',
       width: 120,
       render: (text: string, record: any) => (
-        <AutoComplete
+        <AutoFocusAutoComplete
+          id={`cell-${record.key}-unitCost`}
           value={text}
-          options={[{ value: '100' }, { value: '200' }]}
           placeholder="Enter cost"
-          onChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
-          // onChange={value => handleCellChange(value, record.key, 'unitCost')}
+          onDebouncedChange={value =>
+            // Use your handleValueChange that formats the value before calling handleCellChange.
+            handleValueChange(value, handleCellChange, record, 'unitCost')
+          }
           style={{ width: '100%' }}
+          options={[
+            { label: '100', value: '100' },
+            { label: '200', value: '200' },
+          ]}
+          debounceTime={3000}
         />
       ),
     },
