@@ -25,11 +25,6 @@ export const Columns = (
   handleOk: () => void,
   handleCancel: () => void,
 ) => {
-  const [categoryOptions, setCategoryOptions] = useState([
-    { label: 'category 1', value: 'category1' },
-    { label: 'category 2', value: 'category2' },
-  ]);
-
   return [
     {
       title: `${formatMessage({ id: 'app.home.detailInfo.table.row' })}`,
@@ -45,13 +40,17 @@ export const Columns = (
       width: 200,
       render: (text: string, record: any) => (
         <AddableSelect
+          dataIndex="category"
+          placeholder="گروه"
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[
-            { label: 'category 1', value: 'category1' },
-            { label: 'category 2', value: 'category2' },
-          ]}
+          initialOptions={
+            [
+              // { label: 'category 1', value: 'category1' },
+              // { label: 'category 2', value: 'category2' },
+            ]
+          }
         />
       ),
     },
@@ -61,15 +60,18 @@ export const Columns = (
       key: 'items',
       width: 200,
       render: (text: string, record: any) => (
-        <Select
-          value={text}
-          placeholder="Select items"
-          onChange={value => handleCellChange(value, record.key, 'items')}
-          options={[
-            { label: 'items 1', value: 'items1' },
-            { label: 'items 2', value: 'items2' },
-          ]}
-          style={{ width: '100%' }}
+        <AddableSelect
+          dataIndex="items"
+          placeholder="آیتم ها"
+          text={text}
+          record={record}
+          handleCellChange={handleCellChange}
+          initialOptions={
+            [
+              // { label: 'category 1', value: 'category1' },
+              // { label: 'category 2', value: 'category2' },
+            ]
+          }
         />
       ),
     },
