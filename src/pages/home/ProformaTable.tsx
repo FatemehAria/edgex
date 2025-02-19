@@ -39,7 +39,7 @@ function ProformaTable({
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
   return (
-    <React.Fragment>
+    <div style={{ overflow: 'hidden' }}>
       <Table
         dataSource={tableData}
         columns={columns}
@@ -76,7 +76,8 @@ function ProformaTable({
             <div
               style={{
                 textAlign: 'left',
-                paddingRight: '1rem',
+                padding: '0.5rem',
+                // paddingRight: '1rem',
                 backgroundColor: '#800000',
                 borderRadius: '5px',
               }}
@@ -84,9 +85,9 @@ function ProformaTable({
               <p
                 style={{
                   display: 'flex',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
-                  gap: '1rem',
+                  justifyContent: 'space-between',
+                  // alignItems: 'center',
+                  gap: '0.5rem',
                   color: 'white',
                 }}
               >
@@ -117,22 +118,27 @@ function ProformaTable({
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{' '}
                   {tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
-                <span className="center-align">
+                <span
+                  className="center-align"
+                  style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}
+                >
+                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:
                   <Select
-                    value={footerInsuranceCoefficient}
-                    placeholder="Select coefficient"
+                    value={
+                      insurancePrice !== 0
+                        ? Math.round(insurancePrice)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        : footerInsuranceCoefficient
+                    }
+                    placeholder={`${formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}`}
                     onChange={value => setFooterInsuranceCoefficient(value)}
                     options={[
                       { label: '0.085', value: '0.085' },
                       { label: '0.2', value: '0.2' },
                       { label: '0', value: '0' },
                     ]}
-                    style={{ width: '100%' }}
                   />
-                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:
-                  {Math.round(insurancePrice)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
                 <span className="center-align">
                   {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}:{' '}
@@ -155,7 +161,7 @@ function ProformaTable({
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary">{formatMessage({ id: 'app.home.submissionBtn' })}</Button>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
