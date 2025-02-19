@@ -78,7 +78,7 @@ function ProformaTable({
                 textAlign: 'left',
                 padding: '0.5rem',
                 // paddingRight: '1rem',
-                backgroundColor: '#800000',
+                backgroundColor: '#91bebb',
                 borderRadius: '5px',
               }}
             >
@@ -88,7 +88,6 @@ function ProformaTable({
                   justifyContent: 'space-between',
                   // alignItems: 'center',
                   gap: '0.5rem',
-                  color: 'white',
                 }}
               >
                 <span className="center-align">

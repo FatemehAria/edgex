@@ -115,7 +115,8 @@ function Home() {
 
           if (dataIndex === 'qty' || dataIndex === 'unitCost' || dataIndex === 'factorValue') {
             const qty = parseFloat(updatedRow.qty) || 0;
-            const unitCost = parseFloat(updatedRow.unitCost) || 0;
+            // Remove commas before converting to a number:
+            const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
 
             // Total price without factors
             updatedRow.totalPriceWithoutFactors = qty * unitCost;

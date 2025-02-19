@@ -16,14 +16,3 @@ export const handleValueChange = (
 
   handleCellChange(formatted, record.key, dataIndex);
 };
-
-export const handleBlur = (
-  value: string,
-  handleCellChange: (value: string, key: string, dataIndex: string) => void,
-  record: any,
-  dataIndex: string,
-) => {
-  const formatted = formatValue(value);
-
-  handleCellChange(formatted, record.key, dataIndex);
-};

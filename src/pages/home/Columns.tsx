@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AutoComplete, Input } from 'antd';
 import { useState } from 'react';
 
+import { handleValueChange } from '@/utils/formatTypingNums';
+
 // import FormLayout from '../layout/form-layout';
 import AddableSelect from './AddableSelect';
-import { handleBlur, handleValueChange } from '@/utils/formatTypingNums';
 
 // const handleModalFormSubmit = (values: any) => {
 //   console.log('Modal form submitted (unused):', values);
@@ -26,24 +27,6 @@ export const Columns = (
   // handleOk: () => void,
   // handleCancel: () => void,
 ) => {
-  const [value, setValue] = useState('');
-
-  const handleChange = (input: string) => {
-    // Remove commas and any non-digit characters (optionally allow decimals)
-    const plainNumber = input.replace(/,/g, '');
-    // Try converting to a number
-    const numericVal = Number(plainNumber);
-
-    // If the input is a valid number, format it. Otherwise, leave it as is.
-
-    if (!isNaN(numericVal)) {
-      // Note: This simple approach formats and moves the caret to the end.
-      setValue(numericVal.toLocaleString('en-US'));
-    } else {
-      setValue(input);
-    }
-  };
-
   return [
     // شماره
     {
@@ -168,25 +151,21 @@ export const Columns = (
     },
     // هزینه
     {
-      title: `${formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}`,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}</span>,
       dataIndex: 'unitCost',
       key: 'unitCost',
       width: 120,
-      render: (text: string, record: any) => {
-        return (
-          <AutoComplete
-            value={text}
-            options={[{ value: '100' }, { value: '200' }]}
-            placeholder="Enter cost"
-            onChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
-            onBlur={() => handleBlur(value, handleCellChange, record, 'unitCost')}
-            style={{ width: '100%' }}
-            allowClear
-          />
-        );
-      },
+      render: (text: string, record: any) => (
+        <AutoComplete
+          value={text}
+          options={[{ value: '100' }, { value: '200' }]}
+          placeholder="Enter cost"
+          onChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
+          // onChange={value => handleCellChange(value, record.key, 'unitCost')}
+          style={{ width: '100%' }}
+        />
+      ),
     },
-    ,
     // ******************Modal*********************
     // {
     //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
