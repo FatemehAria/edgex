@@ -1,0 +1,30 @@
+.custom-footer-table .ant-table {
+    background-color: #8fbfbb;
+    width: 100%;
+}
+
+.custom-footer-table .ant-table-thead>tr>th {
+    border-bottom: none !important;
+    background-color: #8fbfbb;
+    text-align: center !important;
+}
+
+.custom-footer-table .ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.ant-table-footer {
+    background-color: #8fbfbb !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+}
+
+.custom-footer-table .ant-table-tbody>tr:hover>td {
+    background-color: #8fbfbb !important;
+}
+
+.custom-footer-table .ant-table-thead>tr>th:last-child {
+    padding-left: 20px !important;
+    /* Adjust the value as needed */
+}

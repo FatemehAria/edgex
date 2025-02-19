@@ -5,6 +5,8 @@ import './columns.css';
 import { Button, Select, Table } from 'antd';
 import React, { useEffect } from 'react';
 
+import FooterTableColumns from './FooterTableColumns';
+
 function ProformaTable({
   tableData,
   columns,
@@ -72,89 +74,63 @@ function ProformaTable({
           // چک مبلغ بیمه
           const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
 
-          return (
+          const FooterTableData = [
+            {
+              totalQty: totalQty,
+              totalCostWithFactors: `${totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              totalCostWithoutFactors: `${totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              vat: `${vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              tenPercentTax: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              finalProfitMargin: `${totalProfitMargin}`,
+              insuranceCheckAmount: `${Math.round(insuranceCheckAmount)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              footerInsurancePrice: `${Math.round(insurancePrice)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+            },
+          ];
+
+          // Render the footer
+          const footerContent = (
             <div
               style={{
-                textAlign: 'left',
+                backgroundColor: '#fffeff',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                // gap: '0.5rem',
                 padding: '0.5rem',
-                // paddingRight: '1rem',
-                backgroundColor: '#91bebb',
-                borderRadius: '5px',
+                borderRadius: '0.5rem',
+                width: '100%',
               }}
             >
-              <p
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  // alignItems: 'center',
-                  gap: '0.5rem',
-                }}
-              >
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}: {totalQty}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}:{' '}
-                  {totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}:{' '}
-                  {totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}:{' '}
-                  {totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}:{' '}
-                  {vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}:{' '}
-                  {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}:{' '}
-                  {tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span
-                  className="center-align"
-                  style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}
-                >
-                  {formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}:
-                  <Select
-                    value={
-                      insurancePrice !== 0
-                        ? Math.round(insurancePrice)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                        : footerInsuranceCoefficient
-                    }
-                    placeholder={`${formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}`}
-                    onChange={value => setFooterInsuranceCoefficient(value)}
-                    options={[
-                      { label: '0.085', value: '0.085' },
-                      { label: '0.2', value: '0.2' },
-                      { label: '0', value: '0' },
-                    ]}
-                  />
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}:{' '}
-                  {finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfitMargin' })}: {totalProfitMargin}
-                </span>
-                <span className="center-align">
-                  {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}:{' '}
-                  {Math.round(insuranceCheckAmount)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </span>
-              </p>
+              <span>
+                {Math.round(insurancePrice)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </span>
+              <Select
+                bordered={false}
+                value={footerInsuranceCoefficient}
+                placeholder={`${formatMessage({
+                  id: 'app.home.detailInfo.table.footerInsurancePrice',
+                })}`}
+                onChange={value => setFooterInsuranceCoefficient(value)}
+                options={[
+                  { label: '0.085', value: '0.085' },
+                  { label: '0.2', value: '0.2' },
+                  { label: '0', value: '0' },
+                ]}
+                style={{ outline: 'none' }}
+              />
             </div>
           );
+
+          return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;
         }}
       />
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
