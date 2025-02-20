@@ -51,14 +51,6 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     {
-      title: (
-        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}</span>
-      ),
-      dataIndex: 'tenPercentTax',
-      key: 'tenPercentTax',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.total' })}</span>,
       dataIndex: 'total',
       key: 'total',
@@ -96,7 +88,7 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       ),
       dataIndex: 'finalProfitMargin',
       key: 'finalProfitMargin',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{Number(text).toFixed(9)}</span>,
     },
     {
       title: (

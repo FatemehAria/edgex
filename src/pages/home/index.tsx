@@ -150,7 +150,7 @@ function Home() {
             // Item sale price = primary sales price + share of tax and insurance
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
-            updatedRow.itemSalePrice = itemSalePrice;
+            updatedRow.itemSalePrice = Math.round(itemSalePrice);
             updatedRow.itemSalePriceRounded = Math.ceil(itemSalePrice);
 
             // Final sale price = item sale price * quantity
