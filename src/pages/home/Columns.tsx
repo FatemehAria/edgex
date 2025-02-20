@@ -244,8 +244,16 @@ export const Columns = (
       ),
       dataIndex: 'itemSalePriceRounded',
       key: 'itemSalePriceRounded',
-      render: (text: string) => (
-        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      render: (text: string, record: any) => (
+        <AutoFocusInput
+          id={`cell-${record.key}-itemSalePriceRounded`}
+          value={text}
+          placeholder="Enter rounded sale price"
+          type="input"
+          onDebouncedChange={value => handleCellChange(value, record.key, 'itemSalePriceRounded')}
+          style={{ width: '100%' }}
+          debounceTime={3000}
+        />
       ),
     },
     {

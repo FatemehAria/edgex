@@ -151,6 +151,7 @@ function Home() {
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
             updatedRow.itemSalePrice = itemSalePrice;
+
             updatedRow.itemSalePriceRounded = Math.round(itemSalePrice);
 
             // قیمت فروش نهایی
