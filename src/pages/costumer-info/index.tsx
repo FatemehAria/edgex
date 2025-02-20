@@ -55,6 +55,7 @@ function CostumerInfo() {
       layoutDir="vertical"
       submitForm={values => console.log('Submitted values:', values)}
       isGrid={false}
+      showButton={true}
     />
   );
 }

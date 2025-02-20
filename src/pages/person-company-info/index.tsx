@@ -108,6 +108,7 @@ function CompanyPersonInfo() {
       layoutDir="vertical"
       submitForm={values => console.log('Submitted values:', values)}
       isGrid={true}
+      showButton={true}
     />
   );
 }

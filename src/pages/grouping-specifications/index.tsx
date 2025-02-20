@@ -49,6 +49,7 @@ function GroupingSpecifications() {
         layoutDir="vertical"
         submitForm={values => console.log('Submitted values:', values)}
         isGrid={false}
+        showButton={true}
       />
       {/* <MyForm
         options={groupingSpecificationsFormOptions}
