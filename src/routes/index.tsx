@@ -24,7 +24,6 @@ const FavoritesPage = lazy(() => import(/* webpackChunkName: "form'"*/ '@/pages/
 const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));
 const HomePage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/home'));
 const DashboardPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/account'));
-const MediaDetailsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/media-details'));
 
 const routeList: RouteObject[] = [
   {
@@ -66,10 +65,6 @@ const routeList: RouteObject[] = [
       {
         path: '/main-tables/supplier',
         element: <WrapperRouteComponent element={<Supplier />} titleId="title.supplier" />,
-      },
-      {
-        path: '/:media_id',
-        element: <WrapperRouteComponent element={<MediaDetailsPage />} titleId="title.homepage" />,
       },
       {
         path: 'account',
