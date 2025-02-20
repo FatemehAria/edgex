@@ -36,12 +36,17 @@ export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) 
     name: 'header-info-costumer',
     label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
     type: 'select',
-    innerProps: { placeholder: '' },
+    innerProps: {
+      mode: 'tags',
+      placeholder: '',
+      getValueFromEvent: (value: string[]) => (value.length > 0 ? value[value.length - 1] : ''),
+    },
     options: [
       { label: 'مشتری یک', value: '1' },
       { label: 'مشتری دو', value: '2' },
     ],
   },
+
   {
     name: 'header-info-date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,

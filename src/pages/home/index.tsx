@@ -118,7 +118,7 @@ function Home() {
             // Remove commas before converting to a number:
             const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
 
-            // Total price without factors
+            // هزینه کل
             updatedRow.totalPriceWithoutFactors = qty * unitCost;
 
             const {
@@ -127,12 +127,12 @@ function Home() {
               'record-amount-discount': amountDiscount = 0,
             } = updatedRow.modalValues || {};
 
-            // Primary sales price calculation
+            // قیمت فروش اولیه
             const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
 
             updatedRow.primarySalesPrice = primarySalesPrice;
 
-            // Total item price
+            // قیمت کل آیتم
             const itemTotalPrice = primarySalesPrice * qty;
 
             updatedRow.itemTotalPrice = itemTotalPrice;
@@ -140,20 +140,20 @@ function Home() {
             // Guard against division by zero. If totalCostOfRows or qty is zero, use 1 as fallback.
             const totalCost = totalCostOfRows || 1;
             const qtyNumber = qty || 1;
+
             const shareOfTaxAndInsModulo = Number(insurancePrice) / totalCost / qtyNumber;
             // سهم آیتم از بیمه و مالیات
             const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
 
             updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
 
-            console.log(updatedRow.itemShareOfTaxAndIns);
-            // Item sale price = primary sales price + share of tax and insurance
+            // قیکت فروش آیتم
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
-            updatedRow.itemSalePrice = Math.round(itemSalePrice);
-            updatedRow.itemSalePriceRounded = Math.ceil(itemSalePrice);
+            updatedRow.itemSalePrice = itemSalePrice;
+            updatedRow.itemSalePriceRounded = Math.round(itemSalePrice);
 
-            // Final sale price = item sale price * quantity
+            // قیمت فروش نهایی
             const finalSalePrice = itemSalePrice * qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
