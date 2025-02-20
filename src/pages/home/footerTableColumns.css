@@ -32,7 +32,7 @@
 
 /* scrollbar */
 ::-webkit-scrollbar {
-    height: 5px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-track {

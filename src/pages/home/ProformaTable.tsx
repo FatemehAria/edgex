@@ -100,10 +100,11 @@ function ProformaTable({
               style={{
                 backgroundColor: '#fffeff',
                 display: 'flex',
+                justifyContent: 'space-between',
                 flexDirection: 'row',
                 alignItems: 'center',
                 // gap: '0.5rem',
-                padding: '0.5rem',
+                padding: '0 0.5rem',
                 borderRadius: '0.5rem',
                 width: '100%',
               }}
