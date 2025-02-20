@@ -91,7 +91,7 @@ const App: React.FC = () => {
         componentSize="middle"
         // #13c2c2
         theme={{
-          token: { colorPrimary: '#0e8b8b	', fontFamily: 'IranYekan' },
+          token: { colorPrimary: '#0e8b8b	', fontFamily: `${locale === 'fa_IR' ? 'IranYekan' : 'sans-serif'}` },
           algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
           components: {
             Input: {
