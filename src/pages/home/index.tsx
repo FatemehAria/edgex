@@ -149,6 +149,7 @@ function Home() {
             // قیمت فروش آیتم
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
+            updatedRow.itemSalePrice = itemSalePrice;
             // قیمت فروش آیتم رند شده
 
             if (dataIndex === 'itemSalePriceRounded') {
