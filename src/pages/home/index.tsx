@@ -113,7 +113,7 @@ function Home() {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          if (dataIndex === 'qty' || dataIndex === 'unitCost' || dataIndex === 'factorValue') {
+          if (['qty', 'unitCost', 'factorValue', 'itemSalePriceRounded'].includes(dataIndex)) {
             const qty = parseFloat(updatedRow.qty) || 0;
             // Remove commas before converting to a number:
             const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
@@ -137,7 +137,6 @@ function Home() {
 
             updatedRow.itemTotalPrice = itemTotalPrice;
 
-            // Guard against division by zero. If totalCostOfRows or qty is zero, use 1 as fallback.
             const totalCost = totalCostOfRows || 1;
             const qtyNumber = qty || 1;
 
@@ -147,15 +146,19 @@ function Home() {
 
             updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
 
-            // قیکت فروش آیتم
+            // قیمت فروش آیتم
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
-            updatedRow.itemSalePrice = itemSalePrice;
+            // قیمت فروش آیتم رند شده
 
-            updatedRow.itemSalePriceRounded = Math.round(itemSalePrice);
+            if (dataIndex === 'itemSalePriceRounded') {
+              updatedRow.itemSalePriceRounded = value;
+            } else {
+              updatedRow.itemSalePriceRounded = Math.round(itemSalePrice);
+            }
 
             // قیمت فروش نهایی
-            const finalSalePrice = itemSalePrice * qty;
+            const finalSalePrice = parseFloat(String(updatedRow.itemSalePriceRounded).replace(/,/g, '')) * qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
 
@@ -274,6 +277,7 @@ function Home() {
     // handleOk,
     // handleCancel,
   );
+
   const proformaFormOptions: any = ProformaFormOptions(formatMessage);
 
   const panelStyle: CSSProperties = {
