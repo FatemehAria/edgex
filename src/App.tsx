@@ -3,7 +3,7 @@ import 'dayjs/locale/zh-cn';
 import { ConfigProvider, Spin, theme as antdTheme } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import faIR from 'antd/es/locale/fa_IR';
-import axios from 'axios';
+import { JalaliLocaleListener } from 'antd-jalali';
 import dayjs from 'dayjs';
 import { Suspense, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { history, HistoryRouter } from '@/routes/history';
 
-import CopyRight from './components/basic/copy-right';
 import { localeConfig, LocaleFormatter } from './locales';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
@@ -70,20 +69,6 @@ const App: React.FC = () => {
     }
   };
 
-  const getMedia = async () => {
-    try {
-      const { data } = await axios.get('/media/uploadedMedia');
-
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getMedia();
-  }, []);
-
   return (
     <div>
       <ConfigProvider
@@ -125,6 +110,7 @@ const App: React.FC = () => {
         }}
         direction={locale === 'fa_IR' ? 'rtl' : 'ltr'}
       >
+        {locale === 'fa_IR' && <JalaliLocaleListener />}
         <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
           <HistoryRouter history={history}>
             <SearchContextProvider>
