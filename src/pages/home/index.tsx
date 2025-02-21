@@ -5,6 +5,7 @@ import { Collapse, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
+import { formatValue } from '@/utils/formatTypingNums';
 
 import FormLayout from '../layout/form-layout';
 import { Columns } from './Columns';
@@ -153,9 +154,9 @@ function Home() {
             // قیمت فروش آیتم رند شده
 
             if (dataIndex === 'itemSalePriceRounded') {
-              updatedRow.itemSalePriceRounded = value;
+              updatedRow.itemSalePriceRounded = formatValue(value);
             } else {
-              updatedRow.itemSalePriceRounded = Math.round(itemSalePrice);
+              updatedRow.itemSalePriceRounded = formatValue(String(Math.round(itemSalePrice)));
             }
 
             // قیمت فروش نهایی
