@@ -48,7 +48,7 @@ export const Columns = (
           id={`cell-${record.key}-category`}
           nextId={`cell-${record.key}-items`}
           dataIndex="category"
-          placeholder="گروه"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.category.placeholder' })}
           text={text}
           record={record}
           handleCellChange={handleCellChange}
@@ -67,7 +67,7 @@ export const Columns = (
           id={`cell-${record.key}-items`}
           nextId={`cell-${record.key}-supplier`}
           dataIndex="items"
-          placeholder="آیتم ها"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.items.placeholder' })}
           text={text}
           record={record}
           handleCellChange={handleCellChange}
@@ -86,7 +86,7 @@ export const Columns = (
           id={`cell-${record.key}-supplier`}
           nextId={`cell-${record.key}-description`}
           dataIndex="supplier"
-          placeholder="تامین کننده"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
           text={text}
           record={record}
           handleCellChange={handleCellChange}
@@ -105,7 +105,7 @@ export const Columns = (
           id={`cell-${record.key}-description`}
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
-          placeholder="Enter description"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
           onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
           style={{ width: '100%' }}
           debounceTime={3000}
@@ -121,17 +121,14 @@ export const Columns = (
       key: 'recordProfitMargin',
       width: 200,
       render: (text: string, record: any) => (
-        <AutoFocusAutoComplete
+        <AutoFocusInput
           id={`cell-${record.key}-recordProfitMargin`}
           nextId={`cell-${record.key}-qty`}
           value={text}
-          placeholder=""
+          placeholder="Enter quantity"
+          type="text"
           onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
-          options={[
-            { label: '100', value: '100' },
-            { label: '200', value: '200' },
-          ]}
           debounceTime={3000}
         />
       ),

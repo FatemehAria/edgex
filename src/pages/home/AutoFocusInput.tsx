@@ -43,7 +43,7 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
     }
   };
 
-  return <Input id={id} {...rest} onChange={handleChange} />;
+  return <Input id={id} {...rest} onChange={handleChange} autoComplete="on" />;
 };
 
 export default AutoFocusInput;
