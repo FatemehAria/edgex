@@ -30,7 +30,7 @@ export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) 
     name: 'header-info-title',
     label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
     type: 'input',
-    innerProps: { placeholder: '' },
+    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}` },
   },
   {
     name: 'header-info-costumer',
@@ -38,7 +38,7 @@ export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) 
     type: 'select',
     innerProps: {
       mode: 'tags',
-      placeholder: '',
+      placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
       getValueFromEvent: (value: string[]) => (value.length > 0 ? value[value.length - 1] : ''),
     },
     options: [
@@ -51,12 +51,12 @@ export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) 
     name: 'header-info-date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
     type: 'date-picker',
-    innerProps: { placeholder: '' },
+    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}` },
   },
   {
     name: 'header-info-desc',
     label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
     type: 'textarea',
-    innerProps: { placeholder: '' },
+    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}` },
   },
 ];
