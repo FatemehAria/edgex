@@ -125,7 +125,7 @@ export const Columns = (
           id={`cell-${record.key}-recordProfitMargin`}
           nextId={`cell-${record.key}-qty`}
           value={text}
-          placeholder="Enter quantity"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
           onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
@@ -144,11 +144,12 @@ export const Columns = (
           id={`cell-${record.key}-qty`}
           nextId={`cell-${record.key}-unitCost`}
           value={text}
-          placeholder="Enter quantity"
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.qty.placeholder' })}
           type="number"
           onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
           style={{ width: '100%' }}
           debounceTime={3000}
+          min={0}
         />
       ),
     },
@@ -159,19 +160,12 @@ export const Columns = (
       key: 'unitCost',
       width: 120,
       render: (text: string, record: any) => (
-        <AutoFocusAutoComplete
+        <AutoFocusInput
           id={`cell-${record.key}-unitCost`}
           value={text}
-          placeholder="Enter cost"
-          onDebouncedChange={value =>
-            // Use your handleValueChange that formats the value before calling handleCellChange.
-            handleValueChange(value, handleCellChange, record, 'unitCost')
-          }
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
+          onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
           style={{ width: '100%' }}
-          options={[
-            { label: '100', value: '100' },
-            { label: '200', value: '200' },
-          ]}
           debounceTime={3000}
         />
       ),
