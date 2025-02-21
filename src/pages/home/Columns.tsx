@@ -162,6 +162,7 @@ export const Columns = (
       render: (text: string, record: any) => (
         <AutoFocusInput
           id={`cell-${record.key}-unitCost`}
+          nextId={`cell-${record.key}-itemSalePriceRounded`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
           onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}

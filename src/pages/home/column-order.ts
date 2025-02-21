@@ -6,4 +6,5 @@ export const editableColumns = [
   'recordProfitMargin',
   'qty',
   'unitCost',
+  'itemSalePriceRounded',
 ];
