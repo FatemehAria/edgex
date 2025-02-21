@@ -12,15 +12,13 @@ import { ReactComponent as FaIRSvg } from '@/assets/header/fa_IR.svg';
 import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
 import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
-import AntdSvg from '@/assets/logo/antd.svg';
-import ReactSvg from '@/assets/logo/react.svg';
+import Egdex from '@/assets/logo/logo.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
 import { SearchContext } from '../home/context/SearchContext';
-import HeaderNoticeComponent from './notice';
 
 const { Header } = Layout;
 
@@ -93,8 +91,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
       {device !== 'MOBILE' && (
         <div className="logo" style={{ width: collapsed ? 80 : 200 }}>
-          <img src={ReactSvg} alt="" style={{ marginRight: collapsed ? '2px' : '20px' }} />
-          <img src={AntdSvg} alt="" />
+          <img src={Egdex} alt="edgex-logo" style={{ width: '300px' }} />
         </div>
       )}
       <div className="layout-page-header-main">

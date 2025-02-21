@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import './columns.css';
 
 import { Button, Select, Table } from 'antd';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import FooterTableColumns from './FooterTableColumns';
 
@@ -135,7 +135,7 @@ function ProformaTable({
           return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;
         }}
       />
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
         <Button type="primary">{formatMessage({ id: 'app.home.submissionBtn' })}</Button>
       </div>
     </div>
