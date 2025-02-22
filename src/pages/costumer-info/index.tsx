@@ -14,17 +14,17 @@ function CostumerInfo() {
       label: `${formatMessage({ id: 'app.costumerInfo.type' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
-      options: [],
+      options: [
+        { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
+        { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
+      ],
     },
     {
       name: 'costumer-info-person-type',
       label: `${formatMessage({ id: 'app.costumerInfo.costumerType' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
-      options: [
-        { label: `${formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' })}`, value: 'Haghighi' },
-        { label: `${formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' })}`, value: 'Hoghooghi' },
-      ],
+      options: [],
     },
     {
       name: 'costumer-info-factor-code',
