@@ -66,10 +66,10 @@ function ProformaTable({
           // total
           const total = vat + totalFinalSalePrice;
           // 10 درصد مالیات بر ارزش افزوده
-          const tenPercentTax = 0.1 * totalFinalSalePrice;
+          // const tenPercentTax = 0.1 * totalFinalSalePrice;
 
           // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
-          const finalProfit = totalFinalSalePrice - tenPercentTax - insurancePrice - totalCostWithout;
+          const finalProfit = totalFinalSalePrice - vat - insurancePrice - totalCostWithout;
           // حاشیه سود نهایی
           const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
           // چک مبلغ بیمه
@@ -82,7 +82,7 @@ function ProformaTable({
               totalCostWithoutFactors: `${totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               vat: `${vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfitMargin: `${totalProfitMargin}`,
