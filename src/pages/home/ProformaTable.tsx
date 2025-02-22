@@ -6,6 +6,8 @@ import { Button, Select, Table } from 'antd';
 import { useEffect } from 'react';
 
 import FooterTableColumns from './FooterTableColumns';
+import { useLocale } from '@/locales';
+import { useSelector } from 'react-redux';
 
 function ProformaTable({
   tableData,
@@ -28,6 +30,8 @@ function ProformaTable({
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
 }) {
+  const { theme } = useSelector(state => state.global);
+
   useEffect(() => {
     // جمع قیمت فروش
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
@@ -99,7 +103,7 @@ function ProformaTable({
           const footerContent = (
             <div
               style={{
-                backgroundColor: '#fffeff',
+                // backgroundColor: '#fffeff',
                 display: 'flex',
                 justifyContent: 'space-between',
                 flexDirection: 'row',
@@ -108,6 +112,7 @@ function ProformaTable({
                 padding: '0 0.5rem',
                 borderRadius: '0.5rem',
                 width: '100%',
+                backgroundColor: `${theme === 'dark' ? 'black' : 'white'}`,
               }}
             >
               <span>
