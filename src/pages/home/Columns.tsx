@@ -111,27 +111,6 @@ export const Columns = (
         />
       ),
     },
-    // درصد سود
-    {
-      title: (
-        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.profitPercentage' })}</span>
-      ),
-      dataIndex: 'recordProfitMargin',
-      key: 'recordProfitMargin',
-      width: 200,
-      render: (text: string, record: any) => (
-        <AutoFocusInput
-          id={`cell-${record.key}-recordProfitMargin`}
-          nextId={`cell-${record.key}-qty`}
-          value={text}
-          placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
-          type="text"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
-          style={{ width: '100%' }}
-          debounceTime={3000}
-        />
-      ),
-    },
     // تعداد
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.qty' })}</span>,
@@ -161,10 +140,31 @@ export const Columns = (
       render: (text: string, record: any) => (
         <AutoFocusInput
           id={`cell-${record.key}-unitCost`}
-          nextId={`cell-${record.key}-itemSalePriceRounded`}
+          nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
           onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
+          style={{ width: '100%' }}
+          debounceTime={3000}
+        />
+      ),
+    },
+    // درصد سود
+    {
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.profitPercentage' })}</span>
+      ),
+      dataIndex: 'recordProfitMargin',
+      key: 'recordProfitMargin',
+      width: 200,
+      render: (text: string, record: any) => (
+        <AutoFocusInput
+          id={`cell-${record.key}-recordProfitMargin`}
+          nextId={`cell-${record.key}-itemSalePriceRounded`}
+          value={text}
+          placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
+          type="text"
+          onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
           debounceTime={3000}
         />

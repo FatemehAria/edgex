@@ -3,8 +3,8 @@ export const editableColumns = [
   'items',
   'supplier',
   'description',
-  'recordProfitMargin',
   'qty',
   'unitCost',
+  'recordProfitMargin',
   'itemSalePriceRounded',
 ];
