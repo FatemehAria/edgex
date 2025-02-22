@@ -26,6 +26,14 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
     },
     {
       title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}</span>
+      ),
+      dataIndex: 'footerInsurancePrice',
+      key: 'footerInsurancePrice',
+      render: () => <span style={{ textAlign: 'center' }}>{footerContent}</span>,
+    },
+    {
+      title: (
         <span className="center-align">
           {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}
         </span>
@@ -42,6 +50,16 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       ),
       dataIndex: 'totalFinalSalePrice',
       key: 'totalFinalSalePrice',
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    {
+      title: (
+        <span className="center-align">
+          {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}
+        </span>
+      ),
+      dataIndex: 'insuranceCheckAmount',
+      key: 'insuranceCheckAmount',
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     {
@@ -64,14 +82,7 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
     //   key: 'tenPercentTax',
     //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     // },
-    {
-      title: (
-        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}</span>
-      ),
-      dataIndex: 'footerInsurancePrice',
-      key: 'footerInsurancePrice',
-      render: () => <span style={{ textAlign: 'center' }}>{footerContent}</span>,
-    },
+
     {
       title: (
         <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}</span>
@@ -89,16 +100,6 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       dataIndex: 'finalProfitMargin',
       key: 'finalProfitMargin',
       render: (text: string) => <span style={{ textAlign: 'center' }}>{Number(text).toFixed(9)}</span>,
-    },
-    {
-      title: (
-        <span className="center-align">
-          {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}
-        </span>
-      ),
-      dataIndex: 'insuranceCheckAmount',
-      key: 'insuranceCheckAmount',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
   ];
 
