@@ -52,6 +52,7 @@ export const Columns = (
           record={record}
           handleCellChange={handleCellChange}
           initialOptions={[]}
+          debounceTime={5000}
         />
       ),
     },
@@ -71,6 +72,7 @@ export const Columns = (
           record={record}
           handleCellChange={handleCellChange}
           initialOptions={[]}
+          debounceTime={5000}
         />
       ),
     },
@@ -90,6 +92,7 @@ export const Columns = (
           record={record}
           handleCellChange={handleCellChange}
           initialOptions={[{ label: 'supplier 1', value: 'supplier1' }]}
+          debounceTime={5000}
         />
       ),
     },
@@ -107,7 +110,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
           onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -128,7 +131,7 @@ export const Columns = (
           type="text"
           onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -147,7 +150,7 @@ export const Columns = (
           type="number"
           onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
           min={0}
         />
       ),
@@ -166,7 +169,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
           onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -243,7 +246,7 @@ export const Columns = (
           type="input"
           onDebouncedChange={value => handleCellChange(value, record.key, 'itemSalePriceRounded')}
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },

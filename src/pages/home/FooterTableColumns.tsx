@@ -8,42 +8,42 @@ import { useLocale } from '@/locales';
 function FooterTableColumns({ tableData, footerContent }: { tableData: any; footerContent: React.ReactNode }) {
   const { formatMessage } = useLocale();
   const columns = [
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}</span>,
-      dataIndex: 'totalQty',
-      key: 'totalQty',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    {
-      title: (
-        <span className="center-align">
-          {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}
-        </span>
-      ),
-      dataIndex: 'totalCostWithFactors',
-      key: 'totalCostWithFactors',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    {
-      title: (
-        <span className="center-align">
-          {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}
-        </span>
-      ),
-      dataIndex: 'totalCostWithoutFactors',
-      key: 'totalCostWithoutFactors',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    {
-      title: (
-        <span className="center-align">
-          {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}
-        </span>
-      ),
-      dataIndex: 'totalFinalSalePrice',
-      key: 'totalFinalSalePrice',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
+    // {
+    //   title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.totalQty' })}</span>,
+    //   dataIndex: 'totalQty',
+    //   key: 'totalQty',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
+    // {
+    //   title: (
+    //     <span className="center-align">
+    //       {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithFactors' })}
+    //     </span>
+    //   ),
+    //   dataIndex: 'totalCostWithFactors',
+    //   key: 'totalCostWithFactors',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
+    // {
+    //   title: (
+    //     <span className="center-align">
+    //       {formatMessage({ id: 'app.home.detailInfo.table.footer.totalCostWithoutFactors' })}
+    //     </span>
+    //   ),
+    //   dataIndex: 'totalCostWithoutFactors',
+    //   key: 'totalCostWithoutFactors',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
+    // {
+    //   title: (
+    //     <span className="center-align">
+    //       {formatMessage({ id: 'app.home.detailInfo.table.footer.totalFinalSalePrice' })}
+    //     </span>
+    //   ),
+    //   dataIndex: 'totalFinalSalePrice',
+    //   key: 'totalFinalSalePrice',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.vat' })}</span>,
       dataIndex: 'vat',
@@ -56,14 +56,14 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       key: 'total',
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    {
-      title: (
-        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}</span>
-      ),
-      dataIndex: 'tenPercentTax',
-      key: 'tenPercentTax',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
+    // {
+    //   title: (
+    //     <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.tenPercentTax' })}</span>
+    //   ),
+    //   dataIndex: 'tenPercentTax',
+    //   key: 'tenPercentTax',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
     {
       title: (
         <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}</span>
@@ -109,7 +109,7 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
         columns={columns}
         pagination={false}
         className="custom-footer-table"
-        scroll={{ x: 2000 }}
+        // scroll={{ x: 2000 }}
       />
     </div>
   );

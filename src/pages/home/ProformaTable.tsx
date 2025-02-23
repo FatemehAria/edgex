@@ -50,12 +50,12 @@ function ProformaTable({
         scroll={{ x: 2000 }}
         footer={() => {
           // تعداد
-          const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
+          // const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
           // جمع هزینه
-          const totalCostWithout = tableData.reduce(
-            (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
-            0,
-          );
+          // const totalCostWithout = tableData.reduce(
+          //   (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
+          //   0,
+          // );
           //   جمع قیمت فروش نهایی فاکتور
           const totalFinalSalePrice = tableData.reduce(
             (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
@@ -66,10 +66,17 @@ function ProformaTable({
           // total
           const total = vat + totalFinalSalePrice;
           // 10 درصد مالیات بر ارزش افزوده
-          const tenPercentTax = 0.1 * totalFinalSalePrice;
+          // const tenPercentTax = 0.1 * totalFinalSalePrice;
 
           // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
-          const finalProfit = totalFinalSalePrice - tenPercentTax - insurancePrice - totalCostWithout;
+          const finalProfit =
+            totalFinalSalePrice -
+            // tenPercentTax -
+            insurancePrice -
+            tableData.reduce(
+              (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
+              0, // Initial value added here
+            );
           // حاشیه سود نهایی
           const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
           // چک مبلغ بیمه
@@ -77,12 +84,12 @@ function ProformaTable({
 
           const FooterTableData = [
             {
-              totalQty: totalQty,
-              totalCostWithFactors: `${totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              totalCostWithoutFactors: `${totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // totalQty: totalQty,
+              // totalCostWithFactors: `${totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // totalCostWithoutFactors: `${totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               vat: `${vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfitMargin: `${totalProfitMargin}`,
@@ -133,6 +140,63 @@ function ProformaTable({
           );
 
           return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;
+        }}
+        summary={() => {
+          // جمع تعداد
+          const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
+          // جمع هزینه
+          const totalCostWithout = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
+            0,
+          );
+          //   جمع قیمت فروش نهایی فاکتور
+          const totalFinalSalePrice = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
+            0,
+          );
+
+          return (
+            <Table.Summary>
+              <Table.Summary.Row style={{ backgroundColor: '#8ebfbb' }}>
+                {columns.map((col: any, index: any) => {
+                  // For the qty column, display the total
+                  if (col.dataIndex === 'qty') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalQty}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'totalPriceWithoutFactors') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'totalCostWithFactors') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'finalSalePrice') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  return <Table.Summary.Cell index={index} key={col.key || index} />;
+                })}
+              </Table.Summary.Row>
+            </Table.Summary>
+          );
         }}
       />
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
