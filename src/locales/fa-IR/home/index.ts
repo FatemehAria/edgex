@@ -43,7 +43,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.red': 'کاهنده',
   'app.home.detailInfo.table.inc': 'افزاینده',
   'app.home.detailInfo.table.totalPrice': 'هزینه نهایی',
-  'app.home.detailInfo.table.actions': 'عملیات',
+  'app.home.detailInfo.table.actions': 'حذف',
   'app.home.detailInfo.table.factorValue': 'عوامل',
   'app.home.detailInfo.table.modalForm.profitMargin': 'حاشیه سود',
   'app.home.detailInfo.table.modalForm.percentageDiscount': 'تخفیف درصدی',

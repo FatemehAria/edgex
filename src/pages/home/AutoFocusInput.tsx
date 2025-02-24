@@ -43,7 +43,18 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
     }
   };
 
-  return <Input id={id} {...rest} onChange={handleChange} autoComplete="on" />;
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    // Wait for the paste to complete
+    setTimeout(() => {
+      onDebouncedChange(e.currentTarget.value);
+    }, 0);
+
+    if (rest.onPaste) {
+      rest.onPaste(e);
+    }
+  };
+
+  return <Input id={id} {...rest} onChange={handleChange} autoComplete="on" onPaste={handlePaste} />;
 };
 
 export default AutoFocusInput;

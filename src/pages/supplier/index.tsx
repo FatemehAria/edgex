@@ -14,17 +14,17 @@ function Supplier() {
       label: `${formatMessage({ id: 'app.supplier.type' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
-      options: [],
+      options: [
+        { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
+        { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
+      ],
     },
     {
       name: 'supplier-person-company',
       label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
-      options: [
-        { label: 'شخص یک', value: 'person1' },
-        { label: 'کمپانی یک', value: 'company1' },
-      ],
+      options: [],
     },
   ];
 

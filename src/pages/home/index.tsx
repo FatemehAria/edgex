@@ -114,7 +114,7 @@ function Home() {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          if (['qty', 'unitCost', 'factorValue', 'itemSalePriceRounded'].includes(dataIndex)) {
+          if (['qty', 'unitCost', 'factorValue', 'itemSalePriceRounded', 'recordProfitMargin'].includes(dataIndex)) {
             const qty = parseFloat(updatedRow.qty) || 0;
             // Remove commas before converting to a number:
             const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;

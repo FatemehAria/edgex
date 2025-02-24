@@ -4,6 +4,9 @@ import './columns.css';
 
 import { Button, Select, Table } from 'antd';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import { useLocale } from '@/locales';
 
 import FooterTableColumns from './FooterTableColumns';
 
@@ -28,6 +31,8 @@ function ProformaTable({
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
 }) {
+  const { theme } = useSelector(state => state.global);
+
   useEffect(() => {
     // جمع قیمت فروش
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
@@ -67,6 +72,7 @@ function ProformaTable({
           const total = vat + totalFinalSalePrice;
           // 10 درصد مالیات بر ارزش افزوده
           // const tenPercentTax = 0.1 * totalFinalSalePrice;
+          // const tenPercentTax = 0.1 * totalFinalSalePrice;
 
           // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
           const finalProfit =
@@ -90,6 +96,7 @@ function ProformaTable({
               // totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               vat: `${vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfitMargin: `${totalProfitMargin}`,
@@ -106,7 +113,7 @@ function ProformaTable({
           const footerContent = (
             <div
               style={{
-                backgroundColor: '#fffeff',
+                // backgroundColor: '#fffeff',
                 display: 'flex',
                 justifyContent: 'space-between',
                 flexDirection: 'row',
@@ -115,6 +122,7 @@ function ProformaTable({
                 padding: '0 0.5rem',
                 borderRadius: '0.5rem',
                 width: '100%',
+                backgroundColor: `${theme === 'dark' ? 'black' : 'white'}`,
               }}
             >
               <span>

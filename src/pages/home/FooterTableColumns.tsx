@@ -90,16 +90,6 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       key: 'finalProfitMargin',
       render: (text: string) => <span style={{ textAlign: 'center' }}>{Number(text).toFixed(9)}</span>,
     },
-    {
-      title: (
-        <span className="center-align">
-          {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}
-        </span>
-      ),
-      dataIndex: 'insuranceCheckAmount',
-      key: 'insuranceCheckAmount',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
   ];
 
   return (
