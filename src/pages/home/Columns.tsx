@@ -167,7 +167,7 @@ export const Columns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'recordProfitMargin')}
+          onDebouncedChange={value => handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
           debounceTime={5000}
         />
