@@ -56,6 +56,7 @@ export const Columns = (
           handleCellChange={handleCellChange}
           initialOptions={[]}
           debounceTime={5000}
+          mode="tags"
         />
       ),
     },
@@ -76,6 +77,7 @@ export const Columns = (
           handleCellChange={handleCellChange}
           initialOptions={[]}
           debounceTime={5000}
+          mode="tags"
         />
       ),
     },
