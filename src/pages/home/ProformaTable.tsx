@@ -6,8 +6,6 @@ import { Button, Select, Table } from 'antd';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useLocale } from '@/locales';
-
 import FooterTableColumns from './FooterTableColumns';
 
 function ProformaTable({
@@ -121,7 +119,8 @@ function ProformaTable({
                 // gap: '0.5rem',
                 padding: '0 0.5rem',
                 borderRadius: '0.5rem',
-                width: '100%',
+                width: '200px',
+                margin: 'auto',
                 backgroundColor: `${theme === 'dark' ? 'black' : 'white'}`,
               }}
             >
