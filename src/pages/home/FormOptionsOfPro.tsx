@@ -25,7 +25,11 @@ export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => 
   },
 ];
 
-export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) => [
+export const ProformaFormOptions = (
+  formatMessage: (descriptor: any) => string,
+  customerOptions: { label: string; value: string }[],
+  onOpenCustomerModal: () => void,
+) => [
   {
     name: 'header-info-title',
     label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
@@ -37,16 +41,23 @@ export const ProformaFormOptions = (formatMessage: (descriptor: any) => string) 
     label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
     type: 'select',
     innerProps: {
-      mode: 'tags',
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
-      getValueFromEvent: (value: string[]) => (value.length > 0 ? value[value.length - 1] : ''),
+      // onChange now receives a simple string value
+      onChange: (value: string) => {
+        if (value === 'add-new') {
+          onOpenCustomerModal();
+        }
+      },
     },
+    // Always append an "Add New Customer" option even if customerOptions is empty
     options: [
-      { label: 'مشتری یک', value: '1' },
-      { label: 'مشتری دو', value: '2' },
+      ...customerOptions,
+      {
+        label: formatMessage({ id: 'app.costumerInfo.addNew' }) || 'Add New Customer',
+        value: 'add-new',
+      },
     ],
   },
-
   {
     name: 'header-info-date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,

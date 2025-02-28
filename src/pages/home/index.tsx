@@ -1,12 +1,13 @@
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, theme } from 'antd';
+import { Collapse, Modal, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
 
+import CostumerInfo from '../costumer-info';
 import FormLayout from '../layout/form-layout';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
@@ -53,6 +54,28 @@ function Home() {
       factor: '',
     },
   ]);
+
+  // Manage customer options state
+  const [customerOptions, setCustomerOptions] = useState([
+    { label: 'مشتری یک', value: '1' },
+    { label: 'مشتری دو', value: '2' },
+  ]);
+  const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+
+  const openCustomerModal = () => {
+    setIsCustomerModalOpen(true);
+  };
+
+  // Callback when a new customer is submitted via the modal form.
+  const handleNewCustomer = (values: any) => {
+    // Use a field from the submitted form as the customer name.
+    // (Adjust the field name as needed.)
+    const newCustomerName = values['costumer-info-factor-code'] || 'New Customer';
+    const newCustomer = { label: newCustomerName, value: newCustomerName };
+
+    setCustomerOptions(prev => [...prev, newCustomer]);
+    setIsCustomerModalOpen(false);
+  };
 
   // const [modalForm] = Form.useForm();
   // const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
@@ -280,7 +303,7 @@ function Home() {
     // handleCancel,
   );
 
-  const proformaFormOptions: any = ProformaFormOptions(formatMessage);
+  const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
@@ -325,18 +348,30 @@ function Home() {
   ];
 
   return (
-    <Collapse
-      bordered={false}
-      defaultActiveKey={['1']}
-      expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-      style={{ background: token.colorBgContainer }}
-    >
-      {getItems(panelStyle).map((item: any) => (
-        <Collapse.Panel key={item.key} header={item.label} style={item.style}>
-          {item.children}
-        </Collapse.Panel>
-      ))}
-    </Collapse>
+    <>
+      <Collapse
+        bordered={false}
+        defaultActiveKey={['1']}
+        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+        style={{ background: token.colorBgContainer }}
+      >
+        {getItems(panelStyle).map((item: any) => (
+          <Collapse.Panel key={item.key} header={item.label} style={item.style}>
+            {item.children}
+          </Collapse.Panel>
+        ))}
+      </Collapse>
+
+      {/* Modal for adding a new customer */}
+      <Modal
+        title="Add New Costumer"
+        visible={isCustomerModalOpen}
+        onCancel={() => setIsCustomerModalOpen(false)}
+        footer={null} // Rely on the form's submit button
+      >
+        <CostumerInfo onCustomerSubmit={handleNewCustomer} />
+      </Modal>
+    </>
   );
 }
 

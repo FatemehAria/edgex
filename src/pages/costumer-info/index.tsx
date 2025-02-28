@@ -6,7 +6,11 @@ import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 
-function CostumerInfo() {
+interface CostumerInfoProps {
+  onCustomerSubmit: (values: any) => void;
+}
+
+function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
   const { formatMessage } = useLocale();
   const costumerInfoFormOptions: MyFormOptions = [
     {
@@ -53,7 +57,10 @@ function CostumerInfo() {
     <FormLayout
       FormOptions={costumerInfoFormOptions}
       layoutDir="vertical"
-      submitForm={values => console.log('Submitted values:', values)}
+      submitForm={values => {
+        console.log('Submitted values:', values);
+        onCustomerSubmit(values);
+      }}
       isGrid={false}
       showButton={true}
     />
