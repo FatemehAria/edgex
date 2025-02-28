@@ -9,10 +9,10 @@ import { formatValue } from '@/utils/formatTypingNums';
 
 import CostumerInfo from '../costumer-info';
 import FormLayout from '../layout/form-layout';
+import Supplier from '../supplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import Supplier from '../supplier';
 
 function Home() {
   const { token } = theme.useToken();
@@ -83,20 +83,23 @@ function Home() {
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
     // Possibly prefill with some suppliers if desired.
   ]);
-  const [selectedSupplier, setSelectedSupplier] = useState<string>(''); // default selected supplier
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
-
-  const openSupplierModal = () => {
-    setIsSupplierModalOpen(true);
-  };
+  const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 
   const handleNewSupplier = (values: any) => {
-    // Ensure the field name matches what the form returns.
+    // Use the field 'supplier-person-company' from the form as the new supplier name.
     const newSupplierName = values['supplier-person-company'] || 'New Supplier';
     const newSupplier = { label: newSupplierName, value: newSupplierName };
 
     setSupplierOptions(prev => [...prev, newSupplier]);
-    setSelectedSupplier(newSupplier.value);
+
+    if (activeSupplierRow !== null) {
+      // Update the specific row in tableData:
+      setTableData(prevData =>
+        prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
+      );
+      setActiveSupplierRow(null);
+    }
     setIsSupplierModalOpen(false);
   };
   // const [modalForm] = Form.useForm();
@@ -320,6 +323,7 @@ function Home() {
     isRowFilled,
     setIsSupplierModalOpen,
     supplierOptions,
+    setActiveSupplierRow,
     // isModalOpen,
     // modalForm,
     // modalFormOptions,

@@ -125,6 +125,15 @@ const AutoFocusAddableSelect = ({
     }, debounceTime);
   };
 
+  useEffect(() => {
+    // For single select, update the local selected state whenever text changes.
+    if (!mode) {
+      setSelected(text);
+    } else {
+      setSelected(text ? [text] : []);
+    }
+  }, [text, mode]);
+
   return (
     <Select
       id={id}
