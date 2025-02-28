@@ -14,7 +14,6 @@ function FormLayout({
   isGrid,
   showButton,
   form,
-  initialValues
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
@@ -35,7 +34,6 @@ function FormLayout({
         layout={layoutDir}
         isGrid={isGrid}
         style={{ padding: '0 1rem' }}
-        initialValues={initialValues}
       >
         <Form.Item className="btn-container">
           <Button

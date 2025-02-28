@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, Modal, theme } from 'antd';
+import { Collapse, Form, Modal, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
@@ -55,13 +55,13 @@ function Home() {
       factor: '',
     },
   ]);
-
+  const [form] = Form.useForm();
   // Manage customer options state
-  const [customerOptions, setCustomerOptions] = useState([
-    { label: 'مشتری یک', value: '1' },
-    { label: 'مشتری دو', value: '2' },
+  const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([
+    // { label: 'مشتری یک', value: '1' },
+    // { label: 'مشتری دو', value: '2' },
   ]);
-  const [selectedCostumer, setSelectedCostumer] = useState<string>('1');
+  const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
   const openCustomerModal = () => {
@@ -70,8 +70,6 @@ function Home() {
 
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
-    // Use a field from the submitted form as the customer name.
-    // (Adjust the field name as needed.)
     const newCustomerName = values['costumer-info-factor-code'] || 'New Customer';
     const newCustomer = { label: newCustomerName, value: newCustomerName };
 
@@ -79,6 +77,10 @@ function Home() {
     setSelectedCostumer(newCustomer.value);
     setIsCustomerModalOpen(false);
   };
+
+  useEffect(() => {
+    form.setFieldsValue({ 'header-info-costumer': selectedCostumer });
+  }, [selectedCostumer, form]);
 
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
     // Possibly prefill with some suppliers if desired.
@@ -100,11 +102,9 @@ function Home() {
       );
       setActiveSupplierRow(null);
     }
+
     setIsSupplierModalOpen(false);
   };
-  // const [modalForm] = Form.useForm();
-  // const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const createEmptyRow = () => {
     const newRow = {
@@ -250,85 +250,15 @@ function Home() {
     });
   };
 
-  // const showModal = (rowKey: number) => {
-  //   setActiveRowKey(rowKey);
-  //   setIsModalOpen(true);
-  //   const row = tableData.find(r => r.key === rowKey);
-
-  //   if (row && row.modalValues) {
-  //     modalForm.setFieldsValue(row.modalValues);
-  //   } else {
-  //     modalForm.resetFields();
-  //   }
-  // };
-
-  // const handleOk = async () => {
-  //   try {
-  //     const values = await modalForm.validateFields();
-
-  //     setTableData(prevData =>
-  //       prevData.map(row => {
-  //         if (row.key === activeRowKey) {
-  //           const updatedRow = { ...row, modalValues: { ...values } };
-  //           const qty = parseFloat(updatedRow.qty) || 0;
-  //           const unitCost = parseFloat(updatedRow.unitCost) || 0;
-  //           const totalPriceWithoutFactors = qty * unitCost;
-
-  //           updatedRow.totalPriceWithoutFactors = totalPriceWithoutFactors;
-  //           const percentageDiscount = Number(values['record-percentage-discount'] || 0);
-  //           const commute = Number(values['record-commute'] || 0);
-  //           const amountDiscount = Number(values['record-amount-discount'] || 0);
-  //           const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
-
-  //           updatedRow.primarySalesPrice = primarySalesPrice;
-  //           const itemTotalPrice = primarySalesPrice * qty;
-
-  //           updatedRow.itemTotalPrice = itemTotalPrice;
-  //           const recordPercentageDiscount = (percentageDiscount / 100) * totalPriceWithoutFactors;
-
-  //           updatedRow.totalPriceWithFactors =
-  //             primarySalesPrice + commute + totalPriceWithoutFactors - amountDiscount - recordPercentageDiscount;
-  //           updatedRow.factor = commute + amountDiscount + primarySalesPrice + recordPercentageDiscount;
-  //           updatedRow.decFactors = recordPercentageDiscount + amountDiscount;
-  //           updatedRow.incFactors = commute + primarySalesPrice;
-
-  //           return updatedRow;
-  //         }
-
-  //         return row;
-  //       }),
-  //     );
-  //     setIsModalOpen(false);
-  //     modalForm.resetFields();
-  //     setActiveRowKey(null);
-  //   } catch (error) {
-  //     console.error('Form validation failed:', error);
-  //   }
-  // };
-
-  // const handleCancel = () => {
-  //   setIsModalOpen(false);
-  //   modalForm.resetFields();
-  //   setActiveRowKey(null);
-  // };
-
-  // const modalFormOptions: any = ModalFormOptions(formatMessage);
-
   const columns = Columns(
     formatMessage,
     handleCellChange,
-    // showModal,
     deleteRow,
     tableData,
     isRowFilled,
     setIsSupplierModalOpen,
     supplierOptions,
     setActiveSupplierRow,
-    // isModalOpen,
-    // modalForm,
-    // modalFormOptions,
-    // handleOk,
-    // handleCancel,
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
@@ -347,11 +277,11 @@ function Home() {
       label: `${formatMessage({ id: 'app.home.headerInfo' })}`,
       children: (
         <FormLayout
+          form={form}
           FormOptions={proformaFormOptions}
           layoutDir="vertical"
           isGrid={true}
           submitForm={() => console.log('')}
-          initialValues={{ 'header-info-costumer': selectedCostumer }}
         />
       ),
       style: panelStyle,

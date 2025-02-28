@@ -1,7 +1,7 @@
-// supplier.tsx
 import type { MyFormOptions } from '@/components/core/form';
-import React from 'react';
+
 import { useLocale } from '@/locales';
+
 import FormLayout from '../layout/form-layout';
 
 interface SupplierProps {
