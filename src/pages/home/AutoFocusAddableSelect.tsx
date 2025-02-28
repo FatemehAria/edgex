@@ -1,3 +1,4 @@
+// AutoFocusAddableSelect.tsx
 import { Select } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
@@ -11,6 +12,9 @@ interface AutoFocusAddableSelectProps {
   id: string;
   nextId?: string;
   debounceTime?: number;
+  mode?: 'multiple' | 'tags';
+  allowAddNew?: boolean;
+  onAddNew?: () => void;
 }
 
 const AutoFocusAddableSelect = ({
@@ -23,29 +27,88 @@ const AutoFocusAddableSelect = ({
   id,
   nextId,
   debounceTime = 1000,
+  mode,
+  allowAddNew,
+  onAddNew,
 }: AutoFocusAddableSelectProps) => {
-  const [options, setOptions] = useState(initialOptions);
-  const defaultVal = text || (initialOptions.length > 0 ? initialOptions[0].value : '');
-  const [selected, setSelected] = useState<string[]>(defaultVal ? [defaultVal] : []);
+  // Local options state
+  const [options, setOptions] = useState(() => {
+    const opts = [...initialOptions];
+
+    if (allowAddNew) {
+      opts.push({ label: 'Add New Supplier', value: 'add-new' });
+    }
+
+    return opts;
+  });
+
+  // Update local options if initialOptions or allowAddNew change.
+  useEffect(() => {
+    const opts = [...initialOptions];
+
+    if (allowAddNew) {
+      opts.push({ label: 'Add New Supplier', value: 'add-new' });
+    }
+
+    setOptions(opts);
+  }, [initialOptions, allowAddNew]);
+
+  // For single select (when mode is not provided) use a string; otherwise, use an array.
+  const [selected, setSelected] = useState(() => {
+    if (mode === 'tags' || mode === 'multiple') {
+      return text ? [text] : initialOptions.length > 0 ? [initialOptions[0].value] : [];
+    } else {
+      return text || (initialOptions.length > 0 ? initialOptions[0].value : '');
+    }
+  });
+
   const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!text && defaultVal) {
+    if (!text && initialOptions.length > 0) {
+      const defaultVal = initialOptions[0].value;
+
       handleCellChange(defaultVal, record.key, dataIndex);
-      setSelected([defaultVal]);
+
+      if (mode === 'tags' || mode === 'multiple') {
+        setSelected([defaultVal]);
+      } else {
+        setSelected(defaultVal);
+      }
     }
   }, []);
 
-  const onChange = (values: string[]) => {
-    const newValue = values.length > 0 ? [values[values.length - 1]] : [];
+  const onChange = (value: any) => {
+    if (!mode) {
+      if (allowAddNew && value === 'add-new') {
+        onAddNew && onAddNew();
 
-    setSelected(newValue);
+        return;
+      }
 
-    if (newValue.length > 0) {
-      handleCellChange(newValue[0], record.key, dataIndex);
+      setSelected(value);
+      handleCellChange(value, record.key, dataIndex);
 
-      if (!options.find(opt => opt.value === newValue[0])) {
-        setOptions([...options, { label: newValue[0], value: newValue[0] }]);
+      if (!options.find(opt => opt.value === value)) {
+        setOptions([...options, { label: value, value }]);
+      }
+    } else {
+      const newValue: string[] = Array.isArray(value) ? value : [value];
+
+      if (allowAddNew && newValue[newValue.length - 1] === 'add-new') {
+        onAddNew && onAddNew();
+
+        return;
+      }
+
+      setSelected(newValue);
+
+      if (newValue.length > 0) {
+        handleCellChange(newValue[newValue.length - 1], record.key, dataIndex);
+
+        if (!options.find(opt => opt.value === newValue[newValue.length - 1])) {
+          setOptions([...options, { label: newValue[newValue.length - 1], value: newValue[newValue.length - 1] }]);
+        }
       }
     }
 
@@ -65,7 +128,7 @@ const AutoFocusAddableSelect = ({
   return (
     <Select
       id={id}
-      mode="tags"
+      mode={mode}
       value={selected}
       placeholder={placeholder}
       onChange={onChange}

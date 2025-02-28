@@ -21,6 +21,8 @@ export const Columns = (
   deleteRow: (key: string) => void,
   tableData: any[],
   isRowFilled: (row: any) => boolean,
+  setIsSupplierModalOpen: any,
+  supplierOptions: { label: string; value: string }[] 
   // isModalOpen: boolean,
   // modalForm: any,
   // modalFormOptions: MyFormOptions,
@@ -91,8 +93,12 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[{ label: 'supplier 1', value: 'supplier1' }]}
+          initialOptions={supplierOptions} // Use supplierOptions from parent
           debounceTime={5000}
+          allowAddNew={true}
+          onAddNew={() => {
+            setIsSupplierModalOpen(true);
+          }}
         />
       ),
     },

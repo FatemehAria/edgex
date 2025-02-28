@@ -1,12 +1,14 @@
+// supplier.tsx
 import type { MyFormOptions } from '@/components/core/form';
-
 import React from 'react';
-
 import { useLocale } from '@/locales';
-
 import FormLayout from '../layout/form-layout';
 
-function Supplier() {
+interface SupplierProps {
+  onSupplierSubmit: (values: any) => void;
+}
+
+function Supplier({ onSupplierSubmit }: SupplierProps) {
   const { formatMessage } = useLocale();
   const supplierFormOptions: MyFormOptions = [
     {
@@ -20,11 +22,12 @@ function Supplier() {
       ],
     },
     {
+      // Change this field from 'select' to 'input'
       name: 'supplier-person-company',
       label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
-      type: 'select',
-      innerProps: { placeholder: '' },
-      options: [],
+      type: 'input',
+      innerProps: { placeholder: 'Enter supplier name' },
+      // Remove options here, so the user can type their own value.
     },
   ];
 
@@ -32,7 +35,7 @@ function Supplier() {
     <FormLayout
       FormOptions={supplierFormOptions}
       layoutDir="vertical"
-      submitForm={values => console.log('Submitted values:', values)}
+      submitForm={values => onSupplierSubmit(values)}
       isGrid={false}
       showButton={true}
     />

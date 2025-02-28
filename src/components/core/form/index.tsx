@@ -10,10 +10,11 @@ export interface MyFormOptions extends Array<MyFormItemProps<ControlTypes>> {}
 export interface MyFormProps<T> extends FormProps<T> {
   options?: MyFormOptions;
   isGrid?: boolean;
+  initialValues?: any;
 }
 
 const BaseForm = <Values extends object>(props: MyFormProps<Values>) => {
-  const { options, children, isGrid, ...rest } = props;
+  const { options, children, isGrid, initialValues, ...rest } = props;
 
   return (
     <Form<Values> {...rest}>

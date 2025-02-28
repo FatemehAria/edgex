@@ -12,6 +12,7 @@ import FormLayout from '../layout/form-layout';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import Supplier from '../supplier';
 
 function Home() {
   const { token } = theme.useToken();
@@ -79,6 +80,25 @@ function Home() {
     setIsCustomerModalOpen(false);
   };
 
+  const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
+    // Possibly prefill with some suppliers if desired.
+  ]);
+  const [selectedSupplier, setSelectedSupplier] = useState<string>(''); // default selected supplier
+  const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
+
+  const openSupplierModal = () => {
+    setIsSupplierModalOpen(true);
+  };
+
+  const handleNewSupplier = (values: any) => {
+    // Ensure the field name matches what the form returns.
+    const newSupplierName = values['supplier-person-company'] || 'New Supplier';
+    const newSupplier = { label: newSupplierName, value: newSupplierName };
+
+    setSupplierOptions(prev => [...prev, newSupplier]);
+    setSelectedSupplier(newSupplier.value);
+    setIsSupplierModalOpen(false);
+  };
   // const [modalForm] = Form.useForm();
   // const [activeRowKey, setActiveRowKey] = useState<number | null>(null);
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -298,6 +318,8 @@ function Home() {
     deleteRow,
     tableData,
     isRowFilled,
+    setIsSupplierModalOpen,
+    supplierOptions,
     // isModalOpen,
     // modalForm,
     // modalFormOptions,
@@ -373,6 +395,15 @@ function Home() {
         footer={null}
       >
         <CostumerInfo onCustomerSubmit={handleNewCustomer} />
+      </Modal>
+
+      <Modal
+        title="Add New Supplier"
+        open={isSupplierModalOpen}
+        onCancel={() => setIsSupplierModalOpen(false)}
+        footer={null}
+      >
+        <Supplier onSupplierSubmit={handleNewSupplier} />
       </Modal>
     </>
   );
