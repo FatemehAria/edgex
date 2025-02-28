@@ -14,6 +14,7 @@ function FormLayout({
   isGrid,
   showButton,
   form,
+  initialValues
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
@@ -21,6 +22,7 @@ function FormLayout({
   isGrid: boolean;
   showButton?: boolean;
   form?: any;
+  initialValues?: any;
 }) {
   const { formatMessage } = useLocale();
 
@@ -33,6 +35,7 @@ function FormLayout({
         layout={layoutDir}
         isGrid={isGrid}
         style={{ padding: '0 1rem' }}
+        initialValues={initialValues}
       >
         <Form.Item className="btn-container">
           <Button

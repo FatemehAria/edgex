@@ -53,7 +53,7 @@ export const ProformaFormOptions = (
     options: [
       ...customerOptions,
       {
-        label: formatMessage({ id: 'app.costumerInfo.addNew' }) || 'Add New Customer',
+        label: formatMessage({ id: 'app.home.headerInfo.costumer.addNew' }) || 'Add New Customer',
         value: 'add-new',
       },
     ],

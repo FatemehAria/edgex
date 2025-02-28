@@ -60,13 +60,14 @@ function Home() {
     { label: 'مشتری یک', value: '1' },
     { label: 'مشتری دو', value: '2' },
   ]);
+  const [selectedCostumer, setSelectedCostumer] = useState<string>('1');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
   };
 
-  // Callback when a new customer is submitted via the modal form.
+  // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
     // Use a field from the submitted form as the customer name.
     // (Adjust the field name as needed.)
@@ -74,6 +75,7 @@ function Home() {
     const newCustomer = { label: newCustomerName, value: newCustomerName };
 
     setCustomerOptions(prev => [...prev, newCustomer]);
+    setSelectedCostumer(newCustomer.value);
     setIsCustomerModalOpen(false);
   };
 
@@ -323,6 +325,7 @@ function Home() {
           layoutDir="vertical"
           isGrid={true}
           submitForm={() => console.log('')}
+          initialValues={{ 'header-info-costumer': selectedCostumer }}
         />
       ),
       style: panelStyle,
@@ -365,9 +368,9 @@ function Home() {
       {/* Modal for adding a new customer */}
       <Modal
         title="Add New Costumer"
-        visible={isCustomerModalOpen}
+        open={isCustomerModalOpen}
         onCancel={() => setIsCustomerModalOpen(false)}
-        footer={null} // Rely on the form's submit button
+        footer={null}
       >
         <CostumerInfo onCustomerSubmit={handleNewCustomer} />
       </Modal>
