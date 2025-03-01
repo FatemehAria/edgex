@@ -5,30 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
-// import FormLayout from '../layout/form-layout';
 import AutoFocusAddableSelect from './AutoFocusAddableSelect';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
 
-// const handleModalFormSubmit = (values: any) => {
-//   console.log('Modal form submitted (unused):', values);
-// };
-
 export const Columns = (
   formatMessage: (descriptor: any) => string,
   handleCellChange: (value: string, key: string, dataIndex: string) => void,
-  // showModal: (rowKey: number) => void,
   deleteRow: (key: string) => void,
   tableData: any[],
   isRowFilled: (row: any) => boolean,
   setIsSupplierModalOpen: any,
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
-  // isModalOpen: boolean,
-  // modalForm: any,
-  // modalFormOptions: MyFormOptions,
-  // handleOk: () => void,
-  // handleCancel: () => void,
 ) => {
   return [
     // شماره
@@ -96,7 +85,7 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={supplierOptions} // using parent's supplierOptions
+          initialOptions={supplierOptions}
           debounceTime={5000}
           allowAddNew={true}
           onAddNew={() => {

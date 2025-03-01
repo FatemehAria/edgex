@@ -48,7 +48,6 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    // Wait for the paste to complete
     setTimeout(() => {
       onDebouncedChange(e.currentTarget.value);
     }, 0);
