@@ -147,7 +147,7 @@ function Home() {
   };
 
   const isRowFilled = (row: any) => {
-    const requiredFields = ['qty', 'unitCost'];
+    const requiredFields = ['qty', 'unitCost', 'recordProfitMargin'];
 
     return requiredFields.every(field => {
       const value = row[field];

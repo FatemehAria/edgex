@@ -1,7 +1,7 @@
 import type { InputProps } from 'antd';
 
 import { Input } from 'antd';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface AutoFocusInputProps extends InputProps {
   id: string;
@@ -23,14 +23,20 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
     const value = e.target.value;
 
     onDebouncedChange(value);
-
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-    }
+    
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current) {
+          window.clearTimeout(timeoutRef.current);
+        }
+      };
+    }, []);
 
     timeoutRef.current = window.setTimeout(() => {
       if (nextId) {
         const nextElem = document.getElementById(nextId);
+
+        // console.log('Focusing element with id:', nextId, 'found:', nextElem);
 
         if (nextElem) {
           nextElem.focus();
