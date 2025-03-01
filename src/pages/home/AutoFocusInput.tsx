@@ -23,7 +23,7 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
     const value = e.target.value;
 
     onDebouncedChange(value);
-    
+
     useEffect(() => {
       return () => {
         if (timeoutRef.current) {
@@ -35,8 +35,6 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
     timeoutRef.current = window.setTimeout(() => {
       if (nextId) {
         const nextElem = document.getElementById(nextId);
-
-        // console.log('Focusing element with id:', nextId, 'found:', nextElem);
 
         if (nextElem) {
           nextElem.focus();
