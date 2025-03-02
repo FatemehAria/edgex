@@ -5,7 +5,7 @@ import { useLocale } from '@/locales';
 import FormLayout from '../layout/form-layout';
 
 interface SupplierProps {
-  onSupplierSubmit: (values: any) => void;
+  onSupplierSubmit?: (values: any) => void;
 }
 
 function Supplier({ onSupplierSubmit }: SupplierProps) {
@@ -35,7 +35,9 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
     <FormLayout
       FormOptions={supplierFormOptions}
       layoutDir="vertical"
-      submitForm={values => onSupplierSubmit(values)}
+      submitForm={values => {
+        if (onSupplierSubmit) onSupplierSubmit(values);
+      }}
       isGrid={false}
       showButton={true}
     />

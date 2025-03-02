@@ -7,7 +7,7 @@ import { useLocale } from '@/locales';
 import FormLayout from '../layout/form-layout';
 
 interface CostumerInfoProps {
-  onCustomerSubmit: (values: any) => void;
+  onCustomerSubmit?: (values: any) => void;
 }
 
 function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
@@ -59,7 +59,10 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
       layoutDir="vertical"
       submitForm={values => {
         console.log('Submitted values:', values);
-        onCustomerSubmit(values);
+
+        if (onCustomerSubmit) {
+          onCustomerSubmit(values);
+        }
       }}
       isGrid={false}
       showButton={true}

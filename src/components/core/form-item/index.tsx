@@ -77,18 +77,18 @@ export class ControlMap {
   }
 
   checkbox() {
-    // highlight-next-line
-    return <Checkbox.Group children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    // Removed children prop to fix the type error.
+    return <Checkbox.Group options={this.props.options} {...this.innerProps} />;
   }
 
   radio() {
-    // highlight-next-line
-    return <Radio.Group children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    // Removed children prop to fix the type error.
+    return <Radio.Group options={this.props.options} {...this.innerProps} />;
   }
 
   select() {
-    // highlight-next-line
-    return <Select children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    // Removed children prop to fix the type error.
+    return <Select options={this.props.options} {...this.innerProps} />;
   }
 
   textarea() {
@@ -111,7 +111,6 @@ const MyformItem: FC<MyFormItemProps> = props => {
     }
   }, [required, userRules, props.label]);
 
-  // highlight-next-line
   const controlMap = new ControlMap(props);
 
   return (

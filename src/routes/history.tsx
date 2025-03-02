@@ -6,6 +6,7 @@ export const history = createBrowserHistory();
 
 interface HistoryRouterProps {
   history: typeof history;
+  children?: React.ReactNode;
 }
 
 export const HistoryRouter: React.FC<HistoryRouterProps> = ({ history, children }) => {
