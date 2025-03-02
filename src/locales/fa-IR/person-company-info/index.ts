@@ -5,6 +5,8 @@ export const faIR_personCompanyInfo = {
   'app.personComapnyInfo.firstnameEng': `نام (انگلیسی):`,
   'app.personComapnyInfo.lastnamePer': `نام خانوادگی (فارسی):`,
   'app.personComapnyInfo.lastnameEng': `نام خانوادگی (انگلیسی):`,
+  'app.personComapnyInfo.titleEng': `عنوان(انگلیسی)`,
+  'app.personComapnyInfo.titlePer': `عنوان(فارسی)`,
   'app.personComapnyInfo.email': `ایمیل:`,
   'app.personComapnyInfo.mobile': `موبایل:`,
   'app.personComapnyInfo.phone': `تلفن:`,

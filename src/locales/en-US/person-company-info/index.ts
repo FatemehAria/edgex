@@ -5,6 +5,8 @@ export const enUS_personCompanyInfo = {
   'app.personComapnyInfo.firstnameEng': `Firstname (English):`,
   'app.personComapnyInfo.lastnamePer': `Lastname (Persian):`,
   'app.personComapnyInfo.lastnameEng': `Lastname (English):`,
+  'app.personComapnyInfo.titleEng': `Title (English)`,
+  'app.personComapnyInfo.titlePer': `Title (Persian)`,
   'app.personComapnyInfo.email': `Email:`,
   'app.personComapnyInfo.mobile': `Mobile:`,
   'app.personComapnyInfo.phone': `Phone:`,

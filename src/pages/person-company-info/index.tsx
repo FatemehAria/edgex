@@ -4,21 +4,23 @@ import React, { useContext, useState } from 'react';
 
 import { ProvinceContext } from '@/context/ProvinceContext';
 import { useLocale } from '@/locales';
+import { getCity } from '@/utils/util';
 
 import FormLayout from '../layout/form-layout';
-import { getCity } from '@/utils/util';
+import { createCostumer } from './util';
 
 function CompanyPersonInfo() {
   const { formatMessage } = useLocale();
   const { provinceList } = useContext(ProvinceContext);
   const [cityList, setCityList] = useState([]);
+  const [personType, setPersonType] = useState('');
 
   const personCompanyFormOptions: MyFormOptions = [
     {
       name: 'person-company-type',
       label: `${formatMessage({ id: 'app.personComapnyInfo.personType' })}`,
       type: 'select',
-      innerProps: { placeholder: '' },
+      innerProps: { placeholder: '', onChange: (value: any) => setPersonType(value) },
       options: [
         { label: 'حقیقی', value: 'Haghighi' },
         { label: 'حقوقی', value: 'Hoghooghi' },
@@ -29,24 +31,42 @@ function CompanyPersonInfo() {
       label: `${formatMessage({ id: 'app.personComapnyInfo.firstnamePer' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
+      hidden: personType !== 'Haghighi',
     },
     {
       name: 'person-company-firstname-english',
       label: `${formatMessage({ id: 'app.personComapnyInfo.firstnameEng' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
+      hidden: personType !== 'Haghighi',
     },
     {
       name: 'person-company-lastname-persian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnamePer' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
+      hidden: personType !== 'Haghighi',
     },
     {
       name: 'person-company-lastname-english',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnameEng' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
+      hidden: personType !== 'Haghighi',
+    },
+    {
+      name: 'person-company-title-english',
+      label: `${formatMessage({ id: 'app.personComapnyInfo.titleEng' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+      hidden: personType !== 'Hoghooghi',
+    },
+    {
+      name: 'person-company-title-persian',
+      label: `${formatMessage({ id: 'app.personComapnyInfo.titlePer' })}`,
+      type: 'input',
+      innerProps: { placeholder: '' },
+      hidden: personType !== 'Hoghooghi',
     },
     {
       name: 'person-company-email',
@@ -113,7 +133,7 @@ function CompanyPersonInfo() {
     <FormLayout
       FormOptions={personCompanyFormOptions}
       layoutDir="vertical"
-      submitForm={values => console.log('Submitted values:', values)}
+      submitForm={values => createCostumer(values)}
       isGrid={true}
       showButton={true}
     />
