@@ -1,13 +1,20 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ProvinceContext } from '@/context/ProvinceContext';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 
 function CompanyPersonInfo() {
   const { formatMessage } = useLocale();
+  const { provinceList } = useContext(ProvinceContext);
+  const mappedProvinceList = provinceList.map(province => ({
+    value: province.id,
+    label: province.text,
+  }));
+
   const personCompanyFormOptions: MyFormOptions = [
     {
       name: 'person-company-type',
@@ -72,6 +79,7 @@ function CompanyPersonInfo() {
       label: `${formatMessage({ id: 'app.personComapnyInfo.province' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
+      options: mappedProvinceList,
     },
     {
       name: 'person-company-city',

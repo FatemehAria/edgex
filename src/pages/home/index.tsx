@@ -69,9 +69,6 @@ function Home() {
     setIsCustomerModalOpen(true);
   };
 
-  useEffect(() => {
-    getProvince();
-  }, []);
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
     const newCustomerName = values['costumer-info-factor-code'] || 'New Customer';
