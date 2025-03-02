@@ -1,13 +1,16 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ProvinceContext } from '@/context/ProvinceContext';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 
 function ProductSupplier() {
   const { formatMessage } = useLocale();
+  const { provinceList } = useContext(ProvinceContext);
+
   const productSupplierFormOptions: MyFormOptions = [
     {
       name: 'product-supplier-type',
@@ -24,6 +27,7 @@ function ProductSupplier() {
       label: `${formatMessage({ id: 'app.productSupplier.province' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
+      options: provinceList,
     },
   ];
 
