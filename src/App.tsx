@@ -5,19 +5,17 @@ import enUS from 'antd/es/locale/en_US';
 import faIR from 'antd/es/locale/fa_IR';
 import { JalaliLocaleListener } from 'antd-jalali';
 import dayjs from 'dayjs';
-import { Suspense, useContext, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { history, HistoryRouter } from '@/routes/history';
 
-import { ProvinceContext } from './context/ProvinceContext';
 import ProvinceContextProvider from './context/ProvinceContextProvider';
 import { localeConfig, LocaleFormatter } from './locales';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
 import { setGlobalState } from './stores/global.store';
-import { getProvince } from './utils/util';
 
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);

@@ -13,7 +13,6 @@ import Supplier from '../supplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { getProvince } from '@/utils/util';
 
 function Home() {
   const { token } = theme.useToken();
