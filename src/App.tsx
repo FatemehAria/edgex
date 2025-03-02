@@ -22,7 +22,6 @@ import { getProvince } from './utils/util';
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);
   const { theme, loading } = useSelector(state => state.global);
-  const { setProvinceList } = useContext(ProvinceContext);
 
   const dispatch = useDispatch();
 
@@ -72,10 +71,6 @@ const App: React.FC = () => {
       return faIR;
     }
   };
-
-  useEffect(() => {
-    getProvince(setProvinceList);
-  }, []);
 
   return (
     <div>

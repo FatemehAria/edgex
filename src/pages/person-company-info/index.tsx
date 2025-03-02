@@ -10,10 +10,6 @@ import FormLayout from '../layout/form-layout';
 function CompanyPersonInfo() {
   const { formatMessage } = useLocale();
   const { provinceList } = useContext(ProvinceContext);
-  const mappedProvinceList = provinceList.map(province => ({
-    value: province.id,
-    label: province.text,
-  }));
 
   const personCompanyFormOptions: MyFormOptions = [
     {
@@ -79,7 +75,7 @@ function CompanyPersonInfo() {
       label: `${formatMessage({ id: 'app.personComapnyInfo.province' })}`,
       type: 'select',
       innerProps: { placeholder: '' },
-      options: mappedProvinceList,
+      options: provinceList,
     },
     {
       name: 'person-company-city',
