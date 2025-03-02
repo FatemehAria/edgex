@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
-import { getExistanceList } from './util';
+import { createCategory, getExistanceList } from './util';
 
 function GroupingSpecifications() {
   const { formatMessage } = useLocale();
   const [existenceCategoryList, setExistenceCategoryList] = useState([]);
 
   useEffect(() => {
-    getExistanceList(setExistenceCategoryList);
+    // getExistanceList(setExistenceCategoryList);
   }, []);
 
   const groupingSpecificationsFormOptions: MyFormOptions = [
@@ -47,16 +47,13 @@ function GroupingSpecifications() {
     //   innerProps: { placeholder: '' },
     // },
   ];
-  // const handleSubmit = () => {
-  //   console.log('submittedّ');
-  // };
 
   return (
     <div className="form-container">
       <FormLayout
         FormOptions={groupingSpecificationsFormOptions}
         layoutDir="vertical"
-        submitForm={values => console.log('Submitted values:', values)}
+        submitForm={values => createCategory(values)}
         isGrid={false}
         showButton={true}
       />
