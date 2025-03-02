@@ -13,6 +13,7 @@ import Supplier from '../supplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import { getProvince } from '@/utils/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -68,6 +69,9 @@ function Home() {
     setIsCustomerModalOpen(true);
   };
 
+  useEffect(() => {
+    getProvince();
+  }, []);
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
     const newCustomerName = values['costumer-info-factor-code'] || 'New Customer';

@@ -15,6 +15,7 @@ import { localeConfig, LocaleFormatter } from './locales';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
 import { setGlobalState } from './stores/global.store';
+import ProvinceContextProvider from './context/ProvinceContextProvider';
 
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);
@@ -114,17 +115,19 @@ const App: React.FC = () => {
         <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
           <HistoryRouter history={history}>
             <SearchContextProvider>
-              <Suspense fallback={null}>
-                <Spin
-                  spinning={loading}
-                  className="app-loading-wrapper"
-                  style={{
-                    backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-                  }}
-                  tip={<LocaleFormatter id="gloabal.tips.loading" />}
-                ></Spin>
-                <RenderRouter />
-              </Suspense>
+              <ProvinceContextProvider>
+                <Suspense fallback={null}>
+                  <Spin
+                    spinning={loading}
+                    className="app-loading-wrapper"
+                    style={{
+                      backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+                    }}
+                    tip={<LocaleFormatter id="gloabal.tips.loading" />}
+                  ></Spin>
+                  <RenderRouter />
+                </Suspense>
+              </ProvinceContextProvider>
             </SearchContextProvider>
           </HistoryRouter>
         </IntlProvider>
