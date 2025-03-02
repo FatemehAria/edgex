@@ -30,18 +30,18 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
       innerProps: { placeholder: '' },
       options: [],
     },
-    {
-      name: 'costumer-info-factor-code',
-      label: `${formatMessage({ id: 'app.costumerInfo.factorCode' })}`,
-      type: 'input',
-      innerProps: { placeholder: '' },
-    },
-    {
-      name: 'costumer-info-org-code',
-      label: `${formatMessage({ id: 'app.costumerInfo.orgCode' })}`,
-      type: 'input',
-      innerProps: { placeholder: '' },
-    },
+    // {
+    //   name: 'costumer-info-factor-code',
+    //   label: `${formatMessage({ id: 'app.costumerInfo.factorCode' })}`,
+    //   type: 'input',
+    //   innerProps: { placeholder: '' },
+    // },
+    // {
+    //   name: 'costumer-info-org-code',
+    //   label: `${formatMessage({ id: 'app.costumerInfo.orgCode' })}`,
+    //   type: 'input',
+    //   innerProps: { placeholder: '' },
+    // },
     {
       name: 'costumer-info-active',
       label: `${formatMessage({ id: 'app.costumerInfo.status' })}`,

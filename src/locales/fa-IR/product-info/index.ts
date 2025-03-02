@@ -6,7 +6,7 @@ export const faIR_productInfo = {
   'app.productInfo.mainInfo.englishTitle': `عنوان (انگلیسی):`,
   'app.productInfo.mainInfo.persianTitle': `عنوان (فارسی):`,
   'app.productInfo.mainInfo.typeOfProduct': `نوع کالا:`,
-  'app.productInfo.mainInfo.weight': `ورن:`,
+  'app.productInfo.mainInfo.weight': `وزن:`,
   'app.productInfo.mainInfo.rate': `نرخ:`,
   'app.productInfo.mainInfo.desc': `توضیحات:`,
   'app.productInfo.grouping.columns.row': ` `,

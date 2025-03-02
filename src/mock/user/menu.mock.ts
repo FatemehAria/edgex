@@ -37,14 +37,14 @@ const mockMenuList: MenuList = [
         },
         path: '/main-tables/person-company-info',
       },
-      {
-        code: 'product-supplier',
-        label: {
-          en_US: 'Product - Supplier',
-          fa_IR: 'کالا - تامین کننده',
-        },
-        path: '/main-tables/product-supplier',
-      },
+      // {
+      //   code: 'product-supplier',
+      //   label: {
+      //     en_US: 'Product - Supplier',
+      //     fa_IR: 'کالا - تامین کننده',
+      //   },
+      //   path: '/main-tables/product-supplier',
+      // },
       {
         code: 'costumer info',
         label: {

@@ -18,18 +18,18 @@ function MainInfo() {
       type: 'input',
       innerProps: { placeholder: '' },
     },
-    {
-      name: 'product-info-typeof-product',
-      label: `${formatMessage({ id: 'app.productInfo.mainInfo.typeOfProduct' })}`,
-      type: 'input',
-      innerProps: { placeholder: '' },
-    },
-    {
-      name: 'product-info-weight',
-      label: `${formatMessage({ id: 'app.productInfo.mainInfo.weight' })}`,
-      type: 'input-number',
-      innerProps: { placeholder: '', min: 1 },
-    },
+    // {
+    //   name: 'product-info-typeof-product',
+    //   label: `${formatMessage({ id: 'app.productInfo.mainInfo.typeOfProduct' })}`,
+    //   type: 'input',
+    //   innerProps: { placeholder: '' },
+    // },
+    // {
+    //   name: 'product-info-weight',
+    //   label: `${formatMessage({ id: 'app.productInfo.mainInfo.weight' })}`,
+    //   type: 'input-number',
+    //   innerProps: { placeholder: '', min: 1 },
+    // },
     {
       name: 'product-info-rate',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.rate' })}`,
