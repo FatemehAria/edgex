@@ -1,11 +1,20 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { useEffect, useState } from 'react';
+
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
+import { getExistanceList } from './util';
 
 function GroupingSpecifications() {
   const { formatMessage } = useLocale();
+  const [existenceCategoryList, setExistenceCategoryList] = useState([]);
+
+  useEffect(() => {
+    getExistanceList(setExistenceCategoryList);
+  }, []);
+
   const groupingSpecificationsFormOptions: MyFormOptions = [
     {
       name: 'grp-specification-title-english',
