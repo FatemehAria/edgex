@@ -69,13 +69,13 @@ function ProformaTable({
           // total
           const total = vat + totalFinalSalePrice;
           // 10 درصد مالیات بر ارزش افزوده
-          // const tenPercentTax = 0.1 * totalFinalSalePrice;
+          const tenPercentTax = 0.1 * totalFinalSalePrice;
           // const tenPercentTax = 0.1 * totalFinalSalePrice;
 
           // مبلغ سود نهایی پس از کسر مالیات، بیمه و هزینه ها
           const finalProfit =
             totalFinalSalePrice -
-            // tenPercentTax -
+            tenPercentTax -
             insurancePrice -
             tableData.reduce(
               (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
@@ -162,7 +162,7 @@ function ProformaTable({
             0,
           );
 
-          //   جمع قیمت فروش 
+          //   جمع قیمت فروش
           const totalItemTotalPrice = tableData.reduce(
             (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
             0,
