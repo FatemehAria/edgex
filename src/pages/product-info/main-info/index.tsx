@@ -3,6 +3,8 @@ import type { MyFormOptions } from '@/components/core/form';
 import { useLocale } from '@/locales';
 import FormLayout from '@/pages/layout/form-layout';
 
+import { createStuff } from './util';
+
 function MainInfo() {
   const { formatMessage } = useLocale();
   const productMainInfoformOptions: MyFormOptions = [
@@ -37,7 +39,7 @@ function MainInfo() {
       innerProps: { placeholder: '' },
     },
     {
-      name: 'grp-specification-desc',
+      name: 'product-specification-desc',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.desc' })}`,
       type: 'textarea',
       innerProps: { placeholder: '' },
@@ -49,7 +51,7 @@ function MainInfo() {
       <FormLayout
         FormOptions={productMainInfoformOptions}
         layoutDir="vertical"
-        submitForm={values => console.log('Submitted values:', values)}
+        submitForm={values => createStuff(values)}
         isGrid={true}
         showButton={true}
       />

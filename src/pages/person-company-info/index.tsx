@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 import { useLocale } from '@/locales';
 
-import Supplier from '../supplier';
 import DefineType from './DefineType';
 import PersonCompanyInfo from './PersonCompanyInfo';
 

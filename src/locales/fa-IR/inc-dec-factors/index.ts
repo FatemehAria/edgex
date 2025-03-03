@@ -1,6 +1,6 @@
 export const faIR_incDecFactors = {
   'app.incDecFactors.incDecFactors': 'عوامل افزاینده/کاهنده',
-  'app.incDecFactors.title': 'عنوان::',
+  'app.incDecFactors.title': 'عنوان:',
   'app.incDecFactors.origin': 'ماهیت:',
   'app.incDecFactors.origin.placeholder': 'انتخاب ماهیت',
   'app.incDecFactors.typeOfInf': 'نوع تاثیر:',
