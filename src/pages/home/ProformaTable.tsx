@@ -92,7 +92,9 @@ function ProformaTable({
               // totalCostWithFactors: `${totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               // totalCostWithoutFactors: `${totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               // totalFinalSalePrice: `${totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              vat: `${vat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              vat: `${Math.round(vat)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               // tenPercentTax: `${tenPercentTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
