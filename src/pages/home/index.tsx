@@ -7,14 +7,12 @@ import { useEffect, useState } from 'react';
 import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
 
-import CostumerInfo from '../costumer-info';
+import ProformaCostumer from '../costumer-info/ProformaCostumer';
 import FormLayout from '../layout/form-layout';
 import Supplier from '../supplier';
-import { createSupplier } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import ProformaCostumer from '../costumer-info/ProformaCostumer';
 
 function Home() {
   const { token } = theme.useToken();
