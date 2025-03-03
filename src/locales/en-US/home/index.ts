@@ -38,7 +38,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.qty.placeholder': 'Quantity',
   'app.home.detailInfo.table.unitCost': 'Unit Cost',
   'app.home.detailInfo.table.unitCost.placeholder': 'Unit cost',
-  'app.home.detailInfo.table.price': 'Total Price',
+  'app.home.detailInfo.table.price': 'Total Cost',
   'app.home.detailInfo.table.primarySalesPrice': 'Primary Sales Price',
   'app.home.detailInfo.table.itemTotalPrice': 'Item Total Price',
   'app.home.detailInfo.table.red': 'Reducing',

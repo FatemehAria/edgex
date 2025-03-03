@@ -72,6 +72,17 @@ function FooterTableColumns({ tableData, footerContent }: { tableData: any; foot
       key: 'footerInsurancePrice',
       render: () => <span style={{ textAlign: 'center' }}>{footerContent}</span>,
     },
+    //چک مبلغ بیمه
+    {
+      title: (
+        <span className="center-align">
+          {formatMessage({ id: 'app.home.detailInfo.table.footer.insuranceCheckAmount' })}
+        </span>
+      ),
+      dataIndex: 'insuranceCheckAmount',
+      key: 'insuranceCheckAmount',
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
     {
       title: (
         <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.footer.finalProfit' })}</span>
