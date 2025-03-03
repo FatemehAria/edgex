@@ -3,21 +3,20 @@ import React, { useState } from 'react';
 
 import { useLocale } from '@/locales';
 
+import CostumerInfo from '../costumer-info';
 import Supplier from '../supplier';
-import DefineType from './DefineType';
-import PersonCompanyInfo from './PersonCompanyInfo';
 
-function index() {
+function DefineType() {
   const [tab, setTab] = useState('1');
   const { formatMessage } = useLocale();
   const items = [
     {
       key: '1',
-      label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.personCompInfo' })}`,
+      label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })}`,
     },
     {
       key: '2',
-      label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType' })}`,
+      label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })}`,
     },
   ];
 
@@ -28,9 +27,9 @@ function index() {
   return (
     <div>
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <PersonCompanyInfo /> : <DefineType />}
+      {tab === '1' ? <Supplier /> : <CostumerInfo />}
     </div>
   );
 }
 
-export default index;
+export default DefineType;

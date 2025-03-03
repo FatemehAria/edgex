@@ -12,16 +12,16 @@ interface SupplierProps {
 function Supplier({ onSupplierSubmit }: SupplierProps) {
   const { formatMessage } = useLocale();
   const supplierFormOptions: MyFormOptions = [
-    {
-      name: 'supplier-type',
-      label: `${formatMessage({ id: 'app.supplier.type' })}`,
-      type: 'select',
-      innerProps: { placeholder: '' },
-      options: [
-        { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
-        { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
-      ],
-    },
+    // {
+    //   name: 'supplier-type',
+    //   label: `${formatMessage({ id: 'app.supplier.type' })}`,
+    //   type: 'select',
+    //   innerProps: { placeholder: '' },
+    //   options: [
+    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
+    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
+    //   ],
+    // },
     {
       // Change this field from 'select' to 'input'
       name: 'supplier-person-company',

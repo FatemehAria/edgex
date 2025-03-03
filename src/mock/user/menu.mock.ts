@@ -21,14 +21,14 @@ const mockMenuList: MenuList = [
     icon: 'main tables',
     path: '/',
     children: [
-      {
-        code: 'supplier',
-        label: {
-          en_US: 'Supplier',
-          fa_IR: 'تامین کننده',
-        },
-        path: '/main-tables/supplier',
-      },
+      // {
+      //   code: 'supplier',
+      //   label: {
+      //     en_US: 'Supplier',
+      //     fa_IR: 'تامین کننده',
+      //   },
+      //   path: '/main-tables/supplier',
+      // },
       {
         code: 'info',
         label: {
@@ -45,14 +45,14 @@ const mockMenuList: MenuList = [
       //   },
       //   path: '/main-tables/product-supplier',
       // },
-      {
-        code: 'costumer info',
-        label: {
-          en_US: 'Costumer info',
-          fa_IR: 'مشخصات مشتری',
-        },
-        path: '/main-tables/costumer-info',
-      },
+      // {
+      //   code: 'costumer info',
+      //   label: {
+      //     en_US: 'Costumer info',
+      //     fa_IR: 'مشخصات مشتری',
+      //   },
+      //   path: '/main-tables/costumer-info',
+      // },
       {
         code: 'increasing/decreasing factors',
         label: {
