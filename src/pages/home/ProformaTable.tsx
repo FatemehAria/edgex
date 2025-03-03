@@ -162,6 +162,12 @@ function ProformaTable({
             0,
           );
 
+          //   جمع قیمت فروش 
+          const totalItemTotalPrice = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
+            0,
+          );
+
           return (
             <Table.Summary>
               <Table.Summary.Row style={{ backgroundColor: '#8ebfbb', textAlign: 'center' }}>
@@ -195,6 +201,14 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'itemTotalPrice') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalItemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
