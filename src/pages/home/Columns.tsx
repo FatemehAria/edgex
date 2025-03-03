@@ -33,7 +33,7 @@ export const Columns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.category' })}</span>,
       dataIndex: 'category',
       key: 'category',
-      width: 200,
+      width: 300,
       render: (text: string, record: any) => (
         <AutoFocusAddableSelect
           id={`cell-${record.key}-category`}
@@ -54,7 +54,7 @@ export const Columns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.items' })}</span>,
       dataIndex: 'items',
       key: 'items',
-      width: 200,
+      width: 300,
       render: (text: string, record: any) => (
         <AutoFocusAddableSelect
           id={`cell-${record.key}-items`}
@@ -75,7 +75,7 @@ export const Columns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.supplier' })}</span>,
       dataIndex: 'supplier',
       key: 'supplier',
-      width: 200,
+      width: 300,
       render: (text: string, record: any) => (
         <AutoFocusAddableSelect
           id={`cell-${record.key}-supplier`}
@@ -118,7 +118,7 @@ export const Columns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.qty' })}</span>,
       dataIndex: 'qty',
       key: 'qty',
-      width: 200,
+      width: 250,
       render: (text: string, record: any) => (
         <AutoFocusInput
           id={`cell-${record.key}-qty`}
@@ -138,7 +138,7 @@ export const Columns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.unitCost' })}</span>,
       dataIndex: 'unitCost',
       key: 'unitCost',
-      width: 120,
+      width: 300,
       render: (text: string, record: any) => (
         <AutoFocusInput
           id={`cell-${record.key}-unitCost`}

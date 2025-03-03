@@ -9,11 +9,10 @@ import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
 import FormLayout from '../layout/form-layout';
-import Supplier from '../supplier';
+import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import ProformaSupplier from '../supplier/ProformaSupplier';
 
 function Home() {
   const { token } = theme.useToken();
