@@ -13,6 +13,7 @@ import Supplier from '../supplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import ProformaSupplier from '../supplier/ProformaSupplier';
 
 function Home() {
   const { token } = theme.useToken();
@@ -325,7 +326,7 @@ function Home() {
 
       {/* Modal for adding a new customer */}
       <Modal
-        title="Add New Costumer"
+        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
         open={isCustomerModalOpen}
         onCancel={() => setIsCustomerModalOpen(false)}
         footer={null}
@@ -334,12 +335,12 @@ function Home() {
       </Modal>
 
       <Modal
-        title="Add New Supplier"
+        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
         open={isSupplierModalOpen}
         onCancel={() => setIsSupplierModalOpen(false)}
         footer={null}
       >
-        <Supplier onSupplierSubmit={handleNewSupplier} />
+        <ProformaSupplier onSupplierSubmit={handleNewSupplier} />
       </Modal>
     </>
   );

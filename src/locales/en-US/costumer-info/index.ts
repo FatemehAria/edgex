@@ -4,7 +4,7 @@ export const enUS_costumerInfo = {
   'app.costumerInfo.costumerType': 'Person/Company:',
   'app.costumerInfo.costumerType.haghighi': 'Haghighi',
   'app.costumerInfo.costumerType.hoghooghi': 'Hoghoghi',
-  'app.costumerInfo.factorCode': 'Factor Code:',
+  'app.costumerInfo.factorCode': 'Full Name:',
   'app.costumerInfo.orgCode': 'Organizational Code:',
   'app.costumerInfo.status': 'Status: ',
   'app.costumerInfo.status.active': 'Active',
@@ -12,4 +12,5 @@ export const enUS_costumerInfo = {
   'app.costumerInfo.isCostumerTitle': 'Are they a customer?',
   'app.costumerInfo.isCostumer': 'Yes',
   'app.costumerInfo.isNotCostumer': 'No',
+  'app.costumerInfo.modalHeader': ' ',
 };
