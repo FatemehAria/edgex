@@ -34,7 +34,10 @@ export const ProformaFormOptions = (
     name: 'header-info-title',
     label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
     type: 'input',
-    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}` },
+    innerProps: {
+      placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}`,
+      onChange: (value: any) => localStorage.setItem('header-info-title', JSON.stringify(value.target.value)),
+    },
   },
   {
     name: 'header-info-costumer',
@@ -43,7 +46,7 @@ export const ProformaFormOptions = (
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
       // onChange now receives a simple string value
-      onChange: (value: string) => {
+      onChange: (value: any) => {
         if (value === 'add-new') {
           onOpenCustomerModal();
         }
@@ -62,12 +65,20 @@ export const ProformaFormOptions = (
     name: 'header-info-date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
     type: 'date-picker',
-    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}` },
+    innerProps: {
+      placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
+      onChange: (dateString: any) => {
+        localStorage.setItem('header-info-date', JSON.stringify(dateString));
+      },
+    },
   },
   {
     name: 'header-info-desc',
     label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
     type: 'textarea',
-    innerProps: { placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}` },
+    innerProps: {
+      placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}`,
+      onChange: (value: any) => localStorage.setItem('header-info-desc', JSON.stringify(value.target.value)),
+    },
   },
 ];

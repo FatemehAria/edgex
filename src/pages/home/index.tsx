@@ -10,10 +10,11 @@ import { formatValue } from '@/utils/formatTypingNums';
 import CostumerInfo from '../costumer-info';
 import FormLayout from '../layout/form-layout';
 import Supplier from '../supplier';
+import { createSupplier } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { createSupplier } from '../supplier/util';
+import ProformaCostumer from '../costumer-info/ProformaCostumer';
 
 function Home() {
   const { token } = theme.useToken();
@@ -331,7 +332,7 @@ function Home() {
         onCancel={() => setIsCustomerModalOpen(false)}
         footer={null}
       >
-        <CostumerInfo onCustomerSubmit={handleNewCustomer} />
+        <ProformaCostumer onCustomerSubmit={handleNewCustomer} />
       </Modal>
 
       <Modal
