@@ -6,6 +6,7 @@ export const enUs_home = {
   'app.home.headerInfo.costumer': 'Costumer: ',
   'app.home.headerInfo.costumer.placeholder': 'Choose costumer',
   'app.home.headerInfo.costumer.addNew': 'Add New Costumer',
+  'app.home.headerInfo.supplier.addNew': 'Add New Supplier',
   'app.home.headerInfo.date': 'Date: ',
   'app.home.headerInfo.date.placeholder': 'date',
   'app.home.headerInfo.desc': 'Description: ',

@@ -2,6 +2,8 @@
 import { Select } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
+import { useLocale } from '@/locales';
+
 interface AutoFocusAddableSelectProps {
   text: string;
   record: any;
@@ -31,12 +33,13 @@ const AutoFocusAddableSelect = ({
   allowAddNew,
   onAddNew,
 }: AutoFocusAddableSelectProps) => {
+  const { formatMessage } = useLocale();
   // Local options state
   const [options, setOptions] = useState(() => {
     const opts = [...initialOptions];
 
     if (allowAddNew) {
-      opts.push({ label: 'Add New Supplier', value: 'add-new' });
+      opts.push({ label: `${formatMessage({ id: 'app.home.headerInfo.supplier.addNew' })}`, value: 'add-new' });
     }
 
     return opts;
@@ -47,7 +50,7 @@ const AutoFocusAddableSelect = ({
     const opts = [...initialOptions];
 
     if (allowAddNew) {
-      opts.push({ label: 'Add New Supplier', value: 'add-new' });
+      opts.push({ label: `${formatMessage({ id: 'app.home.headerInfo.supplier.addNew' })}`, value: 'add-new' });
     }
 
     setOptions(opts);

@@ -6,6 +6,7 @@ export const faIR_home = {
   'app.home.headerInfo.costumer': 'مشتری:',
   'app.home.headerInfo.costumer.placeholder': 'انتخاب مشتری',
   'app.home.headerInfo.costumer.addNew': 'اضافه کردن مشتری',
+  'app.home.headerInfo.supplier.addNew': 'اضافه کردن تامین کننده',
   'app.home.headerInfo.date': 'تاریخ:',
   'app.home.headerInfo.date.placeholder': 'تاریخ',
   'app.home.headerInfo.desc': 'توضیحات:',
