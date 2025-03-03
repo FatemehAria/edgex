@@ -164,7 +164,7 @@ function ProformaTable({
 
           return (
             <Table.Summary>
-              <Table.Summary.Row style={{ backgroundColor: '#8ebfbb' }}>
+              <Table.Summary.Row style={{ backgroundColor: '#8ebfbb', textAlign: 'center' }}>
                 {columns.map((col: any, index: any) => {
                   // For the qty column, display the total
                   if (col.dataIndex === 'qty') {
