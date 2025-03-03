@@ -9,4 +9,7 @@ export const enUS_costumerInfo = {
   'app.costumerInfo.status': 'Status: ',
   'app.costumerInfo.status.active': 'Active',
   'app.costumerInfo.status.deactive': 'Deactive',
+  'app.costumerInfo.isCostumerTitle': 'Are they a customer?',
+  'app.costumerInfo.isCostumer': 'Yes',
+  'app.costumerInfo.isNotCostumer': 'No',
 };

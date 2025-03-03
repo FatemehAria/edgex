@@ -9,4 +9,7 @@ export const faIR_costumerInfo = {
   'app.costumerInfo.status': 'وضعیت:',
   'app.costumerInfo.status.active': 'فعال',
   'app.costumerInfo.status.deactive': 'غیرفعال',
+  'app.costumerInfo.isCostumerTitle': 'آیا شخص مشتری است؟',
+  'app.costumerInfo.isCostumer': 'بله',
+  'app.costumerInfo.isNotCostumer': 'خیر',
 };

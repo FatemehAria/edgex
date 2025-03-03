@@ -12,7 +12,7 @@ function GroupingSpecifications() {
   const [existenceCategoryList, setExistenceCategoryList] = useState([]);
 
   useEffect(() => {
-    // getExistanceList(setExistenceCategoryList);
+    getExistanceList(setExistenceCategoryList);
   }, []);
 
   const groupingSpecificationsFormOptions: MyFormOptions = [

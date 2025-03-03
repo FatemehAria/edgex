@@ -22,13 +22,31 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
     //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
     //   ],
     // },
+    // {
+    //   // Change this field from 'select' to 'input'
+    //   name: 'supplier-person-company',
+    //   label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
+    //   type: 'input',
+    //   innerProps: { placeholder: '' },
+    //   // Remove options here, so the user can type their own value.
+    // },
     {
-      // Change this field from 'select' to 'input'
-      name: 'supplier-person-company',
-      label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
-      type: 'input',
-      innerProps: { placeholder: '' },
-      // Remove options here, so the user can type their own value.
+      name: 'supplier-isSupplier',
+      label: `${formatMessage({ id: 'app.supplier.isSupplierTitle' })}`,
+      type: 'radio',
+      options: [
+        { label: `${formatMessage({ id: 'app.supplier.isSupplier' })}`, value: true },
+        { label: `${formatMessage({ id: 'app.supplier.isNotSupplier' })}`, value: false },
+      ],
+    },
+    {
+      name: 'supplier-status',
+      label: `${formatMessage({ id: 'app.costumerInfo.status' })}`,
+      type: 'radio',
+      options: [
+        { label: `${formatMessage({ id: 'app.costumerInfo.status.active' })}`, value: true },
+        { label: `${formatMessage({ id: 'app.costumerInfo.status.deactive' })}`, value: false },
+      ],
     },
   ];
 

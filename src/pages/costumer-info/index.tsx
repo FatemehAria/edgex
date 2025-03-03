@@ -13,23 +13,23 @@ interface CostumerInfoProps {
 function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
   const { formatMessage } = useLocale();
   const costumerInfoFormOptions: MyFormOptions = [
-    {
-      name: 'costumer-info-type',
-      label: `${formatMessage({ id: 'app.costumerInfo.type' })}`,
-      type: 'select',
-      innerProps: { placeholder: '' },
-      options: [
-        { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
-        { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
-      ],
-    },
-    {
-      name: 'costumer-info-person-type',
-      label: `${formatMessage({ id: 'app.costumerInfo.costumerType' })}`,
-      type: 'select',
-      innerProps: { placeholder: '' },
-      options: [],
-    },
+    // {
+    //   name: 'costumer-info-type',
+    //   label: `${formatMessage({ id: 'app.costumerInfo.type' })}`,
+    //   type: 'select',
+    //   innerProps: { placeholder: '' },
+    //   options: [
+    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
+    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
+    //   ],
+    // },
+    // {
+    //   name: 'costumer-info-person-type',
+    //   label: `${formatMessage({ id: 'app.costumerInfo.costumerType' })}`,
+    //   type: 'select',
+    //   innerProps: { placeholder: '' },
+    //   options: [],
+    // },
     // {
     //   name: 'costumer-info-factor-code',
     //   label: `${formatMessage({ id: 'app.costumerInfo.factorCode' })}`,
@@ -42,6 +42,15 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
     //   type: 'input',
     //   innerProps: { placeholder: '' },
     // },
+    {
+      name: 'costumer-info-isCostumer',
+      label: `${formatMessage({ id: 'app.costumerInfo.isCostumerTitle' })}`,
+      type: 'radio',
+      options: [
+        { label: `${formatMessage({ id: 'app.costumerInfo.isCostumer' })}`, value: true },
+        { label: `${formatMessage({ id: 'app.costumerInfo.isNotCostumer' })}`, value: false },
+      ],
+    },
     {
       name: 'costumer-info-active',
       label: `${formatMessage({ id: 'app.costumerInfo.status' })}`,
