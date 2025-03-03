@@ -13,6 +13,7 @@ import Supplier from '../supplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import { createSupplier } from '../supplier/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -101,6 +102,8 @@ function Home() {
         prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
       );
       setActiveSupplierRow(null);
+
+      // createSupplier(values);
     }
 
     setIsSupplierModalOpen(false);
