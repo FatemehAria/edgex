@@ -45,7 +45,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.red': 'Reducing',
   'app.home.detailInfo.table.inc': 'Increasing',
   'app.home.detailInfo.table.totalPrice': 'Total Price',
-  'app.home.detailInfo.table.actions': 'Delete',
+  'app.home.detailInfo.table.actions': 'Actions',
   'app.home.detailInfo.table.factorValue': 'Factors',
   'app.home.detailInfo.table.modalForm.profitMargin': 'Profit Margin',
   'app.home.detailInfo.table.modalForm.commute': 'Commute',
