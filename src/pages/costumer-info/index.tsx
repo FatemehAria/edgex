@@ -80,7 +80,7 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
         }
       }}
       isGrid={false}
-      showButton={true}
+      showButton={false}
     />
   );
 }

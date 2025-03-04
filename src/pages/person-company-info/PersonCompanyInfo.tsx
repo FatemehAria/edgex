@@ -135,7 +135,7 @@ function PersonCompanyInfo() {
       layoutDir="vertical"
       submitForm={values => createCostumer(values)}
       isGrid={true}
-      showButton={true}
+      showButton={false}
     />
   );
 }

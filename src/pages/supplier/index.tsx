@@ -65,7 +65,7 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
         createSupplier(values);
       }}
       isGrid={false}
-      showButton={true}
+      showButton={false}
     />
   );
 }
