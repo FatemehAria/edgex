@@ -17,6 +17,18 @@ export const createCostumer = async (values: any) => {
       isActive: values['person-company-active'],
       CodeNational: values['person-company-nationalID'],
       Address: values['person-company-address'],
+      isActiveSuplier: localStorage.getItem('supplier-status')
+        ? JSON.parse(localStorage.getItem('supplier-status') || '')
+        : false,
+      isActiveCustomer: localStorage.getItem('costumer-info-active')
+        ? JSON.parse(localStorage.getItem('costumer-info-active') || '')
+        : false,
+      isCustomer: localStorage.getItem('costumer-info-isCostumer')
+        ? JSON.parse(localStorage.getItem('costumer-info-isCostumer') || '')
+        : false,
+      isSuplier: localStorage.getItem('supplier-isSupplier')
+        ? JSON.parse(localStorage.getItem('supplier-isSupplier') || '')
+        : false,
     });
 
     console.log(data);
