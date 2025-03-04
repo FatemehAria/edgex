@@ -8,6 +8,7 @@ import { useLocale } from '@/locales';
 
 import DefineType from './DefineType';
 import PersonCompanyInfo from './PersonCompanyInfo';
+import { createCostumer } from './util';
 
 function index() {
   const { token } = theme.useToken();
@@ -66,7 +67,9 @@ function index() {
         ))}
       </Collapse>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary">{formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}</Button>
+        <Button type="primary" onClick={() => createCostumer()}>
+          {formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}
+        </Button>
       </div>
       {/* <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
       {tab === '1' ? <PersonCompanyInfo /> : <DefineType />} */}
