@@ -38,6 +38,9 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
         { label: `${formatMessage({ id: 'app.supplier.isSupplier' })}`, value: true },
         { label: `${formatMessage({ id: 'app.supplier.isNotSupplier' })}`, value: false },
       ],
+      innerProps: {
+        onChange: (value: any) => localStorage.setItem('supplier-isSupplier', JSON.stringify(value.target.value)),
+      },
     },
     {
       name: 'supplier-status',
@@ -47,6 +50,9 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.status.active' })}`, value: true },
         { label: `${formatMessage({ id: 'app.costumerInfo.status.deactive' })}`, value: false },
       ],
+      innerProps: {
+        onChange: (value: any) => localStorage.setItem('supplier-status', JSON.stringify(value.target.value)),
+      },
     },
   ];
 
