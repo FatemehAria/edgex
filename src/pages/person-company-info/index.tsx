@@ -1,8 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Button, Collapse, Tabs, theme } from 'antd';
-import React, { useState } from 'react';
+import { Button, Collapse, theme } from 'antd';
 
 import { useLocale } from '@/locales';
 

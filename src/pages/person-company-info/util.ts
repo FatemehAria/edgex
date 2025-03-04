@@ -1,7 +1,7 @@
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createCostumer = async () => {
-  console.log('createCostumer function triggered');
+  // console.log('createCostumer function triggered');
 
   try {
     const rawPersonCompanyType = localStorage.getItem('person-company-type');
@@ -62,6 +62,29 @@ export const createCostumer = async () => {
     };
 
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
+
+    const keysToRemove = [
+      'person-company-type',
+      'person-company-firstname-persian',
+      'person-company-firstname-english',
+      'person-company-lastname-persian',
+      'person-company-lastname-english',
+      'person-company-email',
+      'person-company-mobile',
+      'person-company-phonenumber',
+      'person-company-nationalID',
+      'person-company-province',
+      'person-company-city',
+      'person-company-address',
+      'person-company-postalCode',
+      'person-company-active',
+      'supplier-status',
+      'costumer-info-active',
+      'costumer-info-isCostumer',
+      'supplier-isSupplier',
+    ];
+
+    keysToRemove.forEach(key => localStorage.removeItem(key));
 
     console.log('Response data:', data);
   } catch (error) {

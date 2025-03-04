@@ -7,7 +7,6 @@ import { useLocale } from '@/locales';
 import { getCity } from '@/utils/util';
 
 import FormLayout from '../layout/form-layout';
-import { createCostumer } from './util';
 
 function PersonCompanyInfo() {
   const { formatMessage } = useLocale();
