@@ -47,6 +47,7 @@ function Home() {
       totalPriceWithFactors: 0,
       description: '',
       factorValue: '',
+      insurancePriceForRecord: 0,
       modalValues: {
         'record-percentage-discount': 0,
         'record-commute': 0,
@@ -135,6 +136,7 @@ function Home() {
       totalPriceWithoutFactors: 0,
       description: '',
       factorValue: '',
+      insurancePriceForRecord: 0,
       modalValues: {
         'record-percentage-discount': 0,
         'record-commute': 0,
@@ -184,7 +186,7 @@ function Home() {
             updatedRow.primarySalesPrice = primarySalesPrice;
 
             // قیمت کل آیتم
-            const itemTotalPrice = primarySalesPrice * qty;
+            const itemTotalPrice = updatedRow.itemTotalPrice + updatedRow.insurancePriceForRecord;
 
             updatedRow.itemTotalPrice = itemTotalPrice;
 
@@ -213,6 +215,12 @@ function Home() {
             const finalSalePrice = parseFloat(String(updatedRow.itemSalePriceRounded).replace(/,/g, '')) * qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
+
+            // مبلغ بیمه برای هر رکورد
+            const insurancePriceForRecord =
+              updatedRow.primarySalesPrice * updatedRow.qty * Number(footerInsuranceCoefficient);
+
+            updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
@@ -261,6 +269,9 @@ function Home() {
     setIsSupplierModalOpen,
     supplierOptions,
     setActiveSupplierRow,
+    insurancePrice,
+    setFooterInsuranceCoefficient,
+    footerInsuranceCoefficient,
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);

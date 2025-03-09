@@ -103,49 +103,50 @@ function ProformaTable({
               insuranceCheckAmount: `${Math.round(insuranceCheckAmount)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              footerInsurancePrice: `${Math.round(insurancePrice)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // footerInsurancePrice: `${Math.round(insurancePrice)
+              //   .toString()
+              //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
             },
           ];
 
           // Render the footer
           const footerContent = (
-            <div
-              style={{
-                // backgroundColor: '#fffeff',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                alignItems: 'center',
-                // gap: '0.5rem',
-                padding: '0 0.5rem',
-                borderRadius: '0.5rem',
-                width: '200px',
-                margin: 'auto',
-                backgroundColor: `${theme === 'dark' ? 'black' : 'white'}`,
-              }}
-            >
-              <span>
-                {Math.round(insurancePrice)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              </span>
-              <Select
-                bordered={false}
-                value={footerInsuranceCoefficient}
-                placeholder={`${formatMessage({
-                  id: 'app.home.detailInfo.table.footerInsurancePrice',
-                })}`}
-                onChange={value => setFooterInsuranceCoefficient(value)}
-                options={[
-                  { label: '0.085', value: '0.085' },
-                  { label: '0.2', value: '0.2' },
-                  { label: '0', value: '0' },
-                ]}
-                style={{ outline: 'none' }}
-              />
-            </div>
+            <div></div>
+            // <div
+            //   style={{
+            //     // backgroundColor: '#fffeff',
+            //     display: 'flex',
+            //     justifyContent: 'space-between',
+            //     flexDirection: 'row',
+            //     alignItems: 'center',
+            //     // gap: '0.5rem',
+            //     padding: '0 0.5rem',
+            //     borderRadius: '0.5rem',
+            //     width: '200px',
+            //     margin: 'auto',
+            //     backgroundColor: `${theme === 'dark' ? 'black' : 'white'}`,
+            //   }}
+            // >
+            //   <span>
+            //     {Math.round(insurancePrice)
+            //       .toString()
+            //       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            //   </span>
+            //   <Select
+            //     bordered={false}
+            //     value={footerInsuranceCoefficient}
+            //     placeholder={`${formatMessage({
+            //       id: 'app.home.detailInfo.table.footerInsurancePrice',
+            //     })}`}
+            //     onChange={value => setFooterInsuranceCoefficient(value)}
+            //     options={[
+            //       { label: '0.085', value: '0.085' },
+            //       { label: '0.2', value: '0.2' },
+            //       { label: '0', value: '0' },
+            //     ]}
+            //     style={{ outline: 'none' }}
+            //   />
+            // </div>
           );
 
           return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;

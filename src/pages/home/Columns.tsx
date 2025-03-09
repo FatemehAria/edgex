@@ -1,7 +1,10 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import './columns.css';
 
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Select } from 'antd';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
@@ -18,6 +21,9 @@ export const Columns = (
   setIsSupplierModalOpen: any,
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
+  insurancePrice: number,
+  setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
+  footerInsuranceCoefficient: string,
 ) => {
   return [
     // شماره
@@ -151,6 +157,14 @@ export const Columns = (
         />
       ),
     },
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.price' })}</span>,
+      dataIndex: 'totalPriceWithoutFactors',
+      key: 'totalPriceWithoutFactors',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
+    },
     // درصد سود
     {
       title: (
@@ -216,14 +230,6 @@ export const Columns = (
       ),
     },
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.price' })}</span>,
-      dataIndex: 'totalPriceWithoutFactors',
-      key: 'totalPriceWithoutFactors',
-      render: (text: string) => (
-        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
-      ),
-    },
-    {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}</span>,
       dataIndex: 'itemSalePrice',
       key: 'itemSalePrice',
@@ -247,6 +253,47 @@ export const Columns = (
           style={{ width: '100%' }}
           debounceTime={5000}
         />
+      ),
+    },
+    {
+      title: <span className="center-align">{formatMessage({ id: 'مبلغ بیمه' })}</span>,
+      dataIndex: 'insurancePriceForRecord',
+      key: 'insurancePriceForRecord',
+      render: (text: string, record: any) => (
+        <div
+          style={{
+            // backgroundColor: '#fffeff',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            // gap: '0.5rem',
+            padding: '0 0.5rem',
+            borderRadius: '0.5rem',
+            width: '200px',
+            margin: 'auto',
+          }}
+        >
+          <span>
+            {Math.round(insurancePrice)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </span>
+          <Select
+            bordered={false}
+            value={footerInsuranceCoefficient}
+            placeholder={`${formatMessage({
+              id: 'app.home.detailInfo.table.footerInsurancePrice',
+            })}`}
+            onChange={value => setFooterInsuranceCoefficient(value)}
+            options={[
+              { label: '0.085', value: '0.085' },
+              { label: '0.2', value: '0.2' },
+              { label: '0', value: '0' },
+            ]}
+            style={{ outline: 'none' }}
+          />
+        </div>
       ),
     },
     {
