@@ -56,7 +56,6 @@ export const Columns = (
         />
       ),
     },
-
     // آیتم ها
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.items' })}</span>,
@@ -160,6 +159,7 @@ export const Columns = (
         />
       ),
     },
+    //هزینه کل
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.price' })}</span>,
       dataIndex: 'totalPriceWithoutFactors',
@@ -232,6 +232,58 @@ export const Columns = (
         <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
       ),
     },
+    // مبلغ بیمه
+    {
+      title: <span className="center-align">{formatMessage({ id: 'مبلغ بیمه' })}</span>,
+      dataIndex: 'insurancePriceForRecord',
+      key: 'insurancePriceForRecord',
+      render: (text: string, record: any) => (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '0 0.5rem',
+            borderRadius: '0.5rem',
+            width: '200px',
+            margin: 'auto',
+            border: '1px solid #dcdcdc',
+          }}
+        >
+          <Select
+            bordered={false}
+            value={footerInsuranceCoefficient}
+            placeholder={`${formatMessage({
+              id: 'app.home.detailInfo.table.footerInsurancePrice',
+            })}`}
+            onChange={value => setFooterInsuranceCoefficient(value)}
+            options={[
+              { label: '0.085', value: '0.085' },
+              { label: '0.2', value: '0.2' },
+              { label: '0', value: '0' },
+            ]}
+            style={{ outline: 'none' }}
+          />
+          <span>
+            {Math.round(record.insurancePriceForRecord)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </span>
+        </div>
+      ),
+    },
+    //سهم از بیمه و مالیات
+    {
+      title: (
+        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}</span>
+      ),
+      dataIndex: 'itemShareOfTaxAndIns',
+      key: 'itemShareOfTaxAndIns',
+      render: (text: string) => (
+        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
+      ),
+    },
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemSalePrice' })}</span>,
       dataIndex: 'itemSalePrice',
@@ -259,58 +311,9 @@ export const Columns = (
       ),
     },
     {
-      title: <span className="center-align">{formatMessage({ id: 'مبلغ بیمه' })}</span>,
-      dataIndex: 'insurancePriceForRecord',
-      key: 'insurancePriceForRecord',
-      render: (text: string, record: any) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: '0 0.5rem',
-            borderRadius: '0.5rem',
-            width: '200px',
-            margin: 'auto',
-          }}
-        >
-          <span>
-            {Math.round(record.insurancePriceForRecord)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </span>
-          <Select
-            bordered={false}
-            value={footerInsuranceCoefficient}
-            placeholder={`${formatMessage({
-              id: 'app.home.detailInfo.table.footerInsurancePrice',
-            })}`}
-            onChange={value => setFooterInsuranceCoefficient(value)}
-            options={[
-              { label: '0.085', value: '0.085' },
-              { label: '0.2', value: '0.2' },
-              { label: '0', value: '0' },
-            ]}
-            style={{ outline: 'none' }}
-          />
-        </div>
-      ),
-    },
-    {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.finalSalePrice' })}</span>,
       dataIndex: 'finalSalePrice',
       key: 'finalSalePrice',
-      render: (text: string) => (
-        <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
-      ),
-    },
-    {
-      title: (
-        <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.itemShareOfTaxAndIns' })}</span>
-      ),
-      dataIndex: 'itemShareOfTaxAndIns',
-      key: 'itemShareOfTaxAndIns',
       render: (text: string) => (
         <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
       ),
