@@ -1,15 +1,16 @@
 import type { Dispatch, SetStateAction } from 'react';
+
 import './columns.css';
-import { Button, Select, Table } from 'antd';
+
+import { Button, Table } from 'antd';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+
 import FooterTableColumns from './FooterTableColumns';
 
 function ProformaTable({
   tableData,
   columns,
   formatMessage,
-  setFooterInsuranceCoefficient,
   footerInsuranceCoefficient,
   insurancePrice,
   setinsurancePrice,
@@ -26,18 +27,15 @@ function ProformaTable({
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
 }) {
-  const { theme } = useSelector((state: any) => state.global);
-
   useEffect(() => {
     // Calculate the total cost (sum of itemTotalPrice)
-    const totalCost = tableData.reduce(
-      (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
-      0,
-    );
+    const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
     setTotalCostOfRows(totalCost);
 
     // Calculate the insurance price based on the footer coefficient
     const calculatedInsurancePrice = Number(footerInsuranceCoefficient) * totalCost;
+
     setinsurancePrice(calculatedInsurancePrice);
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
@@ -61,16 +59,15 @@ function ProformaTable({
             totalFinalSalePrice -
             tenPercentTax -
             insurancePrice -
-            tableData.reduce(
-              (sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0),
-              0,
-            );
+            tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0), 0);
           const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
           const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
 
           const FooterTableData = [
             {
-              vat: `${Math.round(vat).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              vat: `${Math.round(vat)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfitMargin: `${totalProfitMargin}`,
@@ -81,16 +78,13 @@ function ProformaTable({
           ];
 
           const footerContent = <div></div>;
+
           return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;
         }}
         summary={() => {
-          const totalQty = tableData.reduce(
-            (sum: number, row: any) => sum + (parseFloat(row.qty) || 0),
-            0,
-          );
+          const totalQty = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.qty) || 0), 0);
           const totalUnitCosts = tableData.reduce(
-            (sum: number, row: any) =>
-              sum + (parseFloat(String(row.unitCost).replace(/,/g, '')) || 0),
+            (sum: number, row: any) => sum + (parseFloat(String(row.unitCost).replace(/,/g, '')) || 0),
             0,
           );
           const totalCostWithout = tableData.reduce(
@@ -106,6 +100,29 @@ function ProformaTable({
             0,
           );
 
+          const totalPrimarySalesPrice = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.primarySalesPrice) || 0),
+            0,
+          );
+
+          const totalItemSalePrice = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(row.itemSalePrice) || 0),
+            0,
+          );
+
+          const totalItemSalePriceRounded = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(String(row.itemSalePriceRounded).replace(/,/g, '')) || 0),
+            0,
+          );
+          const totalInsurancePriceForRecord = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(String(row.insurancePriceForRecord).replace(/,/g, '')) || 0),
+            0,
+          );
+          const totalItemShareOfTaxAndIns = tableData.reduce(
+            (sum: number, row: any) => sum + (parseFloat(String(row.itemShareOfTaxAndIns).replace(/,/g, '')) || 0),
+            0,
+          );
+
           return (
             <Table.Summary>
               <Table.Summary.Row style={{ backgroundColor: '#8ebfbb', textAlign: 'center' }}>
@@ -113,53 +130,91 @@ function ProformaTable({
                   if (col.dataIndex === 'qty') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalQty}</strong>
+                        <strong>{totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
                   if (col.dataIndex === 'unitCost') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalUnitCosts}</strong>
+                        <strong>{totalUnitCosts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
+                  if (col.dataIndex === 'primarySalesPrice') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalPrimarySalesPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'insurancePriceForRecord') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'itemShareOfTaxAndIns') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalItemShareOfTaxAndIns.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'itemSalePrice') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalItemSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
+                  if (col.dataIndex === 'itemSalePriceRounded') {
+                    return (
+                      <Table.Summary.Cell index={index} key={col.key || index}>
+                        <strong>{totalItemSalePriceRounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                      </Table.Summary.Cell>
+                    );
+                  }
+
                   if (col.dataIndex === 'totalPriceWithoutFactors') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>
-                          {totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </strong>
+                        <strong>{totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
                   if (col.dataIndex === 'totalCostWithFactors') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>
-                          {totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </strong>
+                        <strong>{totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
                   if (col.dataIndex === 'finalSalePrice') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>
-                          {totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </strong>
+                        <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
                   if (col.dataIndex === 'itemTotalPrice') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>
-                          {totalItemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </strong>
+                        <strong>{totalItemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }
+
                   return <Table.Summary.Cell index={index} key={col.key || index} />;
                 })}
               </Table.Summary.Row>

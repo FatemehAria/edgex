@@ -5,7 +5,7 @@ import React from 'react';
 
 import { useLocale } from '@/locales';
 
-function FooterTableColumns({ tableData, footerContent }: { tableData: any; footerContent: React.ReactNode }) {
+function FooterTableColumns({ tableData }: { tableData: any; footerContent: React.ReactNode }) {
   const { formatMessage } = useLocale();
   const columns = [
     // {

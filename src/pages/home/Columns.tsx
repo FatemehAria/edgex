@@ -262,12 +262,10 @@ export const Columns = (
       render: (text: string, record: any) => (
         <div
           style={{
-            // backgroundColor: '#fffeff',
             display: 'flex',
             justifyContent: 'space-between',
             flexDirection: 'row',
             alignItems: 'center',
-            // gap: '0.5rem',
             padding: '0 0.5rem',
             borderRadius: '0.5rem',
             width: '200px',
@@ -275,7 +273,7 @@ export const Columns = (
           }}
         >
           <span>
-            {Math.round(insurancePrice)
+            {Math.round(record.insurancePriceForRecord)
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           </span>
