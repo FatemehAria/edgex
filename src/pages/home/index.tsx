@@ -186,14 +186,19 @@ function Home() {
             updatedRow.primarySalesPrice = primarySalesPrice;
 
             // قیمت کل آیتم
-            const itemTotalPrice = updatedRow.itemTotalPrice + updatedRow.insurancePriceForRecord;
+            const itemTotalPrice = primarySalesPrice * qty;
 
             updatedRow.itemTotalPrice = itemTotalPrice;
+
+            // مبلغ بیمه برای هر رکورد
+            const insurancePriceForRecord = primarySalesPrice * qty * Number(footerInsuranceCoefficient);
+
+            updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
             const totalCost = totalCostOfRows || 1;
             const qtyNumber = qty || 1;
 
-            const shareOfTaxAndInsModulo = Number(insurancePrice) / totalCost / qtyNumber;
+            const shareOfTaxAndInsModulo = insurancePriceForRecord / totalCost / qtyNumber;
             // سهم آیتم از بیمه و مالیات
             const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
 
@@ -215,12 +220,6 @@ function Home() {
             const finalSalePrice = parseFloat(String(updatedRow.itemSalePriceRounded).replace(/,/g, '')) * qty;
 
             updatedRow.finalSalePrice = finalSalePrice;
-
-            // مبلغ بیمه برای هر رکورد
-            const insurancePriceForRecord =
-              updatedRow.primarySalesPrice * updatedRow.qty * Number(footerInsuranceCoefficient);
-
-            updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
             const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
 
