@@ -50,6 +50,9 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.isCostumer' })}`, value: true },
         { label: `${formatMessage({ id: 'app.costumerInfo.isNotCostumer' })}`, value: false },
       ],
+      innerProps: {
+        onChange: (value: any) => localStorage.setItem('costumer-info-isCostumer', JSON.stringify(value.target.value)),
+      },
     },
     {
       name: 'costumer-info-active',
@@ -59,6 +62,9 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.status.active' })}`, value: true },
         { label: `${formatMessage({ id: 'app.costumerInfo.status.deactive' })}`, value: false },
       ],
+      innerProps: {
+        onChange: (value: any) => localStorage.setItem('costumer-info-active', JSON.stringify(value.target.value)),
+      },
     },
   ];
 
@@ -74,7 +80,7 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
         }
       }}
       isGrid={false}
-      showButton={true}
+      showButton={false}
     />
   );
 }

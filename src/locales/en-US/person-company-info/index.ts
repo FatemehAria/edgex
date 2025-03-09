@@ -18,8 +18,11 @@ export const enUS_personCompanyInfo = {
   'app.personComapnyInfo.status': `Status:`,
   'app.personComapnyInfo.status.active': `Active`,
   'app.personComapnyInfo.status.deactive': `Deactive`,
+  'app.personComapnyInfo.infoHeader': 'Person/Company Personal Info',
+  'app.personComapnyInfo.statusAndTypeDefinition': `Defining Comapny/Person Status`,
   'app.personComapnyInfo.tabs.personCompInfo': `Info`,
   'app.personComapnyInfo.tabs.defineType': `Define type`,
   'app.personComapnyInfo.tabs.defineType.tabs.supplier': `Supplier`,
   'app.personComapnyInfo.tabs.defineType.tabs.costumer': `Costumer`,
+  'app.personComapnyInfo.submissionBtn': `Submit`,
 };

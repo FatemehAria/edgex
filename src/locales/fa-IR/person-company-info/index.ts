@@ -18,9 +18,12 @@ export const faIR_personCompanyInfo = {
   'app.personComapnyInfo.status': `وضعیت:`,
   'app.personComapnyInfo.status.active': `فعال`,
   'app.personComapnyInfo.status.deactive': `غیرفعال`,
+  'app.personComapnyInfo.infoHeader': `اطلاعات شخص/شرکت`,
+  'app.personComapnyInfo.statusAndTypeDefinition': `تعیین وضعیت شخص / شرکت`,
   'app.personComapnyInfo.tabs.personCompInfo': `مشخصات`,
   'app.personComapnyInfo.tabs.Supplier': `تامین کننده`,
   'app.personComapnyInfo.tabs.defineType': `تعریف نوع`,
   'app.personComapnyInfo.tabs.defineType.tabs.supplier': `تامین کننده`,
   'app.personComapnyInfo.tabs.defineType.tabs.costumer': `مشتری`,
+  'app.personComapnyInfo.submissionBtn': `ثبت`,
 };
