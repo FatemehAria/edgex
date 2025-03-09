@@ -49,12 +49,14 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[]}
+          initialOptions={[{ value: '1', label: 'txt' }]} // Your initial options here
           debounceTime={5000}
           mode="tags"
+          editableOptions={true} // Enable the edit icon for options
         />
       ),
     },
+
     // آیتم ها
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.items' })}</span>,
@@ -73,6 +75,7 @@ export const Columns = (
           initialOptions={[]}
           debounceTime={5000}
           mode="tags"
+          editableOptions={true}
         />
       ),
     },
