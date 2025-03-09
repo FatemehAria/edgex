@@ -4,11 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
+interface SelectOption {
+  label: React.ReactNode | any;
+  value: string;
+}
+
 interface AutoFocusAddableSelectProps {
   text: string;
   record: any;
   handleCellChange: (value: string, key: string, dataIndex: string) => void;
-  initialOptions: { label: string; value: string }[];
+  initialOptions: SelectOption[];
   dataIndex: string;
   placeholder: string;
   id: string;
@@ -17,7 +22,6 @@ interface AutoFocusAddableSelectProps {
   mode?: 'multiple' | 'tags';
   allowAddNew?: boolean;
   onAddNew?: () => void;
-  /** When true, each option will be rendered with an edit icon */
   editableOptions?: boolean;
 }
 
@@ -38,7 +42,6 @@ const AutoFocusAddableSelect = ({
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
 
-  // Initialize options. (For example, for categories you may pass initialOptions with your default values.)
   const [options, setOptions] = useState(() => {
     const opts = [...initialOptions];
 

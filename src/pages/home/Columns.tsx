@@ -49,10 +49,10 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[{ value: '1', label: 'txt' }]} // Your initial options here
+          initialOptions={[{ value: '1', label: 'txt' }]}
           debounceTime={5000}
           mode="tags"
-          editableOptions={true} // Enable the edit icon for options
+          editableOptions={true}
         />
       ),
     },
