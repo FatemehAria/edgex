@@ -17,10 +17,10 @@ function ProductInfo() {
       key: '1',
       label: `${formatMessage({ id: 'app.productInfo.tabs.mainInfo' })}`,
     },
-    {
-      key: '2',
-      label: `${formatMessage({ id: 'app.productInfo.tabs.properties' })}`,
-    },
+    // {
+    //   key: '2',
+    //   label: `${formatMessage({ id: 'app.productInfo.tabs.properties' })}`,
+    // },
     {
       key: '3',
       label: `${formatMessage({ id: 'app.productInfo.tabs.grouping' })}`,
@@ -34,7 +34,7 @@ function ProductInfo() {
   return (
     <div>
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <MainInfo /> : tab === '2' ? <Specifications /> : <Grouping />}
+      {tab === '1' ? <MainInfo /> : <Grouping />}
     </div>
   );
 }
