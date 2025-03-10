@@ -8,6 +8,7 @@ import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
+import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import FormLayout from '../layout/form-layout';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
@@ -107,6 +108,27 @@ function Home() {
     }
 
     setIsSupplierModalOpen(false);
+  };
+
+  const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
+  const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);
+  const [activeGroupingRow, setActiveGroupingRow] = useState<number | null>(null);
+
+  const handleNewGroup = (values: any) => {
+    console.log('Group submitted:', values);
+
+    const newGroup = {
+      label: values['grp-specification-title-english'] || 'Untitled Group',
+      value: values['grp-specification-title-english'] || 'untitled',
+      existenceCode: values['grp-specification-existence-code'] || '1',
+    };
+
+    setGroupingOptions(prev => [...prev, newGroup]);
+
+    // Optionally perform any API calls here to persist the new group
+
+    // Close the modal
+    setIsGroupingModalOpen(false);
   };
 
   const createEmptyRow = () => {
@@ -271,6 +293,9 @@ function Home() {
     insurancePrice,
     setFooterInsuranceCoefficient,
     footerInsuranceCoefficient,
+    setActiveGroupingRow,
+    setIsGroupingModalOpen,
+    groupingOptions
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
@@ -350,6 +375,15 @@ function Home() {
         footer={null}
       >
         <ProformaSupplier onSupplierSubmit={handleNewSupplier} />
+      </Modal>
+
+      <Modal
+        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
+        open={isGroupingModalOpen}
+        onCancel={() => setIsGroupingModalOpen(false)}
+        footer={null}
+      >
+        <ProformaGrouping onGroupSubmit={handleNewGroup} />
       </Modal>
     </>
   );

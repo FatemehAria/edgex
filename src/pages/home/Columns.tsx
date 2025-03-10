@@ -24,6 +24,9 @@ export const Columns = (
   insurancePrice: number,
   setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
   footerInsuranceCoefficient: string,
+  setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
+  setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
+  groupingOptions: { label: string; value: string }[]
 ) => {
   return [
     // شماره
@@ -49,10 +52,15 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[{ value: '1', label: 'txt' }]}
+          initialOptions={groupingOptions}
           debounceTime={5000}
           mode="tags"
           editableOptions={true}
+          allowAddNew={true}
+          onAddNew={() => {
+            setIsGroupingModalOpen(true);
+            setActiveGroupingRow(record.key);
+          }}
         />
       ),
     },
