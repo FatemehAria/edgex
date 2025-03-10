@@ -191,7 +191,7 @@ function Home() {
             updatedRow.itemTotalPrice = itemTotalPrice;
 
             // مبلغ بیمه برای هر رکورد
-            const insurancePriceForRecord = primarySalesPrice * qty * Number(footerInsuranceCoefficient);
+            const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(footerInsuranceCoefficient);
 
             updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
