@@ -151,25 +151,24 @@ const AutoFocusAddableSelect = ({
   // --- Editable Options Logic ---
   // State for controlling the edit modal.
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [editingOption, setEditingOption] = useState<{ value: string; label: string } | null>(null);
+  const [editingOption, setEditingOption] = useState<{ value: string; label: string; originalValue: any } | null>(null);
   const [editedValue, setEditedValue] = useState('');
 
   // When the edit icon is clicked.
   const handleEditClick = (option: { value: string; label: string }, e: React.MouseEvent) => {
     e.stopPropagation();
-    setEditingOption(option);
-    // Check if there's a stored edited value; if not, use the original label.
+    setEditingOption({ ...option, originalValue: option.value });
+
     const stored = localStorage.getItem(`editedOption-${option.value}`);
 
     setEditedValue(stored || option.label);
     setIsEditModalVisible(true);
   };
 
-  // When the modal is submitted.
   const handleEditSubmit = () => {
     if (editingOption) {
       localStorage.setItem(`editedOption-${editingOption.value}`, editedValue);
-      // Update the option in state so that the displayed label reflects the edit.
+
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
       setIsEditModalVisible(false);
     }
