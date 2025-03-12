@@ -42,6 +42,7 @@ export const faIR_home = {
   'app.home.detailInfo.table.price': 'هزینه کل',
   'app.home.detailInfo.table.primarySalesPrice': 'قیمت فروش اولیه',
   'app.home.detailInfo.table.itemTotalPrice': 'قیمت کل آیتم',
+  'app.home.detailInfo.table.insurancePrice': 'مبلغ بیمه',
   'app.home.detailInfo.table.red': 'کاهنده',
   'app.home.detailInfo.table.inc': 'افزاینده',
   'app.home.detailInfo.table.totalPrice': 'هزینه نهایی',

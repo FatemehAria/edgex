@@ -42,6 +42,7 @@ export const enUs_home = {
   'app.home.detailInfo.table.price': 'Total Cost',
   'app.home.detailInfo.table.primarySalesPrice': 'Primary Sales Price',
   'app.home.detailInfo.table.itemTotalPrice': 'Item Total Price',
+  'app.home.detailInfo.table.insurancePrice': 'Insurance Price',
   'app.home.detailInfo.table.red': 'Reducing',
   'app.home.detailInfo.table.inc': 'Increasing',
   'app.home.detailInfo.table.totalPrice': 'Total Price',

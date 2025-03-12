@@ -26,7 +26,7 @@ export const Columns = (
   footerInsuranceCoefficient: string,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
-  groupingOptions: { label: string; value: string }[]
+  groupingOptions: { label: string; value: string }[],
 ) => {
   return [
     // شماره
@@ -242,7 +242,7 @@ export const Columns = (
     },
     // مبلغ بیمه
     {
-      title: <span className="center-align">{formatMessage({ id: 'مبلغ بیمه' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.insurancePrice' })}</span>,
       dataIndex: 'insurancePriceForRecord',
       key: 'insurancePriceForRecord',
       render: (text: string, record: any) => (
@@ -260,7 +260,7 @@ export const Columns = (
           }}
         >
           <Select
-            bordered={false}
+            variant="borderless"
             value={footerInsuranceCoefficient}
             placeholder={`${formatMessage({
               id: 'app.home.detailInfo.table.footerInsurancePrice',

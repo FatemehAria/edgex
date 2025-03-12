@@ -60,6 +60,7 @@ function index() {
         defaultActiveKey={['1']}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
+        // items={getItems(panelStyle)}
       >
         {getItems(panelStyle).map((item: any) => (
           <Collapse.Panel key={item.key} header={item.label} style={item.style}>

@@ -360,12 +360,13 @@ function Home() {
         defaultActiveKey={['1']}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
+        items={getItems(panelStyle)}
       >
-        {getItems(panelStyle).map((item: any) => (
+        {/* {getItems(panelStyle).map((item: any) => (
           <Collapse.Panel key={item.key} header={item.label} style={item.style}>
             {item.children}
           </Collapse.Panel>
-        ))}
+        ))} */}
       </Collapse>
 
       {/* Modal for adding a new customer */}
