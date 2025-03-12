@@ -1,6 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { ProvinceContext } from '@/context/ProvinceContext';
 import { useLocale } from '@/locales';
@@ -8,11 +8,23 @@ import { getCity } from '@/utils/util';
 
 import FormLayout from '../layout/form-layout';
 
-function PersonCompanyInfo() {
+interface PersonCompanyInfoProps {
+  initialValues?: Record<string, any>; // Data for editing
+  onSubmit: (formData: Record<string, any>) => void | null; // Callback for form submission
+  showButton: boolean;
+}
+
+function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }: PersonCompanyInfoProps) {
   const { formatMessage } = useLocale();
   const { provinceList } = useContext(ProvinceContext);
   const [cityList, setCityList] = useState([]);
   const [personType, setPersonType] = useState('');
+
+  useEffect(() => {
+    if (initialValues['person-company-province']) {
+      getCity(setCityList, initialValues['person-company-province']);
+    }
+  }, [initialValues]);
 
   const personCompanyFormOptions: MyFormOptions = [
     {
@@ -25,6 +37,7 @@ function PersonCompanyInfo() {
           setPersonType(value);
           localStorage.setItem('person-company-type', JSON.stringify(value));
         },
+        defaultValue: initialValues['person-company-type'],
       },
       options: [
         { label: 'حقیقی', value: 'Haghighi' },
@@ -39,6 +52,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-firstname-persian'],
       },
       hidden: personType !== 'Haghighi',
     },
@@ -50,6 +64,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-firstname-english'],
       },
       hidden: personType !== 'Haghighi',
     },
@@ -61,6 +76,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-lastname-persian'],
       },
       hidden: personType !== 'Haghighi',
     },
@@ -72,6 +88,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-lastname-english'],
       },
       hidden: personType !== 'Haghighi',
     },
@@ -83,6 +100,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-title-english'],
       },
       hidden: personType !== 'Hoghooghi',
     },
@@ -94,6 +112,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-title-persian'],
       },
       hidden: personType !== 'Hoghooghi',
     },
@@ -104,6 +123,7 @@ function PersonCompanyInfo() {
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-email', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-email'],
       },
     },
     {
@@ -113,6 +133,7 @@ function PersonCompanyInfo() {
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-mobile', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-mobile'],
       },
     },
     {
@@ -123,6 +144,7 @@ function PersonCompanyInfo() {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-phonenumber', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-phonenumber'],
       },
     },
     {
@@ -132,6 +154,7 @@ function PersonCompanyInfo() {
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-nationalID', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-nationalID'],
       },
     },
     {
@@ -144,6 +167,7 @@ function PersonCompanyInfo() {
           getCity(setCityList, value);
           localStorage.setItem('person-company-province', JSON.stringify(value));
         },
+        defaultValue: initialValues['person-company-province'],
       },
       options: provinceList,
     },
@@ -157,6 +181,7 @@ function PersonCompanyInfo() {
           // console.log('City changed:', value);
           localStorage.setItem('person-company-city', JSON.stringify(value));
         },
+        defaultValue: initialValues['person-company-city'],
       },
       options: cityList,
     },
@@ -167,6 +192,7 @@ function PersonCompanyInfo() {
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-address', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-address'],
       },
     },
     {
@@ -176,6 +202,7 @@ function PersonCompanyInfo() {
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-postalCode', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-postalCode'],
       },
     },
     {
@@ -188,6 +215,7 @@ function PersonCompanyInfo() {
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('person-company-active', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['person-company-active'],
       },
     },
   ];
@@ -196,9 +224,9 @@ function PersonCompanyInfo() {
     <FormLayout
       FormOptions={personCompanyFormOptions}
       layoutDir="vertical"
-      submitForm={() => console.log('')}
+      submitForm={onSubmit}
       isGrid={true}
-      showButton={false}
+      showButton={showButton}
     />
   );
 }

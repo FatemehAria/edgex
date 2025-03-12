@@ -1,26 +1,34 @@
 import './index.css';
 
-import { Table } from 'antd';
+import { Modal, Table } from 'antd';
 import { useEffect, useState } from 'react';
 
+import { useLocale } from '@/locales';
+
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
+import PersonCompanyInfo from './PersonCompanyInfo';
 import { getListOfPersonCompany } from './util';
 
 function ListOfPersonCompany() {
+  const { formatMessage } = useLocale();
   const [tableData, setTableData] = useState([
     {
       key: '1',
       code: '213678',
-      type: 'حقوقی',
-      title: 'Danone',
+      'person-company-type': 'حقوقی',
+      'person-company-title-persian': 'Danone',
+      'person-company-email': 'Danone@gmail.com',
     },
     {
       key: '2',
       code: '213679',
-      type: 'حقوقی',
-      title: 'Danone',
+      'person-company-type': 'حقوقی',
+      'person-company-title-persian': 'Danone',
     },
   ]);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedRowForEdit, setSelectedRowForEdit] = useState(null);
 
   const deleteRow = (key: string) => {
     setTableData(prevData => {
@@ -33,11 +41,22 @@ function ListOfPersonCompany() {
       return prevData.filter(row => row.key !== key);
     });
   };
+
   // useEffect(() => {
   //   getListOfPersonCompany(setTableData);
   // }, []);
 
-  const columns = ListOfPersonTableColumns({ deleteRow });
+  const handleEdit = (record: any) => {
+    setSelectedRowForEdit(record);
+    setIsEditModalOpen(true);
+  };
+
+  const columns = ListOfPersonTableColumns({ deleteRow, handleEdit });
+
+  const handleUpdate = (updatedData: any) => {
+    setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));
+    setIsEditModalOpen(false);
+  };
 
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
@@ -48,6 +67,9 @@ function ListOfPersonCompany() {
         className="custom-footer-table"
         // scroll={{ x: 2000 }}
       />
+      <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
+        <PersonCompanyInfo initialValues={selectedRowForEdit || {}} onSubmit={handleUpdate} showButton={true} />
+      </Modal>
     </div>
   );
 }

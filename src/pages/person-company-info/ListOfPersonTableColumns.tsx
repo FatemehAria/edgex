@@ -3,7 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useLocale } from '@/locales';
 
-export function ListOfPersonTableColumns({ deleteRow }: { deleteRow: (key: string) => void }) {
+export function ListOfPersonTableColumns({
+  deleteRow,
+  handleEdit,
+}: {
+  deleteRow: (key: string) => void;
+  handleEdit: any;
+}) {
   const { formatMessage } = useLocale();
 
   return [
@@ -26,56 +32,56 @@ export function ListOfPersonTableColumns({ deleteRow }: { deleteRow: (key: strin
     // نوع
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.type' })}</span>,
-      dataIndex: 'type',
-      key: 'type',
+      dataIndex: 'person-company-type',
+      key: 'person-company-type',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.title' })}</span>,
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'person-company-title-persian',
+      key: 'person-company-title-persian',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // شناسه / کدملی
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.nationalID' })}</span>,
-      dataIndex: 'nationalID',
-      key: 'nationalID',
+      dataIndex: 'person-company-nationalID',
+      key: 'person-company-nationalID',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تلفن
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.telephone' })}</span>,
-      dataIndex: 'telephone',
-      key: 'telephone',
+      dataIndex: 'person-company-phonenumber',
+      key: 'person-company-phonenumber',
       width: 600,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // موبایل
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.mobile' })}</span>,
-      dataIndex: 'mobile',
-      key: 'mobile',
+      dataIndex: 'person-company-mobile',
+      key: 'person-company-mobile',
       width: 250,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // استان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.province' })}</span>,
-      dataIndex: 'province',
-      key: 'province',
+      dataIndex: 'person-company-province',
+      key: 'person-company-province',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     //شهر
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.city' })}</span>,
-      dataIndex: 'city',
-      key: 'city',
+      dataIndex: 'person-company-city',
+      key: 'person-company-city',
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // ویرایش
@@ -91,11 +97,7 @@ export function ListOfPersonTableColumns({ deleteRow }: { deleteRow: (key: strin
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
-              // onClick={() => {
-              //   if (!isDisabled) {
-              //     deleteRow(record.key);
-              //   }
-              // }}
+              onClick={() => handleEdit(record)}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
               //   marginRight: 8,
