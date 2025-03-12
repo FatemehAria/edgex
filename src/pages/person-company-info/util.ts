@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createCostumer = async () => {
@@ -90,4 +92,9 @@ export const createCostumer = async () => {
   } catch (error) {
     console.error('Error in createCostumer:', error);
   }
+};
+
+export const getListOfPersonCompany = async (setTableData: Dispatch<SetStateAction<never[]>>) => {
+  try {
+  } catch (error) {}
 };
