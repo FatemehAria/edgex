@@ -94,7 +94,17 @@ export const createCostumer = async () => {
   }
 };
 
-export const getListOfPersonCompany = async (setTableData: Dispatch<SetStateAction<never[]>>) => {
+export const getListOfPersonCompany = async (setTableData: Dispatch<SetStateAction<any[]>>) => {
+  try {
+  } catch (error) {}
+};
+
+export const updateValues = async (endpoint: string, id: string) => {
+  try {
+  } catch (error) {}
+};
+
+export const deleteValues = async (endpoint: string, id: string) => {
   try {
   } catch (error) {}
 };

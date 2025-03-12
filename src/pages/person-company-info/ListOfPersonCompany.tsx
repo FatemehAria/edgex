@@ -7,7 +7,7 @@ import { useLocale } from '@/locales';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
 import PersonCompanyInfo from './PersonCompanyInfo';
-import { getListOfPersonCompany } from './util';
+import { deleteValues, getListOfPersonCompany, updateValues } from './util';
 
 function ListOfPersonCompany() {
   const { formatMessage } = useLocale();
@@ -40,11 +40,15 @@ function ListOfPersonCompany() {
 
       return prevData.filter(row => row.key !== key);
     });
+
+    // API CALL FOR DELETING PERSON/COMPANY
+    deleteValues('/delete', '122');
   };
 
-  // useEffect(() => {
-  //   getListOfPersonCompany(setTableData);
-  // }, []);
+  useEffect(() => {
+    // API CALL FOR GETTING USERS LIST
+    getListOfPersonCompany(setTableData);
+  }, []);
 
   const handleEdit = (record: any) => {
     setSelectedRowForEdit(record);
@@ -56,6 +60,8 @@ function ListOfPersonCompany() {
   const handleUpdate = (updatedData: any) => {
     setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));
     setIsEditModalOpen(false);
+    // API CALL FOR SENDING NEW VALUES
+    updateValues('/update', '122');
   };
 
   return (
