@@ -8,6 +8,8 @@ import { useLocale } from '@/locales';
 import DefineType from './DefineType';
 import PersonCompanyInfo from './PersonCompanyInfo';
 import { createCostumer } from './util';
+import { Link } from 'react-router-dom';
+import RedirectionButton from '@/components/custom/RedirectionButton';
 
 function index() {
   const { token } = theme.useToken();
@@ -53,6 +55,7 @@ function index() {
 
   return (
     <div>
+      <RedirectionButton btnText="مشاهده لیست" linkAddress="/main-tables/person-company-info/person-company-list" />
       <Collapse
         bordered={false}
         defaultActiveKey={['1']}
