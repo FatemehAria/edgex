@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useLocale } from '@/locales';
 
-export function ListOfPersonTableColumns() {
+export function ListOfPersonTableColumns({ deleteRow }: { deleteRow: (key: string) => void }) {
   const { formatMessage } = useLocale();
 
   return [
@@ -118,11 +118,9 @@ export function ListOfPersonTableColumns() {
           <span className="center-align">
             <FontAwesomeIcon
               icon={faTrashCan}
-              // onClick={() => {
-              //   if (!isDisabled) {
-              //     deleteRow(record.key);
-              //   }
-              // }}
+              onClick={() => {
+                deleteRow(record.key);
+              }}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
               //   marginRight: 8,
