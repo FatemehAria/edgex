@@ -11,7 +11,7 @@ import FormLayout from '../layout/form-layout';
 interface PersonCompanyInfoProps {
   initialValues?: Record<string, any>; // Data for editing
   onSubmit: (formData: Record<string, any>) => void | null; // Callback for form submission
-  showButton: boolean;
+  showButton?: boolean;
 }
 
 function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }: PersonCompanyInfoProps) {

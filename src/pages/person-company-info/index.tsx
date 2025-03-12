@@ -41,7 +41,7 @@ function index() {
     {
       key: '1',
       label: `${formatMessage({ id: 'app.personComapnyInfo.infoHeader' })}`,
-      children: <PersonCompanyInfo />,
+      children: <PersonCompanyInfo onSubmit={() => console.log('')} />,
       style: panelStyle,
     },
     {
