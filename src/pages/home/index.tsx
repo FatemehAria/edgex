@@ -217,14 +217,24 @@ function Home() {
 
             updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
-            const totalCost = totalCostOfRows || 1;
+            // const totalCost = totalCostOfRows || 1;
             const qtyNumber = qty || 1;
 
-            const shareOfTaxAndInsModulo = insurancePriceForRecord / totalCost / qtyNumber;
-            // سهم آیتم از بیمه و مالیات
-            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
+            const sumOfItemTotalPrice = tableData.reduce(
+              (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
+              0,
+            );
 
-            updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
+            console.log(sumOfItemTotalPrice);
+            const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
+
+            console.log(shareOfTaxAndInsModulo);
+            // سهم آیتم از بیمه و مالیات
+            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
+            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
+
+            // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
+            updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
 
             // قیمت فروش آیتم
             const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
@@ -295,7 +305,7 @@ function Home() {
     footerInsuranceCoefficient,
     setActiveGroupingRow,
     setIsGroupingModalOpen,
-    groupingOptions
+    groupingOptions,
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);

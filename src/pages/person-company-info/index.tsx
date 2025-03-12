@@ -3,13 +3,12 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Button, Collapse, theme } from 'antd';
 
+import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import DefineType from './DefineType';
 import PersonCompanyInfo from './PersonCompanyInfo';
 import { createCostumer } from './util';
-import { Link } from 'react-router-dom';
-import RedirectionButton from '@/components/custom/RedirectionButton';
 
 function index() {
   const { token } = theme.useToken();
