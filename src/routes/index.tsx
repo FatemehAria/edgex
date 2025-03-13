@@ -9,6 +9,7 @@ import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
+import ListOfProducts from '@/pages/product-info/ListOfProducts';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -48,6 +49,10 @@ const routeList: RouteObject[] = [
       {
         path: '/main-tables/product-info',
         element: <WrapperRouteComponent element={<ProductInfo />} titleId="title.productInfo" />,
+      },
+      {
+        path: '/main-tables/product-info/products-list',
+        element: <WrapperRouteComponent element={<ListOfProducts />} titleId="title.productInfo" />,
       },
       {
         path: '/main-tables/person-company-info',

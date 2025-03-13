@@ -49,7 +49,7 @@ function GroupingSpecifications() {
   ];
 
   return (
-    <div className="form-container">
+    <div className="form-container" style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
       <FormLayout
         FormOptions={groupingSpecificationsFormOptions}
         layoutDir="vertical"

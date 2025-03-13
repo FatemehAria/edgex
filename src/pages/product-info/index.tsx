@@ -3,10 +3,12 @@ import '@/styles/product-info.css';
 import { Tabs } from 'antd';
 import React, { useState } from 'react';
 
+import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import Grouping from './grouping';
 import MainInfo from './main-info';
+import { createStuff } from './main-info/util';
 import Specifications from './specifications';
 
 function ProductInfo() {
@@ -32,9 +34,11 @@ function ProductInfo() {
   };
 
   return (
-    <div>
+    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <RedirectionButton btnText="مشاهده لیست" linkAddress="/main-tables/product-info/products-list" />
+
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <MainInfo /> : <Grouping />}
+      {tab === '1' ? <MainInfo onSubmit={values => createStuff(values)} showButton={true} /> : <Grouping />}
     </div>
   );
 }

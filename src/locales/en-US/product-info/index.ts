@@ -14,4 +14,9 @@ export const enUS_productInfo = {
   'app.productInfo.grouping.columns.product': `Product`,
   'app.productInfo.grouping.columns.delete': `Action`,
   'app.productInfo.grouping.tree.placeholder': `Search`,
+  'app.productInfo.List.row': `Row`,
+  'app.productInfo.List.titlePer': `Title (Persian)`,
+  'app.productInfo.List.titleEng': `Title (English)`,
+  'app.productInfo.List.desc': `Description`,
+  'app.productInfo.List.rate': `Rate`,
 };

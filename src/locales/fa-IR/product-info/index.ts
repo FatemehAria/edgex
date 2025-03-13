@@ -14,4 +14,9 @@ export const faIR_productInfo = {
   'app.productInfo.grouping.columns.product': `کالا`,
   'app.productInfo.grouping.columns.delete': `عملیات`,
   'app.productInfo.grouping.tree.placeholder': `جستجو`,
+  'app.productInfo.List.row': `ردیف`,
+  'app.productInfo.List.titlePer': `عنوان فارسی`,
+  'app.productInfo.List.titleEng': `عنوان`,
+  'app.productInfo.List.desc': `توضیحات`,
+  'app.productInfo.List.rate': `نرخ`,
 };
