@@ -5,20 +5,10 @@ import { lazy } from 'react';
 // import { Navigate } from 'react-router';
 import { useRoutes } from 'react-router-dom';
 
-import CostumerInfo from '@/pages/costumer-info';
-import GroupingSpecifications from '@/pages/grouping-specifications';
-import IncDecFactors from '@/pages/inc-dec-factors';
+import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
-import LoginPage from '@/pages/login';
-import CompanyPersonInfo from '@/pages/person-company-info';
-import ProductInfo from '@/pages/product-info';
-import ProductSupplier from '@/pages/product-supplier';
-import Supplier from '@/pages/supplier';
 
 import WrapperRouteComponent from './config';
-import ListOfPersonCompany from '@/pages/person-company-info/ListOfPersonCompany';
-import ListOfFactors from '@/pages/inc-dec-factors/ListOfFactors';
-import { createFactor } from '@/pages/inc-dec-factors/util';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -27,6 +17,16 @@ const FavoritesPage = lazy(() => import(/* webpackChunkName: "form'"*/ '@/pages/
 const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));
 const HomePage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/home'));
 const DashboardPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/account'));
+const ListOfPersonCompany = lazy(() => import('@/pages/person-company-info/ListOfPersonCompany'));
+const ListOfFactors = lazy(() => import('@/pages/inc-dec-factors/ListOfFactors'));
+const Supplier = lazy(() => import('@/pages/supplier'));
+const ProductSupplier = lazy(() => import('@/pages/product-supplier'));
+const ProductInfo = lazy(() => import('@/pages/product-info'));
+const CompanyPersonInfo = lazy(() => import('@/pages/person-company-info'));
+const LoginPage = lazy(() => import('@/pages/login'));
+const IncDecFactors = lazy(() => import('@/pages/inc-dec-factors'));
+const GroupingSpecifications = lazy(() => import('@/pages/grouping-specifications'));
+const CostumerInfo = lazy(() => import('@/pages/costumer-info'));
 
 const routeList: RouteObject[] = [
   {

@@ -9,7 +9,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
   return [
     // ردیف
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.row' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.row' })}</span>,
       dataIndex: 'key',
       key: 'key',
       width: 50,
@@ -17,7 +17,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     },
     // کد
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.code' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.code' })}</span>,
       dataIndex: 'code',
       key: 'code',
       width: 300,
@@ -25,7 +25,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     },
     // عنوان
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.title' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.title' })}</span>,
       dataIndex: 'factors-title',
       key: 'factors-title',
       width: 300,
@@ -33,7 +33,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     },
     // نوع تاثیر
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.nationalID' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.influence' })}</span>,
       dataIndex: 'factors-typeof-influence',
       key: 'factors-typeof-influence',
       width: 300,
@@ -41,7 +41,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     },
     // نمایش در سند
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.telephone' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.document' })}</span>,
       dataIndex: 'factors-show-document',
       key: 'factors-show-document',
       width: 600,
@@ -49,7 +49,7 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     },
     // نمایش در قلم
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.mobile' })}</span>,
+      title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.pen' })}</span>,
       dataIndex: 'factros-show-pen',
       key: 'factros-show-pen',
       width: 250,

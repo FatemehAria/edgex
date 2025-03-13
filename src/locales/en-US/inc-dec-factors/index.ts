@@ -13,4 +13,10 @@ export const enUS_incDecFactors = {
   'app.incDecFactors.showIn': 'Show in:',
   'app.incDecFactors.showIn.pen': 'pen',
   'app.incDecFactors.showIn.document': 'document',
+  'app.incDecFactors.List.row': 'Row',
+  'app.incDecFactors.List.code': 'Code',
+  'app.incDecFactors.List.title': 'Title',
+  'app.incDecFactors.List.influence': 'Influence',
+  'app.incDecFactors.List.document': 'Display in document',
+  'app.incDecFactors.List.pen': 'Dispaly in pen',
 };
