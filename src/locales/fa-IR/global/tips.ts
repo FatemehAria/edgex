@@ -26,4 +26,5 @@ export const faIR_globalTips = {
   'gloabal.tips.theme.noticeTooltip': 'اعلانات',
   'gloabal.tips.theme.addMedia': 'بارگذاری',
   'gloabal.tips.submitBtn': 'ثبت',
+  'gloabal.tips.excel': 'خروجی به اکسل',
 };

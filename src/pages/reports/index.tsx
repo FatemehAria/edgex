@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useState } from 'react';
 
+import ExcelButton from '@/components/custom/ExcelButton';
+
 import ReportsColumns from './ReportsColumns';
 
 function Reports() {
@@ -10,6 +12,7 @@ function Reports() {
 
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <ExcelButton />
       <Table
         dataSource={tableData}
         columns={columns}
