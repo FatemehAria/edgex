@@ -4,4 +4,8 @@ export const faIR_groupingSpecifications = {
   'app.grouping.perTitle': `عنوان (فارسی):`,
   'app.grouping.existance': `موجودیت:`,
   'app.grouping.existance.placeholder': `انتخاب موجودیت`,
+  'app.grouping.List.row': `زدیف`,
+  'app.grouping.List.code': `کد`,
+  'app.grouping.List.titlePer': `عنوان (فارسی)`,
+  'app.grouping.List.exisatnce': `موجودیت`,
 };

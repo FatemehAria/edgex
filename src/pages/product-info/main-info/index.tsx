@@ -3,7 +3,6 @@ import type { MyFormOptions } from '@/components/core/form';
 import { useLocale } from '@/locales';
 import FormLayout from '@/pages/layout/form-layout';
 
-import { createStuff } from './util';
 
 interface MainInfoProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -69,7 +68,7 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfo
         layoutDir="vertical"
         submitForm={handleFormSubmit}
         isGrid={true}
-        showButton={true}
+        showButton={showButton}
       />
     </div>
   );

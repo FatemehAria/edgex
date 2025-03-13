@@ -5,12 +5,11 @@ import { lazy } from 'react';
 // import { Navigate } from 'react-router';
 import { useRoutes } from 'react-router-dom';
 
+import { createCategory } from '@/pages/grouping-specifications/util';
 import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
-import ListOfProducts from '@/pages/product-info/ListOfProducts';
-import ListOfGroups from '@/pages/product-info/grouping/ListOfGroups';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -28,7 +27,9 @@ const CompanyPersonInfo = lazy(() => import('@/pages/person-company-info'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const IncDecFactors = lazy(() => import('@/pages/inc-dec-factors'));
 const GroupingSpecifications = lazy(() => import('@/pages/grouping-specifications'));
+const ListOfProducts = lazy(() => import('@/pages/product-info/ListOfProducts'));
 const CostumerInfo = lazy(() => import('@/pages/costumer-info'));
+const ListOfGroups = lazy(() => import('@/pages/grouping-specifications/ListOfGroups'));
 
 const routeList: RouteObject[] = [
   {
@@ -45,7 +46,16 @@ const routeList: RouteObject[] = [
       },
       {
         path: '/main-tables/grouping-specifications',
-        element: <WrapperRouteComponent element={<GroupingSpecifications />} titleId="title.grouping" />,
+        element: (
+          <WrapperRouteComponent
+            element={<GroupingSpecifications onSubmit={values => createCategory(values)} showButton={true} />}
+            titleId="title.grouping"
+          />
+        ),
+      },
+      {
+        path: '/main-tables/grouping-specifications/groups-list',
+        element: <WrapperRouteComponent element={<ListOfGroups />} titleId="title.grouping" />,
       },
       {
         path: '/main-tables/product-info',

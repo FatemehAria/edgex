@@ -9,7 +9,7 @@ import { useLocale } from '@/locales';
 import Grouping from './grouping';
 import MainInfo from './main-info';
 import { createStuff } from './main-info/util';
-import Specifications from './specifications';
+// import Specifications from './specifications';
 
 function ProductInfo() {
   const [tab, setTab] = useState('1');
@@ -35,8 +35,10 @@ function ProductInfo() {
 
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
-      <RedirectionButton btnText="مشاهده لیست کالاها" linkAddress="/main-tables/product-info/products-list" />
-      <RedirectionButton btnText="مشاهده لیست گروهبندی ها" linkAddress="/main-tables/product-info/products-list" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <RedirectionButton btnText="مشاهده لیست کالاها" linkAddress="/main-tables/product-info/products-list" />
+        {/* <RedirectionButton btnText="مشاهده لیست گروهبندی ها" linkAddress="/main-tables/product-info/products-list" /> */}
+      </div>
 
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
       {tab === '1' ? <MainInfo onSubmit={values => createStuff(values)} showButton={true} /> : <Grouping />}
