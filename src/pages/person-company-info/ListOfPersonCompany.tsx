@@ -1,14 +1,15 @@
 import './index.css';
 
+import ExcelButton from '@/components/custom/ExcelButton';
 import ListComponent from '@/components/custom/ListComponent';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
 import PersonCompanyInfo from './PersonCompanyInfo';
 
 function ListOfPersonCompany() {
-
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <ExcelButton />
       <ListComponent
         ModalComponent={PersonCompanyInfo}
         columnsComponent={ListOfPersonTableColumns}

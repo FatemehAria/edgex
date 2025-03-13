@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ExcelButton from '@/components/custom/ExcelButton';
 import ListComponent from '@/components/custom/ListComponent';
 
 import GroupingSpecifications from '.';
@@ -8,6 +9,7 @@ import { ListOfGroupsColumns } from './ListOfGroupsColumns';
 function ListOfGroups() {
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <ExcelButton />
       <ListComponent
         ModalComponent={GroupingSpecifications}
         columnsComponent={ListOfGroupsColumns}

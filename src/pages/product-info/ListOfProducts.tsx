@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ExcelButton from '@/components/custom/ExcelButton';
 import ListComponent from '@/components/custom/ListComponent';
 
 import ListOfProductsColumns from './ListOfProductsColumns';
@@ -8,6 +9,7 @@ import MainInfo from './main-info';
 function ListOfProducts() {
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <ExcelButton />
       <ListComponent
         ModalComponent={MainInfo}
         columnsComponent={ListOfProductsColumns}
