@@ -17,6 +17,8 @@ import Supplier from '@/pages/supplier';
 
 import WrapperRouteComponent from './config';
 import ListOfPersonCompany from '@/pages/person-company-info/ListOfPersonCompany';
+import ListOfFactors from '@/pages/inc-dec-factors/ListOfFactors';
+import { createFactor } from '@/pages/inc-dec-factors/util';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -65,7 +67,16 @@ const routeList: RouteObject[] = [
       },
       {
         path: '/main-tables/factors',
-        element: <WrapperRouteComponent element={<IncDecFactors />} titleId="title.incDecFactors" />,
+        element: (
+          <WrapperRouteComponent
+            element={<IncDecFactors onSubmit={values => createFactor(values)} showButton={true} />}
+            titleId="title.incDecFactors"
+          />
+        ),
+      },
+      {
+        path: '/main-tables/factors/factors-list',
+        element: <WrapperRouteComponent element={<ListOfFactors />} titleId="title.incDecFactors" />,
       },
       {
         path: '/main-tables/supplier',

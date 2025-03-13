@@ -1,6 +1,8 @@
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
+  console.log(values);
+
   try {
     const { data } = await customAxiosInstance.post('/AgentsReducingIncreasing/create', {
       title: values['inc-dec-title'],
