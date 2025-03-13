@@ -1,0 +1,18 @@
+export const faIR_reports = {
+  'app.reports.columns.row': 'ردیف',
+  'app.reports.columns.formNumber': 'شماره فرم',
+  'app.reports.columns.event': 'رویداد',
+  'app.reports.columns.province': 'استان',
+  'app.reports.columns.city': 'شهر',
+  'app.reports.columns.customer': 'مشتری',
+  'app.reports.columns.date': 'تاریخ',
+  'app.reports.columns.supplier': 'تامین کننده',
+  'app.reports.columns.group': 'گروهبندی',
+  'app.reports.columns.item': 'آیتم',
+  'app.reports.columns.qty': 'تعداد',
+  'app.reports.columns.rate': 'نرخ آیتم',
+  'app.reports.columns.serviceCost': 'هزینه خدمت',
+  'app.reports.columns.inc': 'افزاینده',
+  'app.reports.columns.dec': 'کاهنده',
+  'app.reports.columns.finalCost': 'هزینه نهایی',
+};

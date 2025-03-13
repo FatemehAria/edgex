@@ -1,0 +1,18 @@
+export const enUS_reports = {
+  'app.reports.columns.row': 'Row',
+  'app.reports.columns.formNumber': 'Form Number',
+  'app.reports.columns.event': 'Event',
+  'app.reports.columns.province': 'Province',
+  'app.reports.columns.city': 'City',
+  'app.reports.columns.customer': 'Customer',
+  'app.reports.columns.date': 'Date',
+  'app.reports.columns.supplier': 'Supplier',
+  'app.reports.columns.group': 'Group',
+  'app.reports.columns.item': 'Item',
+  'app.reports.columns.qty': 'Quantity',
+  'app.reports.columns.rate': 'Item Rate',
+  'app.reports.columns.serviceCost': 'Service Cost',
+  'app.reports.columns.inc': 'Increment',
+  'app.reports.columns.dec': 'Decrement',
+  'app.reports.columns.finalCost': 'Final Cost',
+};
