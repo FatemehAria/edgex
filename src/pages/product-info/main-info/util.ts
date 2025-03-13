@@ -15,3 +15,9 @@ export const createStuff = async (values: any) => {
     console.log(error);
   }
 };
+
+export const createGroup = async (values: any) => {
+  console.log(values);
+  try {
+  } catch (error) {}
+};

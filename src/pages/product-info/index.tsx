@@ -35,7 +35,8 @@ function ProductInfo() {
 
   return (
     <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
-      <RedirectionButton btnText="مشاهده لیست" linkAddress="/main-tables/product-info/products-list" />
+      <RedirectionButton btnText="مشاهده لیست کالاها" linkAddress="/main-tables/product-info/products-list" />
+      <RedirectionButton btnText="مشاهده لیست گروهبندی ها" linkAddress="/main-tables/product-info/products-list" />
 
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
       {tab === '1' ? <MainInfo onSubmit={values => createStuff(values)} showButton={true} /> : <Grouping />}
