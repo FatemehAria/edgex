@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
@@ -14,6 +16,22 @@ export const createFactor = async (values: any) => {
       isDisplayDocument: values['inc-dec-display'] === 'sanad' ? true : false,
     });
 
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFactrosList = async (endpoint: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
+  try {
+    const { data } = await customAxiosInstance.get(endpoint);
+
+    const formattedData = data.rows.map((item: any, index: number) => ({
+      ...item,
+      key: index + 1,
+    }));
+
+    setTableData(formattedData);
     console.log(data);
   } catch (error) {
     console.log(error);

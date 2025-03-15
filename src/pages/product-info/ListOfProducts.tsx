@@ -5,6 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import ListOfProductsColumns from './ListOfProductsColumns';
 import MainInfo from './main-info';
+import { getProductsList } from './util';
 
 function ListOfProducts() {
   return (
@@ -15,9 +16,12 @@ function ListOfProducts() {
         columnsComponent={ListOfProductsColumns}
         deleteEndpoint="/delete"
         deleteId="123"
-        getListEndpoint="/get"
+        getListEndpoint="/Stuff"
         updateEndpoint="/update"
         updateId="123"
+        deleteValues={() => console.log('delete product')}
+        getLists={getProductsList}
+        updateValues={() => console.log('update product')}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import { Modal, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
-import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
+// import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
   deleteEndpoint: string;
@@ -12,6 +12,9 @@ interface ListComponentProps {
   updateEndpoint: string;
   updateId: any;
   ModalComponent: any;
+  getLists: any;
+  deleteValues: any;
+  updateValues: any;
 }
 
 function ListComponent({
@@ -22,6 +25,9 @@ function ListComponent({
   updateEndpoint,
   updateId,
   ModalComponent,
+  deleteValues,
+  getLists,
+  updateValues
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);

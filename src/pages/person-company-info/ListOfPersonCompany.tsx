@@ -5,6 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
 import PersonCompanyInfo from './PersonCompanyInfo';
+import { deleteValues, getLists, updateValues } from './util';
 
 function ListOfPersonCompany() {
   return (
@@ -18,6 +19,9 @@ function ListOfPersonCompany() {
         getListEndpoint="/CompanyPerson"
         updateEndpoint="/CompanyPerson/edit"
         updateId="123"
+        deleteValues={deleteValues}
+        getLists={getLists}
+        updateValues={updateValues}
       />
       {/* <Table
         dataSource={tableData}
