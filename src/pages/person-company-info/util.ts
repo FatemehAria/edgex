@@ -73,29 +73,6 @@ export const createCostumer = async () => {
 
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
 
-    const keysToRemove = [
-      'person-company-type',
-      'person-company-firstname-persian',
-      'person-company-firstname-english',
-      'person-company-lastname-persian',
-      'person-company-lastname-english',
-      'person-company-email',
-      'person-company-mobile',
-      'person-company-phonenumber',
-      'person-company-nationalID',
-      'person-company-province',
-      'person-company-city',
-      'person-company-address',
-      'person-company-postalCode',
-      'person-company-active',
-      'supplier-status',
-      'costumer-info-active',
-      'costumer-info-isCostumer',
-      'supplier-isSupplier',
-    ];
-
-    keysToRemove.forEach(key => localStorage.removeItem(key));
-
     console.log('Response data:', data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
@@ -120,10 +97,33 @@ export const getLists = async (endpoint: string, setTableData: Dispatch<SetState
   }
 };
 
-export const updateValues = async (endpoint: string, value: string, id: string) => {
+export const updateValues = async (endpoint: string, value: any, id: string) => {
+  console.log(value);
+
   try {
-    console.log(value);
-  } catch (error) {}
+    const { data } = await customAxiosInstance.post(endpoint, {
+      id,
+      Title: value.Title,
+      codeNational: value.CodeNational,
+      telephone: value.Telephone,
+      mobile: value.Mobile,
+      email: value['Email'],
+      isActive: value['person-company-active'],
+      cityID: value['person-company-city'],
+      provinceID: value['person-company-province'],
+      titlePersian: value['person-company-title-persian'],
+      namePersian: value['person-company-firstname-persian'],
+      familyPersian: value['person-company-lastname-persian'],
+      zipCode: value['person-company-postalCode'],
+      personTypeCode: value['personTypeTitle'] === 'Haghighi' ? 1 : 2,
+    });
+
+    console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+  } catch (error) {
+    console.log(error);
+    toast.error('خطا در انجام عملیات');
+  }
 };
 
 export const deleteValues = async (endpoint: string, id: string) => {

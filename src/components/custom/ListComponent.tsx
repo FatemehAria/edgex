@@ -24,7 +24,7 @@ function ListComponent({
   ModalComponent,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedRowForEdit, setSelectedRowForEdit] = useState(null);
+  const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const { formatMessage } = useLocale();
   const [tableData, setTableData] = useState<any[]>([]);
 
@@ -66,11 +66,28 @@ function ListComponent({
 
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
+  // const handleUpdate = (updatedData: any) => {
+  //   setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));
+  //   setIsEditModalOpen(false);
+  //   // console.log('edit id', selectedRowForEdit?.ID);
+  //   // API CALL FOR SENDING NEW VALUES
+  //   updateValues(updateEndpoint, updatedData, selectedRowForEdit?.ID);
+  // };
+
   const handleUpdate = (updatedData: any) => {
-    setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));
+    const mergedData = { ...selectedRowForEdit };
+
+    Object.keys(updatedData).forEach(key => {
+      if (updatedData[key] !== '' && updatedData[key] !== null && updatedData[key] !== undefined) {
+        mergedData[key] = updatedData[key];
+      }
+    });
+
+    setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
     setIsEditModalOpen(false);
-    // API CALL FOR SENDING NEW VALUES
-    updateValues(updateEndpoint, updatedData, updateId);
+
+    // Call API with the merged data (which retains unchanged fields)
+    updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
   };
 
   return (

@@ -16,7 +16,7 @@ function ListOfPersonCompany() {
         deleteEndpoint="/delete"
         deleteId="123"
         getListEndpoint="/CompanyPerson"
-        updateEndpoint="/updateListOfPerson"
+        updateEndpoint="/CompanyPerson/edit"
         updateId="123"
       />
       {/* <Table

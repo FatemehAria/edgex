@@ -117,13 +117,13 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       hidden: personType !== 'Hoghooghi',
     },
     {
-      name: 'person-company-email',
+      name: 'Email',
       label: `${formatMessage({ id: 'app.personComapnyInfo.email' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-email', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-email'],
+        defaultValue: initialValues['Email'],
       },
     },
     {
@@ -196,17 +196,17 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       },
     },
     {
-      name: 'person-company-postalCode',
+      name: 'ZipCode',
       label: `${formatMessage({ id: 'app.personComapnyInfo.postalCode' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-postalCode', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-postalCode'],
+        defaultValue: initialValues['ZipCode'],
       },
     },
     {
-      name: 'person-company-active',
+      name: 'IsActive',
       label: `${formatMessage({ id: 'app.personComapnyInfo.status' })}`,
       type: 'radio',
       options: [
@@ -215,7 +215,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('person-company-active', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-active'],
+        defaultValue: initialValues['IsActive'],
       },
     },
   ];
