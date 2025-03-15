@@ -75,7 +75,6 @@ function ListComponent({
       <Table
         dataSource={tableData}
         columns={columns}
-        pagination={false}
         className="custom-footer-table"
         // scroll={{ x: 2000 }}
       />
