@@ -4,6 +4,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
 import { useEffect, useState } from 'react';
 
+import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
 
@@ -14,7 +15,6 @@ import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import RedirectionButton from '@/components/custom/RedirectionButton';
 
 function Home() {
   const { token } = theme.useToken();
@@ -355,7 +355,7 @@ function Home() {
   ];
 
   return (
-    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
       <RedirectionButton btnText="لیست پیش فاکتورها" linkAddress="/proforma-list" />
       <Collapse
         bordered={false}

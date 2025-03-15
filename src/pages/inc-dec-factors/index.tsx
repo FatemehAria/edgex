@@ -80,7 +80,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   };
 
   return (
-    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
       <RedirectionButton btnText="مشاهده لیست" linkAddress="/main-tables/factors/factors-list" />
 
       <FormLayout

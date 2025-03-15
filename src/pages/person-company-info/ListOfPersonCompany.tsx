@@ -8,7 +8,7 @@ import PersonCompanyInfo from './PersonCompanyInfo';
 
 function ListOfPersonCompany() {
   return (
-    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={PersonCompanyInfo}

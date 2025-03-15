@@ -11,7 +11,7 @@ function Reports() {
   const columns = ReportsColumns();
 
   return (
-    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
       <ExcelButton />
       <Table
         dataSource={tableData}
