@@ -18,6 +18,9 @@ function ListOfGroups() {
         getListEndpoint="/getListOfPerson"
         updateEndpoint="/updateListOfPerson"
         updateId="123"
+        deleteValues={() => console.log('delete Group')}
+        getLists={() => console.log('get Groups')}
+        updateValues={() => console.log('update Group')}
       />
     </div>
   );

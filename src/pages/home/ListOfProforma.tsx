@@ -16,6 +16,9 @@ function ListOfProforma() {
         getListEndpoint="/getProformas"
         updateEndpoint="/update"
         updateId="123"
+        deleteValues={() => console.log('delete proforma')}
+        getLists={() => console.log('get proforma')}
+        updateValues={() => console.log('update proforma')}
       />
     </div>
   );
