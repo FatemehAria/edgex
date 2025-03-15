@@ -10,6 +10,7 @@ import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
+import ListOfProforma from '@/pages/home/ListOfProforma';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -43,6 +44,10 @@ const routeList: RouteObject[] = [
       {
         path: '',
         element: <WrapperRouteComponent element={<HomePage />} titleId="title.homepage" />,
+      },
+      {
+        path: '/proforma-list',
+        element: <WrapperRouteComponent element={<ListOfProforma />} titleId="title.homepage" />,
       },
       {
         path: '/main-tables/grouping-specifications',

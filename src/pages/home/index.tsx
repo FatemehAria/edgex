@@ -14,6 +14,7 @@ import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import RedirectionButton from '@/components/custom/RedirectionButton';
 
 function Home() {
   const { token } = theme.useToken();
@@ -354,7 +355,8 @@ function Home() {
   ];
 
   return (
-    <>
+    <div style={{ overflow: 'hidden', minHeight: ' 100vh' }}>
+      <RedirectionButton btnText="لیست پیش فاکتورها" linkAddress="/proforma-list" />
       <Collapse
         bordered={false}
         defaultActiveKey={['1']}
@@ -396,7 +398,7 @@ function Home() {
       >
         <ProformaGrouping onGroupSubmit={handleNewGroup} />
       </Modal>
-    </>
+    </div>
   );
 }
 
