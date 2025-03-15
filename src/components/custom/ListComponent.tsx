@@ -44,12 +44,6 @@ function ListComponent({
 
   const deleteRow = (key: string) => {
     setTableData(prevData => {
-      const rowToDelete = prevData.find(row => row.key === key);
-
-      if (rowToDelete && prevData[0].key === rowToDelete.key) {
-        return prevData;
-      }
-
       return prevData.filter(row => row.key !== key);
     });
 
