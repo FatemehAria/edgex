@@ -1,8 +1,8 @@
+import { Modal, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
-import { Modal, Table } from 'antd';
 import { useLocale } from '@/locales';
+import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
   deleteEndpoint: string;
@@ -71,6 +71,7 @@ function ListComponent({
       const newRow = { ...record, key: newKey };
 
       const newData = [...prevData];
+
       newData.splice(index + 1, 0, newRow);
 
       return newData;
