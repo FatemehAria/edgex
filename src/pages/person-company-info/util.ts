@@ -1,37 +1,45 @@
 import type { Dispatch, SetStateAction } from 'react';
 
+import toast from 'react-hot-toast';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createCostumer = async () => {
-  // console.log('createCostumer function triggered');
-
   try {
     const rawPersonCompanyType = localStorage.getItem('person-company-type');
     const personCompanyType = rawPersonCompanyType ? JSON.parse(rawPersonCompanyType) : null;
 
     const rawFirstNamePersian = localStorage.getItem('person-company-firstname-persian');
-    const title = rawFirstNamePersian ? JSON.parse(rawFirstNamePersian) : '';
+    const firstNamePersian = rawFirstNamePersian ? JSON.parse(rawFirstNamePersian) : '';
 
-    // Continue for other fields...
     const dataToPost = {
       personTypeCode: personCompanyType === 'Haghighi' ? 1 : 2,
-      Title: title,
-      Name: localStorage.getItem('person-company-firstname-english')
+      namePersian: firstNamePersian,
+      name: localStorage.getItem('person-company-firstname-english')
         ? JSON.parse(localStorage.getItem('person-company-firstname-english')!)
         : '',
-      Family: localStorage.getItem('person-company-lastname-persian')
+      familyPersian: localStorage.getItem('person-company-lastname-persian')
         ? JSON.parse(localStorage.getItem('person-company-lastname-persian')!)
         : '',
-      Telephone: localStorage.getItem('person-company-phonenumber')
+      family: localStorage.getItem('person-company-lastname-english')
+        ? JSON.parse(localStorage.getItem('person-company-lastname-english')!)
+        : '',
+      title: localStorage.getItem('person-company-title-english')
+        ? JSON.parse(localStorage.getItem('person-company-title-english')!)
+        : '',
+      titlePersian: localStorage.getItem('person-company-title-persian')
+        ? JSON.parse(localStorage.getItem('person-company-title-persian')!)
+        : '',
+      telephone: localStorage.getItem('person-company-phonenumber')
         ? JSON.parse(localStorage.getItem('person-company-phonenumber')!)
         : '',
-      Mobile: localStorage.getItem('person-company-mobile')
+      mobile: localStorage.getItem('person-company-mobile')
         ? JSON.parse(localStorage.getItem('person-company-mobile')!)
         : '',
-      Email: localStorage.getItem('person-company-email')
+      email: localStorage.getItem('person-company-email')
         ? JSON.parse(localStorage.getItem('person-company-email')!)
         : '',
-      ZipCode: localStorage.getItem('person-company-postalCode')
+      zipCode: localStorage.getItem('person-company-postalCode')
         ? JSON.parse(localStorage.getItem('person-company-postalCode')!)
         : '',
       provinceID: localStorage.getItem('person-company-province')
@@ -43,10 +51,10 @@ export const createCostumer = async () => {
       isActive: localStorage.getItem('person-company-active')
         ? JSON.parse(localStorage.getItem('person-company-active')!)
         : false,
-      CodeNational: localStorage.getItem('person-company-nationalID')
+      codeNational: localStorage.getItem('person-company-nationalID')
         ? JSON.parse(localStorage.getItem('person-company-nationalID')!)
         : '',
-      Address: localStorage.getItem('person-company-address')
+      address: localStorage.getItem('person-company-address')
         ? JSON.parse(localStorage.getItem('person-company-address')!)
         : '',
       isActiveSuplier: localStorage.getItem('supplier-status')
@@ -89,8 +97,9 @@ export const createCostumer = async () => {
     keysToRemove.forEach(key => localStorage.removeItem(key));
 
     console.log('Response data:', data);
+    toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
-    console.error('Error in createCostumer:', error);
+    toast.error('خطا در انجام عملیات');
   }
 };
 
