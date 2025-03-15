@@ -28,7 +28,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
 
   const personCompanyFormOptions: MyFormOptions = [
     {
-      name: 'person-company-type',
+      name: 'personTypeTitle',
       label: `${formatMessage({ id: 'app.personComapnyInfo.personType' })}`,
       type: 'select',
       innerProps: {
@@ -37,7 +37,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           setPersonType(value);
           localStorage.setItem('person-company-type', JSON.stringify(value));
         },
-        defaultValue: initialValues['person-company-type'],
+        defaultValue: initialValues['personTypeTitle'],
       },
       options: [
         { label: 'حقیقی', value: 'Haghighi' },
@@ -93,14 +93,14 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       hidden: personType !== 'Haghighi',
     },
     {
-      name: 'person-company-title-english',
+      name: 'Title',
       label: `${formatMessage({ id: 'app.personComapnyInfo.titleEng' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-title-english'],
+        defaultValue: initialValues['Title'],
       },
       hidden: personType !== 'Hoghooghi',
     },
@@ -127,34 +127,34 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       },
     },
     {
-      name: 'person-company-mobile',
+      name: 'Mobile',
       label: `${formatMessage({ id: 'app.personComapnyInfo.mobile' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-mobile', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-mobile'],
+        defaultValue: initialValues['Mobile'],
       },
     },
     {
-      name: 'person-company-phonenumber',
+      name: 'Telephone',
       label: `${formatMessage({ id: 'app.personComapnyInfo.phone' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-phonenumber', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-phonenumber'],
+        defaultValue: initialValues['Telephone'],
       },
     },
     {
-      name: 'person-company-nationalID',
+      name: 'CodeNational',
       label: `${formatMessage({ id: 'app.personComapnyInfo.nationalID' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-nationalID', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-nationalID'],
+        defaultValue: initialValues['CodeNational'],
       },
     },
     {

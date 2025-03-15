@@ -105,7 +105,19 @@ export const createCostumer = async () => {
 
 export const getLists = async (endpoint: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
   try {
-  } catch (error) {}
+    const { data } = await customAxiosInstance.get(endpoint);
+
+    const formattedData = data.rows.map((item: any, index: number) => ({
+      ...item,
+      key: index + 1,
+      personTypeTitle: item.PersonTypeCode === 1 ? 'حقیقی' : 'حقوقی',
+    }));
+
+    setTableData(formattedData);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateValues = async (endpoint: string, value: string, id: string) => {

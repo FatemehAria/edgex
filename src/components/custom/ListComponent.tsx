@@ -26,21 +26,7 @@ function ListComponent({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState(null);
   const { formatMessage } = useLocale();
-  const [tableData, setTableData] = useState<any[]>([
-    {
-      key: '1',
-      code: '213678',
-      'person-company-type': 'حقوقی',
-      'person-company-title-persian': 'Danone',
-      'person-company-email': 'Danone@gmail.com',
-    },
-    {
-      key: '2',
-      code: '213679',
-      'person-company-type': 'حقوقی',
-      'person-company-title-persian': 'Danone',
-    },
-  ]);
+  const [tableData, setTableData] = useState<any[]>([]);
 
   const deleteRow = (key: string) => {
     setTableData(prevData => {

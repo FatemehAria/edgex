@@ -15,7 +15,7 @@ function ListOfPersonCompany() {
         columnsComponent={ListOfPersonTableColumns}
         deleteEndpoint="/delete"
         deleteId="123"
-        getListEndpoint="/getListOfPerson"
+        getListEndpoint="/CompanyPerson"
         updateEndpoint="/updateListOfPerson"
         updateId="123"
       />

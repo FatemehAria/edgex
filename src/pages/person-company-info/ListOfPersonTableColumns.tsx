@@ -26,48 +26,48 @@ export function ListOfPersonTableColumns({
     // کد
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.code' })}</span>,
-      dataIndex: 'code',
-      key: 'code',
+      dataIndex: 'Code',
+      key: 'Code',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // نوع
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.type' })}</span>,
-      dataIndex: 'person-company-type',
-      key: 'person-company-type',
+      dataIndex: 'personTypeTitle',
+      key: 'personTypeTitle',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.title' })}</span>,
-      dataIndex: 'person-company-title-persian',
-      key: 'person-company-title-persian',
+      dataIndex: 'Title',
+      key: 'Title',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // شناسه / کدملی
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.nationalID' })}</span>,
-      dataIndex: 'person-company-nationalID',
-      key: 'person-company-nationalID',
+      dataIndex: 'CodeNational',
+      key: 'CodeNational',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تلفن
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.telephone' })}</span>,
-      dataIndex: 'person-company-phonenumber',
-      key: 'person-company-phonenumber',
+      dataIndex: 'Telephone',
+      key: 'Telephone',
       width: 600,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // موبایل
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.mobile' })}</span>,
-      dataIndex: 'person-company-mobile',
-      key: 'person-company-mobile',
+      dataIndex: 'Mobile',
+      key: 'Mobile',
       width: 250,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
