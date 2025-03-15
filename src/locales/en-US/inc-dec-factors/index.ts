@@ -19,4 +19,5 @@ export const enUS_incDecFactors = {
   'app.incDecFactors.List.influence': 'Influence',
   'app.incDecFactors.List.document': 'Display in document',
   'app.incDecFactors.List.pen': 'Dispaly in pen',
+  'app.incDecFactors.redirectionBtn': 'View Factors List',
 };

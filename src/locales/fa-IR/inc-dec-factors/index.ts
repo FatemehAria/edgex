@@ -19,4 +19,5 @@ export const faIR_incDecFactors = {
   'app.incDecFactors.List.influence': 'تاثیر',
   'app.incDecFactors.List.document': 'نمایش در سند',
   'app.incDecFactors.List.pen': 'نمایش در قلم',
+  'app.incDecFactors.redirectionBtn': 'مشاهده لیست عوامل',
 };

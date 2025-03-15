@@ -36,4 +36,5 @@ export const enUS_personCompanyInfo = {
   'app.personComapnyInfo.List.city': `City`,
   'app.personComapnyInfo.List.edit': `Edit`,
   'app.personComapnyInfo.List.delete': `Delete`,
+  'app.personComapnyInfo.redirectionBtn': 'View Person/Company List',
 };

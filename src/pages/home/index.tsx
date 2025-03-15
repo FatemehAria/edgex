@@ -356,7 +356,7 @@ function Home() {
 
   return (
     <div style={{ overflow: 'hidden', height: ' 100vh' }}>
-      <RedirectionButton btnText="لیست پیش فاکتورها" linkAddress="/proforma-list" />
+      <RedirectionButton btnText={formatMessage({ id: 'app.home.redirectionBtn' })} linkAddress="/proforma-list" />
       <Collapse
         bordered={false}
         defaultActiveKey={['1']}

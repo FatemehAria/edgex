@@ -19,4 +19,6 @@ export const faIR_productInfo = {
   'app.productInfo.List.titleEng': `عنوان`,
   'app.productInfo.List.desc': `توضیحات`,
   'app.productInfo.List.rate': `نرخ`,
+  'app.productInfo.redirectionBtn': 'مشاهده لیست کالاها',
+
 };

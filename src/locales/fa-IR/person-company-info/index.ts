@@ -37,4 +37,5 @@ export const faIR_personCompanyInfo = {
   'app.personComapnyInfo.List.city': `شهر`,
   'app.personComapnyInfo.List.edit': `ویرایش`,
   'app.personComapnyInfo.List.delete': `حذف`,
+  'app.personComapnyInfo.redirectionBtn': 'مشاهده لیست افراد / اشخاص',
 };

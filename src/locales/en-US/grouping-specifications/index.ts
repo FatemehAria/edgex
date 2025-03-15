@@ -8,4 +8,5 @@ export const enUS_groupingSpecifications = {
   'app.grouping.List.code': `Code`,
   'app.grouping.List.titlePer': `Title (Persian)`,
   'app.grouping.List.exisatnce': `Existance`,
+  'app.grouping.redirectionBtn': 'View Groups List',
 };

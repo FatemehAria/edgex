@@ -8,4 +8,5 @@ export const faIR_groupingSpecifications = {
   'app.grouping.List.code': `کد`,
   'app.grouping.List.titlePer': `عنوان (فارسی)`,
   'app.grouping.List.exisatnce': `موجودیت`,
+  'app.grouping.redirectionBtn': 'مشاهده لیست گروهبندی ها',
 };

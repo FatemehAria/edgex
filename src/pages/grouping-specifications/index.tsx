@@ -71,7 +71,7 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
   return (
     <div className="form-container" style={{ overflow: 'hidden', height: ' 100vh' }}>
       <RedirectionButton
-        btnText="مشاهده لیست گروهبندی ها"
+        btnText={formatMessage({ id: 'app.grouping.redirectionBtn' })}
         linkAddress="/main-tables/grouping-specifications/groups-list"
       />
       <FormLayout

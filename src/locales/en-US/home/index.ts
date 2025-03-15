@@ -79,4 +79,5 @@ export const enUs_home = {
   'app.home.columns.finalPrice': 'Final Price',
   'app.home.columns.printEng': 'Print (English)',
   'app.home.columns.printPer': 'Print (Persian)',
+  'app.home.redirectionBtn': 'View Proforma List',
 };

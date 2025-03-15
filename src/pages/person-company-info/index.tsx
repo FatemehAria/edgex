@@ -54,7 +54,10 @@ function index() {
 
   return (
     <div>
-      <RedirectionButton btnText="مشاهده لیست" linkAddress="/main-tables/person-company-info/person-company-list" />
+      <RedirectionButton
+        btnText={formatMessage({ id: 'app.personComapnyInfo.redirectionBtn' })}
+        linkAddress="/main-tables/person-company-info/person-company-list"
+      />
       <Collapse
         bordered={false}
         defaultActiveKey={['1']}
