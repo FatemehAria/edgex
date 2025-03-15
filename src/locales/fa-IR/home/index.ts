@@ -70,4 +70,12 @@ export const faIR_home = {
   'app.home.detailInfo.table.footer.finalProfitMargin': 'حاشیه سود نهایی ',
   'app.home.detailInfo.table.footer.insuranceCheckAmount': 'چک مبلغ بیمه',
   'app.home.detailInfo.table.footer.totalQty': 'تعداد کل',
+  'app.home.columns.row': 'ردیف',
+  'app.home.columns.customer': 'مشتری',
+  'app.home.columns.eventName': 'نام رویداد',
+  'app.home.columns.date': 'تاریخ',
+  'app.home.columns.price': 'قیمت',
+  'app.home.columns.finalPrice': 'قیمت نهایی',
+  'app.home.columns.printEng': 'چاپ انگلیسی',
+  'app.home.columns.printPer': 'چاپ فارسی',
 };

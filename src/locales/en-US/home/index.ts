@@ -71,4 +71,12 @@ export const enUs_home = {
   'app.home.detailInfo.table.footer.finalProfitMargin': 'Final Profit Margin ',
   'app.home.detailInfo.table.footer.insuranceCheckAmount': 'Insurance Check Amount',
   'app.home.detailInfo.table.footer.totalQty': 'Total Cost (factors included)',
+  'app.home.columns.row': 'Row',
+  'app.home.columns.customer': 'Customer',
+  'app.home.columns.eventName': 'Event Name',
+  'app.home.columns.date': 'Date',
+  'app.home.columns.price': 'Price',
+  'app.home.columns.finalPrice': 'Final Price',
+  'app.home.columns.printEng': 'Print (English)',
+  'app.home.columns.printPer': 'Print (Persian)',
 };
