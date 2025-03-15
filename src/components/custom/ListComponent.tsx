@@ -61,7 +61,23 @@ function ListComponent({
     setIsEditModalOpen(true);
   };
 
-  const columns = columnsComponent({ deleteRow, handleEdit });
+  const copyRow = (record: any) => {
+    setTableData(prevData => {
+      const index = prevData.findIndex(row => row.key === record.key);
+
+      const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+      const newKey = (maxKey + 1).toString();
+
+      const newRow = { ...record, key: newKey };
+
+      const newData = [...prevData];
+      newData.splice(index + 1, 0, newRow);
+
+      return newData;
+    });
+  };
+
+  const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
   const handleUpdate = (updatedData: any) => {
     setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));

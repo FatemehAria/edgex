@@ -1,4 +1,4 @@
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useLocale } from '@/locales';
@@ -6,9 +6,11 @@ import { useLocale } from '@/locales';
 export function ListOfPersonTableColumns({
   deleteRow,
   handleEdit,
+  copyRow,
 }: {
   deleteRow: (key: string) => void;
   handleEdit: any;
+  copyRow: any;
 }) {
   const { formatMessage } = useLocale();
 
@@ -108,6 +110,22 @@ export function ListOfPersonTableColumns({
         );
       },
     },
+    // کپی
+    {
+      title: <span className="center-align">کپی</span>, // Adjust translation if needed
+      dataIndex: 'copy',
+      key: 'copy',
+      render: (_: any, record: any) => (
+        <span className="center-align">
+          <FontAwesomeIcon
+            icon={faCopy}
+            onClick={() => copyRow(record)} // Call copy function
+            style={{ cursor: 'pointer', marginRight: 8 }}
+          />
+        </span>
+      ),
+    },
+
     // حذف
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.delete' })}</span>,
