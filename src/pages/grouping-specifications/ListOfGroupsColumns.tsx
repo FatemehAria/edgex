@@ -26,8 +26,8 @@ export function ListOfGroupsColumns({ deleteRow, handleEdit }: { deleteRow: (key
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.titlePer' })}</span>,
-      dataIndex: 'grp-specification-title-persian',
-      key: 'grp-specification-title-persian',
+      dataIndex: 'Title',
+      key: 'Title',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
@@ -75,9 +75,7 @@ export function ListOfGroupsColumns({ deleteRow, handleEdit }: { deleteRow: (key
           <span className="center-align">
             <FontAwesomeIcon
               icon={faTrashCan}
-              onClick={() => {
-                deleteRow(record.key);
-              }}
+              onClick={() => deleteRow(record)}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
               //   marginRight: 8,

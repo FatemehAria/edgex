@@ -5,6 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import GroupingSpecifications from '.';
 import { ListOfGroupsColumns } from './ListOfGroupsColumns';
+import { deleteExistanceCategory, getExistanceList, updateExistanceCategory } from './util';
 
 function ListOfGroups() {
   return (
@@ -13,14 +14,14 @@ function ListOfGroups() {
       <ListComponent
         ModalComponent={GroupingSpecifications}
         columnsComponent={ListOfGroupsColumns}
-        deleteEndpoint="/delete"
+        deleteEndpoint="/ExistenceCategory/delete"
         deleteId="123"
-        getListEndpoint="/getListOfPerson"
-        updateEndpoint="/updateListOfPerson"
+        getListEndpoint="/ExistenceCategory"
+        updateEndpoint="/ExistenceCategory/edit"
         updateId="123"
-        deleteValues={() => console.log('delete Group')}
-        getLists={() => console.log('get Groups')}
-        updateValues={() => console.log('update Group')}
+        deleteValues={deleteExistanceCategory}
+        getLists={getExistanceList}
+        updateValues={updateExistanceCategory}
       />
     </div>
   );

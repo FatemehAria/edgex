@@ -5,6 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import ListOfProductsColumns from './ListOfProductsColumns';
 import MainInfo from './main-info';
+import { deleteProduct, updateStuff } from './main-info/util';
 import { getProductsList } from './util';
 
 function ListOfProducts() {
@@ -14,14 +15,14 @@ function ListOfProducts() {
       <ListComponent
         ModalComponent={MainInfo}
         columnsComponent={ListOfProductsColumns}
-        deleteEndpoint="/delete"
+        deleteEndpoint="/Stuff/delete"
         deleteId="123"
         getListEndpoint="/Stuff"
-        updateEndpoint="/update"
+        updateEndpoint="/Stuff/edit"
         updateId="123"
-        deleteValues={() => console.log('delete product')}
+        deleteValues={deleteProduct}
         getLists={getProductsList}
-        updateValues={() => console.log('update product')}
+        updateValues={updateStuff}
       />
     </div>
   );

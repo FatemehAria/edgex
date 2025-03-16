@@ -1,12 +1,9 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import { useEffect, useState } from 'react';
-
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
-import { getExistanceList } from './util';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -16,18 +13,13 @@ interface GroupingSpecificationsProps {
 
 function GroupingSpecifications({ initialValues = {}, showButton = false, onSubmit }: GroupingSpecificationsProps) {
   const { formatMessage } = useLocale();
-  const [existenceCategoryList, setExistenceCategoryList] = useState([]);
-
-  useEffect(() => {
-    getExistanceList(setExistenceCategoryList);
-  }, []);
 
   const groupingSpecificationsFormOptions: MyFormOptions = [
     {
-      name: 'grp-specification-title-english',
+      name: 'Title',
       label: `${formatMessage({ id: 'app.grouping.engTitle' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['grp-specification-title-english'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['Title'] },
     },
     {
       name: 'grp-specification-title-persian',

@@ -27,20 +27,18 @@ function ListComponent({
   ModalComponent,
   deleteValues,
   getLists,
-  updateValues
+  updateValues,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
-  const { formatMessage } = useLocale();
   const [tableData, setTableData] = useState<any[]>([]);
 
-  const deleteRow = (key: string) => {
+  const deleteRow = (record: any) => {
     setTableData(prevData => {
-      return prevData.filter(row => row.key !== key);
+      return prevData.filter(row => row.key !== record.key);
     });
-
     // API CALL FOR DELETING PERSON/COMPANY
-    deleteValues(deleteEndpoint, deleteId);
+    deleteValues(deleteEndpoint, selectedRowForEdit?.ID);
   };
 
   useEffect(() => {
