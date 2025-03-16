@@ -14,16 +14,16 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfo
   const { formatMessage } = useLocale();
   const productMainInfoformOptions: MyFormOptions = [
     {
-      name: 'product-info-title-english',
+      name: 'Title',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.englishTitle' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['product-info-title-english'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['Title'] },
     },
     {
-      name: 'product-info-title-persian',
+      name: 'TitlePersian',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.persianTitle' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['product-info-title-persian'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['TitlePersian'] },
     },
     // {
     //   name: 'product-info-typeof-product',
@@ -44,10 +44,10 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfo
       innerProps: { placeholder: '', defaultValue: initialValues['product-info-rate'] },
     },
     {
-      name: 'product-specification-desc',
+      name: 'Description',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.desc' })}`,
       type: 'textarea',
-      innerProps: { placeholder: '', defaultValue: initialValues['product-specification-desc'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['Description'] },
     },
   ];
 

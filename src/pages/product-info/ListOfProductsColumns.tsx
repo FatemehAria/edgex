@@ -18,16 +18,16 @@ function ListOfProductsColumns({ deleteRow, handleEdit }: { deleteRow: (key: str
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.productInfo.List.titleEng' })}</span>,
-      dataIndex: 'products-info-titleEng',
-      key: 'products-info-titleEng',
+      dataIndex: 'Title',
+      key: 'Title',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان فارسی
     {
       title: <span className="center-align">{formatMessage({ id: 'app.productInfo.List.titlePer' })}</span>,
-      dataIndex: 'products-info-titlePer',
-      key: 'products-info-titlePer',
+      dataIndex: 'TitlePersian',
+      key: 'TitlePersian',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
@@ -42,8 +42,8 @@ function ListOfProductsColumns({ deleteRow, handleEdit }: { deleteRow: (key: str
     // توضیحات
     {
       title: <span className="center-align">{formatMessage({ id: 'app.productInfo.List.desc' })}</span>,
-      dataIndex: 'desc',
-      key: 'desc',
+      dataIndex: 'Description',
+      key: 'Description',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
