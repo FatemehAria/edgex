@@ -32,13 +32,10 @@ function ListComponent({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const [tableData, setTableData] = useState<any[]>([]);
+  const [iseDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const deleteRow = (record: any) => {
-    setTableData(prevData => {
-      return prevData.filter(row => row.key !== record.key);
-    });
-    // API CALL FOR DELETING PERSON/COMPANY
-    deleteValues(deleteEndpoint, selectedRowForEdit?.ID);
+  const deleteRow = () => {
+    setIsDeleteModalOpen(true);
   };
 
   useEffect(() => {
@@ -94,6 +91,16 @@ function ListComponent({
     updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
   };
 
+  const handleOk = (record: any) => {
+    setTableData(prevData => {
+      return prevData.filter(row => row.key !== record.key);
+    });
+    // API CALL FOR DELETING PERSON/COMPANY
+    deleteValues(deleteEndpoint, selectedRowForEdit?.ID);
+
+    setIsDeleteModalOpen(false);
+  };
+
   return (
     <React.Fragment>
       <Table
@@ -104,6 +111,9 @@ function ListComponent({
       />
       <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
         <ModalComponent initialValues={selectedRowForEdit || {}} onSubmit={handleUpdate} showButton={true} />
+      </Modal>
+      <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>
+        <p>آیا از انجام عملیات مطمئنید؟</p>
       </Modal>
     </React.Fragment>
   );
