@@ -3,7 +3,6 @@ import type { MyFormOptions } from '@/components/core/form';
 import { useLocale } from '@/locales';
 import FormLayout from '@/pages/layout/form-layout';
 
-
 interface MainInfoProps {
   initialValues?: Record<string, any>; // Data for editing
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null; // Callback for form submission

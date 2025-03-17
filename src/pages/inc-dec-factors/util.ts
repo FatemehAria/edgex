@@ -37,3 +37,14 @@ export const getFactrosList = async (endpoint: string, setTableData: Dispatch<Se
     console.log(error);
   }
 };
+
+export const getNatureList = async (setNatureList: Dispatch<SetStateAction<never[]>>) => {
+  try {
+    const { data } = await customAxiosInstance.get('/AgentsReducingIncreasing/GetNatureFactorsTypeCodeList');
+
+    setNatureList(data);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};

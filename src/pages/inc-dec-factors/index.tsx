@@ -1,9 +1,12 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { useEffect, useState } from 'react';
+
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
+import { getNatureList } from './util';
 
 interface IncDecFactorsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -13,6 +16,11 @@ interface IncDecFactorsProps {
 
 function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: IncDecFactorsProps) {
   const { formatMessage } = useLocale();
+  const [natureList, setNatureList] = useState([]);
+
+  useEffect(() => {
+    getNatureList(setNatureList);
+  }, []);
 
   const incDecFactorsFormOptions: MyFormOptions = [
     {
@@ -29,7 +37,10 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
         placeholder: `${formatMessage({ id: 'app.incDecFactors.origin.placeholder' })}`,
         defaultValue: initialValues['inc-dec-mahiyat'],
       },
-      options: [],
+      options: natureList.map((item: any) => ({
+        label: item.description,
+        value: item.id, 
+      })),
     },
     {
       name: 'inc-dec-tasir',
