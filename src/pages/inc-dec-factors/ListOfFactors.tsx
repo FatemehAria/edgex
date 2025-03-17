@@ -3,7 +3,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import IncDecFactors from '.';
 import ListOfFactorsColumns from './ListOfFactorsColumns';
-import { getFactrosList } from './util';
+import { getFactrosList, updateFactor } from './util';
 
 function ListOfFactors() {
   return (
@@ -15,11 +15,11 @@ function ListOfFactors() {
         deleteEndpoint="/delete"
         deleteId="123"
         getListEndpoint="/AgentsReducingIncreasing"
-        updateEndpoint="/updat"
+        updateEndpoint="/AgentsReducingIncreasing/edit"
         updateId="123"
         deleteValues={() => console.log('delete factor')}
         getLists={getFactrosList}
-        updateValues={() => console.log('update list')}
+        updateValues={updateFactor}
       />
     </div>
   );

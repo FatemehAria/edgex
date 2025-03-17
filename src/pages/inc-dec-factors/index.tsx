@@ -59,7 +59,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       type: 'select',
       innerProps: {
         placeholder: '',
-        defaultValue: initialValues['influcence'].toString().includes('%') ? 'percentage' : 'price',
+        defaultValue: initialValues['influcence']?.toString().includes('%') ? 'percentage' : 'price',
       },
       options: [
         { label: `${formatMessage({ id: 'app.incDecFactors.typeOfInf.price' })}`, value: 'price' },
