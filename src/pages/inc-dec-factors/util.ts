@@ -76,3 +76,18 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
     toast.error('خطا در انجام عملیات');
   }
 };
+
+export const deleteFactor = async (endpoint: string, id: string) => {
+  console.log('delete running');
+
+  try {
+    const { data } = await customAxiosInstance.post(endpoint, {
+      id,
+      Title: '',
+    });
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};

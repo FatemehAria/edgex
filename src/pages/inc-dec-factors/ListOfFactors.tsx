@@ -3,7 +3,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import IncDecFactors from '.';
 import ListOfFactorsColumns from './ListOfFactorsColumns';
-import { getFactrosList, updateFactor } from './util';
+import { deleteFactor, getFactrosList, updateFactor } from './util';
 
 function ListOfFactors() {
   return (
@@ -12,12 +12,12 @@ function ListOfFactors() {
       <ListComponent
         ModalComponent={IncDecFactors}
         columnsComponent={ListOfFactorsColumns}
-        deleteEndpoint="/delete"
+        deleteEndpoint="/AgentsReducingIncreasing/delete"
         deleteId="123"
         getListEndpoint="/AgentsReducingIncreasing"
         updateEndpoint="/AgentsReducingIncreasing/edit"
         updateId="123"
-        deleteValues={() => console.log('delete factor')}
+        deleteValues={deleteFactor}
         getLists={getFactrosList}
         updateValues={updateFactor}
       />
