@@ -355,7 +355,7 @@ function Home() {
   ];
 
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <RedirectionButton btnText={formatMessage({ id: 'app.home.redirectionBtn' })} linkAddress="/proforma-list" />
       <Collapse
         bordered={false}

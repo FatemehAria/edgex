@@ -7,7 +7,7 @@ import { deleteFactor, getFactrosList, updateFactor } from './util';
 
 function ListOfFactors() {
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={IncDecFactors}

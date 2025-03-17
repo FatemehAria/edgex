@@ -55,6 +55,7 @@ const MenuComponent: FC<MenuProps> = props => {
       onOpenChange={onOpenChange}
       onSelect={k => onMenuClick(k.key)}
       className="layout-page-sider-menu text-2"
+      style={{ height: '100vh' }}
       items={menuList.map(menu => {
         return menu.children
           ? {

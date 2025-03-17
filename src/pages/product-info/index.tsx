@@ -34,7 +34,7 @@ function ProductInfo() {
   };
 
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <RedirectionButton
           btnText={formatMessage({ id: 'app.productInfo.redirectionBtn' })}

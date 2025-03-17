@@ -9,7 +9,7 @@ import { deleteExistanceCategory, getExistanceList, updateExistanceCategory } fr
 
 function ListOfGroups() {
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={GroupingSpecifications}

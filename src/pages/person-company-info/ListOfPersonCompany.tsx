@@ -9,7 +9,7 @@ import { deleteValues, getLists, updateValues } from './util';
 
 function ListOfPersonCompany() {
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={PersonCompanyInfo}

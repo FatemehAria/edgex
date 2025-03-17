@@ -9,8 +9,8 @@ import { getCity } from '@/utils/util';
 import FormLayout from '../layout/form-layout';
 
 interface PersonCompanyInfoProps {
-  initialValues?: Record<string, any>; // Data for editing
-  onSubmit: any; // Callback for form submission
+  initialValues?: Record<string, any>;
+  onSubmit: any;
   showButton?: boolean;
 }
 
