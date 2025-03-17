@@ -78,5 +78,5 @@ export const faIR_home = {
   'app.home.columns.finalPrice': 'قیمت نهایی',
   'app.home.columns.printEng': 'چاپ انگلیسی',
   'app.home.columns.printPer': 'چاپ فارسی',
-  'app.home.redirectionBtn': 'مشاهده لیست کالاها',
+  'app.home.redirectionBtn': 'مشاهده لیست پیش فاکتورها',
 };
