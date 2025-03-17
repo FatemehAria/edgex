@@ -1,5 +1,6 @@
-import { customAxiosInstance } from '@/utils/axios-config';
 import toast from 'react-hot-toast';
+
+import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createStuff = async (values: any) => {
   console.log(values);
@@ -11,14 +12,17 @@ export const createStuff = async (values: any) => {
       description: values['Description'],
     });
 
+    toast.success('عملیات با موفقیت انجام شد.');
     console.log(data);
   } catch (error) {
+    toast.error('خطا در انجام عملیات');
     console.log(error);
   }
 };
 
 export const createGroup = async (values: any) => {
   console.log(values);
+
   try {
   } catch (error) {}
 };

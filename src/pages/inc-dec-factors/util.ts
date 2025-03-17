@@ -19,8 +19,10 @@ export const createFactor = async (values: any) => {
     });
 
     console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);
+    toast.error('خطا در انجام عملیات');
   }
 };
 
