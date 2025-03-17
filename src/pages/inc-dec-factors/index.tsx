@@ -17,17 +17,28 @@ interface IncDecFactorsProps {
 function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: IncDecFactorsProps) {
   const { formatMessage } = useLocale();
   const [natureList, setNatureList] = useState([]);
+  const [display, setDisplay] = useState('block');
 
   useEffect(() => {
     getNatureList(setNatureList);
   }, []);
 
+  useEffect(() => {
+    if (initialValues && initialValues.key) {
+      // Edit mode: merge the key into the values before submitting
+      setDisplay('none');
+    } else {
+      // Create mode
+      setDisplay('block');
+    }
+  }, []);
+
   const incDecFactorsFormOptions: MyFormOptions = [
     {
-      name: 'inc-dec-title',
+      name: 'Title',
       label: `${formatMessage({ id: 'app.incDecFactors.title' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['inc-dec-title'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['Title'] },
     },
     {
       name: 'inc-dec-mahiyat',
@@ -39,24 +50,27 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       },
       options: natureList.map((item: any) => ({
         label: item.description,
-        value: item.id, 
+        value: item.id,
       })),
     },
     {
       name: 'inc-dec-tasir',
       label: `${formatMessage({ id: 'app.incDecFactors.typeOfInf' })}`,
       type: 'select',
-      innerProps: { placeholder: '', defaultValue: initialValues['inc-dec-tasir'] },
+      innerProps: {
+        placeholder: '',
+        defaultValue: initialValues['influcence'].toString().includes('%') ? 'percentage' : 'price',
+      },
       options: [
         { label: `${formatMessage({ id: 'app.incDecFactors.typeOfInf.price' })}`, value: 'price' },
         { label: `${formatMessage({ id: 'app.incDecFactors.typeOfInf.percentage' })}`, value: 'percentage' },
       ],
     },
     {
-      name: 'inc-dec-value',
+      name: 'influcence',
       label: `${formatMessage({ id: 'app.incDecFactors.value' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['inc-dec-value'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['influcence'] },
     },
     {
       name: 'inc-dec-active',
@@ -73,10 +87,12 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       label: `${formatMessage({ id: 'app.incDecFactors.showIn' })}`,
       type: 'radio',
       options: [
-        { label: `${formatMessage({ id: 'app.incDecFactors.showIn.pen' })}`, value: 'ghalam' },
-        { label: `${formatMessage({ id: 'app.incDecFactors.showIn.document' })}`, value: 'sanad' },
+        { label: `${formatMessage({ id: 'app.incDecFactors.showIn.pen' })}`, value: 'displayPen' },
+        { label: `${formatMessage({ id: 'app.incDecFactors.showIn.document' })}`, value: 'displayDocument' },
       ],
-      innerProps: { defaultValue: initialValues['inc-dec-display'] },
+      innerProps: {
+        defaultValue: initialValues.displayPen ? 'displayPen' : initialValues.displayDocument ? 'displayDocument' : '',
+      },
     },
   ];
 
@@ -91,10 +107,11 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   };
 
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ overflow: 'hidden' }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.incDecFactors.redirectionBtn' })}
         linkAddress="/main-tables/factors/factors-list"
+        display={display}
       />
 
       <FormLayout
@@ -103,6 +120,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
         submitForm={handleFormSubmit}
         isGrid={true}
         showButton={showButton}
+        key={initialValues.key}
       />
     </div>
   );

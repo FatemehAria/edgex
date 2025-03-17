@@ -18,42 +18,42 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
     // کد
     {
       title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.code' })}</span>,
-      dataIndex: 'code',
-      key: 'code',
+      dataIndex: 'Code',
+      key: 'Code',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.title' })}</span>,
-      dataIndex: 'factors-title',
-      key: 'factors-title',
+      dataIndex: 'Title',
+      key: 'Title',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // نوع تاثیر
+    // تاثیر
     {
       title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.influence' })}</span>,
-      dataIndex: 'factors-typeof-influence',
-      key: 'factors-typeof-influence',
+      dataIndex: 'influcence',
+      key: 'influcence',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // نمایش در سند
     {
       title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.document' })}</span>,
-      dataIndex: 'factors-show-document',
-      key: 'factors-show-document',
+      dataIndex: 'displayDocument',
+      key: 'displayDocument',
       width: 600,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? 'بله' : 'خیر'}</span>,
     },
     // نمایش در قلم
     {
       title: <span className="center-align">{formatMessage({ id: 'app.incDecFactors.List.pen' })}</span>,
-      dataIndex: 'factros-show-pen',
-      key: 'factros-show-pen',
+      dataIndex: 'displayPen',
+      key: 'displayPen',
       width: 250,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? 'بله' : 'خیر'}</span>,
     },
     // ویرایش
     {
