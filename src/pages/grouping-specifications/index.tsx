@@ -48,12 +48,6 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
       },
       options: existanceList,
     },
-    // {
-    //   name: 'grp-specification-level-code',
-    //   label: 'LevelCode:',
-    //   type: 'input',
-    //   innerProps: { placeholder: '' },
-    // },
   ];
 
   const handleFormSubmit = (values: Record<string, any>) => {
