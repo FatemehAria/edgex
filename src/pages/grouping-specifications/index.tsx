@@ -1,9 +1,13 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
+import { getExistenceList } from './util';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -13,6 +17,12 @@ interface GroupingSpecificationsProps {
 
 function GroupingSpecifications({ initialValues = {}, showButton = false, onSubmit }: GroupingSpecificationsProps) {
   const { formatMessage } = useLocale();
+  const { locale } = useSelector(state => state.user);
+  const [existanceList, setExistenceList] = useState<any>([]);
+
+  useEffect(() => {
+    getExistenceList(setExistenceList, locale);
+  }, [locale]);
 
   const groupingSpecificationsFormOptions: MyFormOptions = [
     {
@@ -29,18 +39,14 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
       innerProps: { placeholder: '', defaultValue: initialValues['grp-specification-title-persian'] },
     },
     {
-      name: 'grp-specification-existence-code',
+      name: 'ExistenceCode',
       label: `${formatMessage({ id: 'app.grouping.existance' })}`,
       type: 'select',
       innerProps: {
         placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}`,
-        defaultValue: initialValues['grp-specification-existence-code'],
+        defaultValue: initialValues['ExistenceCode'],
       },
-      options: [
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-        { label: '3', value: '3' },
-      ],
+      options: existanceList,
     },
     // {
     //   name: 'grp-specification-level-code',

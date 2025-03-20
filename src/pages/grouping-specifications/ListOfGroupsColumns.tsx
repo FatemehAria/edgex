@@ -18,8 +18,8 @@ export function ListOfGroupsColumns({ deleteRow, handleEdit }: { deleteRow: (key
     // کد
     {
       title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.code' })}</span>,
-      dataIndex: 'code',
-      key: 'code',
+      dataIndex: 'Code',
+      key: 'Code',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
@@ -34,8 +34,8 @@ export function ListOfGroupsColumns({ deleteRow, handleEdit }: { deleteRow: (key
     // موجودیت
     {
       title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.exisatnce' })}</span>,
-      dataIndex: 'grp-specification-existence-code',
-      key: 'grp-specification-existence-code',
+      dataIndex: 'ExistenceCode',
+      key: 'ExistenceCode',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },

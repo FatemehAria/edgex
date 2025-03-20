@@ -1,10 +1,32 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
 
-export const getExistanceList = async (endpoint: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
+export const getExistenceList = async (
+  setExistenceList: Dispatch<SetStateAction<{ label: string; value: any; disabled?: boolean | undefined }[]>>,
+  locale: Locale,
+) => {
+  try {
+    const { data } = await customAxiosInstance.get('/ExistenceCategory/GetExistenceCodeList');
+
+    const formattedData = data.map((item: any) => {
+      return {
+        label: locale === 'en_US' ? item.name : item.description,
+        value: item.id,
+      };
+    });
+
+    setExistenceList(formattedData);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getGroupList = async (endpoint: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
   try {
     const { data } = await customAxiosInstance.get(endpoint);
 
@@ -20,14 +42,14 @@ export const getExistanceList = async (endpoint: string, setTableData: Dispatch<
   }
 };
 
-export const updateExistanceCategory = async (endpoint: string, value: any, id: string) => {
+export const updateGroup = async (endpoint: string, value: any, id: string) => {
   console.log(value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
       id,
       title: value.Title,
-      // موجودیت
+      existenceCode: value['ExistenceCode'],
       // تیتر انگلیسی
     });
 
@@ -39,7 +61,7 @@ export const updateExistanceCategory = async (endpoint: string, value: any, id: 
   }
 };
 
-export const deleteExistanceCategory = async (endpoint: string, id: string) => {
+export const deleteGroup = async (endpoint: string, id: string) => {
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
       id,
@@ -58,8 +80,7 @@ export const createCategory = async (values: any) => {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
       titlePersian: values['grp-specification-title-persian'],
       title: values['Title'],
-      // موجودیت
-      // existenceCode
+      existenceCode: values['ExistenceCode'],
     });
 
     console.log(data);

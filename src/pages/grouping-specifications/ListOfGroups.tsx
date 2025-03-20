@@ -5,7 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import GroupingSpecifications from '.';
 import { ListOfGroupsColumns } from './ListOfGroupsColumns';
-import { deleteExistanceCategory, getExistanceList, updateExistanceCategory } from './util';
+import { deleteGroup, getGroupList, updateGroup } from './util';
 
 function ListOfGroups() {
   return (
@@ -19,9 +19,9 @@ function ListOfGroups() {
         getListEndpoint="/ExistenceCategory"
         updateEndpoint="/ExistenceCategory/edit"
         updateId="123"
-        deleteValues={deleteExistanceCategory}
-        getLists={getExistanceList}
-        updateValues={updateExistanceCategory}
+        deleteValues={deleteGroup}
+        getLists={getGroupList}
+        updateValues={updateGroup}
       />
     </div>
   );
