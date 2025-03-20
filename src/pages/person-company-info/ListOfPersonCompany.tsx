@@ -5,7 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
 import PersonCompanyInfo from './PersonCompanyInfo';
-import { deleteValues, getLists, updateValues } from './util';
+import { deleteCompanyPerson, getLists, updateValues } from './util';
 
 function ListOfPersonCompany() {
   return (
@@ -14,12 +14,12 @@ function ListOfPersonCompany() {
       <ListComponent
         ModalComponent={PersonCompanyInfo}
         columnsComponent={ListOfPersonTableColumns}
-        deleteEndpoint="/delete"
+        deleteEndpoint="/CompanyPerson/delete"
         deleteId="123"
         getListEndpoint="/CompanyPerson"
         updateEndpoint="/CompanyPerson/edit"
         updateId="123"
-        deleteValues={deleteValues}
+        deleteValues={deleteCompanyPerson}
         getLists={getLists}
         updateValues={updateValues}
       />

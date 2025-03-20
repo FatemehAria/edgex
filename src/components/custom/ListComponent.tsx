@@ -33,8 +33,10 @@ function ListComponent({
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const [tableData, setTableData] = useState<any[]>([]);
   const [iseDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
 
-  const deleteRow = () => {
+  const deleteRow = (record: any) => {
+    setSelectedRowForDelete(record);
     setIsDeleteModalOpen(true);
   };
 
@@ -67,14 +69,6 @@ function ListComponent({
 
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
-  // const handleUpdate = (updatedData: any) => {
-  //   setTableData(prevData => prevData.map(row => (row.key === updatedData.key ? updatedData : row)));
-  //   setIsEditModalOpen(false);
-  //   // console.log('edit id', selectedRowForEdit?.ID);
-  //   // API CALL FOR SENDING NEW VALUES
-  //   updateValues(updateEndpoint, updatedData, selectedRowForEdit?.ID);
-  // };
-
   const handleUpdate = (updatedData: any) => {
     const mergedData = { ...selectedRowForEdit };
 
@@ -91,12 +85,12 @@ function ListComponent({
     updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
   };
 
-  const handleOk = (record: any) => {
+  const handleOk = () => {
     setTableData(prevData => {
-      return prevData.filter(row => row.key !== record.key);
+      return prevData.filter(row => row.key !== selectedRowForDelete?.key);
     });
     // API CALL FOR DELETING PERSON/COMPANY
-    deleteValues(deleteEndpoint, selectedRowForEdit?.ID);
+    deleteValues(deleteEndpoint, selectedRowForDelete?.ID);
 
     setIsDeleteModalOpen(false);
   };

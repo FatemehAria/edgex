@@ -126,7 +126,18 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
   }
 };
 
-export const deleteValues = async (endpoint: string, id: string) => {
+export const deleteCompanyPerson = async (endpoint: string, id: string) => {
   try {
-  } catch (error) {}
+    const { data } = await customAxiosInstance.post(endpoint, id, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+  } catch (error) {
+    console.log(error);
+    toast.error('خطا در انجام عملیات');
+  }
 };
