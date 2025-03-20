@@ -16,6 +16,7 @@ export const createFactor = async (values: any) => {
       isActive: values['inc-dec-active'],
       isDisplayDetail: values['inc-dec-display'] === 'displayPen' ? true : false,
       isDisplayDocument: values['inc-dec-display'] === 'displayDocument' ? true : false,
+      agentTypeCode: values['inc-dec-mahiyat'],
     });
 
     console.log(data);
@@ -69,6 +70,7 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
       priceAgent: value['inc-dec-tasir'] === 'price' ? value['influcence'] : 0,
       isDisplayDetail: value['inc-dec-display'] === 'displayPen' ? true : false,
       isDisplayDocument: value['inc-dec-display'] === 'displayDocument' ? true : false,
+      agentTypeCode: value['inc-dec-mahiyat'],
     });
 
     console.log(data);
@@ -80,12 +82,9 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
 };
 
 export const deleteFactor = async (endpoint: string, id: string) => {
-  console.log('delete running');
-
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
       id,
-      Title: '',
     });
 
     console.log(data);
