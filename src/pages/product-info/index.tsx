@@ -19,16 +19,16 @@ function ProductInfo() {
   const items = [
     {
       key: '1',
+      label: `${formatMessage({ id: 'app.productInfo.tabs.grouping' })}`,
+    },
+    {
+      key: '2',
       label: `${formatMessage({ id: 'app.productInfo.tabs.mainInfo' })}`,
     },
     // {
     //   key: '2',
     //   label: `${formatMessage({ id: 'app.productInfo.tabs.properties' })}`,
     // },
-    {
-      key: '3',
-      label: `${formatMessage({ id: 'app.productInfo.tabs.grouping' })}`,
-    },
   ];
 
   const handleChange = (key: string) => {
@@ -47,9 +47,9 @@ function ProductInfo() {
 
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
       {tab === '1' ? (
-        <MainInfo onSubmit={values => createStuff(values, groupValue)} showButton={true} groupValue={groupValue}/>
-      ) : (
         <Grouping groupValue={groupValue} setGroupValue={setGroupValue} />
+      ) : (
+        <MainInfo onSubmit={values => createStuff(values, groupValue)} showButton={true} groupValue={groupValue} />
       )}
     </div>
   );

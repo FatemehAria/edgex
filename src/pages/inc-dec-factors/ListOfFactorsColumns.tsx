@@ -1,9 +1,17 @@
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useLocale } from '@/locales';
 
-function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: string) => void; handleEdit: any }) {
+function ListOfFactorsColumns({
+  deleteRow,
+  handleEdit,
+  copyRow,
+}: {
+  deleteRow: (key: string) => void;
+  handleEdit: any;
+  copyRow: any;
+}) {
   const { formatMessage } = useLocale();
 
   return [
@@ -78,6 +86,21 @@ function ListOfFactorsColumns({ deleteRow, handleEdit }: { deleteRow: (key: stri
           </span>
         );
       },
+    },
+    // کپی
+    {
+      title: <span className="center-align">کپی</span>, // Adjust translation if needed
+      dataIndex: 'copy',
+      key: 'copy',
+      render: (_: any, record: any) => (
+        <span className="center-align">
+          <FontAwesomeIcon
+            icon={faCopy}
+            onClick={() => copyRow(record)} // Call copy function
+            style={{ cursor: 'pointer', marginRight: 8 }}
+          />
+        </span>
+      ),
     },
     // حذف
     {
