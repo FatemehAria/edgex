@@ -3,59 +3,13 @@ import type { TreeSelectProps } from 'antd';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, TreeSelect } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 
+import GroupItemTableColumn from './GroupItemTableColumn';
+import { getGroupItems } from './util';
 
-const treeData = [
-  {
-    value: 'parent 1',
-    title: 'parent 1',
-    children: [
-      {
-        value: 'parent 1-0',
-        title: 'parent 1-0',
-        children: [
-          {
-            value: 'leaf1',
-            title: 'leaf1',
-          },
-          {
-            value: 'leaf2',
-            title: 'leaf2',
-          },
-          {
-            value: 'leaf3',
-            title: 'leaf3',
-          },
-          {
-            value: 'leaf4',
-            title: 'leaf4',
-          },
-          {
-            value: 'leaf5',
-            title: 'leaf5',
-          },
-          {
-            value: 'leaf6',
-            title: 'leaf6',
-          },
-        ],
-      },
-      {
-        value: 'parent 1-1',
-        title: 'parent 1-1',
-        children: [
-          {
-            value: 'leaf11',
-            title: <b style={{ color: '#08c' }}>leaf11</b>,
-          },
-        ],
-      },
-    ],
-  },
-];
 const dataSource = [
   {
     key: '1',
@@ -80,47 +34,45 @@ const dataSource = [
   },
 ];
 
-function Grouping() {
+function Grouping({
+  setGroupValue,
+  groupValue
+}: {
+  setGroupValue: React.Dispatch<React.SetStateAction<string>>;
+  groupValue: string;
+}) {
   const { formatMessage } = useLocale();
+  const [treeData, setTreeData] = useState([]);
 
-  const columns = [
-    {
-      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.row' })}`,
-      dataIndex: 'index',
-      key: 'index',
-    },
-    {
-      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.group' })}`,
-      dataIndex: 'group',
-      key: 'group',
-    },
-    {
-      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.product' })}`,
-      dataIndex: 'product',
-      key: 'product',
-    },
-    {
-      title: `${formatMessage({ id: 'app.productInfo.grouping.columns.delete' })}`,
-      dataIndex: 'delete',
-      key: 'delete',
-      render: (text: any, record: any) => (
-        <span onClick={() => handleDelete(record.index)} style={{ cursor: 'pointer' }}>
-          {text}
-        </span>
-      ),
-    },
-  ];
-  const [value, setValue] = useState<string>();
+  useEffect(() => {
+    getGroupItems(setTreeData);
+  }, []);
+
+  const addTreeData = () => {
+    return treeData.map((item: any) => {
+      return {
+        value: item.id,
+        title: item.text,
+        children: item.children,
+      };
+    });
+  };
+
+  const treeDataAnt = addTreeData();
+
+  // const [value, setValue] = useState<string>();
   const [tableData, setTableData] = useState(dataSource);
 
   const handleChange = (newValue: string) => {
-    setValue(newValue);
+    setGroupValue(newValue);
     // console.log("new value", newValue);
   };
 
   const handleDelete = (index: string | number) => {
     setTableData(prevData => prevData.filter(item => item.index !== index));
   };
+
+  const columns = GroupItemTableColumn({ handleDelete, formatMessage });
 
   const onPopupScroll: TreeSelectProps['onPopupScroll'] = e => {
     console.log('onPopupScroll', e);
@@ -132,17 +84,17 @@ function Grouping() {
         <TreeSelect
           showSearch
           treeNodeFilterProp="title"
-          treeData={treeData}
+          treeData={treeDataAnt}
           style={{ width: '100%' }}
           onPopupScroll={onPopupScroll}
           onChange={handleChange}
-          value={value}
+          value={groupValue}
           treeDefaultExpandAll
           placeholder={`${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`}
           allowClear
         />
       </div>
-      <div className="table-container">{value ? <Table dataSource={tableData} columns={columns} /> : ''}</div>
+      <div className="table-container">{groupValue ? <Table dataSource={tableData} columns={columns} /> : ''}</div>
     </div>
   );
 }

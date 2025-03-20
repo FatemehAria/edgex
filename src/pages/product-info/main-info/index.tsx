@@ -7,9 +7,10 @@ interface MainInfoProps {
   initialValues?: Record<string, any>; // Data for editing
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null; // Callback for form submission
   showButton?: boolean;
+  groupValue: string;
 }
 
-function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfoProps) {
+function MainInfo({ initialValues = {}, showButton = false, onSubmit, groupValue }: MainInfoProps) {
   const { formatMessage } = useLocale();
   const productMainInfoformOptions: MyFormOptions = [
     {
@@ -53,7 +54,7 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfo
   const handleFormSubmit = (values: Record<string, any>) => {
     if (initialValues && initialValues.key) {
       // Edit mode: merge the key into the values before submitting
-      onSubmit({ ...values, key: initialValues.key });
+      onSubmit({ ...values, key: initialValues.key, categoryId: groupValue });
     } else {
       // Create mode
       onSubmit(values);

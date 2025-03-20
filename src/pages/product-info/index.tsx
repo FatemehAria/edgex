@@ -14,6 +14,8 @@ import { createStuff } from './main-info/util';
 function ProductInfo() {
   const [tab, setTab] = useState('1');
   const { formatMessage } = useLocale();
+  const [groupValue, setGroupValue] = useState('');
+
   const items = [
     {
       key: '1',
@@ -44,7 +46,11 @@ function ProductInfo() {
       </div>
 
       <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <MainInfo onSubmit={values => createStuff(values)} showButton={true} /> : <Grouping />}
+      {tab === '1' ? (
+        <MainInfo onSubmit={values => createStuff(values, groupValue)} showButton={true} groupValue={groupValue}/>
+      ) : (
+        <Grouping groupValue={groupValue} setGroupValue={setGroupValue} />
+      )}
     </div>
   );
 }

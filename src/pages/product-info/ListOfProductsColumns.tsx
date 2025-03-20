@@ -84,7 +84,7 @@ function ListOfProductsColumns({ deleteRow, handleEdit }: { deleteRow: (key: str
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => {
-                deleteRow(record.key);
+                deleteRow(record);
               }}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
