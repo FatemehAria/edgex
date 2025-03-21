@@ -19,6 +19,7 @@ function ListOfProforma() {
         deleteValues={() => console.log('delete proforma')}
         getLists={() => console.log('get proforma')}
         updateValues={() => console.log('update proforma')}
+        createListItem={() => console.log('create proforma')}
       />
     </div>
   );
