@@ -98,6 +98,8 @@ function ListComponent({
 
     const dataToCreate = transformData ? transformData(mergedData) : mergedData;
 
+    console.log('dataToCreate', dataToCreate);
+
     if (isCopied) {
       createListItem(dataToCreate);
     } else {

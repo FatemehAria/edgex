@@ -115,12 +115,12 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       />
 
       <FormLayout
+        key={initialValues.key}
         FormOptions={incDecFactorsFormOptions}
         layoutDir="vertical"
         submitForm={onSubmit}
         isGrid={true}
         showButton={showButton}
-        key={initialValues.key}
       />
     </div>
   );
