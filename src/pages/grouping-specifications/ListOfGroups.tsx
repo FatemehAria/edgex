@@ -9,7 +9,7 @@ import { createCategory, deleteGroup, getGroupList, updateGroup } from './util';
 
 function ListOfGroups() {
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={GroupForm}

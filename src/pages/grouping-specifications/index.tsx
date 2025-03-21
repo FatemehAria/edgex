@@ -20,7 +20,7 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
   const { formatMessage } = useLocale();
 
   return (
-    <div className="form-container" style={{ overflow: 'hidden' }}>
+    <div className="form-container" style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.grouping.redirectionBtn' })}
         linkAddress="/main-tables/grouping-specifications/groups-list"
