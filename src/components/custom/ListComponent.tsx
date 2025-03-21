@@ -16,6 +16,7 @@ interface ListComponentProps {
   deleteValues: any;
   updateValues: any;
   createListItem: any;
+  transformData?: any;
 }
 
 function ListComponent({
@@ -30,6 +31,7 @@ function ListComponent({
   getLists,
   updateValues,
   createListItem,
+  transformData,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
@@ -92,8 +94,12 @@ function ListComponent({
     setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
     setIsEditModalOpen(false);
 
+    // console.log(mergedData);
+
+    const dataToCreate = transformData(mergedData);
+
     if (isCopied) {
-      createListItem(mergedData);
+      createListItem(transformData ? dataToCreate : mergedData);
     } else {
       updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
     }
