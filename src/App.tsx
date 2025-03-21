@@ -117,16 +117,16 @@ const App: React.FC = () => {
             <SearchContextProvider>
               <ProvinceContextProvider>
                 <Suspense fallback={null}>
-                  <Spin
+                  {/* <Spin
                     spinning={loading}
                     className="app-loading-wrapper"
                     style={{
                       backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
                     }}
                     tip={<LocaleFormatter id="gloabal.tips.loading" />}
-                  >
-                    <RenderRouter />
-                  </Spin>
+                  > */}
+                  <RenderRouter />
+                  {/* </Spin> */}
                 </Suspense>
               </ProvinceContextProvider>
             </SearchContextProvider>

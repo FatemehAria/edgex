@@ -44,7 +44,7 @@ function ListOfPersonCompany() {
   };
 
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div>
       <ExcelButton />
       <ListComponent
         ModalComponent={PersonCompanyInfo}

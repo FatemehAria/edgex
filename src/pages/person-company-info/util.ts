@@ -80,7 +80,11 @@ export const createCostumer = async () => {
   }
 };
 
-export const getLists = async (endpoint: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
+export const getLists = async (
+  endpoint: string,
+  setTableData: Dispatch<SetStateAction<any[]>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   try {
     const { data } = await customAxiosInstance.get(endpoint);
 
@@ -94,6 +98,8 @@ export const getLists = async (endpoint: string, setTableData: Dispatch<SetState
     console.log(data);
   } catch (error) {
     console.log(error);
+  } finally {
+    setLoading(false);
   }
 };
 

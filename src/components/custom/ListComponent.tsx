@@ -39,6 +39,7 @@ function ListComponent({
   const [iseDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -47,7 +48,7 @@ function ListComponent({
 
   useEffect(() => {
     // API CALL FOR GETTING USERS LIST
-    getLists(getListEndpoint, setTableData);
+    getLists(getListEndpoint, setTableData, setLoading);
   }, []);
 
   const handleEdit = (record: any) => {
@@ -127,6 +128,7 @@ function ListComponent({
         columns={columns}
         className="custom-footer-table"
         // scroll={{ x: 2000 }}
+        loading={loading}
       />
       <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
         <ModalComponent
