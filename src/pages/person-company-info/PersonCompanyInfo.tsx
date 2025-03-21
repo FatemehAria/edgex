@@ -21,6 +21,12 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
   const [personType, setPersonType] = useState('');
 
   useEffect(() => {
+    if (initialValues['personTypeTitle']) {
+      const pType = initialValues['personTypeTitle'].toLowerCase();
+
+      setPersonType(pType === 'حقیقی' ? 'Haghighi' : pType === 'حقوقی' ? 'Hoghooghi' : '');
+    }
+
     if (initialValues['person-company-province']) {
       getCity(setCityList, initialValues['person-company-province']);
     }
@@ -57,14 +63,14 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       hidden: personType !== 'Haghighi',
     },
     {
-      name: 'person-company-firstname-english',
+      name: 'Name',
       label: `${formatMessage({ id: 'app.personComapnyInfo.firstnameEng' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-firstname-english'],
+        defaultValue: initialValues['Name'],
       },
       hidden: personType !== 'Haghighi',
     },
@@ -81,14 +87,14 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       hidden: personType !== 'Haghighi',
     },
     {
-      name: 'person-company-lastname-english',
+      name: 'Family',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnameEng' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-lastname-english'],
+        defaultValue: initialValues['Family'],
       },
       hidden: personType !== 'Haghighi',
     },
