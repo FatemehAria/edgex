@@ -2,8 +2,9 @@ import type { MenuList } from '../../interface/layout/menu.interface';
 import type { FC } from 'react';
 
 import { Menu } from 'antd';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { setUserItem } from '@/stores/user.store';
 
@@ -17,11 +18,38 @@ interface MenuProps {
   onChangeSelectedKey: (key: string) => void;
 }
 
+const findMatchingPath = (menuList: MenuList, currentPath: string): string => {
+  let matchedPath = '';
+
+  const traverse = (items: MenuList) => {
+    items.forEach(item => {
+      if (item.path && currentPath.startsWith(item.path) && item.path.length > matchedPath.length) {
+        matchedPath = item.path;
+      }
+
+      if (item.children) {
+        traverse(item.children);
+      }
+    });
+  };
+
+  traverse(menuList);
+
+  return matchedPath;
+};
+
 const MenuComponent: FC<MenuProps> = props => {
   const { menuList, openKey, onChangeOpenKey, selectedKey, onChangeSelectedKey } = props;
   const { device, locale } = useSelector(state => state.user);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const bestMatch = findMatchingPath(menuList, location.pathname);
+
+    onChangeSelectedKey(bestMatch);
+  }, [location.pathname, menuList, onChangeSelectedKey]);
 
   const getTitle = (menu: MenuList[0]) => {
     return (
@@ -71,7 +99,7 @@ const MenuComponent: FC<MenuProps> = props => {
               label: getTitle(menu),
             };
       })}
-    ></Menu>
+    />
   );
 };
 
