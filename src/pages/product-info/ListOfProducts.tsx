@@ -10,7 +10,7 @@ import { getProductsList } from './util';
 
 function ListOfProducts() {
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={MainInfo}

@@ -36,7 +36,7 @@ function ProductInfo() {
   };
 
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <RedirectionButton
           btnText={formatMessage({ id: 'app.productInfo.redirectionBtn' })}
