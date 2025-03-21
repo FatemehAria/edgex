@@ -96,10 +96,10 @@ function ListComponent({
 
     // console.log(mergedData);
 
-    const dataToCreate = transformData(mergedData);
+    const dataToCreate = transformData ? transformData(mergedData) : mergedData;
 
     if (isCopied) {
-      createListItem(transformData ? dataToCreate : mergedData);
+      createListItem(dataToCreate);
     } else {
       updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
     }

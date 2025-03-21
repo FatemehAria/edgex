@@ -115,7 +115,7 @@ function ListOfFactorsColumns({
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => {
-                deleteRow(record.key);
+                deleteRow(record);
               }}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',

@@ -96,15 +96,15 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
     },
   ];
 
-  const handleFormSubmit = (values: Record<string, any>) => {
-    if (initialValues && initialValues.key) {
-      // Edit mode: merge the key into the values before submitting
-      onSubmit({ ...values, key: initialValues.key });
-    } else {
-      // Create mode
-      onSubmit(values);
-    }
-  };
+  // const handleFormSubmit = (values: Record<string, any>) => {
+  //   if (initialValues && initialValues.key) {
+  //     // Edit mode: merge the key into the values before submitting
+  //     onSubmit({ ...values, key: initialValues.key });
+  //   } else {
+  //     // Create mode
+  //     onSubmit(values);
+  //   }
+  // };
 
   return (
     <div style={{ overflow: 'hidden' }}>
@@ -117,7 +117,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       <FormLayout
         FormOptions={incDecFactorsFormOptions}
         layoutDir="vertical"
-        submitForm={handleFormSubmit}
+        submitForm={onSubmit}
         isGrid={true}
         showButton={showButton}
         key={initialValues.key}

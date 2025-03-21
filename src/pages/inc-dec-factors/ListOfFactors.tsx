@@ -3,7 +3,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import IncDecFactors from '.';
 import ListOfFactorsColumns from './ListOfFactorsColumns';
-import { deleteFactor, getFactrosList, updateFactor } from './util';
+import { createFactor, deleteFactor, getFactrosList, updateFactor } from './util';
 
 function ListOfFactors() {
   return (
@@ -20,6 +20,7 @@ function ListOfFactors() {
         deleteValues={deleteFactor}
         getLists={getFactrosList}
         updateValues={updateFactor}
+        createListItem={createFactor}
       />
     </div>
   );

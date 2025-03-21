@@ -83,12 +83,16 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
 
 export const deleteFactor = async (endpoint: string, id: string) => {
   try {
-    const { data } = await customAxiosInstance.post(endpoint, {
-      id,
+    const { data } = await customAxiosInstance.post(endpoint, id, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);
+    toast.error('خطا در انجام عملیات');
   }
 };
