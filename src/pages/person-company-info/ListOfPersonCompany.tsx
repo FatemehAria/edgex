@@ -44,7 +44,7 @@ function ListOfPersonCompany() {
   };
 
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={PersonCompanyInfo}

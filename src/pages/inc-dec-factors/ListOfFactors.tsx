@@ -35,7 +35,7 @@ function ListOfFactors() {
   };
 
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <ExcelButton />
       <ListComponent
         ModalComponent={IncDecFactors}

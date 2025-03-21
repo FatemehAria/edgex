@@ -107,7 +107,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   // };
 
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.incDecFactors.redirectionBtn' })}
         linkAddress="/main-tables/factors/factors-list"
