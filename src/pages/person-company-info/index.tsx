@@ -53,7 +53,7 @@ function index() {
   ];
 
   return (
-    <div>
+    <div style={{ minHeight: '100vh' }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.personComapnyInfo.redirectionBtn' })}
         linkAddress="/main-tables/person-company-info/person-company-list"
