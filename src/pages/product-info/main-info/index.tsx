@@ -8,9 +8,10 @@ interface MainInfoProps {
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null; // Callback for form submission
   showButton?: boolean;
   groupValue: string;
+  isCopied?: boolean;
 }
 
-function MainInfo({ initialValues = {}, showButton = false, onSubmit, groupValue }: MainInfoProps) {
+function MainInfo({ initialValues = {}, showButton = false, onSubmit }: MainInfoProps) {
   const { formatMessage } = useLocale();
   const productMainInfoformOptions: MyFormOptions = [
     {
@@ -51,22 +52,24 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit, groupValue
     },
   ];
 
-  const handleFormSubmit = (values: Record<string, any>) => {
-    if (initialValues && initialValues.key) {
-      // Edit mode: merge the key into the values before submitting
-      onSubmit({ ...values, key: initialValues.key, categoryId: groupValue });
-    } else {
-      // Create mode
-      onSubmit(values);
-    }
-  };
+  // const handleFormSubmit = (values: Record<string, any>) => {
+  //   console.log('is copied', isCopied);
+
+  //   if (initialValues && initialValues.key && isCopied === false) {
+  //     // Edit mode: merge the key into the values before submitting
+  //     onSubmit({ ...values, key: initialValues.key, categoryId: groupValue });
+  //   } else {
+  //     // Create mode
+  //     onSubmit(values);
+  //   }
+  // };
 
   return (
     <div>
       <FormLayout
         FormOptions={productMainInfoformOptions}
         layoutDir="vertical"
-        submitForm={handleFormSubmit}
+        submitForm={onSubmit}
         isGrid={true}
         showButton={showButton}
       />

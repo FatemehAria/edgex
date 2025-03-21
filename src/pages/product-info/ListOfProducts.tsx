@@ -5,7 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import ListOfProductsColumns from './ListOfProductsColumns';
 import MainInfo from './main-info';
-import { deleteProduct, updateStuff } from './main-info/util';
+import { createStuff, deleteProduct, updateStuff } from './main-info/util';
 import { getProductsList } from './util';
 
 function ListOfProducts() {
@@ -23,6 +23,7 @@ function ListOfProducts() {
         deleteValues={deleteProduct}
         getLists={getProductsList}
         updateValues={updateStuff}
+        createListItem={createStuff}
       />
     </div>
   );

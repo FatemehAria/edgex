@@ -15,6 +15,7 @@ interface ListComponentProps {
   getLists: any;
   deleteValues: any;
   updateValues: any;
+  createListItem: any;
 }
 
 function ListComponent({
@@ -28,12 +29,14 @@ function ListComponent({
   deleteValues,
   getLists,
   updateValues,
+  createListItem,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const [tableData, setTableData] = useState<any[]>([]);
   const [iseDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -46,18 +49,26 @@ function ListComponent({
   }, []);
 
   const handleEdit = (record: any) => {
-    setSelectedRowForEdit(record);
+    const rowToEdit = { ...record };
+
+    if (!rowToEdit.isCopied) {
+      rowToEdit.isCopied = false;
+    }
+
+    setSelectedRowForEdit(rowToEdit);
     setIsEditModalOpen(true);
+    setIsCopied(rowToEdit.isCopied);
   };
 
   const copyRow = (record: any) => {
+    setIsCopied(true);
     setTableData(prevData => {
       const index = prevData.findIndex(row => row.key === record.key);
 
       const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
       const newKey = (maxKey + 1).toString();
 
-      const newRow = { ...record, key: newKey };
+      const newRow = { ...record, key: newKey, isCopied: true };
 
       const newData = [...prevData];
 
@@ -81,8 +92,14 @@ function ListComponent({
     setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
     setIsEditModalOpen(false);
 
-    // Call API with the merged data (which retains unchanged fields)
-    updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
+    if (isCopied) {
+      createListItem(mergedData);
+    } else {
+      updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
+    }
+
+    setIsCopied(false);
+    setSelectedRowForEdit(null);
   };
 
   const handleOk = () => {
@@ -104,7 +121,13 @@ function ListComponent({
         // scroll={{ x: 2000 }}
       />
       <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
-        <ModalComponent initialValues={selectedRowForEdit || {}} onSubmit={handleUpdate} showButton={true} />
+        <ModalComponent
+          key={selectedRowForEdit?.key || 'new'}
+          initialValues={selectedRowForEdit || {}}
+          onSubmit={handleUpdate}
+          showButton={true}
+          isCopied={isCopied}
+        />
       </Modal>
       <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>
         <p>آیا از انجام عملیات مطمئنید؟</p>
