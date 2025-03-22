@@ -31,7 +31,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
     //   options: [],
     // },
     {
-      name: 'costumer-info-factor-code',
+      name: 'companyPersonTitle',
       label: `${formatMessage({ id: 'app.costumerInfo.factorCode' })}`,
       type: 'input',
       innerProps: {

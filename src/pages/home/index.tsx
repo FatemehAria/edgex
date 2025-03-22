@@ -17,6 +17,7 @@ import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import { createCustomer, getCustomersList } from '../costumer-info/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -75,17 +76,32 @@ function Home() {
 
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
-    const newCustomerName = values['costumer-info-factor-code'] || 'New Customer';
+    const newCustomerName = values['companyPersonTitle'];
     const newCustomer = { label: newCustomerName, value: newCustomerName };
 
     setCustomerOptions(prev => [...prev, newCustomer]);
     setSelectedCostumer(newCustomer.value);
+
+    createCustomer(newCustomer);
+
     setIsCustomerModalOpen(false);
   };
 
   useEffect(() => {
     form.setFieldsValue({ 'header-info-costumer': selectedCostumer });
   }, [selectedCostumer, form]);
+
+  useEffect(() => {
+    getCustomersList((rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        label: item.CompanyPersonTitle ? item.CompanyPersonTitle : '',
+        value: item.CompanyPersonTitle ? item.CompanyPersonTitle : '', // or item.ID, or item.whatever
+        // value: item.ID, // or item.ID, or item.whatever
+      }));
+
+      setCustomerOptions(transformed);
+    });
+  }, []);
 
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
     // Possibly prefill with some suppliers if desired.
