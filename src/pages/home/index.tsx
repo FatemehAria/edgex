@@ -10,12 +10,13 @@ import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
+import { createCategory, getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
 import ProformaSupplier from '../supplier/ProformaSupplier';
+import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { createCategory, getGroupList } from '../grouping-specifications/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -93,24 +94,34 @@ function Home() {
   const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 
   const handleNewSupplier = (values: any) => {
-    // Use the field 'supplier-person-company' from the form as the new supplier name.
-    const newSupplierName = values['supplier-person-company'] || 'New Supplier';
+    const newSupplierName = values['CompanyPersonTitle'];
     const newSupplier = { label: newSupplierName, value: newSupplierName };
 
     setSupplierOptions(prev => [...prev, newSupplier]);
 
     if (activeSupplierRow !== null) {
-      // Update the specific row in tableData:
       setTableData(prevData =>
         prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
       );
       setActiveSupplierRow(null);
 
-      // createSupplier(values);
+      createSupplier(values);
     }
 
     setIsSupplierModalOpen(false);
   };
+
+  useEffect(() => {
+    getSuppliersList((rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        label: item.CompanyPersonTitle ? item.CompanyPersonTitle : '',
+        value: item.CompanyPersonTitle ? item.CompanyPersonTitle : '', // or item.ID, or item.whatever
+        // value: item.ID, // or item.ID, or item.whatever
+      }));
+
+      setSupplierOptions(transformed);
+    });
+  }, []);
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
   const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);

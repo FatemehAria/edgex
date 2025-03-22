@@ -24,7 +24,7 @@ function ProformaSupplier({ onSupplierSubmit }: proformaSupplierProps) {
     // },
     {
       // Change this field from 'select' to 'input'
-      name: 'supplier-person-company',
+      name: 'CompanyPersonTitle',
       label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
