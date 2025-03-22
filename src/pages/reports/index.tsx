@@ -12,7 +12,7 @@ function Reports() {
   const columns = ReportsColumns();
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
+    <div style={{ height: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <Table
         dataSource={tableData}
