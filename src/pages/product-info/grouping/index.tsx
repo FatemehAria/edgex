@@ -92,9 +92,10 @@ function Grouping({
           treeDefaultExpandAll
           placeholder={`${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`}
           allowClear
+          treeCheckable
         />
       </div>
-      <div className="table-container">{groupValue ? <Table dataSource={tableData} columns={columns} /> : ''}</div>
+      {/* <div className="table-container">{groupValue ? <Table dataSource={tableData} columns={columns} /> : ''}</div> */}
     </div>
   );
 }
