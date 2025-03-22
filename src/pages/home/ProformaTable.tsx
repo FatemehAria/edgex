@@ -65,6 +65,7 @@ function ProformaTable({
 
           const FooterTableData = [
             {
+              key: 'footer',
               vat: `${Math.round(vat)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
