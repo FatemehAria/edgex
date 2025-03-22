@@ -14,7 +14,7 @@ function ExcelButton() {
         id: 'gloabal.tips.excel',
       })}
     >
-      <FontAwesomeIcon icon={faFileExcel} fontSize={16} color="green" fontWeight={700} />
+      <FontAwesomeIcon icon={faFileExcel} fontSize={20} color="#2f7d32" fontWeight={700} style={{ margin: '1rem 0' }} />
     </Tooltip>
   );
 }

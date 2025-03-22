@@ -7,7 +7,7 @@ export const faIR_reports = {
   'app.reports.columns.customer': 'مشتری',
   'app.reports.columns.date': 'تاریخ',
   'app.reports.columns.supplier': 'تامین کننده',
-  'app.reports.columns.group': 'گروهبندی',
+  'app.reports.columns.group': 'گروه بندی',
   'app.reports.columns.item': 'آیتم',
   'app.reports.columns.qty': 'تعداد',
   'app.reports.columns.rate': 'نرخ آیتم',
