@@ -36,9 +36,9 @@ const dataSource = [
 
 function Grouping({
   setGroupValue,
-  groupValue
+  groupValue,
 }: {
-  setGroupValue: React.Dispatch<React.SetStateAction<string>>;
+  setGroupValue: React.Dispatch<React.SetStateAction<any>>;
   groupValue: string;
 }) {
   const { formatMessage } = useLocale();
@@ -59,6 +59,12 @@ function Grouping({
   };
 
   const treeDataAnt = addTreeData();
+  //For setting default value from api
+  useEffect(() => {
+    if (treeDataAnt.length > 0 && groupValue.length === 0) {
+      setGroupValue([treeDataAnt[0].value]);
+    }
+  }, [treeDataAnt, groupValue, setGroupValue]);
 
   // const [value, setValue] = useState<string>();
   const [tableData, setTableData] = useState(dataSource);

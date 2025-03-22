@@ -1,8 +1,7 @@
 import { Table } from 'antd';
 import React, { useState } from 'react';
 
-import BackButton from '@/components/custom/BackButton';
-import ExcelButton from '@/components/custom/ExcelButton';
+import ListButtons from '@/components/custom/ListButtons';
 
 import ReportsColumns from './ReportsColumns';
 
@@ -13,10 +12,7 @@ function Reports() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <ExcelButton />
-        <BackButton />
-      </div>
+      <ListButtons />
       <Table
         dataSource={tableData}
         columns={columns}

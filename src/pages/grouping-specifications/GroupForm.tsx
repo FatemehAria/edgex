@@ -60,7 +60,7 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFo
   // };
 
   return (
-    <div className="form-container" style={{ overflow: 'hidden' }}>
+    <div className="form-container">
       <FormLayout
         FormOptions={GroupFormFormOptions}
         layoutDir="vertical"

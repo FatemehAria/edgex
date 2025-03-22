@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
 import Home from '.';
@@ -8,6 +9,7 @@ import { ListOfProformaColumns } from './ListOfProformaColumns';
 function ListOfProforma() {
   return (
     <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+      <ListButtons />
       <ListComponent
         ModalComponent={Home}
         columnsComponent={ListOfProformaColumns}

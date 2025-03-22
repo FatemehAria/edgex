@@ -1,4 +1,4 @@
-import ExcelButton from '@/components/custom/ExcelButton';
+import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
 import IncDecFactors from '.';
@@ -36,7 +36,7 @@ function ListOfFactors() {
 
   return (
     <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <ExcelButton />
+      <ListButtons />
       <ListComponent
         ModalComponent={IncDecFactors}
         columnsComponent={ListOfFactorsColumns}

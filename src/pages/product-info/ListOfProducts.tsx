@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ExcelButton from '@/components/custom/ExcelButton';
+import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
 import ListOfProductsColumns from './ListOfProductsColumns';
@@ -11,7 +11,7 @@ import { getProductsList } from './util';
 function ListOfProducts() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <ExcelButton />
+      <ListButtons />
       <ListComponent
         ModalComponent={MainInfo}
         columnsComponent={ListOfProductsColumns}

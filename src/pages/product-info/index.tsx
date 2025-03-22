@@ -14,7 +14,7 @@ import { createStuff } from './main-info/util';
 function ProductInfo() {
   const [tab, setTab] = useState('1');
   const { formatMessage } = useLocale();
-  const [groupValue, setGroupValue] = useState('');
+  const [groupValue, setGroupValue] = useState<any>([]);
 
   const items = [
     {

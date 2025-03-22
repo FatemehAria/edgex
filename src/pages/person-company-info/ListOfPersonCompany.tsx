@@ -1,6 +1,6 @@
 import './index.css';
 
-import ExcelButton from '@/components/custom/ExcelButton';
+import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
@@ -45,7 +45,7 @@ function ListOfPersonCompany() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <ExcelButton />
+      <ListButtons />
       <ListComponent
         ModalComponent={PersonCompanyInfo}
         columnsComponent={ListOfPersonTableColumns}
