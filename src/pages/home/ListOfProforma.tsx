@@ -8,7 +8,7 @@ import { ListOfProformaColumns } from './ListOfProformaColumns';
 
 function ListOfProforma() {
   return (
-    <div style={{ overflow: 'hidden', height: ' 100vh' }}>
+    <div style={{ minHeight: ' 100vh' }}>
       <ListButtons />
       <ListComponent
         ModalComponent={Home}
