@@ -47,7 +47,7 @@ const AutoFocusAddableSelect = ({
 
     if (allowAddNew) {
       opts.push({
-        label: `${formatMessage({ id: 'app.home.headerInfo.supplier.addNew' })}`,
+        label: `${formatMessage({ id: 'app.home.headerInfo.addNew' })}`,
         value: 'add-new',
       });
     }
@@ -60,7 +60,7 @@ const AutoFocusAddableSelect = ({
 
     if (allowAddNew) {
       opts.push({
-        label: `${formatMessage({ id: 'app.home.headerInfo.supplier.addNew' })}`,
+        label: `${formatMessage({ id: 'app.home.headerInfo.addNew' })}`,
         value: 'add-new',
       });
     }

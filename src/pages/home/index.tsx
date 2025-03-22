@@ -15,6 +15,7 @@ import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import { getGroupList } from '../grouping-specifications/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -131,6 +132,17 @@ function Home() {
     // Close the modal
     setIsGroupingModalOpen(false);
   };
+
+  useEffect(() => {
+    getGroupList('/ExistenceCategory', (rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        label: item.Title, // or item.Code, or item.whatever
+        value: item.ID, // or item.ID, or item.whatever
+      }));
+
+      setGroupingOptions(transformed);
+    });
+  }, []);
 
   const createEmptyRow = () => {
     const newRow = {

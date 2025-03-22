@@ -100,6 +100,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
           text={text}
           record={record}
+          mode='tags'
           handleCellChange={handleCellChange}
           initialOptions={supplierOptions}
           debounceTime={5000}

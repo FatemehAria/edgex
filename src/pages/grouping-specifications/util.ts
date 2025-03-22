@@ -29,7 +29,7 @@ export const getExistenceList = async (
 export const getGroupList = async (
   endpoint: string,
   setTableData: Dispatch<SetStateAction<any[]>>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
     const { data } = await customAxiosInstance.get(endpoint);
@@ -39,12 +39,12 @@ export const getGroupList = async (
       key: index + 1,
     }));
 
-    setTableData(formattedData);
+    setTableData?.(formattedData);
     console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
-    setLoading(false);
+    setLoading?.(false);
   }
 };
 
