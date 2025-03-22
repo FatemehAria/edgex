@@ -16,11 +16,11 @@ const TagsViewAction: FC = () => {
     <Dropdown
       menu={{
         items: [
-          {
-            key: '0',
-            onClick: () => dispatch(removeTag(activeTagId)),
-            label: <LocaleFormatter id="tagsView.operation.closeCurrent" />,
-          },
+          // {
+          //   key: '0',
+          //   onClick: () => dispatch(removeTag(activeTagId)),
+          //   label: <LocaleFormatter id="tagsView.operation.closeCurrent" />,
+          // },
           {
             key: '1',
             onClick: () => dispatch(removeOtherTag()),
