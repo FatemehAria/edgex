@@ -46,7 +46,7 @@ function ProformaTable({
         columns={columns}
         pagination={false}
         rowClassName="editable-row"
-        scroll={{ x: 2000 }}
+        scroll={{ x: 3000 }}
         footer={() => {
           const totalFinalSalePrice = tableData.reduce(
             (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),

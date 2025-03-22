@@ -110,7 +110,7 @@ function FooterTableColumns({ tableData }: { tableData: any; footerContent: Reac
         columns={columns}
         pagination={false}
         className="custom-footer-table"
-        // scroll={{ x: 2000 }}
+        scroll={{ x: 1000 }}
       />
     </div>
   );
