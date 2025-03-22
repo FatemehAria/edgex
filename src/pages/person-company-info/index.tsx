@@ -63,6 +63,13 @@ function index() {
         defaultActiveKey={['1']}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
+        items={getItems(panelStyle)}
+      />
+      {/* <Collapse
+        bordered={false}
+        defaultActiveKey={['1']}
+        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+        style={{ background: token.colorBgContainer }}
         // items={getItems(panelStyle)}
       >
         {getItems(panelStyle).map((item: any) => (
@@ -70,7 +77,7 @@ function index() {
             {item.children}
           </Collapse.Panel>
         ))}
-      </Collapse>
+      </Collapse> */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" onClick={() => createCostumer()}>
           {formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}
