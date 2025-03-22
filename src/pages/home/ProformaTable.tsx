@@ -40,7 +40,7 @@ function ProformaTable({
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div>
       <Table
         dataSource={tableData}
         columns={columns}

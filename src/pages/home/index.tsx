@@ -9,6 +9,7 @@ import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
+import { createCustomer, getCustomersList } from '../costumer-info/util';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import { createCategory, getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
@@ -17,7 +18,6 @@ import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { createCustomer, getCustomersList } from '../costumer-info/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -395,7 +395,7 @@ function Home() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5', overflow: 'hidden' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5', overflow: 'auto' }}>
       <RedirectionButton btnText={formatMessage({ id: 'app.home.redirectionBtn' })} linkAddress="/proforma-list" />
       <Collapse
         bordered={false}
