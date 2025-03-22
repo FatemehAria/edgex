@@ -1,9 +1,12 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 import FormLayout from '@/pages/layout/form-layout';
+
+import { getExistenceList } from './util';
 
 interface ProformaGroupingProps {
   onGroupSubmit?: (values: any) => void;
@@ -11,6 +14,12 @@ interface ProformaGroupingProps {
 
 function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
   const { formatMessage } = useLocale();
+  const [existanceList, setExistanceList] = useState<any>([]);
+  const { locale } = useSelector(state => state.user);
+
+  useEffect(() => {
+    getExistenceList(setExistanceList, locale);
+  }, []);
   const groupingFormOptions: MyFormOptions = [
     {
       name: 'grp-specification-title-english',
@@ -30,11 +39,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       label: `${formatMessage({ id: 'app.grouping.existance' })}`,
       type: 'select',
       innerProps: { placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}` },
-      options: [
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-        { label: '3', value: '3' },
-      ],
+      options: existanceList,
     },
     // {
     //   name: 'grp-specification-level-code',

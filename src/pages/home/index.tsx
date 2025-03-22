@@ -136,7 +136,7 @@ function Home() {
   useEffect(() => {
     getGroupList('/ExistenceCategory', (rawData: any) => {
       const transformed = rawData.map((item: any) => ({
-        label: item.Title, // or item.Code, or item.whatever
+        label: item.Title,
         value: item.ID, // or item.ID, or item.whatever
       }));
 
