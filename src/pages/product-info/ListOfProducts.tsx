@@ -1,3 +1,4 @@
+import { theme } from 'antd';
 import React from 'react';
 
 import ListButtons from '@/components/custom/ListButtons';
@@ -9,8 +10,10 @@ import { createStuff, deleteProduct, updateStuff } from './main-info/util';
 import { getProductsList } from './util';
 
 function ListOfProducts() {
+  const { token } = theme.useToken();
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <ListComponent
         ModalComponent={MainInfo}

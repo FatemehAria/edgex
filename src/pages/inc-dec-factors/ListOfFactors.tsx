@@ -1,3 +1,5 @@
+import { theme } from 'antd';
+
 import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
@@ -6,20 +8,7 @@ import ListOfFactorsColumns from './ListOfFactorsColumns';
 import { createFactor, deleteFactor, getFactrosList, updateFactor } from './util';
 
 function ListOfFactors() {
-  // const transformMergedData = (data: any) => {
-  //   return {
-  //     id: data.ID,
-  //     code: data.Code || 0,
-  //     title: data.Title,
-  //     effectTypeCode: data['inc-dec-tasir'] === 'price' ? 1 : 0,
-  //     priceAgent: data['inc-dec-tasir'] === 'price' ? data['influcence'] : 0,
-  //     percentAgent: data['inc-dec-tasir'] === 'percentage' ? data['influcence'] : 0,
-  //     isActive: data['inc-dec-active'],
-  //     isDisplayDetail: data['inc-dec-display'] === 'displayPen',
-  //     isDisplayDocument: data['inc-dec-display'] === 'displayDocument',
-  //     agentTypeCode: data['inc-dec-mahiyat'],
-  //   };
-  // };
+  const { token } = theme.useToken();
 
   const transformMergedData = (data: any) => {
     console.log('data', data);
@@ -35,7 +24,7 @@ function ListOfFactors() {
   };
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: token.colorBgBlur, minHeight: '100vh' }}>
       <ListButtons />
       <ListComponent
         ModalComponent={IncDecFactors}

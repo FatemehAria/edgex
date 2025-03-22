@@ -9,6 +9,7 @@ import { useLocale } from '@/locales';
 import FormLayout from '../layout/form-layout';
 import GroupForm from './GroupForm';
 import { getExistenceList } from './util';
+import { theme } from 'antd';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -18,9 +19,10 @@ interface GroupingSpecificationsProps {
 
 function GroupingSpecifications({ initialValues = {}, showButton = false, onSubmit }: GroupingSpecificationsProps) {
   const { formatMessage } = useLocale();
+  const { token } = theme.useToken();
 
   return (
-    <div className="form-container" style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div className="form-container" style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.grouping.redirectionBtn' })}
         linkAddress="/main-tables/grouping-specifications/groups-list"

@@ -7,6 +7,7 @@ import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 import { getNatureList } from './util';
+import { theme } from 'antd';
 
 interface IncDecFactorsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -18,6 +19,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   const { formatMessage } = useLocale();
   const [natureList, setNatureList] = useState([]);
   const [display, setDisplay] = useState('block');
+  const { token } = theme.useToken();
 
   useEffect(() => {
     getNatureList(setNatureList);
@@ -107,7 +109,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   // };
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: token.colorBgBlur, minHeight: '100vh' }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.incDecFactors.redirectionBtn' })}
         linkAddress="/main-tables/factors/factors-list"

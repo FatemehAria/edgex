@@ -1,6 +1,6 @@
 import '@/styles/product-info.css';
 
-import { Tabs } from 'antd';
+import { Tabs, theme } from 'antd';
 import React, { useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
@@ -15,6 +15,7 @@ function ProductInfo() {
   const [tab, setTab] = useState('1');
   const { formatMessage } = useLocale();
   const [groupValue, setGroupValue] = useState<any>([]);
+  const { token } = theme.useToken();
 
   const items = [
     {
@@ -36,7 +37,7 @@ function ProductInfo() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <RedirectionButton
           btnText={formatMessage({ id: 'app.productInfo.redirectionBtn' })}

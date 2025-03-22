@@ -1,5 +1,7 @@
 import './index.css';
 
+import { theme } from 'antd';
+
 import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
@@ -8,6 +10,8 @@ import PersonCompanyInfo from './PersonCompanyInfo';
 import { createCostumer, deleteCompanyPerson, getLists, updateValues } from './util';
 
 function ListOfPersonCompany() {
+  const { token } = theme.useToken();
+
   const transformMergedData = (data: any) => {
     return {
       id: data.ID, // mapping uppercase to lowercase
@@ -44,7 +48,7 @@ function ListOfPersonCompany() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <ListComponent
         ModalComponent={PersonCompanyInfo}

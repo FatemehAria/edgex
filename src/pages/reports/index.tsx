@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, theme } from 'antd';
 import React, { useState } from 'react';
 
 import ListButtons from '@/components/custom/ListButtons';
@@ -7,11 +7,12 @@ import ReportsColumns from './ReportsColumns';
 
 function Reports() {
   const [tableData, setTableData] = useState([]);
+  const { token } = theme.useToken();
 
   const columns = ReportsColumns();
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <Table
         dataSource={tableData}
