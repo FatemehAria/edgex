@@ -35,14 +35,14 @@ const TagsViewAction: FC = () => {
             key: '3',
             type: 'divider',
           },
-          {
-            key: '4',
-            label: (
-              <Link to="/account">
-                <LocaleFormatter id="tagsView.operation.account" />
-              </Link>
-            ),
-          },
+          // {
+          //   key: '4',
+          //   label: (
+          //     <Link to="/account">
+          //       <LocaleFormatter id="tagsView.operation.account" />
+          //     </Link>
+          //   ),
+          // },
         ],
       }}
     >

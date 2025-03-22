@@ -149,15 +149,15 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             <Dropdown
               menu={{
                 items: [
-                  {
-                    key: '1',
-                    icon: <UserOutlined />,
-                    label: (
-                      <span onClick={() => navigate('/account')}>
-                        <LocaleFormatter id="header.avator.account" />
-                      </span>
-                    ),
-                  },
+                  // {
+                  //   key: '1',
+                  //   icon: <UserOutlined />,
+                  //   label: (
+                  //     <span onClick={() => navigate('/account')}>
+                  //       <LocaleFormatter id="header.avator.account" />
+                  //     </span>
+                  //   ),
+                  // },
                   {
                     key: '2',
                     icon: <LogoutOutlined />,
