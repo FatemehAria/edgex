@@ -1,5 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { theme } from 'antd';
 import { useEffect, useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
@@ -7,7 +8,6 @@ import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
 import { getNatureList } from './util';
-import { theme } from 'antd';
 
 interface IncDecFactorsProps {
   initialValues?: Record<string, any>; // Data for editing

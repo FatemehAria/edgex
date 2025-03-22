@@ -72,20 +72,20 @@ export function ListOfPersonTableColumns({
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // استان
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.province' })}</span>,
-      dataIndex: 'person-company-province',
-      key: 'person-company-province',
-      width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
+    // {
+    //   title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.province' })}</span>,
+    //   dataIndex: 'person-company-province',
+    //   key: 'person-company-province',
+    //   width: 300,
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
     //شهر
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.city' })}</span>,
-      dataIndex: 'person-company-city',
-      key: 'person-company-city',
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
+    // {
+    //   title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.city' })}</span>,
+    //   dataIndex: 'person-company-city',
+    //   key: 'person-company-city',
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
     // ویرایش
     {
       title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.edit' })}</span>,
