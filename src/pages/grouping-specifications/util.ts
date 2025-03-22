@@ -84,6 +84,8 @@ export const deleteGroup = async (endpoint: string, id: string) => {
 };
 
 export const createCategory = async (values: any) => {
+  console.log('values in createCategory', values);
+
   try {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
       titlePersian: values['grp-specification-title-persian'],

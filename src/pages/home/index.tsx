@@ -15,7 +15,7 @@ import ProformaSupplier from '../supplier/ProformaSupplier';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { getGroupList } from '../grouping-specifications/util';
+import { createCategory, getGroupList } from '../grouping-specifications/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -120,16 +120,17 @@ function Home() {
     console.log('Group submitted:', values);
 
     const newGroup = {
-      label: values['grp-specification-title-english'] || 'Untitled Group',
-      value: values['grp-specification-title-english'] || 'untitled',
-      existenceCode: values['grp-specification-existence-code'] || '1',
+      label: values['Title'],
+      value: values['Title'],
+      Title: values['Title'],
+      'grp-specification-title-persian': values['grp-specification-title-persian'],
+      ExistenceCode: values['ExistenceCode'] || '1',
     };
 
     setGroupingOptions(prev => [...prev, newGroup]);
 
-    // Optionally perform any API calls here to persist the new group
+    createCategory(newGroup);
 
-    // Close the modal
     setIsGroupingModalOpen(false);
   };
 

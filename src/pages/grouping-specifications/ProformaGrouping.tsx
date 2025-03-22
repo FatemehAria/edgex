@@ -22,7 +22,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
   }, []);
   const groupingFormOptions: MyFormOptions = [
     {
-      name: 'grp-specification-title-english',
+      name: 'Title',
       label: `${formatMessage({ id: 'app.grouping.engTitle' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
@@ -35,7 +35,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       innerProps: { placeholder: '' },
     },
     {
-      name: 'grp-specification-existence-code',
+      name: 'ExistenceCode',
       label: `${formatMessage({ id: 'app.grouping.existance' })}`,
       type: 'select',
       innerProps: { placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}` },

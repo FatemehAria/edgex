@@ -52,7 +52,10 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={groupingOptions}
+          initialOptions={groupingOptions.map((group: any) => ({
+            label: group.label,
+            value: group.value,
+          }))}
           debounceTime={5000}
           mode="tags"
           editableOptions={true}
@@ -100,7 +103,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
           text={text}
           record={record}
-          mode='tags'
+          mode="tags"
           handleCellChange={handleCellChange}
           initialOptions={supplierOptions}
           debounceTime={5000}
