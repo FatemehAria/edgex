@@ -74,10 +74,14 @@ export function calculateFinalValues(tableData: any[], insurancePrice: number) {
 
 export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any) {
   const headerData = {
-    customerTitle: JSON.parse(localStorage.getItem('header-info-costumer') || ''),
-    descriptionHeader: JSON.parse(localStorage.getItem('header-info-desc') || ''),
-    eventTitle: JSON.parse(localStorage.getItem('header-info-title') || ''),
-    date: JSON.parse(localStorage.getItem('header-info-date') || ''),
+    customerTitle: localStorage.getItem('header-info-costumer')
+      ? JSON.parse(localStorage.getItem('header-info-costumer')!)
+      : '',
+    descriptionHeader: localStorage.getItem('header-info-desc')
+      ? JSON.parse(localStorage.getItem('header-info-desc')!)
+      : '',
+    eventTitle: localStorage.getItem('header-info-title') ? JSON.parse(localStorage.getItem('header-info-title')!) : '',
+    date: localStorage.getItem('header-info-date') ? JSON.parse(localStorage.getItem('header-info-date')!) : '',
   };
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
