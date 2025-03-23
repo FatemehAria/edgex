@@ -20,7 +20,7 @@ import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { getStuffbyId } from './util';
+import { createProformaStuff, getStuffbyId } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -204,8 +204,6 @@ function Home() {
       Description: values['description'],
     };
 
-    const ID = localStorage.getItem('selected-cat-ID') ? JSON.parse(localStorage.getItem('selected-cat-ID')!) : '';
-
     setItemOptions(prev => [...prev, newItem]);
 
     if (activeItemRow !== null) {
@@ -215,7 +213,7 @@ function Home() {
       setActiveItemRow(null);
     }
 
-    createStuff(newItem, ID);
+    createProformaStuff(newItem);
     setIsItemModalOpen(false);
   };
 

@@ -1,5 +1,6 @@
 import { customAxiosInstance } from '@/utils/axios-config';
 import { Dispatch, SetStateAction } from 'react';
+import toast from 'react-hot-toast';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -101,12 +102,12 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>) => {
   const ID = localStorage.getItem('category-initialValue') || '';
 
-  console.log(ID);
+  // console.log(ID);
 
   try {
     const { data } = await customAxiosInstance(`/PerformaInvoiceHeader/GetStuffList/${ID}`);
 
-    console.log(data);
+    // console.log(data);
     setStuffList(data);
   } catch (error) {
     console.log(error);
@@ -127,5 +128,24 @@ export const getProformaList = async (
     console.log(error);
   } finally {
     setLoading(false);
+  }
+};
+
+export const createProformaStuff = async (values: any) => {
+  const categoryId = localStorage.getItem('category-initialValue') || '';
+
+  try {
+    const { data } = await customAxiosInstance.post('/Stuff/create', {
+      title: values['Title'],
+      titlePersian: values['TitlePersian'],
+      description: values['Description'],
+      existenceCategoryID: categoryId,
+    });
+
+    // console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+  } catch (error) {
+    toast.error('خطا در انجام عملیات');
+    console.log(error);
   }
 };

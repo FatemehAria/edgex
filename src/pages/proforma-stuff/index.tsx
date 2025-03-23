@@ -33,7 +33,7 @@ function ProformaStuff({ onItemSubmit }: ProformaStuffProps) {
     },
     {
       name: 'description',
-      label: `${formatMessage({ id: 'app.grouping.perTitle' })}`,
+      label: `${formatMessage({ id: 'app.grouping.desc' })}`,
       type: 'textarea',
       innerProps: { placeholder: '' },
     },
