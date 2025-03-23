@@ -4,7 +4,7 @@ import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createStuff = async (values: any, categoryId: any[] | string) => {
   // console.log('create stuff values', values);
-  console.log('cat id', categoryId);
+  // console.log('cat id', categoryId);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {
@@ -14,7 +14,7 @@ export const createStuff = async (values: any, categoryId: any[] | string) => {
       existenceCategoryID: categoryId[0] ? categoryId[0] : categoryId,
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     toast.error('خطا در انجام عملیات');
@@ -30,7 +30,7 @@ export const createGroup = async (values: any) => {
 };
 
 export const updateStuff = async (endpoint: string, value: any, id: string) => {
-  console.log(value);
+  // console.log(value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -43,7 +43,7 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
       // تیتر انگلیسی
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);
@@ -59,7 +59,7 @@ export const deleteProduct = async (endpoint: string, id: string) => {
       },
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);

@@ -20,7 +20,7 @@ export const getExistenceList = async (
     });
 
     setExistenceList(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -40,7 +40,7 @@ export const getGroupList = async (
     }));
 
     setTableData?.(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -84,7 +84,7 @@ export const deleteGroup = async (endpoint: string, id: string) => {
 };
 
 export const createCategory = async (values: any) => {
-  console.log('values in createCategory', values);
+  // console.log('values in createCategory', values);
 
   try {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
@@ -93,8 +93,10 @@ export const createCategory = async (values: any) => {
       existenceCode: values['ExistenceCode'],
     });
 
-    console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+    // console.log(data);
   } catch (error) {
     console.log(error);
+    toast.error('خطا در انجام عملیات');
   }
 };

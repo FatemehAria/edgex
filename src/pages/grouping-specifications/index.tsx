@@ -1,15 +1,9 @@
-import type { MyFormOptions } from '@/components/core/form';
-
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { theme } from 'antd';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
-import FormLayout from '../layout/form-layout';
 import GroupForm from './GroupForm';
-import { getExistenceList } from './util';
-import { theme } from 'antd';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing

@@ -19,7 +19,7 @@ interface ListComponentProps {
   transformData?: any;
   children?: React.ReactNode;
   setGroupValue?: React.Dispatch<React.SetStateAction<any[]>>;
-  groupValue: any[];
+  groupValue?: any[];
   catId?: any;
 }
 
