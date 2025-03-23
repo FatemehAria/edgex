@@ -27,6 +27,9 @@ export const Columns = (
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],
+  itemOptions: { label: string; value: string }[],
+  openItemModal: any,
+  setActiveItemRow: any,
 ) => {
   return [
     // شماره
@@ -82,10 +85,17 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          initialOptions={[]}
+          // Pass in the items options from Home via props (ensure your component is set up to receive this)
+          initialOptions={itemOptions}
           debounceTime={5000}
           mode="tags"
           editableOptions={true}
+          allowAddNew={true} // Enable the add new button
+          onAddNew={() => {
+            // When user clicks add new, open the modal and mark this row as active.
+            openItemModal();
+            setActiveItemRow(record.key);
+          }}
         />
       ),
     },

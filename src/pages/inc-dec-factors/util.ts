@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
-  console.log('values', values);
+  // console.log('values', values);
 
   try {
     const { data } = await customAxiosInstance.post('/AgentsReducingIncreasing/create', {
@@ -19,7 +19,7 @@ export const createFactor = async (values: any) => {
       agentTypeCode: values['inc-dec-mahiyat'],
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);
@@ -44,7 +44,7 @@ export const getFactrosList = async (
     }));
 
     setTableData(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -64,7 +64,7 @@ export const getNatureList = async (setNatureList: Dispatch<SetStateAction<never
 };
 
 export const updateFactor = async (endpoint: string, value: any, id: string) => {
-  console.log(value);
+  // console.log(value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -79,7 +79,7 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
       agentTypeCode: value['inc-dec-mahiyat'],
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);
@@ -95,7 +95,7 @@ export const deleteFactor = async (endpoint: string, id: string) => {
       },
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);

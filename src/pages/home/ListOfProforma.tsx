@@ -5,6 +5,7 @@ import ListComponent from '@/components/custom/ListComponent';
 
 import Home from '.';
 import { ListOfProformaColumns } from './ListOfProformaColumns';
+import { getProformaList } from './util';
 
 function ListOfProforma() {
   return (
@@ -15,11 +16,11 @@ function ListOfProforma() {
         columnsComponent={ListOfProformaColumns}
         deleteEndpoint=""
         deleteId=""
-        getListEndpoint="/getProformas"
+        getListEndpoint="/PerformaInvoiceHeader"
         updateEndpoint="/update"
         updateId="123"
         deleteValues={() => console.log('delete proforma')}
-        getLists={() => console.log('get proforma')}
+        getLists={getProformaList}
         updateValues={() => console.log('update proforma')}
         createListItem={() => console.log('create proforma')}
       />

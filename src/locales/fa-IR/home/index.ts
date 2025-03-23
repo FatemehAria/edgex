@@ -12,6 +12,7 @@ export const faIR_home = {
   'app.home.headerInfo.date.placeholder': 'تاریخ',
   'app.home.headerInfo.desc': 'توضیحات:',
   'app.home.headerInfo.desc.placeholder': 'توضیحات',
+  'app.itemsInfo.modalHeader': ' ',
   'app.home.detailInfo': 'نمایش اطلاعات',
   'app.home.detailInfo.cost': 'هزینه:',
   'app.home.detailInfo.qty': 'مقدار:',

@@ -1,4 +1,5 @@
 import { customAxiosInstance } from '@/utils/axios-config';
+import { Dispatch, SetStateAction } from 'react';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -96,3 +97,33 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
     profitFinalMinusInsuranceVatCostTotal: finalValues.finalProfit,
   };
 }
+
+export const getStuffbyId = async (setStuffList: React.Dispatch<any>) => {
+  const ID = localStorage.getItem('selected-cat-ID') ? JSON.parse(localStorage.getItem('selected-cat-ID')!) : '';
+
+  try {
+    const { data } = await customAxiosInstance(`/PerformaInvoiceHeader/GetStuffList/${ID}`);
+
+    console.log(data);
+    setStuffList(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProformaList = async (
+  endpoint: string,
+  setProformaList: Dispatch<SetStateAction<any[]>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
+  try {
+    const { data } = await customAxiosInstance.get(endpoint);
+
+    setProformaList(data.rows);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};

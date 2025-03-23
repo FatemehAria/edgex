@@ -15,9 +15,9 @@ function ListOfFactors() {
 
     return {
       Title: data.Title,
+      'inc-dec-tasir': data['PriceAgent'] === 0 ? 'percentage' : 'price',
       influcence: data.influcence,
-      'inc-dec-display': data['inc-dec-display'],
-      'inc-dec-tasir': data['inc-dec-tasir'],
+      'inc-dec-display': data['IsDisplayDetail'] ? 'displayPen' : 'displayDocument',
       'inc-dec-mahiyat': data['inc-dec-mahiyat'],
       'inc-dec-active': data['inc-dec-active'],
     };

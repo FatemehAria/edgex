@@ -13,6 +13,7 @@ export const enUs_home = {
   'app.home.headerInfo.desc': 'Description: ',
   'app.home.headerInfo.desc.placeholder': 'description ',
   'app.home.detailInfo': 'Dispalying Info',
+  'app.itemsInfo.modalHeader': ' ',
   'app.home.detailInfo.cost': 'Cost:',
   'app.home.detailInfo.qty': 'Quantity:',
   'app.home.detailInfo.actionCost': 'Action Cost:',

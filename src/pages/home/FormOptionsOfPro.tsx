@@ -45,14 +45,12 @@ export const ProformaFormOptions = (
     type: 'select',
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
-      // onChange now receives a simple string value
       onChange: (value: any) => {
         if (value === 'add-new') {
           onOpenCustomerModal();
         }
       },
     },
-    // Always append an "Add New Customer" option even if customerOptions is empty
     options: [
       ...customerOptions,
       {

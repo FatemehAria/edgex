@@ -73,7 +73,7 @@ export const createCostumer = async () => {
 
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
 
-    console.log('Response data:', data);
+    // console.log('Response data:', data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     toast.error('خطا در انجام عملیات');
@@ -95,7 +95,7 @@ export const getLists = async (
     }));
 
     setTableData(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -104,7 +104,7 @@ export const getLists = async (
 };
 
 export const updateValues = async (endpoint: string, value: any, id: string) => {
-  console.log(value);
+  // console.log(value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -124,10 +124,10 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       personTypeCode: value['personTypeTitle'] === 'Haghighi' ? 1 : 2,
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     toast.error('خطا در انجام عملیات');
   }
 };
@@ -140,7 +140,7 @@ export const deleteCompanyPerson = async (endpoint: string, id: string) => {
       },
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     console.log(error);

@@ -13,12 +13,14 @@ import { createCustomer, getCustomersList } from '../costumer-info/util';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import { createCategory, getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
+import { createStuff } from '../product-info/main-info/util';
+import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { calculateFinalValues, createProformaPayload, mapRowToApiDetail } from './util';
+import { getStuffbyId } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -77,6 +79,7 @@ function Home() {
 
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
+    console.log('values for new customer', values);
     const newCustomerName = values['companyPersonTitle'];
     const newCustomer = { label: newCustomerName, value: newCustomerName };
 
@@ -95,9 +98,8 @@ function Home() {
   useEffect(() => {
     getCustomersList((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
-        label: item.CompanyPersonTitle ? item.CompanyPersonTitle : '',
-        value: item.CompanyPersonTitle ? item.CompanyPersonTitle : '', // or item.ID, or item.whatever
-        // value: item.ID, // or item.ID, or item.whatever
+        label: item.text ? item.text : '',
+        value: item.id ? item.id : '',
       }));
 
       setCustomerOptions(transformed);
@@ -121,9 +123,9 @@ function Home() {
         prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
       );
       setActiveSupplierRow(null);
-
-      createSupplier(values);
     }
+
+    createSupplier(values);
 
     setIsSupplierModalOpen(false);
   };
@@ -172,6 +174,51 @@ function Home() {
       setGroupingOptions(transformed);
     });
   }, []);
+
+  const [itemOptions, setItemOptions] = useState<any[]>([]);
+  const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
+  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+
+  const openItemModal = () => {
+    setIsItemModalOpen(true);
+  };
+
+  const handleNewItem = (values: any) => {
+    console.log('item values', values);
+
+    const newItem = {
+      label: values['title'],
+      value: values['title'],
+      Title: values['title'],
+      TitlePersian: values['titlePersian'],
+      Description: values['description'],
+    };
+
+    const ID = localStorage.getItem('selected-cat-ID') ? JSON.parse(localStorage.getItem('selected-cat-ID')!) : '';
+
+    setItemOptions(prev => [...prev, newItem]);
+
+    if (activeItemRow !== null) {
+      setTableData(prevData =>
+        prevData.map(row => (row.key === activeItemRow ? { ...row, items: newItem.value } : row)),
+      );
+      setActiveItemRow(null);
+    }
+
+    createStuff(newItem, ID);
+    setIsItemModalOpen(false);
+  };
+
+  useEffect(() => {
+    getStuffbyId((rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        label: item.Title,
+        value: item.ID, // or item.ID, or item.whatever
+      }));
+
+      setItemOptions(transformed);
+    });
+  }, [localStorage.getItem('selected-cat-ID')]);
 
   const createEmptyRow = () => {
     const newRow = {
@@ -348,6 +395,9 @@ function Home() {
     setActiveGroupingRow,
     setIsGroupingModalOpen,
     groupingOptions,
+    itemOptions,
+    openItemModal,
+    setActiveItemRow,
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
@@ -439,6 +489,15 @@ function Home() {
         footer={null}
       >
         <ProformaGrouping onGroupSubmit={handleNewGroup} />
+      </Modal>
+
+      <Modal
+        title={formatMessage({ id: 'app.itemsInfo.modalHeader' })}
+        open={isItemModalOpen}
+        onCancel={() => setIsItemModalOpen(false)}
+        footer={null}
+      >
+        <ProformaStuff onItemSubmit={handleNewItem} />
       </Modal>
     </div>
   );

@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createStuff = async (values: any, categoryId: string) => {
-  console.log(values);
+  console.log('create stuff values', values);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {

@@ -7,15 +7,15 @@ export const getCustomersList = async (
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
-    const { data } = await customAxiosInstance.get('/Customer');
+    const { data } = await customAxiosInstance.get('/PerformaInvoiceHeader/GetCustomerList');
 
-    const formattedData = data.rows.map((item: any, index: number) => ({
+    const formattedData = data.map((item: any, index: number) => ({
       ...item,
       key: index + 1,
     }));
 
     setList(formattedData);
-    console.log(data);
+    console.log('customers list', data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -27,8 +27,8 @@ export const createCustomer = async (values: any) => {
   console.log('values in createCustomer', values);
 
   try {
-    const { data } = await customAxiosInstance.post('/Suplier/create', {
-      companyPersonTitle: values['CompanyPersonTitle'],
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalCustomer', {
+      companyPersonTitle: values['value'],
     });
 
     console.log(data);
