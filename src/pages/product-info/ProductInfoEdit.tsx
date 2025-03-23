@@ -3,20 +3,27 @@ import type { MyFormOptions } from '@/components/core/form';
 import React from 'react';
 
 import { useLocale } from '@/locales';
-import FormLayout from '@/pages/layout/form-layout';
+import FormLayout from '../layout/form-layout';
+import Grouping from './grouping';
 
-import Grouping from '../grouping';
-
-interface MainInfoProps {
+interface ProductInfoEditProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
   showButton?: boolean;
   children?: React.ReactNode;
+  groupValue: any[];
+  setGroupValue: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }: MainInfoProps) {
+function ProductInfoEdit({
+  initialValues = {},
+  showButton = false,
+  onSubmit,
+  setGroupValue,
+  groupValue,
+}: ProductInfoEditProps) {
   const { formatMessage } = useLocale();
-  const productMainInfoformOptions: MyFormOptions = [
+  const productInfoEditformOptions: MyFormOptions = [
     {
       name: 'Title',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.englishTitle' })}`,
@@ -43,24 +50,11 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }
     },
   ];
 
-  // const handleFormSubmit = (values: Record<string, any>) => {
-  //   console.log('is copied', isCopied);
-
-  //   if (initialValues && initialValues.key && isCopied === false) {
-  //     // Edit mode: merge the key into the values before submitting
-  //     onSubmit({ ...values, key: initialValues.key, categoryId: groupValue });
-  //   } else {
-  //     // Create mode
-  //     onSubmit(values);
-  //   }
-  // };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {children}
-      {/* <Grouping groupValue={groupValue} setGroupValue={setGroupValue} /> */}
+      <Grouping groupValue={groupValue} setGroupValue={setGroupValue} />
       <FormLayout
-        FormOptions={productMainInfoformOptions}
+        FormOptions={productInfoEditformOptions}
         layoutDir="vertical"
         submitForm={onSubmit}
         isGrid={true}
@@ -70,4 +64,4 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }
   );
 }
 
-export default MainInfo;
+export default ProductInfoEdit;

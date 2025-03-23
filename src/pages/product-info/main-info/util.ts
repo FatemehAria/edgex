@@ -2,19 +2,20 @@ import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
 
-export const createStuff = async (values: any, categoryId: string) => {
-  console.log('create stuff values', values);
+export const createStuff = async (values: any, categoryId: any[] | string) => {
+  // console.log('create stuff values', values);
+  console.log('cat id', categoryId);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'],
-      existenceCategoryID: categoryId,
+      existenceCategoryID: categoryId[0] ? categoryId[0] : categoryId,
     });
 
-    toast.success('عملیات با موفقیت انجام شد.');
     console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     toast.error('خطا در انجام عملیات');
     console.log(error);

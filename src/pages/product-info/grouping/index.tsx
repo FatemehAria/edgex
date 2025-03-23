@@ -38,8 +38,8 @@ function Grouping({
   setGroupValue,
   groupValue,
 }: {
-  setGroupValue: React.Dispatch<React.SetStateAction<any>>;
-  groupValue: string;
+  setGroupValue: React.Dispatch<React.SetStateAction<any[]>>;
+  groupValue: any[];
 }) {
   const { formatMessage } = useLocale();
   const [treeData, setTreeData] = useState([]);
@@ -59,27 +59,18 @@ function Grouping({
   };
 
   const treeDataAnt = addTreeData();
+
   //For setting default value from api
+  // useEffect(() => {
+  //   if (treeDataAnt?.length > 0 && groupValue?.length === 0) {
+  //     setGroupValue(treeDataAnt);
+  //   }
+  // }, [treeDataAnt, groupValue, setGroupValue]);
 
-  useEffect(() => {
-    if (treeDataAnt.length > 0 && groupValue.length === 0) {
-      setGroupValue([treeDataAnt[0].value]);
-    }
-  }, [treeDataAnt, groupValue, setGroupValue]);
-
-  // const [value, setValue] = useState<string>();
-  const [tableData, setTableData] = useState(dataSource);
-
-  const handleChange = (newValue: string) => {
+  const handleChange = (newValue: any) => {
+    console.log('new value', newValue);
     setGroupValue(newValue);
-    // console.log("new value", newValue);
   };
-
-  const handleDelete = (index: string | number) => {
-    setTableData(prevData => prevData.filter(item => item.index !== index));
-  };
-
-  const columns = GroupItemTableColumn({ handleDelete, formatMessage });
 
   const onPopupScroll: TreeSelectProps['onPopupScroll'] = e => {
     console.log('onPopupScroll', e);
@@ -88,6 +79,7 @@ function Grouping({
   return (
     <div className="grouping-container">
       <div className="select-container">
+        <label>{formatMessage({ id: 'app.productInfo.group.label' })}</label>
         <TreeSelect
           showSearch
           treeNodeFilterProp="title"
@@ -102,7 +94,6 @@ function Grouping({
           treeCheckable
         />
       </div>
-      {/* <div className="table-container">{groupValue ? <Table dataSource={tableData} columns={columns} /> : ''}</div> */}
     </div>
   );
 }

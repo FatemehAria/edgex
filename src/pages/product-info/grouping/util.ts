@@ -6,7 +6,7 @@ export const getGroupItems = async (setTreeData: React.Dispatch<React.SetStateAc
 
     setTreeData(data);
 
-    console.log(data);
+    // console.log('getGroupItems', data);
   } catch (error) {
     console.log(error);
   }

@@ -20,5 +20,5 @@ export const enUS_productInfo = {
   'app.productInfo.List.desc': `Description`,
   'app.productInfo.List.rate': `Rate`,
   'app.productInfo.redirectionBtn': 'View Products List',
-
+  'app.productInfo.group.label': 'Group:',
 };

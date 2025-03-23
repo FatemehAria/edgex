@@ -20,5 +20,6 @@ export const faIR_productInfo = {
   'app.productInfo.List.desc': `توضیحات`,
   'app.productInfo.List.rate': `نرخ`,
   'app.productInfo.redirectionBtn': 'مشاهده لیست کالاها',
+  'app.productInfo.group.label': 'گروهبندی',
 
 };

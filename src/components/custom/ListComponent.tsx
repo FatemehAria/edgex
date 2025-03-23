@@ -17,6 +17,10 @@ interface ListComponentProps {
   updateValues: any;
   createListItem: any;
   transformData?: any;
+  children?: React.ReactNode;
+  setGroupValue?: React.Dispatch<React.SetStateAction<any[]>>;
+  groupValue: any[];
+  catId?: any;
 }
 
 function ListComponent({
@@ -32,6 +36,10 @@ function ListComponent({
   updateValues,
   createListItem,
   transformData,
+  children,
+  setGroupValue,
+  groupValue,
+  catId,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
@@ -102,7 +110,7 @@ function ListComponent({
     console.log('dataToCreate', dataToCreate);
 
     if (isCopied) {
-      createListItem(dataToCreate);
+      createListItem(dataToCreate, catId);
     } else {
       updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
     }
@@ -137,6 +145,8 @@ function ListComponent({
           onSubmit={handleUpdate}
           showButton={true}
           isCopied={isCopied}
+          setGroupValue={setGroupValue}
+          groupValue={groupValue}
         />
       </Modal>
       <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>
