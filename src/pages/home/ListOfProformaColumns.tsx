@@ -69,7 +69,7 @@ export function ListOfProformaColumns({
       dataIndex: 'eng-print',
       key: 'eng-print',
       width: 200,
-      render: (_: any, record: any) => {
+      render: (_: any) => {
         // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
@@ -93,7 +93,7 @@ export function ListOfProformaColumns({
       dataIndex: 'per-print',
       key: 'per-print',
       width: 200,
-      render: (_: any, record: any) => {
+      render: (_: any) => {
         // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
