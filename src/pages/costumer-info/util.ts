@@ -1,5 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
+import toast from 'react-hot-toast';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const getCustomersList = async (
@@ -24,15 +26,23 @@ export const getCustomersList = async (
 };
 
 export const createCustomer = async (values: any) => {
-  console.log('values in createCustomer', values);
+  // console.log('values in createCustomer', values);
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalCustomer', {
-      companyPersonTitle: values['value'],
+      companyPersonType: values['companyPersonType'],
+      companyPersonTitle: values['companyPersonTitle'],
+      telephone: values['telephone'],
+      provinceID: values['provinceID'],
+      cityID: values['cityID'],
+      address: values['address'],
+      isActive: values['isActive'],
     });
 
-    console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+    // console.log(data);
   } catch (error) {
     console.log(error);
+    toast.error('خطا در انجام عملیات');
   }
 };

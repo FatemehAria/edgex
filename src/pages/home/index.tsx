@@ -80,10 +80,20 @@ function Home() {
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
     console.log('values for new customer', values);
-    const newCustomerName = values['companyPersonTitle'];
-    const newCustomer = { label: newCustomerName, value: newCustomerName };
+    const newCustomer = {
+      label: values['companyPersonTitle'],
+      value: values['companyPersonTitle'],
+      companyPersonType: values['companyPersonType'],
+      companyPersonTitle: values['companyPersonTitle'],
+      telephone: values['telephone'],
+      provinceID: values['provinceID'],
+      cityID: values['cityID'],
+      address: values['address'],
+      isActive: values['isActive'],
+    };
 
     setCustomerOptions(prev => [...prev, newCustomer]);
+
     setSelectedCostumer(newCustomer.value);
 
     createCustomer(newCustomer);
