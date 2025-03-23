@@ -68,8 +68,15 @@ const AutoFocusAddableSelect = ({
     setOptions(opts);
   }, [initialOptions, allowAddNew, formatMessage]);
 
+  const localStorageKey = `${dataIndex}-initialValue`;
   // For single select use string; for multiple/tags, use array.
   const [selected, setSelected] = useState(() => {
+    const stored = localStorage.getItem(localStorageKey);
+
+    if (stored) {
+      return mode ? [stored] : stored;
+    }
+
     if (mode === 'tags' || mode === 'multiple') {
       return text ? [text] : initialOptions.length > 0 ? [initialOptions[0].value] : [];
     } else {
@@ -84,6 +91,8 @@ const AutoFocusAddableSelect = ({
       const defaultVal = initialOptions[0].value;
 
       handleCellChange(defaultVal, record.key, dataIndex);
+
+      localStorage.setItem(localStorageKey, defaultVal);
 
       if (mode === 'tags' || mode === 'multiple') {
         setSelected([defaultVal]);
@@ -103,6 +112,7 @@ const AutoFocusAddableSelect = ({
 
       setSelected(value);
       handleCellChange(value, record.key, dataIndex);
+      localStorage.setItem(localStorageKey, value);
 
       if (!options.find(opt => opt.value === value)) {
         setOptions([...options, { label: value, value }]);
@@ -119,10 +129,14 @@ const AutoFocusAddableSelect = ({
       setSelected(newValue);
 
       if (newValue.length > 0) {
-        handleCellChange(newValue[newValue.length - 1], record.key, dataIndex);
+        const latestValue = newValue[newValue.length - 1];
 
-        if (!options.find(opt => opt.value === newValue[newValue.length - 1])) {
-          setOptions([...options, { label: newValue[newValue.length - 1], value: newValue[newValue.length - 1] }]);
+        handleCellChange(latestValue, record.key, dataIndex);
+
+        localStorage.setItem(localStorageKey, latestValue);
+
+        if (!options.find(opt => opt.value === latestValue)) {
+          setOptions([...options, { label: latestValue, value: latestValue }]);
         }
       }
 

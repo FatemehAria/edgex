@@ -228,7 +228,7 @@ function Home() {
 
       setItemOptions(transformed);
     });
-  }, [localStorage.getItem('selected-cat-ID')]);
+  }, [localStorage.getItem('category-initialValue')]);
 
   const createEmptyRow = () => {
     const newRow = {

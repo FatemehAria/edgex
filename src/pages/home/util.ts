@@ -99,7 +99,9 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
 }
 
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>) => {
-  const ID = localStorage.getItem('selected-cat-ID') ? JSON.parse(localStorage.getItem('selected-cat-ID')!) : '';
+  const ID = localStorage.getItem('category-initialValue') || '';
+
+  console.log(ID);
 
   try {
     const { data } = await customAxiosInstance(`/PerformaInvoiceHeader/GetStuffList/${ID}`);
