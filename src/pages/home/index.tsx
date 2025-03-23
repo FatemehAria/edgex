@@ -18,6 +18,7 @@ import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
+import { calculateFinalValues, createProformaPayload, mapRowToApiDetail } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -269,10 +270,10 @@ function Home() {
             console.log(sumOfItemTotalPrice);
             const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
 
-            console.log(shareOfTaxAndInsModulo);
+            // console.log(shareOfTaxAndInsModulo);
             // سهم آیتم از بیمه و مالیات
-            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
-            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
+            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
+            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
 
             // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
             updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
@@ -388,6 +389,7 @@ function Home() {
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}
+          isRowFilled={isRowFilled}
         />
       ),
       style: panelStyle,

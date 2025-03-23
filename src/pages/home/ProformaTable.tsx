@@ -6,6 +6,7 @@ import { Button, Table } from 'antd';
 import { useEffect } from 'react';
 
 import FooterTableColumns from './FooterTableColumns';
+import { calculateFinalValues, createProforma, createProformaPayload } from './util';
 
 function ProformaTable({
   tableData,
@@ -16,6 +17,7 @@ function ProformaTable({
   setinsurancePrice,
   setTotalCostOfRows,
   totalCostOfRows,
+  isRowFilled,
 }: {
   tableData: any;
   columns: any;
@@ -26,6 +28,7 @@ function ProformaTable({
   setinsurancePrice: Dispatch<SetStateAction<number>>;
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
+  isRowFilled: any;
 }) {
   useEffect(() => {
     // Calculate the total cost (sum of itemTotalPrice)
@@ -39,6 +42,10 @@ function ProformaTable({
     setinsurancePrice(calculatedInsurancePrice);
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
+  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
+
+  console.log('payload', payload);
+
   return (
     <div>
       <Table
@@ -48,31 +55,46 @@ function ProformaTable({
         rowClassName="editable-row"
         scroll={{ x: 3000 }}
         footer={() => {
-          const totalFinalSalePrice = tableData.reduce(
-            (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
-            0,
-          );
-          const vat = 0.1 * totalFinalSalePrice;
-          const total = vat + totalFinalSalePrice;
-          const tenPercentTax = 0.1 * totalFinalSalePrice;
-          const finalProfit =
-            totalFinalSalePrice -
-            tenPercentTax -
-            insurancePrice -
-            tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0), 0);
-          const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
-          const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
+          const finalValues = calculateFinalValues(tableData, insurancePrice);
+          // const totalFinalSalePrice = tableData.reduce(
+          //   (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
+          //   0,
+          // );
+          // const vat = 0.1 * totalFinalSalePrice;
+          // const total = vat + totalFinalSalePrice;
+          // const tenPercentTax = 0.1 * totalFinalSalePrice;
+          // const finalProfit =
+          //   totalFinalSalePrice -
+          //   tenPercentTax -
+          //   insurancePrice -
+          //   tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0), 0);
+          // const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
+          // const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
 
+          // const FooterTableData = [
+          //   {
+          //     key: 'footer',
+          //     vat: `${Math.round(vat)
+          //       .toString()
+          //       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+          //     total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+          //     finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+          //     finalProfitMargin: `${totalProfitMargin}`,
+          //     insuranceCheckAmount: `${Math.round(insuranceCheckAmount)
+          //       .toString()
+          //       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+          //   },
+          // ];
           const FooterTableData = [
             {
               key: 'footer',
-              vat: `${Math.round(vat)
+              vat: `${Math.round(finalValues.vat)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              finalProfitMargin: `${totalProfitMargin}`,
-              insuranceCheckAmount: `${Math.round(insuranceCheckAmount)
+              total: `${finalValues.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              finalProfit: `${finalValues.finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              finalProfitMargin: `${finalValues.totalProfitMargin}`,
+              insuranceCheckAmount: `${Math.round(finalValues.insuranceCheckAmount)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
             },
@@ -224,7 +246,9 @@ function ProformaTable({
         }}
       />
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-        <Button type="primary">{formatMessage({ id: 'app.home.submissionBtn' })}</Button>
+        <Button type="primary" onClick={() => createProforma(payload)}>
+          {formatMessage({ id: 'app.home.submissionBtn' })}
+        </Button>
       </div>
     </div>
   );
