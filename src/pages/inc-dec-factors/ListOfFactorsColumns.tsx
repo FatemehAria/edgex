@@ -89,7 +89,7 @@ function ListOfFactorsColumns({
     },
     // کپی
     {
-      title: <span className="center-align">کپی</span>, // Adjust translation if needed
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
       dataIndex: 'copy',
       key: 'copy',
       render: (_: any, record: any) => (

@@ -27,4 +27,5 @@ export const enUS_globalTips = {
   'gloabal.tips.theme.addMedia': 'Upload',
   'gloabal.tips.submitBtn': 'Submit',
   'gloabal.tips.excel': 'Excel output',
+  'gloabal.columns.copy': 'Copy',
 };
