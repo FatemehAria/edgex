@@ -1,14 +1,19 @@
-import { customAxiosInstance } from '@/utils/axios-config';
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+
 import toast from 'react-hot-toast';
+
+import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
-  //   try {
-  //     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/create', values);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+
+  try {
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/create', { data: payload });
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export function mapRowToApiDetail(row: any): any {

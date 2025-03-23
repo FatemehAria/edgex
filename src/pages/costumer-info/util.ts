@@ -30,7 +30,7 @@ export const createCustomer = async (values: any) => {
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalCustomer', {
-      companyPersonType: values['companyPersonType'],
+      companyPersonType: values['companyPersonType'] === 'Haghighi' ? 1 : 2,
       companyPersonTitle: values['companyPersonTitle'],
       telephone: values['telephone'],
       provinceID: values['provinceID'],

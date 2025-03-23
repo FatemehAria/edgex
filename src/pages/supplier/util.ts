@@ -7,9 +7,9 @@ export const getSuppliersList = async (
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
-    const { data } = await customAxiosInstance.get('/Suplier');
+    const { data } = await customAxiosInstance.get('/PerformaInvoiceHeader/GetSuplierList');
 
-    const formattedData = data.rows.map((item: any, index: number) => ({
+    const formattedData = data.map((item: any, index: number) => ({
       ...item,
       key: index + 1,
     }));
@@ -28,7 +28,9 @@ export const createSupplier = async (values: any) => {
 
   try {
     const { data } = await customAxiosInstance.post('/Suplier/create', {
-      companyPersonTitle: values['CompanyPersonTitle'],
+      companyPersonTitle: values['companyPersonTitle'],
+      personTypeCode: values['personTypeCode'] === 'Haghighi' ? 1 : 2,
+      isActive: values['isActive'],
     });
 
     console.log(data);

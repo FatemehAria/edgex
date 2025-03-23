@@ -123,8 +123,13 @@ function Home() {
   const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 
   const handleNewSupplier = (values: any) => {
-    const newSupplierName = values['CompanyPersonTitle'];
-    const newSupplier = { label: newSupplierName, value: newSupplierName };
+    const newSupplier = {
+      label: values['companyPersonTitle'],
+      value: values['companyPersonTitle'],
+      personTypeCode: values['personTypeCode'],
+      companyPersonTitle: values['companyPersonTitle'],
+      isActive: values['isActive'],
+    };
 
     setSupplierOptions(prev => [...prev, newSupplier]);
 
@@ -143,8 +148,8 @@ function Home() {
   useEffect(() => {
     getSuppliersList((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
-        label: item.CompanyPersonTitle ? item.CompanyPersonTitle : '',
-        value: item.CompanyPersonTitle ? item.CompanyPersonTitle : '', // or item.ID, or item.whatever
+        label: item.text,
+        value: item.id, // or item.ID, or item.whatever
         // value: item.ID, // or item.ID, or item.whatever
       }));
 
