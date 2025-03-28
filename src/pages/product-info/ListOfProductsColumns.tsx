@@ -1,5 +1,7 @@
+import { SearchOutlined } from '@ant-design/icons';
 import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Input } from 'antd';
 
 import { useLocale } from '@/locales';
 
@@ -13,6 +15,28 @@ function ListOfProductsColumns({
   copyRow: any;
 }) {
   const { formatMessage } = useLocale();
+
+  const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e => {
+            const value = e.target.value;
+
+            setSelectedKeys(value ? [value] : []);
+            confirm({ closeDropdown: false });
+          }}
+          // allowClear
+          style={{ width: 180, display: 'block' }}
+        />
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value: string, record: any) =>
+      record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : false,
+  });
 
   return [
     // ردیف
@@ -29,6 +53,7 @@ function ListOfProductsColumns({
       dataIndex: 'Title',
       key: 'Title',
       width: 300,
+      ...getColumnSearchProps('Title'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان فارسی
@@ -37,6 +62,7 @@ function ListOfProductsColumns({
       dataIndex: 'TitlePersian',
       key: 'TitlePersian',
       width: 300,
+      ...getColumnSearchProps('TitlePersian'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // نرخ
@@ -45,6 +71,7 @@ function ListOfProductsColumns({
       dataIndex: 'rate',
       key: 'rate',
       width: 300,
+      ...getColumnSearchProps('rate'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // توضیحات
