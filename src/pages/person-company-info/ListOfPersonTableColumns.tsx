@@ -1,5 +1,7 @@
+import { SearchOutlined } from '@ant-design/icons';
 import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Input } from 'antd';
 
 import { useLocale } from '@/locales';
 
@@ -13,6 +15,27 @@ export function ListOfPersonTableColumns({
   copyRow: any;
 }) {
   const { formatMessage } = useLocale();
+
+  const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e => {
+            const value = e.target.value;
+            setSelectedKeys(value ? [value] : []);
+            confirm({ closeDropdown: false });
+          }}
+          // allowClear
+          style={{ width: 180, display: 'block' }}
+        />
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value: string, record: any) =>
+      record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : false,
+  });
 
   return [
     // ردیف
@@ -29,6 +52,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'Code',
       key: 'Code',
       width: 300,
+      ...getColumnSearchProps('Code'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // نوع
@@ -37,6 +61,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'personTypeTitle',
       key: 'personTypeTitle',
       width: 300,
+      ...getColumnSearchProps('personTypeTitle'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان
@@ -45,6 +70,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'Title',
       key: 'Title',
       width: 300,
+      ...getColumnSearchProps('Title'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // شناسه / کدملی
@@ -53,6 +79,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'CodeNational',
       key: 'CodeNational',
       width: 300,
+      ...getColumnSearchProps('CodeNational'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تلفن
@@ -61,6 +88,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'Telephone',
       key: 'Telephone',
       width: 600,
+      ...getColumnSearchProps('Telephone'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // موبایل
@@ -69,6 +97,7 @@ export function ListOfPersonTableColumns({
       dataIndex: 'Mobile',
       key: 'Mobile',
       width: 250,
+      ...getColumnSearchProps('Mobile'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // استان
