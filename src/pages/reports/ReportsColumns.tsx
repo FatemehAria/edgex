@@ -3,7 +3,7 @@ import { useLocale } from '@/locales';
 function ReportsColumns() {
   const { formatMessage } = useLocale();
 
-  return [
+  const columns = [
     // ردیف
     {
       title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.row' })}</span>,
@@ -133,6 +133,8 @@ function ReportsColumns() {
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
   ];
+
+  return columns;
 }
 
 export default ReportsColumns;
