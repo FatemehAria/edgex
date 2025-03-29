@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from '@ant-design/icons';
 import { Dropdown, Input, Layout, theme as antTheme, Tooltip } from 'antd';
 import { createElement, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,8 @@ import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
 import { SearchContext } from '../home/context/SearchContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const { Header } = Layout;
 
@@ -30,13 +32,13 @@ interface HeaderProps {
 type Action = 'userInfo' | 'userSetting' | 'logout';
 
 const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
-  const { logged, locale, device } = useSelector(state => state.user);
+  const { logged, locale, device, username } = useSelector(state => state.user);
   const { theme } = useSelector(state => state.global);
   const navigate = useNavigate();
   const token = antTheme.useToken();
   const dispatch = useDispatch();
   const { formatMessage } = useLocale();
-  const { setSearchInput, searchInput } = useContext(SearchContext);
+  // const { setSearchInput, searchInput } = useContext(SearchContext);
 
   const onActionClick = async (action: Action) => {
     switch (action) {
@@ -45,6 +47,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
       case 'userSetting':
         return;
       case 'logout':
+        console.log('clicked on logout');
         const res = Boolean(await dispatch(logoutAsync()));
 
         res && navigate('/login');
@@ -99,7 +102,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
           <span id="sidebar-trigger">{handleSidebarIcon()}</span>
         </div>
         {/* Search Input */}
-        <div className="search-input-container">
+        {/* <div className="search-input-container">
           <Input
             placeholder={`${formatMessage({ id: 'gloabal.tips.searchInput' })}`}
             onChange={e => setSearchInput(e.target.value)}
@@ -107,8 +110,43 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             className="search-input"
           />
           <SearchOutlined className="search-icon" />
-        </div>
+        </div> */}
         <div className="actions">
+          {logged ? (
+            <Dropdown
+              menu={{
+                items: [
+                  // {
+                  //   key: '1',
+                  //   icon: <UserOutlined />,
+                  //   label: (
+                  //     <span onClick={() => navigate('/account')}>
+                  //       <LocaleFormatter id="header.avator.account" />
+                  //     </span>
+                  //   ),
+                  // },
+                  {
+                    key: '2',
+                    icon: <LogoutOutlined />,
+                    label: (
+                      <span onClick={() => onActionClick('logout')}>
+                        <LocaleFormatter id="header.avator.logout" />
+                      </span>
+                    ),
+                  },
+                ],
+              }}
+            >
+              <span className="user-action">
+                <img src={Avator} className="user-avator" alt="avator" />
+              </span>
+              {/* <span style={{ cursor: 'pointer' }}>{'🟢' + ' ' + username ? JSON.parse(username) : ''}</span> */}
+            </Dropdown>
+          ) : (
+            <span style={{ cursor: 'pointer' }} onClick={toLogin}>
+              {formatMessage({ id: 'gloabal.tips.login' })}
+            </span>
+          )}
           <Tooltip
             title={formatMessage({
               id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
@@ -144,41 +182,6 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
               <LanguageSvg id="language-change" />
             </span>
           </Dropdown>
-
-          {logged ? (
-            <Dropdown
-              menu={{
-                items: [
-                  // {
-                  //   key: '1',
-                  //   icon: <UserOutlined />,
-                  //   label: (
-                  //     <span onClick={() => navigate('/account')}>
-                  //       <LocaleFormatter id="header.avator.account" />
-                  //     </span>
-                  //   ),
-                  // },
-                  {
-                    key: '2',
-                    icon: <LogoutOutlined />,
-                    label: (
-                      <span onClick={() => onActionClick('logout')}>
-                        <LocaleFormatter id="header.avator.logout" />
-                      </span>
-                    ),
-                  },
-                ],
-              }}
-            >
-              <span className="user-action">
-                <img src={Avator} className="user-avator" alt="avator" />
-              </span>
-            </Dropdown>
-          ) : (
-            <span style={{ cursor: 'pointer' }} onClick={toLogin}>
-              {formatMessage({ id: 'gloabal.tips.login' })}
-            </span>
-          )}
         </div>
       </div>
     </Header>

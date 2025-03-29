@@ -12,20 +12,20 @@ import { ReactComponent as FaIRSvg } from '@/assets/header/fa_IR.svg';
 import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setUserItem } from '@/stores/user.store';
-import { formatSearch } from '@/utils/formatSearch';
 
+// import { formatSearch } from '@/utils/formatSearch';
 import { loginAsync } from '../../stores/user.action';
 import LoginCarousel from './LoginCarousel';
 
 const initialValues: LoginParams = {
-  username: 'guest',
-  password: 'guest',
+  username: '',
+  password: '',
   // remember: true
 };
 
 const LoginForm: FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const dispatch = useDispatch();
   const { formatMessage } = useLocale();
   const { token } = antTheme.useToken();
@@ -33,14 +33,25 @@ const LoginForm: FC = () => {
   const { theme } = useSelector(state => state.global);
 
   const onFinished = async (form: LoginParams) => {
-    const res = dispatch(await loginAsync(form));
+    try {
+      const res: any = await dispatch(loginAsync(form));
 
-    if (!!res) {
-      const search = formatSearch(location.search);
-      const from = search.from || { pathname: '/' };
+      // console.log('res', res)
 
-      navigate(from);
+      if (res) {
+        navigate('/');
+      } else {
+        console.error('Login unsuccessful');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
     }
+    // if (!!res) {
+    //   const search = formatSearch(location.search);
+    //   const from = search.from || { pathname: '/' };
+
+    //   navigate(from);
+    // }
   };
 
   const selectLocale = ({ key }: { key: any }) => {

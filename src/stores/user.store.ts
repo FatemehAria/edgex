@@ -22,11 +22,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserItem(state, action: PayloadAction<Partial<UserState>>) {
-      const { username } = action.payload;
+      // const { username } = action.payload;
 
-      if (username !== state.username) {
-        localStorage.setItem('username', action.payload.username || '');
-      }
+      // if (username !== state.username) {
+      //   localStorage.setItem('username', action.payload.username || '');
+      // }
 
       Object.assign(state, action.payload);
     },
