@@ -330,7 +330,6 @@ function Home() {
             console.log(sumOfItemTotalPrice);
             const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
 
-            // console.log(shareOfTaxAndInsModulo);
             // سهم آیتم از بیمه و مالیات
             // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
             const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
