@@ -11,6 +11,7 @@ import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
 import ListOfProforma from '@/pages/home/ListOfProforma';
+import ProtectedRoute from '@/pages/ProtectedRoute';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -35,11 +36,29 @@ const ListOfGroups = lazy(() => import('@/pages/grouping-specifications/ListOfGr
 const routeList: RouteObject[] = [
   {
     path: '/login',
-    element: <WrapperRouteComponent element={<LoginPage />} titleId="title.login" />,
+    element: (
+      <WrapperRouteComponent
+        element={
+          <ProtectedRoute>
+            <LoginPage />
+          </ProtectedRoute>
+        }
+        titleId="title.login"
+      />
+    ),
   },
   {
     path: '/',
-    element: <WrapperRouteComponent element={<LayoutPage />} titleId="title.homepage" />,
+    element: (
+      <WrapperRouteComponent
+        element={
+          <ProtectedRoute>
+            <LayoutPage />
+          </ProtectedRoute>
+        }
+        titleId="title.homepage"
+      />
+    ),
     children: [
       {
         path: '',

@@ -16,6 +16,7 @@ import { setUserItem } from '@/stores/user.store';
 // import { formatSearch } from '@/utils/formatSearch';
 import { loginAsync } from '../../stores/user.action';
 import LoginCarousel from './LoginCarousel';
+import toast from 'react-hot-toast';
 
 const initialValues: LoginParams = {
   username: '',
@@ -44,6 +45,7 @@ const LoginForm: FC = () => {
         console.error('Login unsuccessful');
       }
     } catch (error) {
+      toast.error('نام کاربری یا رمز عبور اشتباه است');
       console.error('Login failed:', error);
     }
     // if (!!res) {

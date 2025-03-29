@@ -185,11 +185,27 @@ export const createProformaStuff = async (values: any) => {
   const categoryId = localStorage.getItem('category-initialValue') || '';
 
   try {
-    const { data } = await customAxiosInstance.post('/Stuff/create', {
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalStuff', {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'],
       existenceCategoryID: categoryId,
+    });
+
+    // console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+  } catch (error) {
+    toast.error('خطا در انجام عملیات');
+    console.log(error);
+  }
+};
+
+export const createProformaCategory = async (values: any) => {
+  try {
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalExistenceCategory', {
+      title: values['Title'],
+      titlePersian: values['grp-specification-title-persian'],
+      existenceCode: values['ExistenceCode'],
     });
 
     // console.log(data);

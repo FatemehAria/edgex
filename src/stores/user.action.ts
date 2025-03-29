@@ -1,6 +1,8 @@
 import type { LoginParams } from '../interface/user/login';
 import type { Dispatch } from '@reduxjs/toolkit';
 
+import toast from 'react-hot-toast';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 import { setUserItem } from './user.store';

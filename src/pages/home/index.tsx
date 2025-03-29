@@ -14,14 +14,14 @@ import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import { createCategory, getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
 import { createStuff } from '../product-info/main-info/util';
+import { getProductsList } from '../product-info/util';
 import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
-import { createProformaStuff, getStuffbyId } from './util';
-import { getProductsList } from '../product-info/util';
+import { createProformaCategory, createProformaStuff, getStuffbyId } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -117,18 +117,6 @@ function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    getProductsList('/Stuff', (rawData: any) => {
-      const transformed = rawData.map((item: any) => ({
-        // label: item.TitlePersian ? item.TitlePersian : '',
-        label: item.Title ? item.Title : '',
-        value: item.ID ? item.ID : '',
-      }));
-
-      setItemOptions(transformed);
-    });
-  }, []);
-
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
     // Possibly prefill with some suppliers if desired.
   ]);
@@ -172,6 +160,7 @@ function Home() {
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
   const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);
+  const [groupRefresh, setGroupRefresh] = useState(false);
   const [activeGroupingRow, setActiveGroupingRow] = useState<number | null>(null);
 
   const handleNewGroup = (values: any) => {
@@ -187,7 +176,9 @@ function Home() {
 
     setGroupingOptions(prev => [...prev, newGroup]);
 
-    createCategory(newGroup);
+    createProformaCategory(newGroup);
+
+    setGroupRefresh(prev => !prev);
 
     setIsGroupingModalOpen(false);
   };
@@ -201,7 +192,7 @@ function Home() {
 
       setGroupingOptions(transformed);
     });
-  }, []);
+  }, [groupRefresh]);
 
   const [itemOptions, setItemOptions] = useState<any[]>([]);
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
@@ -235,16 +226,28 @@ function Home() {
     setIsItemModalOpen(false);
   };
 
+  // useEffect(() => {
+  //   getProductsList('/Stuff', (rawData: any) => {
+  //     const transformed = rawData.map((item: any) => ({
+  //       // label: item.TitlePersian ? item.TitlePersian : '',
+  //       label: item.Title ? item.Title : '',
+  //       value: item.ID ? item.ID : '',
+  //     }));
+
+  //     setItemOptions(transformed);
+  //   });
+  // }, [itemOptions]);
+
   useEffect(() => {
     getStuffbyId((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
-        label: item.Title,
-        value: item.ID, // or item.ID, or item.whatever
+        label: item.Title || item.text,
+        value: item.id, // or item.ID, or item.whatever
       }));
 
       setItemOptions(transformed);
     });
-  }, [localStorage.getItem('category-initialValue')]);
+  }, [localStorage.getItem('selected-cat-ID')]);
 
   const createEmptyRow = () => {
     const newRow = {
