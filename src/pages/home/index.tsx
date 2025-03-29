@@ -21,6 +21,7 @@ import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
 import { createProformaStuff, getStuffbyId } from './util';
+import { getProductsList } from '../product-info/util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -113,6 +114,18 @@ function Home() {
       }));
 
       setCustomerOptions(transformed);
+    });
+  }, []);
+
+  useEffect(() => {
+    getProductsList('/Stuff', (rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        // label: item.TitlePersian ? item.TitlePersian : '',
+        label: item.Title ? item.Title : '',
+        value: item.ID ? item.ID : '',
+      }));
+
+      setItemOptions(transformed);
     });
   }, []);
 
