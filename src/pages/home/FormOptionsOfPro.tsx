@@ -49,6 +49,8 @@ export const ProformaFormOptions = (
         if (value === 'add-new') {
           onOpenCustomerModal();
         }
+
+        localStorage.setItem('header-info-costumer', JSON.stringify(value));
       },
     },
     options: [

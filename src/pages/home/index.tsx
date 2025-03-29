@@ -332,8 +332,8 @@ function Home() {
 
             // console.log(shareOfTaxAndInsModulo);
             // سهم آیتم از بیمه و مالیات
-            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
-            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
+            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
+            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
 
             // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
             updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
