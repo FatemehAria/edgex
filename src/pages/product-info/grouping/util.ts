@@ -1,8 +1,16 @@
+import type { Locale } from '@/interface/user/user';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
-export const getGroupItems = async (setTreeData: React.Dispatch<React.SetStateAction<never[]>>) => {
+export const getGroupItems = async (setTreeData: React.Dispatch<React.SetStateAction<never[]>>, locale: Locale) => {
   try {
-    const { data } = await customAxiosInstance.get('/Stuff/GetExistenceCategoryPersianTreeList');
+    const { data } = await customAxiosInstance.get(
+      `${
+        locale === 'en_US'
+          ? '/PerformaInvoiceHeader/ExistenceCategoryList'
+          : '/Stuff/GetExistenceCategoryPersianTreeList'
+      }`,
+    );
 
     setTreeData(data);
 

@@ -4,6 +4,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 
@@ -43,10 +44,11 @@ function Grouping({
 }) {
   const { formatMessage } = useLocale();
   const [treeData, setTreeData] = useState([]);
+  const { locale } = useSelector(state => state.user);
 
   useEffect(() => {
-    getGroupItems(setTreeData);
-  }, []);
+    getGroupItems(setTreeData, locale);
+  }, [locale]);
 
   const addTreeData = () => {
     return treeData.map((item: any) => {
