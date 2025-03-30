@@ -86,6 +86,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       },
       hidden: personType !== 'Haghighi',
     },
+
     {
       name: 'Family',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnameEng' })}`,
@@ -111,14 +112,14 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       hidden: personType !== 'Hoghooghi',
     },
     {
-      name: 'person-company-title-persian',
+      name: 'TitlePersian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.titlePer' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-title-persian'],
+        defaultValue: initialValues['TitlePersian'],
       },
       hidden: personType !== 'Hoghooghi',
     },

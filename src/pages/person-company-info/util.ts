@@ -140,7 +140,7 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       isActive: value['person-company-active'],
       cityID: value['person-company-city'],
       provinceID: value['person-company-province'],
-      titlePersian: value['person-company-title-persian'],
+      titlePersian: value['TitlePersian'],
       namePersian: value['person-company-firstname-persian'],
       familyPersian: value['person-company-lastname-persian'],
       zipCode: value['person-company-postalCode'],

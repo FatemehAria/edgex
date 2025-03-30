@@ -20,7 +20,7 @@ export function ListOfPersonTableColumns({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Search ${dataIndex}`}
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
           value={selectedKeys[0]}
           onChange={e => {
             const value = e.target.value;
