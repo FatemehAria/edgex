@@ -73,7 +73,30 @@ export const createCostumer = async () => {
 
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
 
-    console.log('Response data:', data);
+    [
+      'person-company-type',
+      'person-company-firstname-persian',
+      'person-company-firstname-english',
+      'person-company-lastname-persian',
+      'person-company-lastname-english',
+      'person-company-title-english',
+      'person-company-title-persian',
+      'person-company-phonenumber',
+      'person-company-mobile',
+      'person-company-email',
+      'person-company-postalCode',
+      'person-company-province',
+      'person-company-city',
+      'person-company-active',
+      'person-company-nationalID',
+      'person-company-address',
+      'supplier-status',
+      'costumer-info-active',
+      'costumer-info-isCostumer',
+      'supplier-isSupplier',
+    ].forEach(key => localStorage.removeItem(key));
+
+    // console.log('Response data:', data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     toast.error('خطا در انجام عملیات');
