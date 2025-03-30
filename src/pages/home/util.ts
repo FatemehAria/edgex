@@ -8,7 +8,15 @@ export const createProforma = async (payload: any) => {
   console.log('payload', payload);
 
   try {
-    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/create', { data: payload });
+    const { data } = await customAxiosInstance.post(
+      '/PerformaInvoiceHeader/create', // <-- Send payload directly
+      payload,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
     console.log(data);
   } catch (error) {
@@ -40,7 +48,7 @@ export function mapRowToApiDetail(row: any): any {
         priceAgent: 0,
         percentAgent: 0,
         // agentsReducingIncreasingTitle: '',
-        agentsReducingIncreasingID: '',
+        agentsReducingIncreasingID: null,
         invoiceSaleAfterServiceDetailID: null,
         amountAgent: 0,
       },
@@ -128,8 +136,8 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
       {
         exportToExcel: false,
         amountAgen: 0,
-        agentsReducingIncreasingID: '',
-        invoiceSaleAfterServiceHeaderID: '',
+        agentsReducingIncreasingID: null,
+        invoiceSaleAfterServiceHeaderID: null,
         increasing: 0,
         reducing: 0,
         priceFinalReducing: 0,
