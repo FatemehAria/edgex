@@ -34,9 +34,10 @@ function Reports() {
         <Select
           mode="multiple"
           style={{ width: '100%', marginBottom: '1rem' }}
-          placeholder="Select columns to display"
+          // placeholder="Select columns to display"
           value={selectedColumnKeys}
           onChange={handleSelectChange}
+          showSearch={false}
         >
           {visibleColumns.map(column => (
             <Option key={column.key} value={column.key}>
@@ -45,7 +46,6 @@ function Reports() {
           ))}
         </Select>
 
-        {/* Render the table with only the visible columns */}
         <Table dataSource={tableData} columns={visibleColumns} />
       </div>
     </div>

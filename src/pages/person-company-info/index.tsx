@@ -14,7 +14,6 @@ import { createCostumer } from './util';
 function Index() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
-  // formKey will be used to force remount of PersonCompanyInfo
   const [formKey, setFormKey] = useState(0);
 
   const panelStyle: CSSProperties = {

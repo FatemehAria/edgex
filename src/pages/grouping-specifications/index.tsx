@@ -4,6 +4,7 @@ import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import GroupForm from './GroupForm';
+import { useState } from 'react';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing
@@ -14,6 +15,13 @@ interface GroupingSpecificationsProps {
 function GroupingSpecifications({ initialValues = {}, showButton = false, onSubmit }: GroupingSpecificationsProps) {
   const { formatMessage } = useLocale();
   const { token } = theme.useToken();
+  const [formKey, setFormKey] = useState(0);
+
+  const handleSubmission = (values: any) => {
+    onSubmit(values);
+    // Update the key to force re-mounting the form
+    setFormKey(prevKey => prevKey + 1);
+  };
 
   return (
     <div className="form-container" style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
@@ -21,7 +29,7 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
         btnText={formatMessage({ id: 'app.grouping.redirectionBtn' })}
         linkAddress="/main-tables/grouping-specifications/groups-list"
       />
-      <GroupForm onSubmit={onSubmit} initialValues={initialValues} showButton={showButton} />
+      <GroupForm onSubmit={handleSubmission} initialValues={initialValues} showButton={showButton} key={formKey} />
     </div>
   );
 }
