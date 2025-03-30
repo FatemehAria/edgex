@@ -142,8 +142,8 @@ export function createProformaPayload(
     performaInvoiceHeaderAgentsReducingIncreasingList: [
       {
         exportToExcel: false,
-        amountAgen: 0,
-        agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
+        amountAgen: 10,
+        agentsReducingIncreasingID: 'EDA36B90-5A9E-4487-8C62-7377E40743B8',
         invoiceSaleAfterServiceHeaderID: null,
         increasing: 0,
         reducing: 0,
