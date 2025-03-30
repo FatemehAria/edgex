@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
-  console.log('values', values);
+  // console.log('values', values);
 
   try {
     const { data } = await customAxiosInstance.post('/AgentsReducingIncreasing/create', {

@@ -20,7 +20,7 @@ function ListOfFactorsColumns({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Search ${dataIndex}`}
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
           value={selectedKeys[0]}
           onChange={e => {
             const value = e.target.value;
@@ -42,7 +42,7 @@ function ListOfFactorsColumns({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder="Search (بله/خیر)"
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
           value={selectedKeys[0] || ''}
           onChange={e => {
             const value = e.target.value.trim();
@@ -53,7 +53,7 @@ function ListOfFactorsColumns({
           // allowClear
           onClear={() => {
             clearFilters();
-            confirm({ closeDropdown: true }); // Ensure filter is removed when input is cleared
+            confirm({ closeDropdown: true });
           }}
           style={{ width: 180, display: 'block' }}
         />
@@ -61,9 +61,9 @@ function ListOfFactorsColumns({
     ),
     filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
     onFilter: (value: string, record: any) => {
-      if (!value) return true; // Show all items when input is cleared
+      if (!value) return true;
       const booleanValue = record[dataIndex]; // true or false
-      const translatedValue = booleanValue ? 'بله' : 'خیر'; // Convert to displayed text
+      const translatedValue = booleanValue ? 'بله' : 'خیر';
 
       return translatedValue.includes(value);
     },
