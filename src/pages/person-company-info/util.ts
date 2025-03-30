@@ -73,7 +73,7 @@ export const createCostumer = async () => {
 
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
 
-    // console.log('Response data:', data);
+    console.log('Response data:', data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     toast.error('خطا در انجام عملیات');
