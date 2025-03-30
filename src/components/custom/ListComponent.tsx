@@ -72,22 +72,44 @@ function ListComponent({
   };
 
   const copyRow = (record: any) => {
-    setIsCopied(true);
+    // Determine where to insert the copied row
+    const index = tableData.findIndex(row => row.key === record.key);
+    const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+    const newKey = (maxKey + 1).toString();
+
+    // Create the copied row with a flag
+    const newRow = { ...record, key: newKey, isCopied: true };
+
+    // Insert the new row into tableData
     setTableData(prevData => {
-      const index = prevData.findIndex(row => row.key === record.key);
-
-      const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
-      const newKey = (maxKey + 1).toString();
-
-      const newRow = { ...record, key: newKey, isCopied: true };
-
       const newData = [...prevData];
-
       newData.splice(index + 1, 0, newRow);
-
       return newData;
     });
+
+    // Open the modal for the copied row
+    setSelectedRowForEdit(newRow);
+    setIsEditModalOpen(true);
+    setIsCopied(true);
   };
+
+  // const copyRow = (record: any) => {
+  //   setIsCopied(true);
+  //   setTableData(prevData => {
+  //     const index = prevData.findIndex(row => row.key === record.key);
+
+  //     const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+  //     const newKey = (maxKey + 1).toString();
+
+  //     const newRow = { ...record, key: newKey, isCopied: true };
+
+  //     const newData = [...prevData];
+
+  //     newData.splice(index + 1, 0, newRow);
+
+  //     return newData;
+  //   });
+  // };
 
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
@@ -138,7 +160,14 @@ function ListComponent({
         // scroll={{ x: 2000 }}
         loading={loading}
       />
-      <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
+      <Modal
+        title="ویرایش اطلاعات"
+        open={isEditModalOpen}
+        onCancel={() => setIsEditModalOpen(false)}
+        footer={null}
+        closable={!isCopied}
+        maskClosable={!isCopied}
+      >
         <ModalComponent
           key={selectedRowForEdit?.key || 'new'}
           initialValues={selectedRowForEdit || {}}
