@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Button, Collapse, theme } from 'antd';
+import React, { useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
@@ -10,24 +11,11 @@ import DefineType from './DefineType';
 import PersonCompanyInfo from './PersonCompanyInfo';
 import { createCostumer } from './util';
 
-function index() {
+function Index() {
   const { token } = theme.useToken();
-  // const [tab, setTab] = useState('1');
   const { formatMessage } = useLocale();
-  // const items = [
-  //   {
-  //     key: '1',
-  //     label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.personCompInfo' })}`,
-  //   },
-  //   {
-  //     key: '2',
-  //     label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType' })}`,
-  //   },
-  // ];
-
-  // const handleChange = (key: string) => {
-  //   setTab(key);
-  // };
+  // formKey will be used to force remount of PersonCompanyInfo
+  const [formKey, setFormKey] = useState(0);
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
@@ -41,7 +29,7 @@ function index() {
     {
       key: '1',
       label: `${formatMessage({ id: 'app.personComapnyInfo.infoHeader' })}`,
-      children: <PersonCompanyInfo onSubmit={() => console.log('')} />,
+      children: <PersonCompanyInfo key={formKey} onSubmit={() => console.log('')} />,
       style: panelStyle,
     },
     {
@@ -51,6 +39,12 @@ function index() {
       style: panelStyle,
     },
   ];
+
+  const handleSubmission = async () => {
+    await createCostumer();
+    // Update the key to force re-mounting the form
+    setFormKey(prevKey => prevKey + 1);
+  };
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -65,28 +59,13 @@ function index() {
         style={{ background: token.colorBgContainer }}
         items={getItems(panelStyle)}
       />
-      {/* <Collapse
-        bordered={false}
-        defaultActiveKey={['1']}
-        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-        style={{ background: token.colorBgContainer }}
-        // items={getItems(panelStyle)}
-      >
-        {getItems(panelStyle).map((item: any) => (
-          <Collapse.Panel key={item.key} header={item.label} style={item.style}>
-            {item.children}
-          </Collapse.Panel>
-        ))}
-      </Collapse> */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" onClick={() => createCostumer()}>
+        <Button type="primary" onClick={handleSubmission}>
           {formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}
         </Button>
       </div>
-      {/* <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <PersonCompanyInfo /> : <DefineType />} */}
     </div>
   );
 }
 
-export default index;
+export default Index;
