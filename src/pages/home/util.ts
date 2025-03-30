@@ -24,7 +24,7 @@ export const createProforma = async (payload: any) => {
   }
 };
 
-export function mapRowToApiDetail(row: any): any {
+export function mapRowToApiDetail(row: any, footerInsuranceCoefficient: any): any {
   //   console.log('row', row);
 
   return {
@@ -48,9 +48,9 @@ export function mapRowToApiDetail(row: any): any {
         priceAgent: 0,
         percentAgent: 0,
         // agentsReducingIncreasingTitle: '',
-        agentsReducingIncreasingID: 'B5C83838-3CF8-41C0-8FD0-41C12769DA41',
+        agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         invoiceSaleAfterServiceDetailID: null,
-        amountAgent: 0,
+        amountAgent: footerInsuranceCoefficient || 0,
       },
     ],
     suplierParentID: row.supplier,
@@ -107,7 +107,12 @@ export function calculateFinalValues(tableData: any[], insurancePrice: number) {
   };
 }
 
-export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any) {
+export function createProformaPayload(
+  tableData: any,
+  insurancePrice: any,
+  isRowFilled: any,
+  footerInsuranceCoefficient: any,
+) {
   const headerData = {
     // customerTitle: localStorage.getItem('header-info-costumer')
     //   ? JSON.parse(localStorage.getItem('header-info-costumer')!)
@@ -126,7 +131,9 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
 
-  const detailList = tableData.filter((row: any) => isRowFilled(row)).map((row: any) => mapRowToApiDetail(row));
+  const detailList = tableData
+    .filter((row: any) => isRowFilled(row))
+    .map((row: any) => mapRowToApiDetail(row, footerInsuranceCoefficient));
 
   return {
     ...headerData,
@@ -136,7 +143,7 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
       {
         exportToExcel: false,
         amountAgen: 0,
-        agentsReducingIncreasingID: 'B5C83838-3CF8-41C0-8FD0-41C12769DA41',
+        agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         invoiceSaleAfterServiceHeaderID: null,
         increasing: 0,
         reducing: 0,

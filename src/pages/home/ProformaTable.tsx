@@ -42,7 +42,7 @@ function ProformaTable({
     setinsurancePrice(calculatedInsurancePrice);
   }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
 
-  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
+  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, footerInsuranceCoefficient);
 
   console.log('payload', payload);
 
