@@ -32,15 +32,18 @@ const LoginForm: FC = () => {
   const { token } = antTheme.useToken();
   const { locale } = useSelector(state => state.user);
   const { theme } = useSelector(state => state.global);
+  const location = useLocation();
 
   const onFinished = async (form: LoginParams) => {
     try {
       const res: any = await dispatch(loginAsync(form));
 
-      // console.log('res', res)
-
       if (res) {
-        navigate('/');
+        // Get the current location search string and extract the "from" parameter.
+        const searchParams = new URLSearchParams(location.search);
+        const from = searchParams.get('from') || '/';
+
+        navigate(from);
       } else {
         console.error('Login unsuccessful');
       }
@@ -48,12 +51,6 @@ const LoginForm: FC = () => {
       toast.error('نام کاربری یا رمز عبور اشتباه است');
       console.error('Login failed:', error);
     }
-    // if (!!res) {
-    //   const search = formatSearch(location.search);
-    //   const from = search.from || { pathname: '/' };
-
-    //   navigate(from);
-    // }
   };
 
   const selectLocale = ({ key }: { key: any }) => {
