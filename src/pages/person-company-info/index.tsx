@@ -41,7 +41,6 @@ function Index() {
 
   const handleSubmission = async () => {
     await createCostumer();
-    // Update the key to force re-mounting the form
     setFormKey(prevKey => prevKey + 1);
   };
 
