@@ -48,7 +48,7 @@ export function mapRowToApiDetail(row: any): any {
         priceAgent: 0,
         percentAgent: 0,
         // agentsReducingIncreasingTitle: '',
-        agentsReducingIncreasingID: null,
+        agentsReducingIncreasingID: 'B5C83838-3CF8-41C0-8FD0-41C12769DA41',
         invoiceSaleAfterServiceDetailID: null,
         amountAgent: 0,
       },
@@ -136,7 +136,7 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
       {
         exportToExcel: false,
         amountAgen: 0,
-        agentsReducingIncreasingID: null,
+        agentsReducingIncreasingID: 'B5C83838-3CF8-41C0-8FD0-41C12769DA41',
         invoiceSaleAfterServiceHeaderID: null,
         increasing: 0,
         reducing: 0,
