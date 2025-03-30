@@ -6,13 +6,17 @@ import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
   // console.log('values', values);
+  const influenceValue =
+    typeof values['influcence'] === 'string' && values['influcence'].includes('%')
+      ? parseFloat(values['influcence'].replace('%', ''))
+      : values['influcence'];
 
   try {
     const { data } = await customAxiosInstance.post('/AgentsReducingIncreasing/create', {
       title: values['Title'],
       effectTypeCode: values['inc-dec-tasir'] === 'price' ? 1 : 0,
-      priceAgent: values['inc-dec-tasir'] === 'price' ? values['influcence'] : 0,
-      percentAgent: values['inc-dec-tasir'] === 'percentage' ? values['influcence'] : 0,
+      priceAgent: values['inc-dec-tasir'] === 'price' ? influenceValue : 0,
+      percentAgent: values['inc-dec-tasir'] === 'percentage' ? influenceValue : 0,
       isActive: values['inc-dec-active'],
       isDisplayDetail: values['inc-dec-display'] === 'displayPen' ? true : false,
       isDisplayDocument: values['inc-dec-display'] === 'displayDocument' ? true : false,
@@ -67,7 +71,12 @@ export const getNatureList = async (setNatureList: Dispatch<SetStateAction<never
 };
 
 export const updateFactor = async (endpoint: string, value: any, id: string) => {
-  // console.log(value);
+  console.log(value);
+
+  const influenceValue =
+    typeof value['influcence'] === 'string' && value['influcence'].includes('%')
+      ? parseFloat(value['influcence'].replace('%', ''))
+      : value['influcence'];
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -75,8 +84,8 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
       title: value.Title,
       isActive: value['inc-dec-active'],
       effectTypeCode: value['inc-dec-tasir'] === 'price' ? 1 : 0,
-      percentAgent: value['inc-dec-tasir'] === 'percentage' ? value['influcence'] : 0,
-      priceAgent: value['inc-dec-tasir'] === 'price' ? value['influcence'] : 0,
+      percentAgent: value['inc-dec-tasir'] === 'percentage' ? influenceValue : 0,
+      priceAgent: value['inc-dec-tasir'] === 'price' ? influenceValue : 0,
       isDisplayDetail: value['inc-dec-display'] === 'displayPen' ? true : false,
       isDisplayDocument: value['inc-dec-display'] === 'displayDocument' ? true : false,
       agentTypeCode: value['inc-dec-mahiyat'],

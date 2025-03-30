@@ -20,6 +20,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   const [natureList, setNatureList] = useState([]);
   const [display, setDisplay] = useState('block');
   const { token } = theme.useToken();
+  const [formKey, setFormKey] = useState(0);
 
   useEffect(() => {
     getNatureList(setNatureList);
@@ -113,6 +114,11 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
   //   }
   // };
 
+  const handleSubmission = async (values: any) => {
+    await onSubmit(values);
+    setFormKey(prevKey => prevKey + 1);
+  };
+
   return (
     <div style={{ backgroundColor: token.colorBgBlur, minHeight: '100vh' }}>
       <RedirectionButton
@@ -122,10 +128,10 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       />
 
       <FormLayout
-        key={initialValues.key}
+        key={formKey}
         FormOptions={incDecFactorsFormOptions}
         layoutDir="vertical"
-        submitForm={onSubmit}
+        submitForm={handleSubmission}
         isGrid={true}
         showButton={showButton}
       />
