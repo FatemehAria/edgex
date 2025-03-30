@@ -28,4 +28,5 @@ export const enUS_globalTips = {
   'gloabal.tips.submitBtn': 'Submit',
   'gloabal.tips.excel': 'Excel output',
   'gloabal.columns.copy': 'Copy',
+  'gloabal.listcolumns.search': 'search',
 };
