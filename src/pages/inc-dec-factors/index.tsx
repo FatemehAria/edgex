@@ -61,7 +61,12 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
       type: 'select',
       innerProps: {
         placeholder: '',
-        defaultValue: initialValues['influcence']?.toString().includes('%') ? 'percentage' : 'price',
+        // defaultValue: initialValues['influcence']
+        //   ? initialValues['influcence'].toString().includes('%')
+        //     ? 'percentage'
+        //     : 'price'
+        //   : 'price',
+        defaultValue: initialValues['inc-dec-tasir'],
       },
       options: [
         { label: `${formatMessage({ id: 'app.incDecFactors.typeOfInf.price' })}`, value: 'price' },

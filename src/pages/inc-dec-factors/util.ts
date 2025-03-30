@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
-  // console.log('values', values);
+  console.log('values', values);
 
   try {
     const { data } = await customAxiosInstance.post('/AgentsReducingIncreasing/create', {
@@ -41,6 +41,9 @@ export const getFactrosList = async (
       influcence: item.PercentAgent !== 0 ? item.PercentAgent + '%' : item.PriceAgent,
       displayDocument: item.IsDisplayDocument,
       displayPen: item.IsDisplayDetail,
+      'inc-dec-active': item.IsAcvtive,
+      'inc-dec-mahiyat': item.AgentTypeCode,
+      'inc-dec-tasir': item.EffectTypeCode === 1 ? 'price' : 'percentage',
     }));
 
     setTableData(formattedData);
