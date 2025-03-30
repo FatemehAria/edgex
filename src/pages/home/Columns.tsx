@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import './columns.css';
 
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from 'antd';
 
@@ -16,7 +16,7 @@ export const Columns = (
   formatMessage: (descriptor: any) => string,
   handleCellChange: (value: string, key: string, dataIndex: string) => void,
   deleteRow: (key: string) => void,
-  tableData: any[],
+  tableData: any,
   isRowFilled: (row: any) => boolean,
   setIsSupplierModalOpen: any,
   supplierOptions: { label: string; value: string }[],
@@ -30,7 +30,25 @@ export const Columns = (
   itemOptions: { label: string; value: string }[],
   openItemModal: any,
   setActiveItemRow: any,
+  setTableData: Dispatch<SetStateAction<any[]>>,
 ) => {
+  const copyRow = (record: any) => {
+    setTableData(prevData => {
+      const index = prevData.findIndex(row => row.key === record.key);
+
+      const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+      const newKey = (maxKey + 1).toString();
+
+      const newRow = { ...record, key: newKey, isCopied: true };
+
+      const newData = [...prevData];
+
+      newData.splice(index + 1, 0, newRow);
+
+      return newData;
+    });
+  };
+
   return [
     // شماره
     {
@@ -340,6 +358,22 @@ export const Columns = (
         <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
       ),
     },
+    //کپی
+    {
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
+      dataIndex: 'copy',
+      key: 'copy',
+      render: (_: any, record: any) => (
+        <span className="center-align">
+          <FontAwesomeIcon
+            icon={faCopy}
+            onClick={() => copyRow(record)} // Call copy function
+            style={{ cursor: 'pointer', marginRight: 8 }}
+          />
+        </span>
+      ),
+    },
+    // حذف
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.actions' })}</span>,
       dataIndex: 'actions',

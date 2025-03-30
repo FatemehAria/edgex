@@ -409,23 +409,24 @@ function Home() {
   };
 
   const columns = Columns(
-    formatMessage,
-    handleCellChange,
-    deleteRow,
-    tableData,
-    isRowFilled,
-    setIsSupplierModalOpen,
-    supplierOptions,
-    setActiveSupplierRow,
-    insurancePrice,
-    setFooterInsuranceCoefficient,
-    footerInsuranceCoefficient,
-    setActiveGroupingRow,
-    setIsGroupingModalOpen,
-    groupingOptions,
-    itemOptions,
-    openItemModal,
-    setActiveItemRow,
+    formatMessage, // 1. formatMessage
+    handleCellChange, // 2. handleCellChange
+    deleteRow, // 3. deleteRow
+    tableData, // 4. tableData
+    isRowFilled, // 5. isRowFilled
+    setIsSupplierModalOpen, // 6. setIsSupplierModalOpen
+    supplierOptions, // 7. supplierOptions
+    setActiveSupplierRow, // 8. setActiveSupplierRow
+    insurancePrice, // 9. insurancePrice
+    setFooterInsuranceCoefficient, // 10. setFooterInsuranceCoefficient
+    footerInsuranceCoefficient, // 11. footerInsuranceCoefficient
+    setActiveGroupingRow, // 12. setActiveGroupingRow
+    setIsGroupingModalOpen, // 13. setIsGroupingModalOpen
+    groupingOptions, // 14. groupingOptions
+    itemOptions, // 15. itemOptions
+    openItemModal, // 16. openItemModal
+    setActiveItemRow, // 17. setActiveItemRow
+    setTableData, // 18. setTableData
   );
 
   const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
