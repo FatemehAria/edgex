@@ -1,7 +1,5 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import { useState } from 'react';
-
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
@@ -14,8 +12,6 @@ interface SupplierProps {
 
 function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
   const { formatMessage } = useLocale();
-  const [formKey, setFormKey] = useState(0);
-
   const supplierFormOptions: MyFormOptions = [
     {
       name: 'IsSuplier',
@@ -44,18 +40,14 @@ function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
     },
   ];
 
-  const handleSubmit = (values: any) => {
-    if (onSupplierSubmit) onSupplierSubmit(values);
-    createSupplier(values);
-    setFormKey(prevKey => prevKey + 1);
-  };
-
   return (
     <FormLayout
-      key={formKey}
       FormOptions={supplierFormOptions}
       layoutDir="vertical"
-      submitForm={handleSubmit}
+      submitForm={values => {
+        if (onSupplierSubmit) onSupplierSubmit(values);
+        createSupplier(values);
+      }}
       isGrid={false}
       showButton={false}
     />

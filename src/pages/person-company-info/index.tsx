@@ -28,7 +28,7 @@ function Index() {
     {
       key: '1',
       label: `${formatMessage({ id: 'app.personComapnyInfo.infoHeader' })}`,
-      children: <PersonCompanyInfo key={formKey} onSubmit={() => console.log('')} />,
+      children: <PersonCompanyInfo onSubmit={() => console.log('')} />,
       style: panelStyle,
     },
     {
@@ -56,6 +56,7 @@ function Index() {
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
         items={getItems(panelStyle)}
+        key={formKey}
       />
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" onClick={handleSubmission}>
