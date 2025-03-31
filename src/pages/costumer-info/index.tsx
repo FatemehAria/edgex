@@ -8,9 +8,10 @@ import FormLayout from '../layout/form-layout';
 
 interface CostumerInfoProps {
   onCustomerSubmit?: (values: any) => void;
+  initialValues?: Record<string, any>;
 }
 
-function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
+function CostumerInfo({ onCustomerSubmit, initialValues = {} }: CostumerInfoProps) {
   const { formatMessage } = useLocale();
   const costumerInfoFormOptions: MyFormOptions = [
     // {
@@ -43,7 +44,7 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
     //   innerProps: { placeholder: '' },
     // },
     {
-      name: 'costumer-info-isCostumer',
+      name: 'IsCustomer',
       label: `${formatMessage({ id: 'app.costumerInfo.isCostumerTitle' })}`,
       type: 'radio',
       options: [
@@ -52,6 +53,7 @@ function CostumerInfo({ onCustomerSubmit }: CostumerInfoProps) {
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('costumer-info-isCostumer', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['IsCustomer'] === 'True' ? true : false,
       },
     },
     {

@@ -35,8 +35,8 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
       setPersonType(pType === 'حقیقی' ? 'Haghighi' : pType === 'حقوقی' ? 'Hoghooghi' : '');
     }
 
-    if (initialValues['person-company-province']) {
-      getCity(setCityList, initialValues['person-company-province']);
+    if (initialValues['ProvinceID']) {
+      getCity(setCityList, initialValues['ProvinceID']);
     }
   }, [initialValues]);
 
@@ -173,7 +173,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
       },
     },
     {
-      name: 'person-company-province',
+      name: 'ProvinceID',
       label: `${formatMessage({ id: 'app.personComapnyInfo.province' })}`,
       type: 'select',
       innerProps: {
@@ -182,12 +182,12 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           getCity(setCityList, value);
           localStorage.setItem('person-company-province', JSON.stringify(value));
         },
-        defaultValue: initialValues['person-company-province'],
+        defaultValue: initialValues['ProvinceID'],
       },
       options: provinceList,
     },
     {
-      name: 'person-company-city',
+      name: 'CityID',
       label: `${formatMessage({ id: 'app.personComapnyInfo.city' })}`,
       type: 'select',
       innerProps: {
@@ -196,18 +196,18 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           // console.log('City changed:', value);
           localStorage.setItem('person-company-city', JSON.stringify(value));
         },
-        defaultValue: initialValues['person-company-city'],
+        defaultValue: initialValues['CityID'],
       },
       options: cityList,
     },
     {
-      name: 'person-company-address',
+      name: 'Address',
       label: `${formatMessage({ id: 'app.personComapnyInfo.address' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('person-company-address', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-address'],
+        defaultValue: initialValues['Address'],
       },
     },
     {

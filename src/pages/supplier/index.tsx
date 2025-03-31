@@ -7,9 +7,10 @@ import { createSupplier } from './util';
 
 interface SupplierProps {
   onSupplierSubmit?: (values: any) => void;
+  initialValues?: Record<string, any>;
 }
 
-function Supplier({ onSupplierSubmit }: SupplierProps) {
+function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
   const { formatMessage } = useLocale();
   const supplierFormOptions: MyFormOptions = [
     // {
@@ -31,7 +32,7 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
     //   // Remove options here, so the user can type their own value.
     // },
     {
-      name: 'supplier-isSupplier',
+      name: 'IsSuplier',
       label: `${formatMessage({ id: 'app.supplier.isSupplierTitle' })}`,
       type: 'radio',
       options: [
@@ -40,6 +41,7 @@ function Supplier({ onSupplierSubmit }: SupplierProps) {
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('supplier-isSupplier', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['IsSuplier'] === 'True' ? true : false,
       },
     },
     {

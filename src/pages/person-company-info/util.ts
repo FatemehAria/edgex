@@ -130,36 +130,36 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
   console.log('value in updatecall', value);
 
   try {
-    // const { data } = await customAxiosInstance.post(endpoint, {
-    //   id,
-    //   Title: value.Title,
-    //   codeNational: value.CodeNational,
-    //   telephone: value.Telephone,
-    //   mobile: value.Mobile,
-    //   email: value['Email'],
-    //   isActive: value['person-company-active'],
-    //   cityID: value['person-company-city'],
-    //   provinceID: value['person-company-province'],
-    //   titlePersian: value['TitlePersian'],
-    //   namePersian: value['person-company-firstname-persian'],
-    //   familyPersian: value['person-company-lastname-persian'],
-    //   zipCode: value['person-company-postalCode'],
-    //   personTypeCode: value['personTypeTitle'] === 'Haghighi' ? 1 : 2,
-    //   isActiveSuplier: localStorage.getItem('supplier-status')
-    //     ? JSON.parse(localStorage.getItem('supplier-status')!)
-    //     : false,
-    //   isActiveCustomer: localStorage.getItem('costumer-info-active')
-    //     ? JSON.parse(localStorage.getItem('costumer-info-active')!)
-    //     : false,
-    //   isCustomer: localStorage.getItem('costumer-info-isCostumer')
-    //     ? JSON.parse(localStorage.getItem('costumer-info-isCostumer')!)
-    //     : false,
-    //   isSuplier: localStorage.getItem('supplier-isSupplier')
-    //     ? JSON.parse(localStorage.getItem('supplier-isSupplier')!)
-    //     : false,
-    // });
+    const { data } = await customAxiosInstance.post(endpoint, {
+      id,
+      Title: value.Title,
+      codeNational: value.CodeNational,
+      telephone: value.Telephone,
+      mobile: value.Mobile,
+      email: value['Email'],
+      isActive: value['person-company-active'],
+      cityID: value['person-company-city'],
+      provinceID: value['person-company-province'],
+      titlePersian: value['TitlePersian'],
+      namePersian: value['person-company-firstname-persian'],
+      familyPersian: value['person-company-lastname-persian'],
+      zipCode: value['person-company-postalCode'],
+      personTypeCode: value['personTypeTitle'] === 'Haghighi' ? 1 : 2,
+      isActiveSuplier: localStorage.getItem('supplier-status')
+        ? JSON.parse(localStorage.getItem('supplier-status')!)
+        : false,
+      isActiveCustomer: localStorage.getItem('costumer-info-active')
+        ? JSON.parse(localStorage.getItem('costumer-info-active')!)
+        : false,
+      isCustomer: localStorage.getItem('costumer-info-isCostumer')
+        ? JSON.parse(localStorage.getItem('costumer-info-isCostumer')!)
+        : false,
+      isSuplier: localStorage.getItem('supplier-isSupplier')
+        ? JSON.parse(localStorage.getItem('supplier-isSupplier')!)
+        : false,
+    });
 
-    // console.log(data);
+    console.log(data);
     toast.success('عملیات با موفقیت انجام شد.');
   } catch (error) {
     // console.log(error);
