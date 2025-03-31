@@ -1,5 +1,7 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { useState } from 'react';
+
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
@@ -12,25 +14,9 @@ interface SupplierProps {
 
 function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
   const { formatMessage } = useLocale();
+  const [formKey, setFormKey] = useState(0);
+
   const supplierFormOptions: MyFormOptions = [
-    // {
-    //   name: 'supplier-type',
-    //   label: `${formatMessage({ id: 'app.supplier.type' })}`,
-    //   type: 'select',
-    //   innerProps: { placeholder: '' },
-    //   options: [
-    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
-    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
-    //   ],
-    // },
-    // {
-    //   // Change this field from 'select' to 'input'
-    //   name: 'supplier-person-company',
-    //   label: `${formatMessage({ id: 'app.supplier.personComp' })}`,
-    //   type: 'input',
-    //   innerProps: { placeholder: '' },
-    //   // Remove options here, so the user can type their own value.
-    // },
     {
       name: 'IsSuplier',
       label: `${formatMessage({ id: 'app.supplier.isSupplierTitle' })}`,
@@ -58,14 +44,18 @@ function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
     },
   ];
 
+  const handleSubmit = (values: any) => {
+    if (onSupplierSubmit) onSupplierSubmit(values);
+    createSupplier(values);
+    setFormKey(prevKey => prevKey + 1);
+  };
+
   return (
     <FormLayout
+      key={formKey}
       FormOptions={supplierFormOptions}
       layoutDir="vertical"
-      submitForm={values => {
-        if (onSupplierSubmit) onSupplierSubmit(values);
-        createSupplier(values);
-      }}
+      submitForm={handleSubmit}
       isGrid={false}
       showButton={false}
     />

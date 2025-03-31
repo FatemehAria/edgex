@@ -1,6 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from '@/locales';
 
@@ -13,36 +13,9 @@ interface CostumerInfoProps {
 
 function CostumerInfo({ onCustomerSubmit, initialValues = {} }: CostumerInfoProps) {
   const { formatMessage } = useLocale();
+  const [formKey, setFormKey] = useState(0);
+
   const costumerInfoFormOptions: MyFormOptions = [
-    // {
-    //   name: 'costumer-info-type',
-    //   label: `${formatMessage({ id: 'app.costumerInfo.type' })}`,
-    //   type: 'select',
-    //   innerProps: { placeholder: '' },
-    //   options: [
-    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' }), value: 'Haghighi' },
-    //     { label: formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' }), value: 'Hoghooghi' },
-    //   ],
-    // },
-    // {
-    //   name: 'costumer-info-person-type',
-    //   label: `${formatMessage({ id: 'app.costumerInfo.costumerType' })}`,
-    //   type: 'select',
-    //   innerProps: { placeholder: '' },
-    //   options: [],
-    // },
-    // {
-    //   name: 'costumer-info-factor-code',
-    //   label: `${formatMessage({ id: 'app.costumerInfo.factorCode' })}`,
-    //   type: 'input',
-    //   innerProps: { placeholder: '' },
-    // },
-    // {
-    //   name: 'costumer-info-org-code',
-    //   label: `${formatMessage({ id: 'app.costumerInfo.orgCode' })}`,
-    //   type: 'input',
-    //   innerProps: { placeholder: '' },
-    // },
     {
       name: 'IsCustomer',
       label: `${formatMessage({ id: 'app.costumerInfo.isCostumerTitle' })}`,
@@ -70,17 +43,20 @@ function CostumerInfo({ onCustomerSubmit, initialValues = {} }: CostumerInfoProp
     },
   ];
 
+  const handleSubmit = (values: any) => {
+    if (onCustomerSubmit) {
+      onCustomerSubmit(values);
+    }
+
+    setFormKey(prevKey => prevKey + 1);
+  };
+
   return (
     <FormLayout
+      key={formKey}
       FormOptions={costumerInfoFormOptions}
       layoutDir="vertical"
-      submitForm={values => {
-        console.log('Submitted values:', values);
-
-        if (onCustomerSubmit) {
-          onCustomerSubmit(values);
-        }
-      }}
+      submitForm={handleSubmit}
       isGrid={false}
       showButton={false}
     />

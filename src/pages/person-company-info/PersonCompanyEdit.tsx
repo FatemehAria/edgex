@@ -234,21 +234,18 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
       },
     },
   ];
-  const [tab, setTab] = useState('1');
   const items = [
     {
       key: '1',
       label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })}`,
+      children: <Supplier />,
     },
     {
       key: '2',
       label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })}`,
+      children: <CostumerInfo />,
     },
   ];
-
-  const handleChange = (key: string) => {
-    setTab(key);
-  };
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -260,14 +257,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         showButton={false}
       />
 
-      <Tabs defaultActiveKey="1" destroyInactiveTabPane={false} style={{ padding: '0 1rem' }}>
-        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })} key="1">
-          <Supplier />
-        </Tabs.TabPane>
-        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })} key="2">
-          <CostumerInfo />
-        </Tabs.TabPane>
-      </Tabs>
+      <Tabs defaultActiveKey="1" items={items} style={{ padding: '0 1rem' }} destroyInactiveTabPane={false} />
 
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" onClick={onSubmit}>

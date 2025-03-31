@@ -1,10 +1,10 @@
 import { theme } from 'antd';
+import { useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
 
 import GroupForm from './GroupForm';
-import { useState } from 'react';
 
 interface GroupingSpecificationsProps {
   initialValues?: Record<string, any>; // Data for editing
