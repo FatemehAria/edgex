@@ -32,7 +32,7 @@ function ListOfPersonCompany() {
       isActive: data.IsActive,
       address: data.Address || '',
       roleIDs: data.RoleIDs || [0],
-      personTypeTitle: data.personTypeTitle || '', // note: check spelling and casing
+      personTypeTitle: data.personTypeTitle || '', 
       provinceID: data.ProvinceID || '',
       cityID: data.CityID || '',
       errorMessage: data.errorMessage || '',
@@ -64,16 +64,6 @@ function ListOfPersonCompany() {
         createListItem={createCostumer}
         transformData={transformMergedData}
       />
-      {/* <Table
-        dataSource={tableData}
-        columns={columns}
-        pagination={false}
-        className="custom-footer-table"
-        // scroll={{ x: 2000 }}
-      />
-      <Modal title="ویرایش اطلاعات" open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null}>
-        <PersonCompanyInfo initialValues={selectedRowForEdit || {}} onSubmit={handleUpdate} showButton={true} />
-      </Modal> */}
     </div>
   );
 }

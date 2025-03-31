@@ -22,9 +22,18 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
 
   useEffect(() => {
     if (initialValues['personTypeTitle']) {
-      const pType = initialValues['personTypeTitle'].toLowerCase();
+      const pType = initialValues['personTypeTitle'];
 
-      setPersonType(pType === 'حقیقی' ? 'Haghighi' : pType === 'حقوقی' ? 'Hoghooghi' : '');
+      // Map the Persian string to the corresponding code
+
+      if (pType === 'حقوقی') {
+        setPersonType('2');
+      } else if (pType === 'حقیقی') {
+        setPersonType('1');
+      } else {
+        // fallback conversion if needed
+        setPersonType(String(pType));
+      }
     }
 
     if (initialValues['person-company-province']) {
@@ -46,8 +55,8 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
         defaultValue: initialValues['personTypeTitle'],
       },
       options: [
-        { label: 'حقیقی', value: 'Haghighi' },
-        { label: 'حقوقی', value: 'Hoghooghi' },
+        { label: 'حقیقی', value: '1' },
+        { label: 'حقوقی', value: '2' },
       ],
     },
     {
@@ -60,7 +69,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['person-company-firstname-persian'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'person-company-lastname-persian',
@@ -72,7 +81,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['person-company-lastname-persian'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'Name',
@@ -84,7 +93,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Name'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
 
     {
@@ -97,7 +106,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Family'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'Title',
@@ -109,7 +118,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Title'],
       },
-      hidden: personType !== 'Hoghooghi',
+      hidden: personType === '1',
     },
     {
       name: 'TitlePersian',
@@ -121,7 +130,7 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['TitlePersian'],
       },
-      hidden: personType !== 'Hoghooghi',
+      hidden: personType === '1',
     },
     {
       name: 'Email',

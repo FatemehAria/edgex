@@ -27,7 +27,7 @@ function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
       },
     },
     {
-      name: 'supplier-status',
+      name: 'IsActiveSuplier',
       label: `${formatMessage({ id: 'app.costumerInfo.status' })}`,
       type: 'radio',
       options: [
@@ -36,6 +36,7 @@ function Supplier({ onSupplierSubmit, initialValues = {} }: SupplierProps) {
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('supplier-status', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['IsActiveSuplier'] === 'True' ? true : false,
       },
     },
   ];

@@ -12,9 +12,6 @@ import { getCity } from '@/utils/util';
 import CostumerInfo from '../costumer-info';
 import FormLayout from '../layout/form-layout';
 import Supplier from '../supplier';
-import DefineType from './DefineType';
-import PersonCompanyInfo from './PersonCompanyInfo';
-import { createCostumer } from './util';
 
 interface PersonCompanyInfoProps {
   initialValues?: Record<string, any>;
@@ -30,9 +27,18 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
 
   useEffect(() => {
     if (initialValues['personTypeTitle']) {
-      const pType = initialValues['personTypeTitle'].toLowerCase();
+      const pType = initialValues['personTypeTitle'];
 
-      setPersonType(pType === 'حقیقی' ? 'Haghighi' : pType === 'حقوقی' ? 'Hoghooghi' : '');
+      // Map the Persian string to the corresponding code
+
+      if (pType === 'حقوقی') {
+        setPersonType('2');
+      } else if (pType === 'حقیقی') {
+        setPersonType('1');
+      } else {
+        // fallback conversion if needed
+        setPersonType(String(pType));
+      }
     }
 
     if (initialValues['ProvinceID']) {
@@ -40,6 +46,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
     }
   }, [initialValues]);
 
+  console.log(personType);
   const personCompanyFormOptions: MyFormOptions = [
     {
       name: 'personTypeTitle',
@@ -54,8 +61,8 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         defaultValue: initialValues['personTypeTitle'],
       },
       options: [
-        { label: 'حقیقی', value: 'Haghighi' },
-        { label: 'حقوقی', value: 'Hoghooghi' },
+        { label: 'حقیقی', value: '1' },
+        { label: 'حقوقی', value: '2' },
       ],
     },
     {
@@ -68,7 +75,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['person-company-firstname-persian'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'person-company-lastname-persian',
@@ -80,7 +87,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['person-company-lastname-persian'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'Name',
@@ -92,7 +99,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Name'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
 
     {
@@ -105,7 +112,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Family'],
       },
-      hidden: personType !== 'Haghighi',
+      hidden: personType === '2',
     },
     {
       name: 'Title',
@@ -117,7 +124,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
         defaultValue: initialValues['Title'],
       },
-      hidden: personType !== 'Hoghooghi',
+      hidden: personType === '1',
     },
     {
       name: 'TitlePersian',
@@ -129,7 +136,7 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
         defaultValue: initialValues['TitlePersian'],
       },
-      hidden: personType !== 'Hoghooghi',
+      hidden: personType === '1',
     },
     {
       name: 'Email',
@@ -254,16 +261,17 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         layoutDir="vertical"
         submitForm={onSubmit}
         isGrid={true}
-        showButton={false}
+        showButton={true}
+        children={
+          <Tabs defaultActiveKey="1" items={items} style={{ padding: '0 1rem' }} destroyInactiveTabPane={false} />
+        }
       />
 
-      <Tabs defaultActiveKey="1" items={items} style={{ padding: '0 1rem' }} destroyInactiveTabPane={false} />
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" onClick={onSubmit}>
           {formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -14,6 +14,7 @@ function FormLayout({
   isGrid,
   showButton,
   form,
+  children,
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
@@ -22,6 +23,7 @@ function FormLayout({
   showButton?: boolean;
   form?: any;
   initialValues?: any;
+  children?: React.ReactNode;
 }) {
   const { formatMessage } = useLocale();
 
@@ -35,6 +37,7 @@ function FormLayout({
         isGrid={isGrid}
         style={{ padding: '0 1rem' }}
       >
+        {children}
         <Form.Item className="btn-container">
           <Button
             type="primary"

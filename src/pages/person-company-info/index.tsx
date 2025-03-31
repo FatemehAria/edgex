@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Button, Collapse, theme } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
