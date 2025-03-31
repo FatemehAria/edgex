@@ -260,14 +260,14 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         showButton={false}
       />
 
-      <Tabs
-        defaultActiveKey="1"
-        items={items}
-        onChange={handleChange}
-        style={{ padding: '0 1rem' }}
-        destroyInactiveTabPane={false}
-      />
-      {tab === '1' ? <Supplier /> : <CostumerInfo />}
+      <Tabs defaultActiveKey="1" destroyInactiveTabPane={false} style={{ padding: '0 1rem' }}>
+        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })} key="1">
+          <Supplier />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })} key="2">
+          <CostumerInfo />
+        </Tabs.TabPane>
+      </Tabs>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" onClick={onSubmit}>

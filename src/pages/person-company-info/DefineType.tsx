@@ -26,8 +26,14 @@ function DefineType() {
 
   return (
     <div>
-      <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
-      {tab === '1' ? <Supplier /> : <CostumerInfo />}
+      <Tabs defaultActiveKey="1" destroyInactiveTabPane={false} style={{ padding: '0 1rem' }}>
+        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })} key="1">
+          <Supplier />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })} key="2">
+          <CostumerInfo />
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 }
