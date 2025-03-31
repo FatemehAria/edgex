@@ -1,28 +1,33 @@
-import React from 'react';
+import { useContext } from 'react';
 
 import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
-import Home from '.';
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { ListOfProformaColumns } from './ListOfProformaColumns';
-import { getProformaList } from './util';
+import ListOfProformaEdit from './ListOfProformaEdit';
+import { deleteProforma, getProformaList } from './util';
 
 function ListOfProforma() {
+  const { isEdittingProforma, setIsEdittingProforma } = useContext(IsEdittingProformaContext);
+
   return (
     <div style={{ minHeight: ' 100vh' }}>
       <ListButtons />
       <ListComponent
-        ModalComponent={Home}
+        ModalComponent={ListOfProformaEdit}
         columnsComponent={ListOfProformaColumns}
-        deleteEndpoint=""
+        deleteEndpoint="/PerformaInvoiceHeader/delete"
         deleteId=""
         getListEndpoint="/PerformaInvoiceHeader"
         updateEndpoint="/update"
         updateId="123"
-        deleteValues={() => console.log('delete proforma')}
+        deleteValues={deleteProforma}
         getLists={getProformaList}
         updateValues={() => console.log('update proforma')}
         createListItem={() => console.log('create proforma')}
+        isEdittingProforma={isEdittingProforma}
+        setIsEdittingProforma={setIsEdittingProforma}
       />
     </div>
   );

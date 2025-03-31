@@ -3,10 +3,11 @@ import type { Dispatch, SetStateAction } from 'react';
 import './columns.css';
 
 import { Button, Table } from 'antd';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import FooterTableColumns from './FooterTableColumns';
-import { calculateFinalValues, createProforma, createProformaPayload } from './util';
+import { calculateFinalValues, createProforma, createProformaPayload, updateProforma } from './util';
 
 function ProformaTable({
   tableData,
@@ -30,6 +31,7 @@ function ProformaTable({
   totalCostOfRows: number;
   isRowFilled: any;
 }) {
+  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma } = useContext(IsEdittingProformaContext);
   // useEffect(() => {
   //   // Calculate the total cost (sum of itemTotalPrice)
   //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
@@ -61,6 +63,16 @@ function ProformaTable({
   const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
 
   console.log('payload', payload);
+
+  const handleSubmition = async () => {
+    if (isEdittingProforma) {
+      await updateProforma(payload);
+      setIsEdittingProforma(false);
+    } else {
+      await createProforma(payload);
+      setIsCopyingProforma(false);
+    }
+  };
 
   return (
     <div>
@@ -262,7 +274,7 @@ function ProformaTable({
         }}
       />
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-        <Button type="primary" onClick={() => createProforma(payload)}>
+        <Button type="primary" onClick={handleSubmition}>
           {formatMessage({ id: 'app.home.submissionBtn' })}
         </Button>
       </div>

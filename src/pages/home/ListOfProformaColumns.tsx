@@ -169,20 +169,13 @@ export function ListOfProformaColumns({
       dataIndex: 'delete',
       key: 'delete',
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
-
         return (
           <span className="center-align">
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => {
-                deleteRow(record.key);
+                deleteRow(record);
               }}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
             />
           </span>
         );

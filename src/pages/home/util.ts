@@ -24,6 +24,26 @@ export const createProforma = async (payload: any) => {
   }
 };
 
+export const updateProforma = async (payload: any) => {
+  console.log('payload', payload);
+
+  try {
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    toast.success('عملیات با موفقیت انجام شد.');
+
+    console.log(data);
+  } catch (error) {
+    toast.error('خطا در انجام عملیات');
+
+    console.log(error);
+  }
+};
+
 export function mapRowToApiDetail(row: any): any {
   //   console.log('row', row);
 
@@ -113,7 +133,7 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
     //   : '',
     customerId: localStorage.getItem('header-info-costumer')
       ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-      : '',
+      : null,
     descriptionHeader: localStorage.getItem('header-info-desc')
       ? JSON.parse(localStorage.getItem('header-info-desc')!)
       : null,
@@ -261,5 +281,21 @@ export const getPerReport = async (id: string) => {
     console.log(data);
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deleteProforma = async (endpoint: string, id: string) => {
+  try {
+    const { data } = await customAxiosInstance.post(endpoint, id, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log(data);
+    toast.success('عملیات با موفقیت انجام شد.');
+  } catch (error) {
+    console.log(error);
+    toast.error('خطا در انجام عملیات');
   }
 };

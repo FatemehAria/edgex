@@ -16,6 +16,7 @@ import { localeConfig, LocaleFormatter } from './locales';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
 import { setGlobalState } from './stores/global.store';
+import IsEdittingProformaContextProvider from './pages/home/context/IsEdittingProformaContextProvider';
 
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);
@@ -116,8 +117,9 @@ const App: React.FC = () => {
           <HistoryRouter history={history}>
             <SearchContextProvider>
               <ProvinceContextProvider>
-                <Suspense fallback={null}>
-                  {/* <Spin
+                <IsEdittingProformaContextProvider>
+                  <Suspense fallback={null}>
+                    {/* <Spin
                     spinning={loading}
                     className="app-loading-wrapper"
                     style={{
@@ -125,9 +127,10 @@ const App: React.FC = () => {
                     }}
                     tip={<LocaleFormatter id="gloabal.tips.loading" />}
                   > */}
-                  <RenderRouter />
-                  {/* </Spin> */}
-                </Suspense>
+                    <RenderRouter />
+                    {/* </Spin> */}
+                  </Suspense>
+                </IsEdittingProformaContextProvider>
               </ProvinceContextProvider>
             </SearchContextProvider>
           </HistoryRouter>

@@ -1,7 +1,7 @@
 import { Modal, Table } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { useLocale } from '@/locales';
+import { IsEdittingProformaContext } from '@/pages/home/context/IsEdittingProformaContext';
 // import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
@@ -21,6 +21,8 @@ interface ListComponentProps {
   setGroupValue?: React.Dispatch<React.SetStateAction<any[]>>;
   groupValue?: any[];
   catId?: any;
+  isEdittingProforma?: boolean;
+  setIsEdittingProforma?: any;
 }
 
 function ListComponent({
@@ -40,6 +42,8 @@ function ListComponent({
   setGroupValue,
   groupValue,
   catId,
+  isEdittingProforma,
+  setIsEdittingProforma,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
@@ -48,6 +52,7 @@ function ListComponent({
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { isCopyingProforma, setIsCopyingProforma } = useContext(IsEdittingProformaContext);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -66,9 +71,11 @@ function ListComponent({
       rowToEdit.isCopied = false;
     }
 
+    setIsEdittingProforma && setIsEdittingProforma(true);
     setSelectedRowForEdit(rowToEdit);
     setIsEditModalOpen(true);
     setIsCopied(rowToEdit.isCopied);
+    setIsCopyingProforma(rowToEdit.isCopied);
   };
 
   const copyRow = (record: any) => {
@@ -83,7 +90,9 @@ function ListComponent({
     // Insert the new row into tableData
     setTableData(prevData => {
       const newData = [...prevData];
+
       newData.splice(index + 1, 0, newRow);
+
       return newData;
     });
 
@@ -91,6 +100,7 @@ function ListComponent({
     setSelectedRowForEdit(newRow);
     setIsEditModalOpen(true);
     setIsCopied(true);
+    setIsCopyingProforma(true);
   };
 
   // const copyRow = (record: any) => {
@@ -138,6 +148,7 @@ function ListComponent({
     }
 
     setIsCopied(false);
+    setIsCopyingProforma(false);
     setSelectedRowForEdit(null);
   };
 
@@ -163,10 +174,10 @@ function ListComponent({
       <Modal
         title="ویرایش اطلاعات"
         open={isEditModalOpen}
-        onCancel={() => setIsEditModalOpen(false)}
+        onCancel={() => (setIsEditModalOpen(false), setIsEdittingProforma(false))}
         footer={null}
-        closable={!isCopied}
-        maskClosable={!isCopied}
+        closable={!isCopied || !isCopyingProforma}
+        maskClosable={!isCopied || !isCopyingProforma}
         width={1000}
       >
         <ModalComponent
