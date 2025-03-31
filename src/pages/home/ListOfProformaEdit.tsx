@@ -471,6 +471,7 @@ function ListOfProformaEdit() {
     },
   ];
 
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur, overflow: 'auto' }}>
       <Collapse

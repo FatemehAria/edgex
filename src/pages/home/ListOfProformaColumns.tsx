@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment-jalaali';
 
 import { useLocale } from '@/locales';
-import { confirmProforma, getEngReport, getPerReport } from './util';
+import { confirmProforma, getEngReport, getPerReport, singleProformaInfo } from './util';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -152,7 +152,7 @@ export function ListOfProformaColumns({
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
-              onClick={() => handleEdit(record)}
+              onClick={() => (handleEdit(record), singleProformaInfo(record.ID))}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
               //   marginRight: 8,

@@ -44,6 +44,16 @@ export const updateProforma = async (payload: any) => {
   }
 };
 
+export const singleProformaInfo = async (id: string) => {
+  try {
+    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export function mapRowToApiDetail(row: any): any {
   //   console.log('row', row);
 
