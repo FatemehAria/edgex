@@ -71,7 +71,7 @@ export const getNatureList = async (setNatureList: Dispatch<SetStateAction<never
 };
 
 export const updateFactor = async (endpoint: string, value: any, id: string) => {
-  console.log('updatefactor value', value);
+  // console.log('updatefactor value', value);
 
   const influenceValue =
     typeof value['influcence'] === 'string' && value['influcence'].includes('%')

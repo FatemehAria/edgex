@@ -31,11 +31,10 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFo
       innerProps: { placeholder: '', defaultValue: initialValues['Title'] },
     },
     {
-      name: 'grp-specification-title-persian',
-      // label: 'TitlePersian',
+      name: 'TitlePersian',
       label: `${formatMessage({ id: 'app.grouping.perTitle' })}`,
       type: 'input',
-      innerProps: { placeholder: '', defaultValue: initialValues['grp-specification-title-persian'] },
+      innerProps: { placeholder: '', defaultValue: initialValues['TitlePersian'] },
     },
     {
       name: 'ExistenceCode',

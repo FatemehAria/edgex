@@ -28,8 +28,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       innerProps: { placeholder: '' },
     },
     {
-      name: 'grp-specification-title-persian',
-      // label: 'TitlePersian',
+      name: 'TitlePersian',
       label: `${formatMessage({ id: 'app.grouping.perTitle' })}`,
       type: 'input',
       innerProps: { placeholder: '' },
@@ -41,12 +40,6 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       innerProps: { placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}` },
       options: existanceList,
     },
-    // {
-    //   name: 'grp-specification-level-code',
-    //   label: 'LevelCode:',
-    //   type: 'input',
-    //   innerProps: { placeholder: '' },
-    // },
   ];
 
   return (

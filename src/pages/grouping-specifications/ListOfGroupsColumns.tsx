@@ -34,8 +34,8 @@ export function ListOfGroupsColumns({
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.titlePer' })}</span>,
-      dataIndex: 'Title',
-      key: 'Title',
+      dataIndex: 'TitlePersian',
+      key: 'TitlePersian',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },

@@ -100,28 +100,10 @@ function ListComponent({
     setIsCopyingProforma(true);
   };
 
-  // const copyRow = (record: any) => {
-  //   setIsCopied(true);
-  //   setTableData(prevData => {
-  //     const index = prevData.findIndex(row => row.key === record.key);
-
-  //     const maxKey = prevData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
-  //     const newKey = (maxKey + 1).toString();
-
-  //     const newRow = { ...record, key: newKey, isCopied: true };
-
-  //     const newData = [...prevData];
-
-  //     newData.splice(index + 1, 0, newRow);
-
-  //     return newData;
-  //   });
-  // };
-
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
   const handleUpdate = (updatedData: any) => {
-    // console.log('updated data', updatedData);
+    console.log('updated data in list component', updatedData);
     const mergedData = { ...selectedRowForEdit };
 
     Object.keys(updatedData).forEach(key => {

@@ -49,14 +49,12 @@ export const getGroupList = async (
 };
 
 export const updateGroup = async (endpoint: string, value: any, id: string) => {
-  console.log(value);
-
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
       id,
       title: value.Title,
+      titlePersian: value['TitlePersian'],
       existenceCode: value['ExistenceCode'],
-      // تیتر انگلیسی
     });
 
     console.log(data);
@@ -88,7 +86,7 @@ export const createCategory = async (values: any) => {
 
   try {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
-      titlePersian: values['grp-specification-title-persian'],
+      titlePersian: values['TitlePersian'],
       title: values['Title'],
       existenceCode: values['ExistenceCode'],
     });
