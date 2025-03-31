@@ -3,14 +3,14 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createStuff = async (values: any, categoryId: any[] | string) => {
-  // console.log('create stuff values', values);
+  console.log('create stuff values', values);
   // console.log('cat id', categoryId);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
-      description: values['Description'],
+      description: values['Description'] ? values['Description'] : null,
       existenceCategoryID: categoryId[0] ? categoryId[0] : categoryId,
     });
 

@@ -36,7 +36,7 @@ export function mapRowToApiDetail(row: any): any {
     //should be set later
     stuffParentID: null,
     // stuffParentTitle: row.items,
-    description: row.description,
+    description: row.description.length > 0 ? row.description : null,
     //should be set based on info
     stuffDefectiveStatusCode: 1,
     // should be set based on info
@@ -107,11 +107,7 @@ export function calculateFinalValues(tableData: any[], insurancePrice: number) {
   };
 }
 
-export function createProformaPayload(
-  tableData: any,
-  insurancePrice: any,
-  isRowFilled: any,
-) {
+export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any) {
   const headerData = {
     // customerTitle: localStorage.getItem('header-info-costumer')
     //   ? JSON.parse(localStorage.getItem('header-info-costumer')!)
@@ -121,7 +117,7 @@ export function createProformaPayload(
       : '',
     descriptionHeader: localStorage.getItem('header-info-desc')
       ? JSON.parse(localStorage.getItem('header-info-desc')!)
-      : '',
+      : null,
     eventTitle: localStorage.getItem('header-info-title') ? JSON.parse(localStorage.getItem('header-info-title')!) : '',
     date: localStorage.getItem('header-info-date') ? JSON.parse(localStorage.getItem('header-info-date')!) : '',
     //should be set based on info
@@ -130,9 +126,7 @@ export function createProformaPayload(
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
 
-  const detailList = tableData
-    .filter((row: any) => isRowFilled(row))
-    .map((row: any) => mapRowToApiDetail(row));
+  const detailList = tableData.filter((row: any) => isRowFilled(row)).map((row: any) => mapRowToApiDetail(row));
 
   return {
     ...headerData,
