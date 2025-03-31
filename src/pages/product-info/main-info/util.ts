@@ -10,7 +10,7 @@ export const createStuff = async (values: any) => {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'] ? values['Description'] : null,
-      existenceCategoryID: values['categoryId'],
+      existenceCategoryIDs: values['categoryId'],
     });
 
     // console.log(data);

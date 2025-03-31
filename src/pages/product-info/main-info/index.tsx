@@ -47,7 +47,7 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }
         placeholder: `${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`,
         allowClear: true,
         defaultValue: initialValues['categoryId'],
-        // treeCheckable
+        treeCheckable: true,
       },
     },
     {
