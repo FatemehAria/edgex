@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment-jalaali';
 
 import { useLocale } from '@/locales';
-import { confirmProforma, getEngReport } from './util';
+import { confirmProforma, getEngReport, getPerReport } from './util';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -121,14 +121,14 @@ export function ListOfProformaColumns({
       dataIndex: 'per-print',
       key: 'per-print',
       width: 200,
-      render: (_: any) => {
+      render: (_: any, record: any) => {
         // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
 
         return (
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPrint}
-              onClick={() => console.log('print per')}
+              onClick={() => getPerReport(record.ID)}
               // style={{
               //   cursor: isDisabled ? 'not-allowed' : 'pointer',
               //   marginRight: 8,

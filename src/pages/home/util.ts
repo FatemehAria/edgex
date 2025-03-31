@@ -246,15 +246,17 @@ export const confirmProforma = async (id: string) => {
 
 export const getEngReport = async (id: string) => {
   try {
-    const { data } = await customAxiosInstance.post(
-      `/PerformaInvoiceHeader/print?id=${id}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
+    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/print?id=${id}`);
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPerReport = async (id: string) => {
+  try {
+    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/printPersian?id=${id}`);
 
     console.log(data);
   } catch (error) {
