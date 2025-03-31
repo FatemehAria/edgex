@@ -79,6 +79,7 @@ export const faIR_home = {
   'app.home.columns.totalQty': 'تعداد کل',
   'app.home.columns.unitCostTotal': 'هزینه واحد کل',
   'app.home.columns.profitMarginTotal': 'حاشیه سود نهایی',
+  'app.home.columns.proformaStatus': 'وضعیت',
   'app.home.columns.finalPrice': 'قیمت نهایی',
   'app.home.columns.printEng': 'چاپ انگلیسی',
   'app.home.columns.printPer': 'چاپ فارسی',

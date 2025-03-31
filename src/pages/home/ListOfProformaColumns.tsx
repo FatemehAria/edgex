@@ -1,8 +1,9 @@
-import { faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment-jalaali';
 
 import { useLocale } from '@/locales';
+import { confirmProforma } from './util';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -81,6 +82,22 @@ export function ListOfProformaColumns({
       key: 'ProfitMarginFinal',
       width: 600,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // تایید وضعیت
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.columns.proformaStatus' })}</span>,
+      dataIndex: 'proforma-status',
+      key: 'proforma-status',
+      width: 200,
+      render: (_: any, record: any) => {
+        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
+
+        return (
+          <span className="center-align">
+            <FontAwesomeIcon icon={faCheck} onClick={() => confirmProforma(record.ID)} />
+          </span>
+        );
+      },
     },
     // چاپ انگلیسی
     {

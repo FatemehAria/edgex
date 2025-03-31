@@ -8,18 +8,18 @@ export const createProforma = async (payload: any) => {
   console.log('payload', payload);
 
   try {
-    const { data } = await customAxiosInstance.post(
-      '/PerformaInvoiceHeader/create', // <-- Send payload directly
-      payload,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/create', payload, {
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
+
+    toast.success('عملیات با موفقیت انجام شد.');
 
     console.log(data);
   } catch (error) {
+    toast.error('خطا در انجام عملیات');
+
     console.log(error);
   }
 };
@@ -222,3 +222,18 @@ export const createProformaCategory = async (values: any) => {
     console.log(error);
   }
 };
+
+export const confirmProforma = async (id: string) => {
+  try {
+    const { data } = await customAxiosInstance.post(`/PerformaInvoiceHeader/Issue`, { id });
+
+    toast.success('عملیات با موفقیت انجام شد.');
+    console.log(data);
+  } catch (error) {
+    toast.error('خطا در انجام عملیات');
+
+    console.log(error);
+  }
+};
+
+

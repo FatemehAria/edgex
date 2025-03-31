@@ -80,6 +80,7 @@ export const enUs_home = {
   'app.home.columns.totalQty': 'Total Quantity',
   'app.home.columns.unitCostTotal': 'Total Unit Cost',
   'app.home.columns.profitMarginTotal': 'Total Profit Margin',
+  'app.home.columns.proformaStatus': 'Status',
   'app.home.columns.finalPrice': 'Final Price',
   'app.home.columns.printEng': 'Print (English)',
   'app.home.columns.printPer': 'Print (Persian)',
