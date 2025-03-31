@@ -12,12 +12,11 @@ import { createStuff } from './main-info/util';
 
 function ProductInfo() {
   const { formatMessage } = useLocale();
-  const [groupValue, setGroupValue] = useState<any[]>([]);
   const { token } = theme.useToken();
   const [formKey, setFormKey] = useState(0);
 
   const handleSubmission = async (values: any) => {
-    await createStuff(values, groupValue);
+    await createStuff(values);
     setFormKey(prevKey => prevKey + 1);
   };
 
@@ -27,9 +26,7 @@ function ProductInfo() {
         btnText={formatMessage({ id: 'app.productInfo.redirectionBtn' })}
         linkAddress="/main-tables/product-info/products-list"
       />
-      <MainInfo onSubmit={handleSubmission} showButton={true} key={formKey}>
-        <Grouping groupValue={groupValue} setGroupValue={setGroupValue} />
-      </MainInfo>
+      <MainInfo onSubmit={handleSubmission} showButton={true} key={formKey} />
     </div>
   );
 }

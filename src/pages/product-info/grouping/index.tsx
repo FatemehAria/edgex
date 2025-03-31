@@ -93,7 +93,7 @@ function Grouping({
           treeDefaultExpandAll
           placeholder={`${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`}
           allowClear
-          treeCheckable
+          // treeCheckable
         />
       </div>
     </div>

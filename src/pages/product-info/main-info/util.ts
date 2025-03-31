@@ -2,16 +2,15 @@ import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
 
-export const createStuff = async (values: any, categoryId: any[] | string) => {
+export const createStuff = async (values: any) => {
   console.log('create stuff values', values);
-  // console.log('cat id', categoryId);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'] ? values['Description'] : null,
-      existenceCategoryID: categoryId[0] ? categoryId[0] : categoryId,
+      existenceCategoryID: values['categoryId'],
     });
 
     // console.log(data);
@@ -30,7 +29,7 @@ export const createGroup = async (values: any) => {
 };
 
 export const updateStuff = async (endpoint: string, value: any, id: string) => {
-  // console.log(value);
+  console.log('update stuff', value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -39,8 +38,7 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
       titlePersian: value['TitlePersian'],
       description: value['Description'],
       existenceCategoryID: value.categoryId,
-      // نرخ
-      // تیتر انگلیسی
+      //نرخ
     });
 
     // console.log(data);

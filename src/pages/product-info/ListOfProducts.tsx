@@ -18,7 +18,7 @@ function ListOfProducts() {
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <ListComponent
-        ModalComponent={ProductInfoEdit}
+        ModalComponent={MainInfo}
         columnsComponent={ListOfProductsColumns}
         deleteEndpoint="/Stuff/delete"
         deleteId="123"

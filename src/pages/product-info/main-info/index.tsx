@@ -1,11 +1,12 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 import FormLayout from '@/pages/layout/form-layout';
 
-import Grouping from '../grouping';
+import { getGroupItems } from '../grouping/util';
 
 interface MainInfoProps {
   initialValues?: Record<string, any>;
@@ -16,7 +17,39 @@ interface MainInfoProps {
 
 function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }: MainInfoProps) {
   const { formatMessage } = useLocale();
+  const [treeData, setTreeData] = useState([]);
+  const { locale } = useSelector(state => state.user);
+
+  useEffect(() => {
+    getGroupItems(setTreeData, locale);
+  }, [locale]);
+
+  const addTreeData = () => {
+    return treeData.map((item: any) => {
+      return {
+        value: item.id,
+        title: item.text,
+        children: item.children,
+      };
+    });
+  };
+
+  const treeDataAnt = addTreeData();
+
   const productMainInfoformOptions: MyFormOptions = [
+    {
+      name: 'categoryId',
+      label: `${formatMessage({ id: 'app.productInfo.group.label' })}`,
+      type: 'treeselect',
+      innerProps: {
+        treeData: treeDataAnt,
+        treeDefaultExpandAll: true,
+        placeholder: `${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`,
+        allowClear: true,
+        defaultValue: initialValues['categoryId'],
+        // treeCheckable
+      },
+    },
     {
       name: 'Title',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.englishTitle' })}`,

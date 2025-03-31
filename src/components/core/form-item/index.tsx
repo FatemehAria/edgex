@@ -1,7 +1,17 @@
 import type { FormItemProps } from 'antd/es/form';
 import type { FC } from 'react';
 
-import { Checkbox, DatePicker as AntdDatePicker, Form, Input, InputNumber, Radio, Select, Switch } from 'antd';
+import {
+  Checkbox,
+  DatePicker as AntdDatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Switch,
+  TreeSelect,
+} from 'antd';
 import { DatePicker as DatePickerJalali } from 'antd-jalali';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
@@ -16,7 +26,8 @@ export type ControlTypes =
   | 'checkbox'
   | 'radio'
   | 'select'
-  | 'textarea';
+  | 'textarea'
+  | 'treeselect';
 
 type GetRCPropsType<T> = T extends (props: infer R) => any ? R : T extends React.ComponentClass<infer R> ? R : any;
 
@@ -29,6 +40,7 @@ type InnerProps = {
   radio: GetRCPropsType<typeof Radio>;
   select: GetRCPropsType<typeof Select>;
   textarea: GetRCPropsType<typeof Input.TextArea>;
+  treeselect: GetRCPropsType<typeof TreeSelect>;
 };
 
 export interface MyFormItemProps<T extends ControlTypes = ControlTypes> extends Omit<FormItemProps, 'required'> {
@@ -93,6 +105,10 @@ export class ControlMap {
 
   textarea() {
     return <Input.TextArea {...this.innerProps} />;
+  }
+
+  treeselect() {
+    return <TreeSelect {...this.innerProps} />;
   }
 }
 

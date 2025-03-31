@@ -1,10 +1,12 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 import FormLayout from '../layout/form-layout';
 import Grouping from './grouping';
+import { useSelector } from 'react-redux';
+import { getGroupItems } from './grouping/util';
 
 interface ProductInfoEditProps {
   initialValues?: Record<string, any>;
@@ -23,7 +25,45 @@ function ProductInfoEdit({
   groupValue,
 }: ProductInfoEditProps) {
   const { formatMessage } = useLocale();
+  const [treeData, setTreeData] = useState([]);
+  const { locale } = useSelector(state => state.user);
+
+  useEffect(() => {
+    getGroupItems(setTreeData, locale);
+  }, [locale]);
+
+  const addTreeData = () => {
+    return treeData.map((item: any) => {
+      return {
+        value: item.id,
+        title: item.text,
+        children: item.children,
+      };
+    });
+  };
+
+  const treeDataAnt = addTreeData();
+
+  const handleChange = (newValue: any) => {
+    console.log('new value', newValue);
+    setGroupValue(newValue);
+  };
+
   const productInfoEditformOptions: MyFormOptions = [
+    {
+      name: 'categoryId',
+      label: `${formatMessage({ id: 'app.productInfo.group.label' })}`,
+      type: 'treeselect',
+      innerProps: {
+        treeData: treeDataAnt,
+        treeDefaultExpandAll: true,
+        placeholder: `${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`,
+        allowClear: true,
+        onChange: handleChange,
+        defaultValue: initialValues['categoryId'],
+        // treeCheckable
+      },
+    },
     {
       name: 'Title',
       label: `${formatMessage({ id: 'app.productInfo.mainInfo.englishTitle' })}`,
@@ -52,7 +92,7 @@ function ProductInfoEdit({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      <Grouping groupValue={groupValue} setGroupValue={setGroupValue} />
+      {/* <Grouping groupValue={groupValue} setGroupValue={setGroupValue} /> */}
       <FormLayout
         FormOptions={productInfoEditformOptions}
         layoutDir="vertical"
