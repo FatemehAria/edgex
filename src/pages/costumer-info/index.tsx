@@ -26,7 +26,7 @@ function CostumerInfo({ onCustomerSubmit, initialValues = {} }: CostumerInfoProp
       },
     },
     {
-      name: 'costumer-info-active',
+      name: 'IsActiveCustomer',
       label: `${formatMessage({ id: 'app.costumerInfo.status' })}`,
       type: 'radio',
       options: [
@@ -35,6 +35,7 @@ function CostumerInfo({ onCustomerSubmit, initialValues = {} }: CostumerInfoProp
       ],
       innerProps: {
         onChange: (value: any) => localStorage.setItem('costumer-info-active', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['IsActiveCustomer'] === 'True' ? true : false,
       },
     },
   ];

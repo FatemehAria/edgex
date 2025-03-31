@@ -84,10 +84,8 @@ function ListComponent({
     const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
     const newKey = (maxKey + 1).toString();
 
-    // Create the copied row with a flag
     const newRow = { ...record, key: newKey, isCopied: true };
 
-    // Insert the new row into tableData
     setTableData(prevData => {
       const newData = [...prevData];
 
@@ -96,7 +94,6 @@ function ListComponent({
       return newData;
     });
 
-    // Open the modal for the copied row
     setSelectedRowForEdit(newRow);
     setIsEditModalOpen(true);
     setIsCopied(true);
@@ -174,7 +171,7 @@ function ListComponent({
       <Modal
         title="ویرایش اطلاعات"
         open={isEditModalOpen}
-        onCancel={() => (setIsEditModalOpen(false), setIsEdittingProforma(false))}
+        onCancel={() => setIsEditModalOpen(false)}
         footer={null}
         closable={!isCopied || !isCopyingProforma}
         maskClosable={!isCopied || !isCopyingProforma}

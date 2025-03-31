@@ -29,14 +29,11 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
     if (initialValues['personTypeTitle']) {
       const pType = initialValues['personTypeTitle'];
 
-      // Map the Persian string to the corresponding code
-
       if (pType === 'حقوقی') {
         setPersonType('2');
       } else if (pType === 'حقیقی') {
         setPersonType('1');
       } else {
-        // fallback conversion if needed
         setPersonType(String(pType));
       }
     }
@@ -46,7 +43,6 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
     }
   }, [initialValues]);
 
-  console.log(personType);
   const personCompanyFormOptions: MyFormOptions = [
     {
       name: 'personTypeTitle',
@@ -266,12 +262,6 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
           <Tabs defaultActiveKey="1" items={items} style={{ padding: '0 1rem' }} destroyInactiveTabPane={false} />
         }
       />
-
-      {/* <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" onClick={onSubmit}>
-          {formatMessage({ id: 'app.personComapnyInfo.submissionBtn' })}
-        </Button>
-      </div> */}
     </div>
   );
 }
