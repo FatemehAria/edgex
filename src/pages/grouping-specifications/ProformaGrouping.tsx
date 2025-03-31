@@ -20,6 +20,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
   useEffect(() => {
     getExistenceList(setExistanceList, locale);
   }, []);
+
   const groupingFormOptions: MyFormOptions = [
     {
       name: 'Title',

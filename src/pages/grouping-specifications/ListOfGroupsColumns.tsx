@@ -1,7 +1,11 @@
 import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
+
+import { getExistenceList } from './util';
 
 export function ListOfGroupsColumns({
   deleteRow,
@@ -13,6 +17,12 @@ export function ListOfGroupsColumns({
   copyRow: any;
 }) {
   const { formatMessage } = useLocale();
+  const [existanceList, setExistanceList] = useState<any>([]);
+  const { locale } = useSelector(state => state.user);
+
+  useEffect(() => {
+    getExistenceList(setExistanceList, locale);
+  }, []);
 
   return [
     // ردیف
@@ -45,7 +55,11 @@ export function ListOfGroupsColumns({
       dataIndex: 'ExistenceCode',
       key: 'ExistenceCode',
       width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => (
+        <span style={{ textAlign: 'center' }}>
+          {existanceList.find((item: any) => item.value === Number(text)).label}
+        </span>
+      ),
     },
     // ویرایش
     {

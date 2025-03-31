@@ -7,7 +7,7 @@ import ListComponent from '@/components/custom/ListComponent';
 import ListOfProductsColumns from './ListOfProductsColumns';
 import MainInfo from './main-info';
 import { createStuff, deleteProduct, updateStuff } from './main-info/util';
-import ProductInfoEdit from './ProductInfoEdit';
+// import ProductInfoEdit from './ProductInfoEdit';
 import { getProductsList } from './util';
 
 function ListOfProducts() {
