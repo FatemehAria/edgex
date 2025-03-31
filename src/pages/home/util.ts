@@ -24,7 +24,7 @@ export const createProforma = async (payload: any) => {
   }
 };
 
-export function mapRowToApiDetail(row: any, footerInsuranceCoefficient: any): any {
+export function mapRowToApiDetail(row: any): any {
   //   console.log('row', row);
 
   return {
@@ -50,7 +50,7 @@ export function mapRowToApiDetail(row: any, footerInsuranceCoefficient: any): an
         // agentsReducingIncreasingTitle: '',
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         invoiceSaleAfterServiceDetailID: null,
-        amountAgent: footerInsuranceCoefficient || 0,
+        amountAgent: row.footerInsuranceCoefficient || 0,
       },
     ],
     suplierParentID: row.supplier,
@@ -67,7 +67,7 @@ export function mapRowToApiDetail(row: any, footerInsuranceCoefficient: any): an
     priceSale: row.itemSalePrice || 0,
     priceSaleRounded: parseFloat(String(row.itemSalePriceRounded).replace(/,/g, '')) || 0,
     priceSaleFinal: row.finalSalePrice || 0,
-    costTotal: row.itemTotalPrice || 0,
+    costTotal: row.totalPriceWithoutFactors || 0,
   };
 }
 
@@ -111,7 +111,6 @@ export function createProformaPayload(
   tableData: any,
   insurancePrice: any,
   isRowFilled: any,
-  footerInsuranceCoefficient: any,
 ) {
   const headerData = {
     // customerTitle: localStorage.getItem('header-info-costumer')
@@ -133,7 +132,7 @@ export function createProformaPayload(
 
   const detailList = tableData
     .filter((row: any) => isRowFilled(row))
-    .map((row: any) => mapRowToApiDetail(row, footerInsuranceCoefficient));
+    .map((row: any) => mapRowToApiDetail(row));
 
   return {
     ...headerData,

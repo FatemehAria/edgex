@@ -27,7 +27,7 @@ function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
-  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
+  // const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -38,6 +38,7 @@ function Home() {
       recordProfitMargin: 0,
       primarySalesPrice: 0,
       itemTotalPrice: 0,
+      footerInsuranceCoefficient: '0.085',
       totalPriceWithoutFactors: 0,
       footerInsurancePrice: 0,
       itemShareOfTaxAndIns: 0,
@@ -258,6 +259,7 @@ function Home() {
       recordProfitMargin: 0,
       primarySalesPrice: 0,
       itemTotalPrice: 0,
+      footerInsuranceCoefficient: '0.085',
       footerInsurancePrice: 0,
       itemShareOfTaxAndIns: 0,
       itemSalePrice: 0,
@@ -306,7 +308,16 @@ function Home() {
         if (row.key === key) {
           const updatedRow = { ...row, [dataIndex]: value };
 
-          if (['qty', 'unitCost', 'factorValue', 'itemSalePriceRounded', 'recordProfitMargin'].includes(dataIndex)) {
+          if (
+            [
+              'qty',
+              'unitCost',
+              'factorValue',
+              'itemSalePriceRounded',
+              'recordProfitMargin',
+              'footerInsuranceCoefficient',
+            ].includes(dataIndex)
+          ) {
             const qty = parseFloat(updatedRow.qty) || 0;
             // Remove commas before converting to a number:
             const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
@@ -331,7 +342,7 @@ function Home() {
             updatedRow.itemTotalPrice = itemTotalPrice;
 
             // مبلغ بیمه برای هر رکورد
-            const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(footerInsuranceCoefficient);
+            const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
 
             updatedRow.insurancePriceForRecord = insurancePriceForRecord;
 
@@ -418,8 +429,8 @@ function Home() {
     supplierOptions, // 7. supplierOptions
     setActiveSupplierRow, // 8. setActiveSupplierRow
     insurancePrice, // 9. insurancePrice
-    setFooterInsuranceCoefficient, // 10. setFooterInsuranceCoefficient
-    footerInsuranceCoefficient, // 11. footerInsuranceCoefficient
+    // setFooterInsuranceCoefficient, // 10. setFooterInsuranceCoefficient
+    // footerInsuranceCoefficient, // 11. footerInsuranceCoefficient
     setActiveGroupingRow, // 12. setActiveGroupingRow
     setIsGroupingModalOpen, // 13. setIsGroupingModalOpen
     groupingOptions, // 14. groupingOptions
@@ -462,8 +473,8 @@ function Home() {
           columns={columns}
           formatMessage={formatMessage}
           tableData={tableData}
-          footerInsuranceCoefficient={footerInsuranceCoefficient}
-          setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
+          // footerInsuranceCoefficient={footerInsuranceCoefficient}
+          // setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
           insurancePrice={insurancePrice}
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}

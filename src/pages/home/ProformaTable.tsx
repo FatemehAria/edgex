@@ -12,7 +12,7 @@ function ProformaTable({
   tableData,
   columns,
   formatMessage,
-  footerInsuranceCoefficient,
+  // footerInsuranceCoefficient,
   insurancePrice,
   setinsurancePrice,
   setTotalCostOfRows,
@@ -22,27 +22,43 @@ function ProformaTable({
   tableData: any;
   columns: any;
   formatMessage: any;
-  setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
-  footerInsuranceCoefficient: string;
+  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
+  // footerInsuranceCoefficient: string;
   insurancePrice: number;
   setinsurancePrice: Dispatch<SetStateAction<number>>;
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
   isRowFilled: any;
 }) {
+  // useEffect(() => {
+  //   // Calculate the total cost (sum of itemTotalPrice)
+  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
+  //   setTotalCostOfRows(totalCost);
+
+  //   // Calculate the insurance price based on the footer coefficient
+  //   const calculatedInsurancePrice = Number(footerInsuranceCoefficient) * totalCost;
+
+  //   setinsurancePrice(calculatedInsurancePrice);
+  // }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
+
   useEffect(() => {
-    // Calculate the total cost (sum of itemTotalPrice)
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
 
     setTotalCostOfRows(totalCost);
 
-    // Calculate the insurance price based on the footer coefficient
-    const calculatedInsurancePrice = Number(footerInsuranceCoefficient) * totalCost;
+    const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
+      const rowTotal = parseFloat(row.itemTotalPrice) || 0; // defaults to 0 if NaN or empty
+      const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0; // defaults to 0 if undefined
+
+      return sum + rowTotal * rowCoefficient;
+    }, 0);
 
     setinsurancePrice(calculatedInsurancePrice);
-  }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
+  }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
-  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, footerInsuranceCoefficient);
+  // const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, footerInsuranceCoefficient);
+  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
 
   console.log('payload', payload);
 

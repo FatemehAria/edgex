@@ -6,7 +6,7 @@ import ListButtons from '@/components/custom/ListButtons';
 import ListComponent from '@/components/custom/ListComponent';
 
 import { ListOfPersonTableColumns } from './ListOfPersonTableColumns';
-import PersonCompanyInfo from './PersonCompanyInfo';
+import PersonCompanyEdit from './PersonCompanyEdit';
 import { createCostumer, deleteCompanyPerson, getLists, updateValues } from './util';
 
 function ListOfPersonCompany() {
@@ -51,7 +51,7 @@ function ListOfPersonCompany() {
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
       <ListButtons />
       <ListComponent
-        ModalComponent={PersonCompanyInfo}
+        ModalComponent={PersonCompanyEdit}
         columnsComponent={ListOfPersonTableColumns}
         deleteEndpoint="/CompanyPerson/delete"
         deleteId="123"

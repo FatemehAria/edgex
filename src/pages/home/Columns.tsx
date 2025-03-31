@@ -22,8 +22,8 @@ export const Columns = (
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
   insurancePrice: number,
-  setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
-  footerInsuranceCoefficient: string,
+  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
+  // footerInsuranceCoefficient: string,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],
@@ -293,11 +293,13 @@ export const Columns = (
         >
           <Select
             variant="borderless"
-            value={footerInsuranceCoefficient}
+            // value={footerInsuranceCoefficient}
+            value={record.footerInsuranceCoefficient || '0.085'}
             placeholder={`${formatMessage({
               id: 'app.home.detailInfo.table.footerInsurancePrice',
             })}`}
-            onChange={value => setFooterInsuranceCoefficient(value)}
+            // onChange={value => setFooterInsuranceCoefficient(value)}
+            onChange={value => handleCellChange(value, record.key, 'footerInsuranceCoefficient')}
             options={[
               { label: '0.085', value: '0.085' },
               { label: '0.2', value: '0.2' },
