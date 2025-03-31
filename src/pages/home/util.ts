@@ -225,7 +225,15 @@ export const createProformaCategory = async (values: any) => {
 
 export const confirmProforma = async (id: string) => {
   try {
-    const { data } = await customAxiosInstance.post(`/PerformaInvoiceHeader/Issue`, { id });
+    const { data } = await customAxiosInstance.post(
+      `/PerformaInvoiceHeader/Issue?id=${id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
     toast.success('عملیات با موفقیت انجام شد.');
     console.log(data);
@@ -236,4 +244,20 @@ export const confirmProforma = async (id: string) => {
   }
 };
 
+export const getEngReport = async (id: string) => {
+  try {
+    const { data } = await customAxiosInstance.post(
+      `/PerformaInvoiceHeader/print?id=${id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
