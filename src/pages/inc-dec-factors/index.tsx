@@ -28,10 +28,8 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
 
   useEffect(() => {
     if (initialValues && initialValues.key) {
-      // Edit mode: merge the key into the values before submitting
       setDisplay('none');
     } else {
-      // Create mode
       setDisplay('block');
     }
   }, []);

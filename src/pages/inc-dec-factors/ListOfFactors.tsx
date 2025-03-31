@@ -11,7 +11,7 @@ function ListOfFactors() {
   const { token } = theme.useToken();
 
   const transformMergedData = (data: any) => {
-    console.log('data', data);
+    // console.log('data', data);
 
     return {
       Title: data.Title,
@@ -20,6 +20,8 @@ function ListOfFactors() {
       'inc-dec-display': data['IsDisplayDetail'] ? 'displayPen' : 'displayDocument',
       'inc-dec-mahiyat': data['inc-dec-mahiyat'],
       'inc-dec-active': data['inc-dec-active'],
+      displayPen: data['IsDisplayDetail'],
+      displayDocument: !data['IsDisplayDetail'],
     };
   };
 

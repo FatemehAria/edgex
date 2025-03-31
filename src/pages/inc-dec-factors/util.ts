@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
-  // console.log('values', values);
+  console.log('values', values);
   const influenceValue =
     typeof values['influcence'] === 'string' && values['influcence'].includes('%')
       ? parseFloat(values['influcence'].replace('%', ''))
@@ -51,7 +51,7 @@ export const getFactrosList = async (
     }));
 
     setTableData(formattedData);
-    // console.log(data);
+    // console.log(formattedData);
   } catch (error) {
     console.log(error);
   } finally {
@@ -71,12 +71,27 @@ export const getNatureList = async (setNatureList: Dispatch<SetStateAction<never
 };
 
 export const updateFactor = async (endpoint: string, value: any, id: string) => {
-  console.log(value);
+  console.log('updatefactor value', value);
 
   const influenceValue =
     typeof value['influcence'] === 'string' && value['influcence'].includes('%')
       ? parseFloat(value['influcence'].replace('%', ''))
       : value['influcence'];
+
+  const isDisplayDocument = value['inc-dec-display']
+    ? value['inc-dec-display'] === 'displayDocument'
+      ? true
+      : false
+    : value['displayDocument'];
+
+  const isDisplayDetail = value['inc-dec-display']
+    ? value['inc-dec-display'] === 'displayPen'
+      ? true
+      : false
+    : value['displayPen'];
+
+  // console.log('isDisplayDocument', isDisplayDocument);
+  // console.log('isDisplayDetail', isDisplayDetail);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -86,8 +101,8 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
       effectTypeCode: value['inc-dec-tasir'] === 'price' ? 1 : 0,
       percentAgent: value['inc-dec-tasir'] === 'percentage' ? influenceValue : 0,
       priceAgent: value['inc-dec-tasir'] === 'price' ? influenceValue : 0,
-      isDisplayDetail: value['inc-dec-display'] === 'displayPen' ? true : false,
-      isDisplayDocument: value['inc-dec-display'] === 'displayDocument' ? true : false,
+      isDisplayDetail: isDisplayDetail,
+      isDisplayDocument: isDisplayDocument,
       agentTypeCode: value['inc-dec-mahiyat'],
     });
 

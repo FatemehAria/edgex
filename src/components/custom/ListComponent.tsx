@@ -121,6 +121,7 @@ function ListComponent({
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
 
   const handleUpdate = (updatedData: any) => {
+    // console.log('updated data', updatedData);
     const mergedData = { ...selectedRowForEdit };
 
     Object.keys(updatedData).forEach(key => {
@@ -130,9 +131,8 @@ function ListComponent({
     });
 
     setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
-    setIsEditModalOpen(false);
 
-    // console.log(mergedData);
+    setIsEditModalOpen(false);
 
     const dataToCreate = transformData ? transformData(mergedData) : mergedData;
 
