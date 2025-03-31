@@ -260,7 +260,13 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         showButton={false}
       />
 
-      <Tabs defaultActiveKey="1" items={items} onChange={handleChange} style={{ padding: '0 1rem' }} />
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        onChange={handleChange}
+        style={{ padding: '0 1rem' }}
+        destroyInactiveTabPane={false}
+      />
       {tab === '1' ? <Supplier /> : <CostumerInfo />}
 
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

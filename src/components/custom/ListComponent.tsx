@@ -167,6 +167,7 @@ function ListComponent({
         footer={null}
         closable={!isCopied}
         maskClosable={!isCopied}
+        width={1000}
       >
         <ModalComponent
           key={selectedRowForEdit?.key || 'new'}

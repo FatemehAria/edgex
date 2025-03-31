@@ -1,5 +1,6 @@
 import { faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment-jalaali';
 
 import { useLocale } from '@/locales';
 
@@ -21,7 +22,7 @@ export function ListOfProformaColumns({
       dataIndex: 'key',
       key: 'key',
       width: 50,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (_: any, record: any, index: number) => <span style={{ textAlign: 'center' }}>{index + 1}</span>,
     },
     // مشتری
     {
@@ -34,32 +35,50 @@ export function ListOfProformaColumns({
     // نام ایونت
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.eventName' })}</span>,
-      dataIndex: 'proforma-list-eventName',
-      key: 'proforma-list-eventName',
+      dataIndex: 'Event',
+      key: 'Event',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تاریخ
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.date' })}</span>,
-      dataIndex: 'proforma-list-date',
-      key: 'proforma-list-date',
+      dataIndex: 'Date',
+      key: 'Date',
+      width: 300,
+      render: (text: string) => (
+        <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('jYYYY/jMM/jDD')}</span>
+      ),
+    },
+    // تعداد کل
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.columns.totalQty' })}</span>,
+      dataIndex: 'QuantityTotal',
+      key: 'QuantityTotal',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // قیمت
+    // هزینه واحد کل
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.home.columns.price' })}</span>,
-      dataIndex: 'proforma-list-price',
-      key: 'proforma-list-price',
+      title: <span className="center-align">{formatMessage({ id: 'app.home.columns.unitCostTotal' })}</span>,
+      dataIndex: 'UnitCostTotal',
+      key: 'UnitCostTotal',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // قیمت نهایی
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.finalPrice' })}</span>,
-      dataIndex: 'proforma-list-finalPrice',
-      key: 'proforma-list-finalPrice',
+      dataIndex: 'PriceSaleFinalTotal',
+      key: 'PriceSaleFinalTotal',
+      width: 600,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // حاشیه سود نهایی
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.columns.profitMarginTotal' })}</span>,
+      dataIndex: 'ProfitMarginFinal',
+      key: 'ProfitMarginFinal',
       width: 600,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },

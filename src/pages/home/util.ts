@@ -32,7 +32,6 @@ export function mapRowToApiDetail(row: any): any {
     exportToExcel: false,
     existenceCategoryID: row.category,
     // existenceCategoryTitle: row.category,
-
     //should be set later
     stuffParentID: null,
     // stuffParentTitle: row.items,
@@ -50,7 +49,7 @@ export function mapRowToApiDetail(row: any): any {
         // agentsReducingIncreasingTitle: '',
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         invoiceSaleAfterServiceDetailID: null,
-        amountAgent: row.footerInsuranceCoefficient || 0,
+        amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
       },
     ],
     suplierParentID: row.supplier,
