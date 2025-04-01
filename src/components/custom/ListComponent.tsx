@@ -72,23 +72,63 @@ function ListComponent({
     getLists(getListEndpoint, setTableData, setLoading);
   };
 
+  // const handleEdit = (record: any) => {
+  //   if (record.StatusTitle === 'صادر شده' || proformaStatus === true) {
+  //     return;
+  //   }
+
+  //   const rowToEdit = { ...record };
+
+  //   if (!rowToEdit.isCopied) {
+  //     rowToEdit.isCopied = false;
+  //   }
+
+  //   setIsEdittingProforma && setIsEdittingProforma(true);
+  //   setSelectedRowForEdit(rowToEdit);
+  //   setIsEditModalOpen(true);
+  //   setIsCopied(rowToEdit.isCopied);
+  //   setIsCopyingProforma(rowToEdit.isCopied);
+  // };
+
   const handleEdit = (record: any) => {
+    // Do not open modal if the proforma is already confirmed
     if (record.StatusTitle === 'صادر شده' || proformaStatus === true) {
       return;
     }
 
     const rowToEdit = { ...record };
 
-    if (!rowToEdit.isCopied) {
-      rowToEdit.isCopied = false;
-    }
+    // This is a pure edit so ensure copy flags are off.
+    rowToEdit.isCopied = false;
 
     setIsEdittingProforma && setIsEdittingProforma(true);
+    // Explicitly set copying flag to false
+    setIsCopyingProforma(false);
     setSelectedRowForEdit(rowToEdit);
     setIsEditModalOpen(true);
-    setIsCopied(rowToEdit.isCopied);
-    setIsCopyingProforma(rowToEdit.isCopied);
+    setIsCopied(false);
   };
+
+  // const copyRow = (record: any) => {
+  //   const index = tableData.findIndex(row => row.key === record.key);
+  //   const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+  //   const newKey = (maxKey + 1).toString();
+
+  //   const newRow = { ...record, key: newKey, isCopied: true };
+
+  //   setTableData(prevData => {
+  //     const newData = [...prevData];
+
+  //     newData.splice(index + 1, 0, newRow);
+
+  //     return newData;
+  //   });
+
+  //   setSelectedRowForEdit(newRow);
+  //   setIsEditModalOpen(true);
+  //   setIsCopied(true);
+  //   setIsCopyingProforma(true);
+  // };
 
   const copyRow = (record: any) => {
     const index = tableData.findIndex(row => row.key === record.key);
@@ -99,19 +139,46 @@ function ListComponent({
 
     setTableData(prevData => {
       const newData = [...prevData];
-
       newData.splice(index + 1, 0, newRow);
-
       return newData;
     });
 
+    // In copy mode, we want the edit modal to open but with copying flags set.
     setSelectedRowForEdit(newRow);
     setIsEditModalOpen(true);
     setIsCopied(true);
     setIsCopyingProforma(true);
+    // Also ensure that the generic edit flag is true so modal opens
+    setIsEdittingProforma && setIsEdittingProforma(true);
   };
 
   const columns = columnsComponent({ deleteRow, handleEdit, copyRow, refreshList });
+
+  // const handleUpdate = (updatedData: any) => {
+  //   const mergedData = { ...selectedRowForEdit };
+
+  //   Object.keys(updatedData).forEach(key => {
+  //     if (updatedData[key] !== '' && updatedData[key] !== null && updatedData[key] !== undefined) {
+  //       mergedData[key] = updatedData[key];
+  //     }
+  //   });
+
+  //   setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
+
+  //   setIsEditModalOpen(false);
+
+  //   const dataToCreate = transformData ? transformData(mergedData) : mergedData;
+
+  //   if (isCopied) {
+  //     createListItem(dataToCreate, catId);
+  //   } else {
+  //     updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
+  //   }
+
+  //   setIsCopied(false);
+  //   setIsCopyingProforma(false);
+  //   setSelectedRowForEdit(null);
+  // };
 
   const handleUpdate = (updatedData: any) => {
     const mergedData = { ...selectedRowForEdit };
@@ -123,17 +190,18 @@ function ListComponent({
     });
 
     setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
-
     setIsEditModalOpen(false);
 
     const dataToCreate = transformData ? transformData(mergedData) : mergedData;
 
-    if (isCopied) {
+    // If we are in copy mode, call the create API; otherwise call the update API.
+    if (isCopyingProforma) {
       createListItem(dataToCreate, catId);
     } else {
       updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
     }
 
+    // Reset flags after submission.
     setIsCopied(false);
     setIsCopyingProforma(false);
     setSelectedRowForEdit(null);
