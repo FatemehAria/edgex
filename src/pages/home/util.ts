@@ -237,7 +237,12 @@ export const getProformaList = async (
   try {
     const { data } = await customAxiosInstance.get(endpoint);
 
-    setProformaList(data.rows);
+    const formattedData = data.rows.map((item: any, index: number) => ({
+      ...item,
+      key: index + 1,
+    }));
+
+    setProformaList(formattedData);
     // console.log(data);
   } catch (error) {
     console.log(error);
