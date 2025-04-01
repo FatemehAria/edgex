@@ -160,7 +160,7 @@ function ListComponent({
       />
       <Modal
         title="ویرایش اطلاعات"
-        open={isEditModalOpen}
+        open={isEditModalOpen && (typeof isEdittingProforma === 'boolean' ? isEdittingProforma : true)}
         onCancel={() => setIsEditModalOpen(false)}
         footer={null}
         closable={!isCopied || !isCopyingProforma}

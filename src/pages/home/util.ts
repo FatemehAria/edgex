@@ -58,7 +58,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
       existenceCategoryID: detail.existenceCategoryID,
-      category: detail.existenceCategoryTitle,
+      category: detail.existenceCategoryTitle?.value,
       supplier: detail.suplierParentTitle,
       qty: detail.quantity,
       unitCost: detail.costUnit,
@@ -93,7 +93,7 @@ export function mapRowToApiDetail(row: any): any {
     //should be set later
     stuffParentID: null,
     // stuffParentTitle: row.items,
-    description: row.description.length > 0 ? row.description : null,
+    description: row.description?.length > 0 ? row.description : null,
     //should be set based on info
     stuffDefectiveStatusCode: 1,
     // should be set based on info

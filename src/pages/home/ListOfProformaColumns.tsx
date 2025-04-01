@@ -20,7 +20,7 @@ export function ListOfProformaColumns({
   refreshList: any;
 }) {
   const { formatMessage } = useLocale();
-  const { setSingleProformaInfo, setHeaderData , setProformaStatus} = useContext(IsEdittingProformaContext);
+  const { setSingleProformaInfo, setHeaderData, setProformaStatus } = useContext(IsEdittingProformaContext);
 
   return [
     // ردیف
