@@ -12,13 +12,15 @@ export function ListOfProformaColumns({
   deleteRow,
   handleEdit,
   copyRow,
+  refreshList,
 }: {
   deleteRow: (key: string) => void;
   handleEdit: any;
   copyRow: any;
+  refreshList: any;
 }) {
   const { formatMessage } = useLocale();
-  const { setSingleProformaInfo, setHeaderData } = useContext(IsEdittingProformaContext);
+  const { setSingleProformaInfo, setHeaderData , setProformaStatus} = useContext(IsEdittingProformaContext);
 
   return [
     // ردیف
@@ -90,16 +92,25 @@ export function ListOfProformaColumns({
     // تایید وضعیت
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.proformaStatus' })}</span>,
-      dataIndex: 'proforma-status',
-      key: 'proforma-status',
+      dataIndex: 'StatusTitle',
+      key: 'StatusTitle',
       width: 200,
-      render: (_: any, record: any) => {
-        return (
-          <span className="center-align">
-            <FontAwesomeIcon icon={faCheck} onClick={() => confirmProforma(record.ID)} />
-          </span>
-        );
-      },
+      render: (text: any, record: any) => (
+        <span className="center-align">
+          {text === 'صادر شده' ? (
+            text
+          ) : (
+            <FontAwesomeIcon
+              icon={faCheck}
+              onClick={() =>
+                confirmProforma(record.ID, setProformaStatus).then(() => {
+                  refreshList();
+                })
+              }
+            />
+          )}
+        </span>
+      ),
     },
     // چاپ انگلیسی
     {

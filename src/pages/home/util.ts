@@ -238,7 +238,7 @@ export const getProformaList = async (
     const { data } = await customAxiosInstance.get(endpoint);
 
     setProformaList(data.rows);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -281,7 +281,7 @@ export const createProformaCategory = async (values: any) => {
   }
 };
 
-export const confirmProforma = async (id: string) => {
+export const confirmProforma = async (id: string, setProformaStatus: any) => {
   try {
     const { data } = await customAxiosInstance.post(
       `/PerformaInvoiceHeader/Issue?id=${id}`,
@@ -293,6 +293,7 @@ export const confirmProforma = async (id: string) => {
       },
     );
 
+    setProformaStatus(true);
     toast.success('عملیات با موفقیت انجام شد.');
     console.log(data);
   } catch (error) {

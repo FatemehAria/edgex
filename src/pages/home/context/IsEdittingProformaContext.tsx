@@ -7,6 +7,8 @@ type EditProformaContextType = {
   isCopyingProforma: boolean;
   singleProformaInfo: any;
   headerData: any;
+  proformaStatus: boolean;
+  setProformaStatus: Dispatch<SetStateAction<boolean>>;
   setHeaderData: Dispatch<SetStateAction<any>>;
   setIsEdittingProforma: Dispatch<SetStateAction<boolean>>;
   setIsCopyingProforma: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +20,8 @@ export const IsEdittingProformaContext = createContext<EditProformaContextType>(
   isCopyingProforma: false,
   singleProformaInfo: [],
   headerData: [],
+  proformaStatus: false,
+  setProformaStatus: () => {},
   setHeaderData: () => {},
   setIsEdittingProforma: () => {},
   setIsCopyingProforma: () => {},

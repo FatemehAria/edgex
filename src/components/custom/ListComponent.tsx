@@ -52,7 +52,7 @@ function ListComponent({
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { isCopyingProforma, setIsCopyingProforma } = useContext(IsEdittingProformaContext);
+  const { isCopyingProforma, setIsCopyingProforma, proformaStatus } = useContext(IsEdittingProformaContext);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -64,7 +64,19 @@ function ListComponent({
     getLists(getListEndpoint, setTableData, setLoading);
   }, []);
 
+  useEffect(() => {
+    refreshList();
+  }, []);
+
+  const refreshList = () => {
+    getLists(getListEndpoint, setTableData, setLoading);
+  };
+
   const handleEdit = (record: any) => {
+    if (record.StatusTitle === 'صادر شده' || proformaStatus === true) {
+      return;
+    }
+
     const rowToEdit = { ...record };
 
     if (!rowToEdit.isCopied) {
@@ -79,7 +91,6 @@ function ListComponent({
   };
 
   const copyRow = (record: any) => {
-    // Determine where to insert the copied row
     const index = tableData.findIndex(row => row.key === record.key);
     const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
     const newKey = (maxKey + 1).toString();
@@ -100,10 +111,9 @@ function ListComponent({
     setIsCopyingProforma(true);
   };
 
-  const columns = columnsComponent({ deleteRow, handleEdit, copyRow });
+  const columns = columnsComponent({ deleteRow, handleEdit, copyRow, refreshList });
 
   const handleUpdate = (updatedData: any) => {
-    console.log('updated data in list component', updatedData);
     const mergedData = { ...selectedRowForEdit };
 
     Object.keys(updatedData).forEach(key => {
@@ -117,8 +127,6 @@ function ListComponent({
     setIsEditModalOpen(false);
 
     const dataToCreate = transformData ? transformData(mergedData) : mergedData;
-
-    console.log('dataToCreate', dataToCreate);
 
     if (isCopied) {
       createListItem(dataToCreate, catId);
