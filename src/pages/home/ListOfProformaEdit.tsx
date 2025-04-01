@@ -168,7 +168,7 @@ function ListOfProformaEdit() {
       label: values['Title'],
       value: values['Title'],
       Title: values['Title'],
-      'grp-specification-title-persian': values['grp-specification-title-persian'],
+      'grp-specification-title-persian': values['TiltePersian'],
       ExistenceCode: values['ExistenceCode'] || '1',
     };
 

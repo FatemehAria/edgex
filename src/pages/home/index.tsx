@@ -171,7 +171,7 @@ function Home() {
       label: values['Title'],
       value: values['Title'],
       Title: values['Title'],
-      'grp-specification-title-persian': values['grp-specification-title-persian'],
+      'grp-specification-title-persian': values['TitlePersian'],
       ExistenceCode: values['ExistenceCode'] || '1',
     };
 
