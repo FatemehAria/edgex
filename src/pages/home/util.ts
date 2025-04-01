@@ -44,10 +44,38 @@ export const updateProforma = async (payload: any) => {
   }
 };
 
-export const singleProformaInfo = async (id: string) => {
+export const singleProformaInfo = async (id: string, setSingleProformaInfo: any, setHeaderData: any) => {
   try {
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
+    const headerData = {
+      'header-info-title': data.eventTitle,
+      'header-info-costumer': data.customerId,
+      'header-info-date': data.date,
+      'header-info-desc': data.descriptionHeader,
+    };
+
+    const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
+      key: index + 1,
+      existenceCategoryID: detail.existenceCategoryID,
+      category: detail.existenceCategoryTitle,
+      supplier: detail.suplierParentTitle,
+      qty: detail.quantity,
+      unitCost: detail.costUnit,
+      totalPriceWithoutFactors: detail.costTotal,
+      insurancePriceForRecord: detail.insuranceTax,
+      footerInsuranceCoefficient: '0.085',
+      itemShareOfTaxAndIns: detail.insuranceTax,
+      primarySalesPrice: detail.primarySalePrice,
+      itemTotalPrice: detail.costTotal,
+      footerInsurancePrice: detail.insuranceTax,
+      itemSalePrice: detail.priceSale,
+      itemSalePriceRounded: detail.priceSaleRounded,
+      finalSalePrice: detail.priceSaleFinal,
+    }));
+
+    setHeaderData(headerData);
+    setSingleProformaInfo(mappedTableData);
     console.log(data);
   } catch (error) {
     console.log(error);

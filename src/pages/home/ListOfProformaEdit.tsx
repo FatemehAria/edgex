@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
-import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import { useContext, useEffect, useState } from 'react';
 
 import { useLocale } from '@/locales';
 import { formatValue } from '@/utils/formatTypingNums';
@@ -16,6 +17,8 @@ import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { createSupplier, getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
+import { EditColumns } from './EditColumns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
 import { createProformaCategory, createProformaStuff, getStuffbyId } from './util';
@@ -24,7 +27,7 @@ function ListOfProformaEdit() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
-  // const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
+  const { singleProformaInfo, headerData } = useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -64,6 +67,13 @@ function ListOfProformaEdit() {
     },
   ]);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (singleProformaInfo) {
+      setTableData(singleProformaInfo);
+    }
+  }, [singleProformaInfo]);
+
   // Manage customer options state
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([
     // { label: 'مشتری یک', value: '1' },
@@ -404,7 +414,7 @@ function ListOfProformaEdit() {
     });
   };
 
-  const columns = Columns(
+  const columns = EditColumns(
     formatMessage, // 1. formatMessage
     handleCellChange, // 2. handleCellChange
     deleteRow, // 3. deleteRow
@@ -414,8 +424,6 @@ function ListOfProformaEdit() {
     supplierOptions, // 7. supplierOptions
     setActiveSupplierRow, // 8. setActiveSupplierRow
     insurancePrice, // 9. insurancePrice
-    // setFooterInsuranceCoefficient, // 10. setFooterInsuranceCoefficient
-    // footerInsuranceCoefficient, // 11. footerInsuranceCoefficient
     setActiveGroupingRow, // 12. setActiveGroupingRow
     setIsGroupingModalOpen, // 13. setIsGroupingModalOpen
     groupingOptions, // 14. groupingOptions
@@ -425,7 +433,19 @@ function ListOfProformaEdit() {
     setTableData, // 18. setTableData
   );
 
-  const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
+  useEffect(() => {
+    if (headerData) {
+      const formattedData = {
+        ...headerData,
+        'header-info-date': headerData['header-info-date'] ? dayjs(headerData['header-info-date']) : null,
+      };
+
+      form.resetFields();
+      form.setFieldsValue(formattedData);
+    }
+  }, [headerData, form]);
+
+  const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal, headerData);
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
@@ -470,7 +490,6 @@ function ListOfProformaEdit() {
       style: panelStyle,
     },
   ];
-
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur, overflow: 'auto' }}>

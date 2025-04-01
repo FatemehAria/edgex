@@ -13,10 +13,10 @@ import { history, HistoryRouter } from '@/routes/history';
 
 import ProvinceContextProvider from './context/ProvinceContextProvider';
 import { localeConfig, LocaleFormatter } from './locales';
+import IsEdittingProformaContextProvider from './pages/home/context/IsEdittingProformaContextProvider';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
 import { setGlobalState } from './stores/global.store';
-import IsEdittingProformaContextProvider from './pages/home/context/IsEdittingProformaContextProvider';
 
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);

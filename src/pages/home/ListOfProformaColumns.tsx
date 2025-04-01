@@ -1,8 +1,11 @@
 import { faCheck, faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment-jalaali';
+import { useContext } from 'react';
 
 import { useLocale } from '@/locales';
+
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { confirmProforma, getEngReport, getPerReport, singleProformaInfo } from './util';
 
 export function ListOfProformaColumns({
@@ -15,6 +18,7 @@ export function ListOfProformaColumns({
   copyRow: any;
 }) {
   const { formatMessage } = useLocale();
+  const { setSingleProformaInfo, setHeaderData } = useContext(IsEdittingProformaContext);
 
   return [
     // ردیف
@@ -90,8 +94,6 @@ export function ListOfProformaColumns({
       key: 'proforma-status',
       width: 200,
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
-
         return (
           <span className="center-align">
             <FontAwesomeIcon icon={faCheck} onClick={() => confirmProforma(record.ID)} />
@@ -106,8 +108,6 @@ export function ListOfProformaColumns({
       key: 'eng-print',
       width: 200,
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
-
         return (
           <span className="center-align">
             <FontAwesomeIcon icon={faPrint} onClick={() => getEngReport(record.ID)} />
@@ -122,19 +122,9 @@ export function ListOfProformaColumns({
       key: 'per-print',
       width: 200,
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
-
         return (
           <span className="center-align">
-            <FontAwesomeIcon
-              icon={faPrint}
-              onClick={() => getPerReport(record.ID)}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
-            />
+            <FontAwesomeIcon icon={faPrint} onClick={() => getPerReport(record.ID)} />
           </span>
         );
       },
@@ -146,18 +136,11 @@ export function ListOfProformaColumns({
       key: 'edit',
       width: 200,
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
-
         return (
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
-              onClick={() => (handleEdit(record), singleProformaInfo(record.ID))}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              onClick={() => (handleEdit(record), singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData))}
             />
           </span>
         );
@@ -183,14 +166,14 @@ export function ListOfProformaColumns({
     },
     // کپی
     {
-      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>,
       dataIndex: 'copy',
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
           />
         </span>

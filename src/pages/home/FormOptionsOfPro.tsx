@@ -29,6 +29,7 @@ export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,
   customerOptions: { label: string; value: string }[],
   onOpenCustomerModal: () => void,
+  singleProformaInfo?: any,
 ) => [
   {
     name: 'header-info-title',
