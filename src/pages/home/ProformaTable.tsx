@@ -31,8 +31,9 @@ function ProformaTable({
   totalCostOfRows: number;
   isRowFilled: any;
 }) {
-  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma, isCopyingProforma } =
+  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma, isCopyingProforma, singleProformaInfo } =
     useContext(IsEdittingProformaContext);
+
   // useEffect(() => {
   //   // Calculate the total cost (sum of itemTotalPrice)
   //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
@@ -64,6 +65,7 @@ function ProformaTable({
   const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
 
   console.log('payload', payload);
+  console.log('tableData', tableData);
 
   // const handleSubmition = async () => {
   //   if (isCopyingProforma) {
@@ -77,13 +79,13 @@ function ProformaTable({
 
   const handleSubmition = async () => {
     if (isCopyingProforma) {
-      // If copy mode is active, execute the create API.
       await createProforma(payload);
       setIsCopyingProforma(false);
     } else if (isEdittingProforma) {
-      // Otherwise, if editing, execute the update API.
       await updateProforma(payload);
       setIsEdittingProforma(false);
+    } else {
+      await createProforma(payload);
     }
   };
 

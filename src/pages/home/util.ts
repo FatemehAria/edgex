@@ -83,7 +83,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 };
 
 export function mapRowToApiDetail(row: any): any {
-  //   console.log('row', row);
+    console.log('row', row);
 
   return {
     // should be set based on info

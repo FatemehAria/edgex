@@ -287,8 +287,18 @@ function ListOfProformaEdit() {
     return newRow;
   };
 
+  // const isRowFilled = (row: any) => {
+  //   const requiredFields = ['qty', 'unitCost', 'recordProfitMargin'];
+
+  //   return requiredFields.every(field => {
+  //     const value = row[field];
+
+  //     return value !== undefined && value !== null && value.toString().trim() !== '';
+  //   });
+  // };
+
   const isRowFilled = (row: any) => {
-    const requiredFields = ['qty', 'unitCost', 'recordProfitMargin'];
+    const requiredFields = ['qty', 'unitCost'];
 
     return requiredFields.every(field => {
       const value = row[field];
