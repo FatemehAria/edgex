@@ -11,10 +11,8 @@ import { formatValue } from '@/utils/formatTypingNums';
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
 import { createCustomer, getCustomersList } from '../costumer-info/util';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
-import { createCategory, getGroupList } from '../grouping-specifications/util';
+import { getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
-import { createStuff } from '../product-info/main-info/util';
-import { getProductsList } from '../product-info/util';
 import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { createSupplier, getSuppliersList } from '../supplier/util';
@@ -67,11 +65,7 @@ function Home() {
     },
   ]);
   const [form] = Form.useForm();
-  // Manage customer options state
-  const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([
-    // { label: 'مشتری یک', value: '1' },
-    // { label: 'مشتری دو', value: '2' },
-  ]);
+  const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
@@ -81,7 +75,7 @@ function Home() {
 
   // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
-    console.log('values for new customer', values);
+    // console.log('values for new customer', values);
     const newCustomer = {
       label: values['companyPersonTitle'],
       value: values['companyPersonTitle'],

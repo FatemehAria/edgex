@@ -34,8 +34,8 @@ export function ListOfProformaColumns({
     // مشتری
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.customer' })}</span>,
-      dataIndex: 'proforma-list-customer',
-      key: 'proforma-list-customer',
+      dataIndex: 'CustomerTitle',
+      key: 'CustomerTitle',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },

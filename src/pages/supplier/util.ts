@@ -15,7 +15,7 @@ export const getSuppliersList = async (
     }));
 
     setList(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   } finally {
@@ -31,7 +31,7 @@ export const createSupplier = async (values: any) => {
       isActive: values['isActive'],
     });
 
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   }
