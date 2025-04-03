@@ -46,7 +46,7 @@ function Reports() {
           ))}
         </Select>
 
-        <Table dataSource={tableData} columns={visibleColumns} />
+        <Table dataSource={tableData} columns={visibleColumns} scroll={{ x: 2000 }} />
       </div>
     </div>
   );

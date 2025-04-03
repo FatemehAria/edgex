@@ -12,11 +12,11 @@ function ReportsColumns() {
       width: 50,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // شماره فرم
+    // تاریخ
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.formNumber' })}</span>,
-      dataIndex: 'reports-form-number',
-      key: 'reports-form-number',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.date' })}</span>,
+      dataIndex: 'reports-date',
+      key: 'reports-date',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
@@ -28,35 +28,11 @@ function ReportsColumns() {
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // استان
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.province' })}</span>,
-      dataIndex: 'reports-province',
-      key: 'reports-province',
-      width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    // شهر
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.city' })}</span>,
-      dataIndex: 'reports-city',
-      key: 'reports-city',
-      width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
     // مشتری
     {
       title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.customer' })}</span>,
       dataIndex: 'reports-customer',
       key: 'reports-customer',
-      width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
-    // تاریخ
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.date' })}</span>,
-      dataIndex: 'reports-date',
-      key: 'reports-date',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
@@ -92,43 +68,75 @@ function ReportsColumns() {
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // نرخ آیتم
+    // هزینه واحد
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.rate' })}</span>,
-      dataIndex: 'reports-rate',
-      key: 'reports-rate',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.unitCost' })}</span>,
+      dataIndex: 'reports-unitCost',
+      key: 'reports-unitCost',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // هزینه خدمت
+    // هزینه کل
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.serviceCost' })}</span>,
-      dataIndex: 'reports-cost',
-      key: 'reports-cost',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.totalCost' })}</span>,
+      dataIndex: 'reports-totalCost',
+      key: 'reports-totalCost',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // افزاینده
+    // حاشیه سود
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.inc' })}</span>,
-      dataIndex: 'reports-inc',
-      key: 'reports-inc',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.profitMargin' })}</span>,
+      dataIndex: 'reports-profitMargin',
+      key: 'reports-profitMargin',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // کاهنده
+    // سهم آیتم از بیمه و مالیات
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.dec' })}</span>,
-      dataIndex: 'reports-dec',
-      key: 'reports-dec',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.shareOftaxAndIncome' })}</span>,
+      dataIndex: 'reports-shareOfTaxAndIncome',
+      key: 'reports-shareOfTaxAndIncome',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // هزینه نهایی
+    // قیمت فروش آیتم
     {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.finalCost' })}</span>,
-      dataIndex: 'reports-final-cost',
-      key: 'reports-final-cost',
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.itemSalesPrice' })}</span>,
+      dataIndex: 'reports-itemSalesPrice',
+      key: 'reports-itemSalesPrice',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // قیمت فروش آیتم رند شده
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.itemSalesPriceRounded' })}</span>,
+      dataIndex: 'reports-itemSalesPriceRounded',
+      key: 'reports-itemSalesPriceRounded',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // قیمت نهایی
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.finalPice' })}</span>,
+      dataIndex: 'reports-finalPrice',
+      key: 'reports-finalPrice',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // حاشیه سود نهایی
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.finalProfitMargin' })}</span>,
+      dataIndex: 'reports-finalProfitMargin',
+      key: 'reports-finalProfitMargin',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // مبلغ سود نهایی
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.finalProfitPrice' })}</span>,
+      dataIndex: 'reports-finalProfitPrice',
+      key: 'reports-finalProfitPrice',
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
