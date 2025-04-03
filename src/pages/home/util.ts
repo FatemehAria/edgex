@@ -61,7 +61,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 
     const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
 
-    console.log('HeaderAgentsReducingIncreasingList', HeaderAgentsReducingIncreasingList);
+    // console.log('HeaderAgentsReducingIncreasingList', HeaderAgentsReducingIncreasingList);
 
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
@@ -97,14 +97,15 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
   }
 };
 
-export function mapRowToApiDetail(row: any): any {
+export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
   console.log('row', row);
+  console.log(isEdittingProforma);
 
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
-    // stuffParentID: row.items ? row.items : null,
-    stuffParentID: null,
+    stuffParentID: isEdittingProforma === false ? null : row.items,
+    // stuffParentID: null,
     // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
@@ -172,7 +173,13 @@ export function calculateFinalValues(tableData: any[], insurancePrice: number) {
   };
 }
 
-export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any, proformaInfo?: any) {
+export function createProformaPayload(
+  tableData: any,
+  insurancePrice: any,
+  isRowFilled: any,
+  isEdittingProforma: any,
+  proformaInfo?: any,
+) {
   const headerData = {
     customerId: localStorage.getItem('header-info-costumer')
       ? JSON.parse(localStorage.getItem('header-info-costumer')!)
@@ -186,7 +193,9 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
 
-  const detailList = tableData.filter((row: any) => isRowFilled(row)).map((row: any) => mapRowToApiDetail(row));
+  const detailList = tableData
+    .filter((row: any) => isRowFilled(row))
+    .map((row: any) => mapRowToApiDetail(row, isEdittingProforma));
 
   return {
     ...headerData,
