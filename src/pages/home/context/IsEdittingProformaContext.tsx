@@ -8,6 +8,8 @@ type EditProformaContextType = {
   singleProformaInfo: any;
   headerData: any;
   proformaStatus: boolean;
+  selectedProformaInfo: { id: string; code: string };
+  setSelectedProformaInfo: Dispatch<SetStateAction<{ id: string; code: string }>>;
   setProformaStatus: Dispatch<SetStateAction<boolean>>;
   setHeaderData: Dispatch<SetStateAction<any>>;
   setIsEdittingProforma: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +23,8 @@ export const IsEdittingProformaContext = createContext<EditProformaContextType>(
   singleProformaInfo: [],
   headerData: [],
   proformaStatus: false,
+  selectedProformaInfo: { id: '', code: '' },
+  setSelectedProformaInfo: () => {},
   setProformaStatus: () => {},
   setHeaderData: () => {},
   setIsEdittingProforma: () => {},

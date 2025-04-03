@@ -20,7 +20,8 @@ export function ListOfProformaColumns({
   refreshList: any;
 }) {
   const { formatMessage } = useLocale();
-  const { setSingleProformaInfo, setHeaderData, setProformaStatus } = useContext(IsEdittingProformaContext);
+  const { setSingleProformaInfo, setHeaderData, setProformaStatus, setSelectedProformaInfo } =
+    useContext(IsEdittingProformaContext);
 
   return [
     // ردیف
@@ -92,12 +93,12 @@ export function ListOfProformaColumns({
     // تایید وضعیت
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.proformaStatus' })}</span>,
-      dataIndex: 'statusCode',
-      key: 'statusCode',
+      dataIndex: 'StatusTitle',
+      key: 'StatusTitle',
       width: 200,
       render: (text: any, record: any) => (
         <span className="center-align">
-          {text === 'صادر شده' ? (
+          {text === 'تایید شده' ? (
             text
           ) : (
             <FontAwesomeIcon
@@ -151,7 +152,11 @@ export function ListOfProformaColumns({
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
-              onClick={() => (handleEdit(record), singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData))}
+              onClick={() => (
+                handleEdit(record),
+                singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
+                setSelectedProformaInfo({ id: record.ID, code: record.Code })
+              )}
             />
           </span>
         );

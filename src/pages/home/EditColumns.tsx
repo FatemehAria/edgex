@@ -58,6 +58,15 @@ export const EditColumns = (
       width: 50,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
+    // PerformaInvoiceDetailID
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'PerformaInvoiceDetailID',
+      key: 'PerformaInvoiceDetailID',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
     // گروه
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.category' })}</span>,

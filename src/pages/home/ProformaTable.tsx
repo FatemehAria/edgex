@@ -31,7 +31,7 @@ function ProformaTable({
   totalCostOfRows: number;
   isRowFilled: any;
 }) {
-  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma, isCopyingProforma, singleProformaInfo } =
+  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma, isCopyingProforma, selectedProformaInfo } =
     useContext(IsEdittingProformaContext);
 
   // useEffect(() => {
@@ -65,28 +65,18 @@ function ProformaTable({
   const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
 
   console.log('payload', payload);
-  console.log('tableData', tableData);
-
-  // const handleSubmition = async () => {
-  //   if (isCopyingProforma) {
-  //     await createProforma(payload);
-  //     setIsCopyingProforma(false);
-  //   } else if (isEdittingProforma) {
-  //     await updateProforma(payload);
-  //     setIsEdittingProforma(false);
-  //   }
-  // };
 
   const handleSubmition = async () => {
     if (isCopyingProforma) {
       await createProforma(payload);
       setIsCopyingProforma(false);
     } else if (isEdittingProforma) {
-      await updateProforma(payload);
+      await updateProforma({ ...payload, id: selectedProformaInfo.id, code: selectedProformaInfo.code });
       setIsEdittingProforma(false);
-    } else {
-      await createProforma(payload);
     }
+    //  else {
+    //   await createProforma(payload);
+    // }
   };
 
   return (

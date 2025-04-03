@@ -225,7 +225,7 @@ function ListComponent({
       <Modal
         title="ویرایش اطلاعات"
         open={isEditModalOpen && (typeof isEdittingProforma === 'boolean' ? isEdittingProforma : true)}
-        onCancel={() => (setIsEditModalOpen(false), setIsEdittingProforma(false))}
+        onCancel={() => setIsEditModalOpen(false)}
         footer={null}
         closable={!isCopied || !isCopyingProforma}
         maskClosable={!isCopied || !isCopyingProforma}

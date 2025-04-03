@@ -57,6 +57,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
+      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
       existenceCategoryID: detail.existenceCategoryID,
       category: detail.existenceCategoryTitle?.value,
       supplier: detail.suplierParentID,
@@ -90,7 +91,8 @@ export function mapRowToApiDetail(row: any): any {
     exportToExcel: false,
     existenceCategoryID: row.category,
     // existenceCategoryTitle: row.category,
-    stuffParentID: row.items ? row.items : null,
+    // stuffParentID: row.items ? row.items : null,
+    stuffParentID: null,
     // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
     // //should be set based on info
@@ -103,7 +105,7 @@ export function mapRowToApiDetail(row: any): any {
         exportToExcel: false,
         priceAgent: 0,
         percentAgent: 0,
-        // agentsReducingIncreasingTitle: '',
+        performaInvoiceDetailID: row.PerformaInvoiceDetailID,
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
       },
