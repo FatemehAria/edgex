@@ -74,11 +74,7 @@ function ListOfProformaEdit() {
     }
   }, [singleProformaInfo]);
 
-  // Manage customer options state
-  const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([
-    // { label: 'مشتری یک', value: '1' },
-    // { label: 'مشتری دو', value: '2' },
-  ]);
+  const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
@@ -86,7 +82,6 @@ function ListOfProformaEdit() {
     setIsCustomerModalOpen(true);
   };
 
-  // وقتی خالی باشه و مشتری جدید اضافه کنیم
   const handleNewCustomer = (values: any) => {
     console.log('values for new customer', values);
     const newCustomer = {
@@ -125,9 +120,7 @@ function ListOfProformaEdit() {
     });
   }, []);
 
-  const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
-    // Possibly prefill with some suppliers if desired.
-  ]);
+  const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([]);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
   const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 
@@ -195,7 +188,7 @@ function ListOfProformaEdit() {
     getGroupList('/ExistenceCategory', (rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.Title,
-        value: item.ID, // or item.ID, or item.whatever
+        value: item.ID,
       }));
 
       setGroupingOptions(transformed);
@@ -238,7 +231,7 @@ function ListOfProformaEdit() {
     getStuffbyId((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.Title || item.text,
-        value: item.id, // or item.ID, or item.whatever
+        value: item.id,
       }));
 
       setItemOptions(transformed);
@@ -286,16 +279,6 @@ function ListOfProformaEdit() {
 
     return newRow;
   };
-
-  // const isRowFilled = (row: any) => {
-  //   const requiredFields = ['qty', 'unitCost', 'recordProfitMargin'];
-
-  //   return requiredFields.every(field => {
-  //     const value = row[field];
-
-  //     return value !== undefined && value !== null && value.toString().trim() !== '';
-  //   });
-  // };
 
   const isRowFilled = (row: any) => {
     const requiredFields = ['qty', 'unitCost'];
@@ -488,8 +471,6 @@ function ListOfProformaEdit() {
           columns={columns}
           formatMessage={formatMessage}
           tableData={tableData}
-          // footerInsuranceCoefficient={footerInsuranceCoefficient}
-          // setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
           insurancePrice={insurancePrice}
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
@@ -509,15 +490,8 @@ function ListOfProformaEdit() {
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
         items={getItems(panelStyle)}
-      >
-        {/* {getItems(panelStyle).map((item: any) => (
-            <Collapse.Panel key={item.key} header={item.label} style={item.style}>
-              {item.children}
-            </Collapse.Panel>
-          ))} */}
-      </Collapse>
+      ></Collapse>
 
-      {/* Modal for adding a new customer */}
       <Modal
         title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
         open={isCustomerModalOpen}

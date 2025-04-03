@@ -61,13 +61,14 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 
     const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
 
-    console.log(HeaderAgentsReducingIncreasingList);
+    console.log('HeaderAgentsReducingIncreasingList', HeaderAgentsReducingIncreasingList);
+
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
-      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID ,
+      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
       id: detail.id,
       code: detail.code,
-      redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.id,
+      // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
       existenceCategoryID: detail.existenceCategoryID,
       category: detail.existenceCategoryTitle?.value,
       supplier: detail.suplierParentID,
@@ -85,8 +86,11 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       finalSalePrice: detail.priceSaleFinal,
     }));
 
+    const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
+
+    console.log('finalArray', finalArray);
     setHeaderData(headerData);
-    setSingleProformaInfo(mappedTableData?.concat(HeaderAgentsReducingIncreasingList));
+    setSingleProformaInfo(finalArray);
     console.log(data);
   } catch (error) {
     console.log(error);
@@ -97,33 +101,23 @@ export function mapRowToApiDetail(row: any): any {
   console.log('row', row);
 
   return {
-    // should be set based on info
     exportToExcel: false,
     existenceCategoryID: row.category,
-    // existenceCategoryTitle: row.category,
     // stuffParentID: row.items ? row.items : null,
     stuffParentID: null,
     // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
-    // //should be set based on info
-    // stuffDefectiveStatusCode: 1,
-    // // should be set based on info
-    // statusCode: 0,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       {
-        //should be set based on info
-        exportToExcel: false,
         priceAgent: 0,
         percentAgent: 0,
         // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
         ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
-        id: row.redIncId ? row.redIncId : null,
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
       },
     ],
     suplierParentID: row.supplier,
-    // suplierParentTitle: row.supplier,
     quantity: parseFloat(row.qty) || 0,
     priceDiscount: 0,
     primarySalePrice: row.primarySalesPrice || 0,
@@ -199,8 +193,7 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
     performaInvoiceDetailList: detailList,
     performaInvoiceHeaderAgentsReducingIncreasingList: [
       {
-        id: proformaInfo?.[0]?.performaInvoiceHeaderID,
-        exportToExcel: false,
+        performaInvoiceHeaderID: proformaInfo?.[proformaInfo.length - 1]?.performaInvoiceHeaderID,
         amountAgen: 10,
         agentsReducingIncreasingID: 'EDA36B90-5A9E-4487-8C62-7377E40743B8',
         increasing: 0,
@@ -329,10 +322,9 @@ export const getEngReport = async (id: string) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const blob = await response.blob(); // Convert response to Blob
+    const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 
-    // Create a download link and trigger it
     const link = document.createElement('a');
 
     link.href = url;
@@ -359,10 +351,9 @@ export const getPerReport = async (id: string) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const blob = await response.blob(); // Convert response to Blob
+    const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 
-    // Create a download link and trigger it
     const link = document.createElement('a');
 
     link.href = url;

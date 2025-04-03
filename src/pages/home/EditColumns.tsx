@@ -22,8 +22,6 @@ export const EditColumns = (
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
   insurancePrice: number,
-  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
-  // footerInsuranceCoefficient: string,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],

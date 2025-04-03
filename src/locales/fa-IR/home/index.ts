@@ -1,7 +1,7 @@
 export const faIR_home = {
   'app.home.headerInfo': 'ثبت اطلاعات',
   'app.home.submissionBtn': 'ثبت',
-  'app.home.headerInfo.title': 'عنوان:',
+  'app.home.headerInfo.title': 'عنوان رویداد:',
   'app.home.headerInfo.title.placeholder': 'عنوان',
   'app.home.headerInfo.costumer': 'مشتری:',
   'app.home.headerInfo.costumer.placeholder': 'انتخاب مشتری',
