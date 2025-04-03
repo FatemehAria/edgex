@@ -17,7 +17,7 @@ export const getCustomersList = async (
     }));
 
     setList(formattedData);
-    console.log('customers list', data);
+    // console.log('customers list', data);
   } catch (error) {
     console.log(error);
   } finally {

@@ -148,14 +148,12 @@ export const EditColumns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          // Pass in the items options from Home via props (ensure your component is set up to receive this)
           initialOptions={itemOptions}
           debounceTime={5000}
           mode="tags"
           editableOptions={true}
-          allowAddNew={true} // Enable the add new button
+          allowAddNew={true}
           onAddNew={() => {
-            // When user clicks add new, open the modal and mark this row as active.
             openItemModal();
             setActiveItemRow(record.key);
           }}
@@ -407,14 +405,14 @@ export const EditColumns = (
     },
     //کپی
     {
-      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>,
       dataIndex: 'copy',
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
           />
         </span>

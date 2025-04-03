@@ -16,11 +16,15 @@ export const createProforma = async (payload: any) => {
 
     toast.success('عملیات با موفقیت انجام شد.');
 
-    console.log(data);
+    // ['header-info-title', 'header-info-costumer', 'header-info-date', 'header-info-date'].forEach(item =>
+    //   localStorage.removeItem(item),
+    // );
+
+    // console.log(data);
   } catch (error) {
     toast.error('خطا در انجام عملیات');
 
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -60,7 +64,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
     console.log(HeaderAgentsReducingIncreasingList);
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
-      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
+      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID ,
       id: detail.id,
       code: detail.code,
       redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.id,
@@ -111,7 +115,8 @@ export function mapRowToApiDetail(row: any): any {
         exportToExcel: false,
         priceAgent: 0,
         percentAgent: 0,
-        performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
+        // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
+        ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         id: row.redIncId ? row.redIncId : null,
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
@@ -343,11 +348,31 @@ export const getEngReport = async (id: string) => {
 
 export const getPerReport = async (id: string) => {
   try {
-    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/printPersian?id=${id}`);
+    const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/printPersian/${id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/pdf',
+      },
+    });
 
-    console.log(data);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const blob = await response.blob(); // Convert response to Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a download link and trigger it
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.setAttribute('download', 'PerformaInvoiceHeaderPrint.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    console.log(error);
+    console.error('Error downloading the report:', error);
   }
 };
 

@@ -189,7 +189,11 @@ export function ListOfProformaColumns({
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)}
+            onClick={() => (
+              copyRow(record),
+              singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
+              setSelectedProformaInfo({ id: record.ID, code: record.Code })
+            )}
             style={{ cursor: 'pointer', marginRight: 8 }}
           />
         </span>

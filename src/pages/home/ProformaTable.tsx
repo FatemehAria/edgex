@@ -79,10 +79,9 @@ function ProformaTable({
     } else if (isEdittingProforma) {
       await updateProforma({ ...payload, id: selectedProformaInfo.id, code: selectedProformaInfo.code });
       setIsEdittingProforma(false);
+    } else {
+      await createProforma(payload);
     }
-    //  else {
-    //   await createProforma(payload);
-    // }
   };
 
   return (

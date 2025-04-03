@@ -135,7 +135,9 @@ function ListComponent({
 
     setTableData(prevData => {
       const newData = [...prevData];
+
       newData.splice(index + 1, 0, newRow);
+
       return newData;
     });
 
