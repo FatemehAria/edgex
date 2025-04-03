@@ -37,7 +37,7 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
       title: value['Title'],
       titlePersian: value['TitlePersian'],
       description: value['Description'],
-      existenceCategoryID: value.categoryId,
+      existenceCategoryIDs: value.categoryId,
       //نرخ
     });
 

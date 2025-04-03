@@ -1,11 +1,12 @@
 import type { MyFormOptions } from '@/components/core/form';
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
+
 import FormLayout from '../layout/form-layout';
 import Grouping from './grouping';
-import { useSelector } from 'react-redux';
 import { getGroupItems } from './grouping/util';
 
 interface ProductInfoEditProps {
@@ -59,9 +60,8 @@ function ProductInfoEdit({
         treeDefaultExpandAll: true,
         placeholder: `${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`,
         allowClear: true,
-        onChange: handleChange,
         defaultValue: initialValues['categoryId'],
-        // treeCheckable
+        treeCheckable: true,
       },
     },
     {
