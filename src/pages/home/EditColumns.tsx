@@ -67,6 +67,42 @@ export const EditColumns = (
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
       hidden: true,
     },
+    // id
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'id',
+      key: 'id',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
+    // performaInvoiceDetailAgentsReducingIncreasingList
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'redIncId',
+      key: 'redIncId',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
+    // performaInvoiceHeaderAgentsReducingIncreasingList
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'headerReducingIncreasingId',
+      key: 'headerReducingIncreasingId',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
+    // code
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'code',
+      key: 'code',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
     // گروه
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.category' })}</span>,

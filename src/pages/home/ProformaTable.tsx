@@ -31,8 +31,14 @@ function ProformaTable({
   totalCostOfRows: number;
   isRowFilled: any;
 }) {
-  const { isEdittingProforma, setIsEdittingProforma, setIsCopyingProforma, isCopyingProforma, selectedProformaInfo } =
-    useContext(IsEdittingProformaContext);
+  const {
+    isEdittingProforma,
+    setIsEdittingProforma,
+    setIsCopyingProforma,
+    isCopyingProforma,
+    selectedProformaInfo,
+    singleProformaInfo,
+  } = useContext(IsEdittingProformaContext);
 
   // useEffect(() => {
   //   // Calculate the total cost (sum of itemTotalPrice)
@@ -62,7 +68,7 @@ function ProformaTable({
   }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
   // const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, footerInsuranceCoefficient);
-  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled);
+  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, singleProformaInfo);
 
   console.log('payload', payload);
 

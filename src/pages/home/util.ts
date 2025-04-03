@@ -55,9 +55,15 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       'header-info-desc': data.descriptionHeader,
     };
 
+    const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
+
+    console.log(HeaderAgentsReducingIncreasingList);
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
       PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
+      id: detail.id,
+      code: detail.code,
+      redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.id,
       existenceCategoryID: detail.existenceCategoryID,
       category: detail.existenceCategoryTitle?.value,
       supplier: detail.suplierParentID,
@@ -76,7 +82,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
     }));
 
     setHeaderData(headerData);
-    setSingleProformaInfo(mappedTableData);
+    setSingleProformaInfo(mappedTableData?.concat(HeaderAgentsReducingIncreasingList));
     console.log(data);
   } catch (error) {
     console.log(error);
@@ -105,7 +111,8 @@ export function mapRowToApiDetail(row: any): any {
         exportToExcel: false,
         priceAgent: 0,
         percentAgent: 0,
-        performaInvoiceDetailID: row.PerformaInvoiceDetailID,
+        performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
+        id: row.redIncId ? row.redIncId : null,
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
       },
@@ -117,6 +124,8 @@ export function mapRowToApiDetail(row: any): any {
     primarySalePrice: row.primarySalesPrice || 0,
     increasing: 0,
     reducing: 0,
+    id: row.id,
+    code: row.code,
     priceFinal: row.finalSalePrice || 0,
     priceFinalReducing: 0,
     costUnit: parseFloat(String(row.unitCost).replace(/,/g, '')) || 0,
@@ -164,11 +173,8 @@ export function calculateFinalValues(tableData: any[], insurancePrice: number) {
   };
 }
 
-export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any) {
+export function createProformaPayload(tableData: any, insurancePrice: any, isRowFilled: any, proformaInfo?: any) {
   const headerData = {
-    // customerTitle: localStorage.getItem('header-info-costumer')
-    //   ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-    //   : '',
     customerId: localStorage.getItem('header-info-costumer')
       ? JSON.parse(localStorage.getItem('header-info-costumer')!)
       : null,
@@ -177,8 +183,6 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
       : null,
     eventTitle: localStorage.getItem('header-info-title') ? JSON.parse(localStorage.getItem('header-info-title')!) : '',
     date: localStorage.getItem('header-info-date') ? JSON.parse(localStorage.getItem('header-info-date')!) : '',
-    //should be set based on info
-    statusCode: 0,
   };
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
@@ -188,9 +192,9 @@ export function createProformaPayload(tableData: any, insurancePrice: any, isRow
   return {
     ...headerData,
     performaInvoiceDetailList: detailList,
-    // should be set based on info
     performaInvoiceHeaderAgentsReducingIncreasingList: [
       {
+        id: proformaInfo?.[0]?.performaInvoiceHeaderID,
         exportToExcel: false,
         amountAgen: 10,
         agentsReducingIncreasingID: 'EDA36B90-5A9E-4487-8C62-7377E40743B8',
@@ -309,11 +313,31 @@ export const confirmProforma = async (id: string, setProformaStatus: any) => {
 
 export const getEngReport = async (id: string) => {
   try {
-    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/print?id=${id}`);
+    const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/print/${id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/pdf',
+      },
+    });
 
-    console.log(data);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const blob = await response.blob(); // Convert response to Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a download link and trigger it
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.setAttribute('download', 'PerformaInvoiceHeaderPrint.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    console.log(error);
+    console.error('Error downloading the report:', error);
   }
 };
 
