@@ -24,6 +24,8 @@ export const getSuppliersList = async (
 };
 
 export const createSupplier = async (values: any) => {
+  console.log('values in create suolier', values);
+
   try {
     const { data } = await customAxiosInstance.post('/Suplier/create', {
       companyPersonTitle: values['companyPersonTitle'],

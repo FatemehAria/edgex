@@ -112,9 +112,7 @@ function Home() {
     });
   }, []);
 
-  const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([
-    // Possibly prefill with some suppliers if desired.
-  ]);
+  const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([]);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
   const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 

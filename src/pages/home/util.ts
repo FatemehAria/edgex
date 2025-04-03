@@ -59,7 +59,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       key: index + 1,
       existenceCategoryID: detail.existenceCategoryID,
       category: detail.existenceCategoryTitle?.value,
-      supplier: detail.suplierParentTitle,
+      supplier: detail.suplierParentID,
       qty: detail.quantity,
       unitCost: detail.costUnit,
       totalPriceWithoutFactors: detail.costTotal,
@@ -83,21 +83,20 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 };
 
 export function mapRowToApiDetail(row: any): any {
-    console.log('row', row);
+  console.log('row', row);
 
   return {
     // should be set based on info
     exportToExcel: false,
     existenceCategoryID: row.category,
     // existenceCategoryTitle: row.category,
-    //should be set later
-    stuffParentID: null,
+    stuffParentID: row.items ? row.items : null,
     // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
-    //should be set based on info
-    stuffDefectiveStatusCode: 1,
-    // should be set based on info
-    statusCode: 0,
+    // //should be set based on info
+    // stuffDefectiveStatusCode: 1,
+    // // should be set based on info
+    // statusCode: 0,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       {
         //should be set based on info
