@@ -143,8 +143,7 @@ function Home() {
     getSuppliersList((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.text,
-        value: item.id, // or item.ID, or item.whatever
-        // value: item.ID, // or item.ID, or item.whatever
+        value: item.id,
       }));
 
       setSupplierOptions(transformed);
@@ -157,7 +156,7 @@ function Home() {
   const [activeGroupingRow, setActiveGroupingRow] = useState<number | null>(null);
 
   const handleNewGroup = (values: any) => {
-    console.log('Group submitted:', values);
+    // console.log('Group submitted:', values);
 
     const newGroup = {
       label: values['Title'],
@@ -180,7 +179,7 @@ function Home() {
     getGroupList('/ExistenceCategory', (rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.Title,
-        value: item.ID, // or item.ID, or item.whatever
+        value: item.ID,
       }));
 
       setGroupingOptions(transformed);
@@ -196,7 +195,7 @@ function Home() {
   };
 
   const handleNewItem = (values: any) => {
-    console.log('item values', values);
+    // console.log('item values', values);
 
     const newItem = {
       label: values['title'],
@@ -219,23 +218,11 @@ function Home() {
     setIsItemModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   getProductsList('/Stuff', (rawData: any) => {
-  //     const transformed = rawData.map((item: any) => ({
-  //       // label: item.TitlePersian ? item.TitlePersian : '',
-  //       label: item.Title ? item.Title : '',
-  //       value: item.ID ? item.ID : '',
-  //     }));
-
-  //     setItemOptions(transformed);
-  //   });
-  // }, [itemOptions]);
-
   useEffect(() => {
     getStuffbyId((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.Title || item.text,
-        value: item.id, // or item.ID, or item.whatever
+        value: item.id,
       }));
 
       setItemOptions(transformed);
@@ -311,7 +298,6 @@ function Home() {
             ].includes(dataIndex)
           ) {
             const qty = parseFloat(updatedRow.qty) || 0;
-            // Remove commas before converting to a number:
             const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
 
             // هزینه کل

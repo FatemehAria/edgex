@@ -9,7 +9,6 @@ import ListOfProformaEdit from './ListOfProformaEdit';
 import { deleteProforma, getProformaList } from './util';
 
 function ListOfProforma() {
-  const { isEdittingProforma, setIsEdittingProforma } = useContext(IsEdittingProformaContext);
 
   return (
     <div style={{ minHeight: ' 100vh' }}>
@@ -26,8 +25,6 @@ function ListOfProforma() {
         getLists={getProformaList}
         updateValues={() => console.log('update proforma')}
         createListItem={() => console.log('create proforma')}
-        isEdittingProforma={isEdittingProforma}
-        setIsEdittingProforma={setIsEdittingProforma}
       />
     </div>
   );

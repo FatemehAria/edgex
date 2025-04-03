@@ -21,8 +21,6 @@ interface ListComponentProps {
   setGroupValue?: React.Dispatch<React.SetStateAction<any[]>>;
   groupValue?: any[];
   catId?: any;
-  isEdittingProforma?: boolean;
-  setIsEdittingProforma?: any;
 }
 
 function ListComponent({
@@ -42,8 +40,6 @@ function ListComponent({
   setGroupValue,
   groupValue,
   catId,
-  isEdittingProforma,
-  setIsEdittingProforma,
 }: ListComponentProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
@@ -52,7 +48,8 @@ function ListComponent({
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { isCopyingProforma, setIsCopyingProforma, proformaStatus } = useContext(IsEdittingProformaContext);
+  const { isCopyingProforma, setIsCopyingProforma, proformaStatus, setIsEdittingProforma, isEdittingProforma } =
+    useContext(IsEdittingProformaContext);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -98,11 +95,10 @@ function ListComponent({
 
     const rowToEdit = { ...record };
 
-    // This is a pure edit so ensure copy flags are off.
     rowToEdit.isCopied = false;
 
     setIsEdittingProforma && setIsEdittingProforma(true);
-    // Explicitly set copying flag to false
+
     setIsCopyingProforma(false);
     setSelectedRowForEdit(rowToEdit);
     setIsEditModalOpen(true);
@@ -229,11 +225,14 @@ function ListComponent({
       <Modal
         title="ویرایش اطلاعات"
         open={isEditModalOpen && (typeof isEdittingProforma === 'boolean' ? isEdittingProforma : true)}
-        onCancel={() => setIsEditModalOpen(false)}
+        onCancel={() => (setIsEditModalOpen(false), setIsEdittingProforma(false))}
         footer={null}
         closable={!isCopied || !isCopyingProforma}
         maskClosable={!isCopied || !isCopyingProforma}
         width={1000}
+        afterClose={() => {
+          setIsEdittingProforma(false);
+        }}
       >
         <ModalComponent
           key={selectedRowForEdit?.key || 'new'}

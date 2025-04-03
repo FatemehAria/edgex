@@ -92,8 +92,8 @@ export function ListOfProformaColumns({
     // تایید وضعیت
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.proformaStatus' })}</span>,
-      dataIndex: 'StatusTitle',
-      key: 'StatusTitle',
+      dataIndex: 'statusCode',
+      key: 'statusCode',
       width: 200,
       render: (text: any, record: any) => (
         <span className="center-align">
