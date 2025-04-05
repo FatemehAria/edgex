@@ -77,7 +77,7 @@ export const Columns = (
             label: group.label,
             value: group.value,
           }))}
-          debounceTime={5000}
+          debounceTime={3000}
           mode="tags"
           editableOptions={true}
           allowAddNew={true}
@@ -103,14 +103,12 @@ export const Columns = (
           text={text}
           record={record}
           handleCellChange={handleCellChange}
-          // Pass in the items options from Home via props (ensure your component is set up to receive this)
           initialOptions={itemOptions}
-          debounceTime={5000}
+          debounceTime={3000}
           mode="tags"
           editableOptions={true}
-          allowAddNew={true} // Enable the add new button
+          allowAddNew={true}
           onAddNew={() => {
-            // When user clicks add new, open the modal and mark this row as active.
             openItemModal();
             setActiveItemRow(record.key);
           }}
@@ -134,7 +132,7 @@ export const Columns = (
           mode="tags"
           handleCellChange={handleCellChange}
           initialOptions={supplierOptions}
-          debounceTime={5000}
+          debounceTime={3000}
           allowAddNew={true}
           onAddNew={() => {
             setIsSupplierModalOpen(true);
@@ -157,7 +155,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
           onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
           style={{ width: '100%' }}
-          debounceTime={5000}
+          debounceTime={3000}
         />
       ),
     },
@@ -176,7 +174,7 @@ export const Columns = (
           type="number"
           onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
           style={{ width: '100%' }}
-          debounceTime={5000}
+          debounceTime={3000}
           min={0}
         />
       ),
@@ -195,7 +193,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
           onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
           style={{ width: '100%' }}
-          debounceTime={5000}
+          debounceTime={3000}
         />
       ),
     },
@@ -225,7 +223,7 @@ export const Columns = (
           type="text"
           onDebouncedChange={value => handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin')}
           style={{ width: '100%' }}
-          debounceTime={5000}
+          debounceTime={3000}
         />
       ),
     },
@@ -348,7 +346,7 @@ export const Columns = (
           type="input"
           onDebouncedChange={value => handleCellChange(value, record.key, 'itemSalePriceRounded')}
           style={{ width: '100%' }}
-          debounceTime={5000}
+          debounceTime={3000}
         />
       ),
     },

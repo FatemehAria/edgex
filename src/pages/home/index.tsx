@@ -168,6 +168,13 @@ function Home() {
 
     setGroupingOptions(prev => [...prev, newGroup]);
 
+    if (activeGroupingRow !== null) {
+      setTableData(prevData =>
+        prevData.map(row => (row.key === activeGroupingRow ? { ...row, category: newGroup.value } : row)),
+      );
+      setActiveGroupingRow(null);
+    }
+
     createProformaCategory(newGroup);
 
     setGroupRefresh(prev => !prev);

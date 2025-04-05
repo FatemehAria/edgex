@@ -69,7 +69,6 @@ const AutoFocusAddableSelect = ({
   }, [initialOptions, allowAddNew, formatMessage]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
-  // For single select use string; for multiple/tags, use array.
   const [selected, setSelected] = useState(() => {
     const stored = localStorage.getItem(localStorageKey);
 
@@ -84,7 +83,7 @@ const AutoFocusAddableSelect = ({
     }
   });
 
-  // const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!text && initialOptions.length > 0) {
@@ -144,17 +143,17 @@ const AutoFocusAddableSelect = ({
       console.log('selected', selected);
     }
 
-    // if (timeoutRef.current) {
-    //   window.clearTimeout(timeoutRef.current);
-    // }
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+    }
 
-    // timeoutRef.current = window.setTimeout(() => {
-    //   if (nextId) {
-    //     const nextElem = document.getElementById(nextId);
+    timeoutRef.current = window.setTimeout(() => {
+      if (nextId) {
+        const nextElem = document.getElementById(nextId);
 
-    //     if (nextElem) nextElem.focus();
-    //   }
-    // }, debounceTime);
+        if (nextElem) nextElem.focus();
+      }
+    }, debounceTime);
   };
 
   useEffect(() => {
@@ -165,13 +164,10 @@ const AutoFocusAddableSelect = ({
     }
   }, [text, mode]);
 
-  // --- Editable Options Logic ---
-  // State for controlling the edit modal.
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editingOption, setEditingOption] = useState<{ value: string; label: string; originalValue: any } | null>(null);
   const [editedValue, setEditedValue] = useState('');
 
-  // When the edit icon is clicked.
   const handleEditClick = (option: { value: string; label: string }, e: React.MouseEvent) => {
     e.stopPropagation();
     setEditingOption({ ...option, originalValue: option.value });
@@ -191,7 +187,6 @@ const AutoFocusAddableSelect = ({
     }
   };
 
-  // Transform options to include an edit icon if editableOptions is true.
   const transformedOptions = editableOptions
     ? options.map(opt => ({
         ...opt,

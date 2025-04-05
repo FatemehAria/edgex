@@ -65,7 +65,8 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 
     const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
       key: index + 1,
-      PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
+      // PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
+      PerformaInvoiceDetailID: detail.id,
       id: detail.id,
       code: detail.code,
       // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
