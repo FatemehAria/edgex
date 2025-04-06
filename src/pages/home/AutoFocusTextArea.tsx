@@ -1,3 +1,4 @@
+import { useDebouncedFocus } from '@/hooks/useDebouncedFocus';
 import { Input } from 'antd';
 import React, { useRef } from 'react';
 
@@ -17,33 +18,24 @@ const AutoFocusTextArea: React.FC<AutoFocusTextAreaProps> = ({
   debounceTime = 500,
   ...rest
 }) => {
-  const timeoutRef = useRef<number | null>(null);
+  const { handleChange, handleFocus, handlePaste } = useDebouncedFocus<HTMLTextAreaElement>({
+    nextId,
+    onDebouncedChange,
+    debounceTime,
+    onChange: rest.onChange,
+    onPaste: rest.onPaste,
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-
-    onDebouncedChange(value);
-
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = window.setTimeout(() => {
-      if (nextId) {
-        const nextElem = document.getElementById(nextId);
-
-        if (nextElem) {
-          nextElem.focus();
-        }
-      }
-    }, debounceTime);
-
-    if (rest.onChange) {
-      rest.onChange(e);
-    }
-  };
-
-  return <Input.TextArea id={id} {...rest} onChange={handleChange} />;
+  return (
+    <Input.TextArea
+      id={id}
+      {...rest}
+      onChange={handleChange}
+      onFocus={handleFocus}
+      autoComplete="on"
+      onPaste={handlePaste}
+    />
+  );
 };
 
 export default AutoFocusTextArea;

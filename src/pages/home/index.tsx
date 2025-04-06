@@ -20,6 +20,7 @@ import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import ProformaTable from './ProformaTable';
 import { createProformaCategory, createProformaStuff, getStuffbyId } from './util';
+import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 
 function Home() {
   const { token } = theme.useToken();
@@ -73,30 +74,6 @@ function Home() {
     setIsCustomerModalOpen(true);
   };
 
-  // وقتی خالی باشه و مشتری جدید اضافه کنیم
-  const handleNewCustomer = (values: any) => {
-    // console.log('values for new customer', values);
-    const newCustomer = {
-      label: values['companyPersonTitle'],
-      value: values['companyPersonTitle'],
-      companyPersonType: values['companyPersonType'],
-      companyPersonTitle: values['companyPersonTitle'],
-      telephone: values['telephone'],
-      provinceID: values['provinceID'],
-      cityID: values['cityID'],
-      address: values['address'],
-      isActive: values['isActive'],
-    };
-
-    setCustomerOptions(prev => [...prev, newCustomer]);
-
-    setSelectedCostumer(newCustomer.value);
-
-    createCustomer(newCustomer);
-
-    setIsCustomerModalOpen(false);
-  };
-
   useEffect(() => {
     form.setFieldsValue({ 'header-info-costumer': selectedCostumer });
   }, [selectedCostumer, form]);
@@ -116,29 +93,6 @@ function Home() {
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
   const [activeSupplierRow, setActiveSupplierRow] = useState<number | null>(null);
 
-  const handleNewSupplier = (values: any) => {
-    const newSupplier = {
-      label: values['companyPersonTitle'],
-      value: values['companyPersonTitle'],
-      personTypeCode: values['personTypeCode'],
-      companyPersonTitle: values['companyPersonTitle'],
-      isActive: values['isActive'],
-    };
-
-    setSupplierOptions(prev => [...prev, newSupplier]);
-
-    if (activeSupplierRow !== null) {
-      setTableData(prevData =>
-        prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
-      );
-      setActiveSupplierRow(null);
-    }
-
-    createSupplier(values);
-
-    setIsSupplierModalOpen(false);
-  };
-
   useEffect(() => {
     getSuppliersList((rawData: any) => {
       const transformed = rawData.map((item: any) => ({
@@ -152,35 +106,7 @@ function Home() {
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
   const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);
-  const [groupRefresh, setGroupRefresh] = useState(false);
   const [activeGroupingRow, setActiveGroupingRow] = useState<number | null>(null);
-
-  const handleNewGroup = (values: any) => {
-    // console.log('Group submitted:', values);
-
-    const newGroup = {
-      label: values['Title'],
-      value: values['Title'],
-      Title: values['Title'],
-      'grp-specification-title-persian': values['TitlePersian'],
-      ExistenceCode: values['ExistenceCode'] || '1',
-    };
-
-    setGroupingOptions(prev => [...prev, newGroup]);
-
-    if (activeGroupingRow !== null) {
-      setTableData(prevData =>
-        prevData.map(row => (row.key === activeGroupingRow ? { ...row, category: newGroup.value } : row)),
-      );
-      setActiveGroupingRow(null);
-    }
-
-    createProformaCategory(newGroup);
-
-    setGroupRefresh(prev => !prev);
-
-    setIsGroupingModalOpen(false);
-  };
 
   useEffect(() => {
     getGroupList('/ExistenceCategory', (rawData: any) => {
@@ -191,7 +117,7 @@ function Home() {
 
       setGroupingOptions(transformed);
     });
-  }, [groupRefresh]);
+  }, []);
 
   const [itemOptions, setItemOptions] = useState<any[]>([]);
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
@@ -199,30 +125,6 @@ function Home() {
 
   const openItemModal = () => {
     setIsItemModalOpen(true);
-  };
-
-  const handleNewItem = (values: any) => {
-    // console.log('item values', values);
-
-    const newItem = {
-      label: values['title'],
-      value: values['title'],
-      Title: values['title'],
-      TitlePersian: values['titlePersian'],
-      Description: values['description'],
-    };
-
-    setItemOptions(prev => [...prev, newItem]);
-
-    if (activeItemRow !== null) {
-      setTableData(prevData =>
-        prevData.map(row => (row.key === activeItemRow ? { ...row, items: newItem.value } : row)),
-      );
-      setActiveItemRow(null);
-    }
-
-    createProformaStuff(newItem);
-    setIsItemModalOpen(false);
   };
 
   useEffect(() => {
@@ -278,112 +180,6 @@ function Home() {
     return newRow;
   };
 
-  const isRowFilled = (row: any) => {
-    const requiredFields = ['qty', 'unitCost', 'recordProfitMargin'];
-
-    return requiredFields.every(field => {
-      const value = row[field];
-
-      return value !== undefined && value !== null && value.toString().trim() !== '';
-    });
-  };
-
-  const handleCellChange = (value: string, key: string, dataIndex: string) => {
-    setTableData(prevData =>
-      prevData.map(row => {
-        if (row.key === key) {
-          const updatedRow = { ...row, [dataIndex]: value };
-
-          if (
-            [
-              'qty',
-              'unitCost',
-              'factorValue',
-              'itemSalePriceRounded',
-              'recordProfitMargin',
-              'footerInsuranceCoefficient',
-            ].includes(dataIndex)
-          ) {
-            const qty = parseFloat(updatedRow.qty) || 0;
-            const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
-
-            // هزینه کل
-            updatedRow.totalPriceWithoutFactors = qty * unitCost;
-
-            const {
-              'record-percentage-discount': percentageDiscount = 0,
-              'record-commute': commute = 0,
-              'record-amount-discount': amountDiscount = 0,
-            } = updatedRow.modalValues || {};
-
-            // قیمت فروش اولیه
-            const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
-
-            updatedRow.primarySalesPrice = primarySalesPrice;
-
-            // قیمت کل آیتم
-            const itemTotalPrice = primarySalesPrice * qty;
-
-            updatedRow.itemTotalPrice = itemTotalPrice;
-
-            // مبلغ بیمه برای هر رکورد
-            const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
-
-            updatedRow.insurancePriceForRecord = insurancePriceForRecord;
-
-            // const totalCost = totalCostOfRows || 1;
-            const qtyNumber = qty || 1;
-
-            const sumOfItemTotalPrice = tableData.reduce(
-              (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
-              0,
-            );
-
-            console.log(sumOfItemTotalPrice);
-            const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
-
-            // سهم آیتم از بیمه و مالیات
-            // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
-            const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
-
-            // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
-            updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
-
-            // قیمت فروش آیتم
-            const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
-
-            updatedRow.itemSalePrice = itemSalePrice;
-            // قیمت فروش آیتم رند شده
-
-            if (dataIndex === 'itemSalePriceRounded') {
-              updatedRow.itemSalePriceRounded = formatValue(value);
-            } else {
-              updatedRow.itemSalePriceRounded = formatValue(String(Math.round(itemSalePrice)));
-            }
-
-            // قیمت فروش نهایی
-            const finalSalePrice = parseFloat(String(updatedRow.itemSalePriceRounded).replace(/,/g, '')) * qty;
-
-            updatedRow.finalSalePrice = finalSalePrice;
-
-            const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
-
-            updatedRow.totalPriceWithFactors =
-              primarySalesPrice +
-              Number(commute) +
-              updatedRow.totalPriceWithoutFactors -
-              Number(amountDiscount) -
-              recordPercentageDiscount;
-          }
-
-          return updatedRow;
-        }
-
-        return row;
-      }),
-    );
-  };
-
   useEffect(() => {
     const lastRow = tableData[tableData.length - 1];
 
@@ -392,22 +188,8 @@ function Home() {
     }
   }, [tableData]);
 
-  const deleteRow = (key: string) => {
-    setTableData(prevData => {
-      const rowToDelete = prevData.find(row => row.key === key);
-
-      if (rowToDelete && prevData[0].key === rowToDelete.key && !isRowFilled(rowToDelete)) {
-        return prevData;
-      }
-
-      return prevData.filter(row => row.key !== key);
-    });
-  };
-
   const columns = Columns(
     formatMessage, // 1. formatMessage
-    handleCellChange, // 2. handleCellChange
-    deleteRow, // 3. deleteRow
     tableData, // 4. tableData
     isRowFilled, // 5. isRowFilled
     setIsSupplierModalOpen, // 6. setIsSupplierModalOpen
@@ -480,13 +262,7 @@ function Home() {
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
         items={getItems(panelStyle)}
-      >
-        {/* {getItems(panelStyle).map((item: any) => (
-          <Collapse.Panel key={item.key} header={item.label} style={item.style}>
-            {item.children}
-          </Collapse.Panel>
-        ))} */}
-      </Collapse>
+      ></Collapse>
 
       {/* Modal for adding a new customer */}
       <Modal
@@ -495,7 +271,11 @@ function Home() {
         onCancel={() => setIsCustomerModalOpen(false)}
         footer={null}
       >
-        <ProformaCostumer onCustomerSubmit={handleNewCustomer} />
+        <ProformaCostumer
+          onCustomerSubmit={values =>
+            handleNewCustomer(values, setCustomerOptions, setSelectedCostumer, setIsCustomerModalOpen)
+          }
+        />
       </Modal>
 
       <Modal
@@ -504,7 +284,18 @@ function Home() {
         onCancel={() => setIsSupplierModalOpen(false)}
         footer={null}
       >
-        <ProformaSupplier onSupplierSubmit={handleNewSupplier} />
+        <ProformaSupplier
+          onSupplierSubmit={values =>
+            handleNewSupplier(
+              values,
+              setSupplierOptions,
+              activeSupplierRow,
+              setTableData,
+              setActiveGroupingRow,
+              setIsSupplierModalOpen,
+            )
+          }
+        />
       </Modal>
 
       <Modal
@@ -513,7 +304,18 @@ function Home() {
         onCancel={() => setIsGroupingModalOpen(false)}
         footer={null}
       >
-        <ProformaGrouping onGroupSubmit={handleNewGroup} />
+        <ProformaGrouping
+          onGroupSubmit={values =>
+            handleNewGroup(
+              values,
+              setGroupingOptions,
+              setIsGroupingModalOpen,
+              activeGroupingRow,
+              setTableData,
+              setActiveGroupingRow,
+            )
+          }
+        />
       </Modal>
 
       <Modal
@@ -522,7 +324,11 @@ function Home() {
         onCancel={() => setIsItemModalOpen(false)}
         footer={null}
       >
-        <ProformaStuff onItemSubmit={handleNewItem} />
+        <ProformaStuff
+          onItemSubmit={values =>
+            handleNewItem(values, setItemOptions, activeItemRow, setTableData, setActiveItemRow, setIsItemModalOpen)
+          }
+        />
       </Modal>
     </div>
   );

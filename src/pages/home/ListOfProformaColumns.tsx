@@ -20,7 +20,7 @@ export function ListOfProformaColumns({
   refreshList: any;
 }) {
   const { formatMessage } = useLocale();
-  const { setSingleProformaInfo, setHeaderData, setProformaStatus, setSelectedProformaInfo } =
+  const { setSingleProformaInfo, setHeaderData, setProformaStatus, setSelectedProformaInfo, proformaStatus } =
     useContext(IsEdittingProformaContext);
 
   return [
@@ -161,6 +161,7 @@ export function ListOfProformaColumns({
           </span>
         );
       },
+      hidden: proformaStatus,
     },
     // حذف
     {

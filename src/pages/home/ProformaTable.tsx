@@ -13,7 +13,6 @@ function ProformaTable({
   tableData,
   columns,
   formatMessage,
-  // footerInsuranceCoefficient,
   insurancePrice,
   setinsurancePrice,
   setTotalCostOfRows,
@@ -23,8 +22,6 @@ function ProformaTable({
   tableData: any;
   columns: any;
   formatMessage: any;
-  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
-  // footerInsuranceCoefficient: string;
   insurancePrice: number;
   setinsurancePrice: Dispatch<SetStateAction<number>>;
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
@@ -40,26 +37,14 @@ function ProformaTable({
     singleProformaInfo,
   } = useContext(IsEdittingProformaContext);
 
-  // useEffect(() => {
-  //   // Calculate the total cost (sum of itemTotalPrice)
-  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
-
-  //   setTotalCostOfRows(totalCost);
-
-  //   // Calculate the insurance price based on the footer coefficient
-  //   const calculatedInsurancePrice = Number(footerInsuranceCoefficient) * totalCost;
-
-  //   setinsurancePrice(calculatedInsurancePrice);
-  // }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows, setinsurancePrice]);
-
   useEffect(() => {
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
 
     setTotalCostOfRows(totalCost);
 
     const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
-      const rowTotal = parseFloat(row.itemTotalPrice) || 0; // defaults to 0 if NaN or empty
-      const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0; // defaults to 0 if undefined
+      const rowTotal = parseFloat(row.itemTotalPrice) || 0;
+      const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
 
       return sum + rowTotal * rowCoefficient;
     }, 0);
@@ -67,7 +52,6 @@ function ProformaTable({
     setinsurancePrice(calculatedInsurancePrice);
   }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
-  // const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, footerInsuranceCoefficient);
   const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, isEdittingProforma, singleProformaInfo);
 
   console.log('payload', payload);
@@ -91,38 +75,9 @@ function ProformaTable({
         columns={columns}
         pagination={false}
         rowClassName="editable-row"
-        scroll={{ x: 3000 }}
+        scroll={{ x: 'max-content' }}
         footer={() => {
           const finalValues = calculateFinalValues(tableData, insurancePrice);
-          // const totalFinalSalePrice = tableData.reduce(
-          //   (sum: number, row: any) => sum + (parseFloat(row.finalSalePrice) || 0),
-          //   0,
-          // );
-          // const vat = 0.1 * totalFinalSalePrice;
-          // const total = vat + totalFinalSalePrice;
-          // const tenPercentTax = 0.1 * totalFinalSalePrice;
-          // const finalProfit =
-          //   totalFinalSalePrice -
-          //   tenPercentTax -
-          //   insurancePrice -
-          //   tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.totalPriceWithoutFactors) || 0), 0);
-          // const totalProfitMargin = totalFinalSalePrice > 0 ? (finalProfit * 100) / totalFinalSalePrice : 0;
-          // const insuranceCheckAmount = 0.0778 * totalFinalSalePrice;
-
-          // const FooterTableData = [
-          //   {
-          //     key: 'footer',
-          //     vat: `${Math.round(vat)
-          //       .toString()
-          //       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-          //     total: `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-          //     finalProfit: `${finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-          //     finalProfitMargin: `${totalProfitMargin}`,
-          //     insuranceCheckAmount: `${Math.round(insuranceCheckAmount)
-          //       .toString()
-          //       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-          //   },
-          // ];
           const FooterTableData = [
             {
               key: 'footer',

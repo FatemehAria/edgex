@@ -115,7 +115,6 @@ export const EditColumns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.category.placeholder' })}
           text={text}
           record={record}
-          handleCellChange={handleCellChange}
           initialOptions={groupingOptions.map((group: any) => ({
             label: group.label,
             value: group.value,
@@ -128,6 +127,8 @@ export const EditColumns = (
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
           }}
+          setTableData={setTableData}
+          tableData={tableData}
         />
       ),
     },
@@ -145,7 +146,6 @@ export const EditColumns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.items.placeholder' })}
           text={text}
           record={record}
-          handleCellChange={handleCellChange}
           initialOptions={itemOptions}
           debounceTime={5000}
           mode="tags"
@@ -155,6 +155,8 @@ export const EditColumns = (
             openItemModal();
             setActiveItemRow(record.key);
           }}
+          setTableData={setTableData}
+          tableData={tableData}
         />
       ),
     },
@@ -173,7 +175,6 @@ export const EditColumns = (
           text={text}
           record={record}
           mode="tags"
-          handleCellChange={handleCellChange}
           initialOptions={supplierOptions}
           debounceTime={5000}
           allowAddNew={true}
@@ -181,6 +182,8 @@ export const EditColumns = (
             setIsSupplierModalOpen(true);
             setActiveSupplierRow(record.key);
           }}
+          setTableData={setTableData}
+          tableData={tableData}
         />
       ),
     },
@@ -234,7 +237,7 @@ export const EditColumns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
-          onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
+          onDebouncedChange={value => handleValueChange(value, record, 'unitCost', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={5000}
         />

@@ -16,7 +16,6 @@ import FormLayout from '../layout/form-layout';
 import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { createSupplier, getSuppliersList } from '../supplier/util';
-import { Columns } from './Columns';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { EditColumns } from './EditColumns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
@@ -407,7 +406,7 @@ function ListOfProformaEdit() {
     });
   };
 
-  const columns = EditColumns(
+  const allColumns = EditColumns(
     formatMessage, // 1. formatMessage
     handleCellChange, // 2. handleCellChange
     deleteRow, // 3. deleteRow
@@ -425,6 +424,8 @@ function ListOfProformaEdit() {
     setActiveItemRow, // 17. setActiveItemRow
     setTableData, // 18. setTableData
   );
+
+  const columns = allColumns.filter(col => !col.hidden);
 
   useEffect(() => {
     if (headerData) {

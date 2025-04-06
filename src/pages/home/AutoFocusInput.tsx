@@ -1,7 +1,9 @@
 import type { InputProps } from 'antd';
 
 import { Input } from 'antd';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+
+import { useDebouncedFocus } from '@/hooks/useDebouncedFocus';
 
 interface AutoFocusInputProps extends InputProps {
   id: string;
@@ -17,43 +19,17 @@ const AutoFocusInput: React.FC<AutoFocusInputProps> = ({
   debounceTime = 500,
   ...rest
 }) => {
-  const timeoutRef = useRef<number | null>(null);
+  const { handleChange, handleFocus, handlePaste } = useDebouncedFocus<HTMLInputElement>({
+    nextId,
+    onDebouncedChange,
+    debounceTime,
+    onChange: rest.onChange,
+    onPaste: rest.onPaste,
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    onDebouncedChange(value);
-
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = window.setTimeout(() => {
-      if (nextId) {
-        const nextElem = document.getElementById(nextId);
-
-        if (nextElem) {
-          nextElem.focus();
-        }
-      }
-    }, debounceTime);
-
-    if (rest.onChange) {
-      rest.onChange(e);
-    }
-  };
-
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      onDebouncedChange(e.currentTarget.value);
-    }, 0);
-
-    if (rest.onPaste) {
-      rest.onPaste(e);
-    }
-  };
-
-  return <Input id={id} {...rest} onChange={handleChange} autoComplete="on" onPaste={handlePaste} />;
+  return (
+    <Input id={id} {...rest} onChange={handleChange} onFocus={handleFocus} autoComplete="on" onPaste={handlePaste} />
+  );
 };
 
 export default AutoFocusInput;

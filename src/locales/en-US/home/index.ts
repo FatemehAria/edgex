@@ -85,4 +85,7 @@ export const enUs_home = {
   'app.home.columns.printEng': 'Print (English)',
   'app.home.columns.printPer': 'Print (Persian)',
   'app.home.redirectionBtn': 'View Proforma List',
+  'app.home.autoFocusAddableSelect': 'Edit',
+  'app.home.confirmationModal': 'Are you sure?',
+  'app.home.listEditModal': 'Edit info',
 };

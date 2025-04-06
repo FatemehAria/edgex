@@ -2,6 +2,7 @@ import { Modal, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { IsEdittingProformaContext } from '@/pages/home/context/IsEdittingProformaContext';
+import { useLocale } from '@/locales';
 // import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
@@ -41,6 +42,7 @@ function ListComponent({
   groupValue,
   catId,
 }: ListComponentProps) {
+  const { formatMessage } = useLocale();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const [tableData, setTableData] = useState<any[]>([]);
@@ -225,7 +227,7 @@ function ListComponent({
         loading={loading}
       />
       <Modal
-        title="ویرایش اطلاعات"
+        title={formatMessage({ id: 'app.home.listEditModal' })}
         open={isEditModalOpen && (typeof isEdittingProforma === 'boolean' ? isEdittingProforma : true)}
         onCancel={() => setIsEditModalOpen(false)}
         footer={null}
@@ -247,7 +249,7 @@ function ListComponent({
         />
       </Modal>
       <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>
-        <p>آیا از انجام عملیات مطمئنید؟</p>
+        <p>{formatMessage({ id: 'app.home.confirmationModal' })}</p>
       </Modal>
     </React.Fragment>
   );

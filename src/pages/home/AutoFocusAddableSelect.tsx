@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Input, Modal, Select } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { handleCellChange } from './home-utils';
 import { useLocale } from '@/locales';
 
 interface SelectOption {
@@ -12,7 +12,6 @@ interface SelectOption {
 interface AutoFocusAddableSelectProps {
   text: string;
   record: any;
-  handleCellChange: (value: string, key: string, dataIndex: string) => void;
   initialOptions: SelectOption[];
   dataIndex: string;
   placeholder: string;
@@ -23,12 +22,13 @@ interface AutoFocusAddableSelectProps {
   allowAddNew?: boolean;
   onAddNew?: () => void;
   editableOptions?: boolean;
+  setTableData: Dispatch<SetStateAction<any[]>>;
+  tableData: any[];
 }
 
 const AutoFocusAddableSelect = ({
   text,
   record,
-  handleCellChange,
   initialOptions,
   dataIndex,
   placeholder,
@@ -39,6 +39,8 @@ const AutoFocusAddableSelect = ({
   allowAddNew,
   onAddNew,
   editableOptions = false,
+  tableData,
+  setTableData,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
 
@@ -89,7 +91,7 @@ const AutoFocusAddableSelect = ({
     if (!text && initialOptions.length > 0) {
       const defaultVal = initialOptions[0].value;
 
-      handleCellChange(defaultVal, record.key, dataIndex);
+      handleCellChange(defaultVal, record.key, dataIndex, setTableData, tableData);
 
       localStorage.setItem(localStorageKey, defaultVal);
 
@@ -110,7 +112,7 @@ const AutoFocusAddableSelect = ({
       }
 
       setSelected(value);
-      handleCellChange(value, record.key, dataIndex);
+      handleCellChange(value, record.key, dataIndex, setTableData, tableData);
       localStorage.setItem(localStorageKey, value);
 
       if (!options.find(opt => opt.value === value)) {
@@ -130,7 +132,7 @@ const AutoFocusAddableSelect = ({
       if (newValue.length > 0) {
         const latestValue = newValue[newValue.length - 1];
 
-        handleCellChange(latestValue, record.key, dataIndex);
+        handleCellChange(latestValue, record.key, dataIndex, setTableData, tableData);
 
         localStorage.setItem(localStorageKey, latestValue);
 
@@ -218,7 +220,7 @@ const AutoFocusAddableSelect = ({
       />
       {isEditModalVisible && (
         <Modal
-          title="Edit Option"
+          title={formatMessage({ id: 'app.home.autoFocusAddableSelect' })}
           visible={isEditModalVisible}
           onCancel={() => setIsEditModalVisible(false)}
           onOk={handleEditSubmit}

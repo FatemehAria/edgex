@@ -11,11 +11,10 @@ import { handleValueChange } from '@/utils/formatTypingNums';
 import AutoFocusAddableSelect from './AutoFocusAddableSelect';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
+import { deleteRow, handleCellChange } from './home-utils';
 
 export const Columns = (
   formatMessage: (descriptor: any) => string,
-  handleCellChange: (value: string, key: string, dataIndex: string) => void,
-  deleteRow: (key: string) => void,
   tableData: any,
   isRowFilled: (row: any) => boolean,
   setIsSupplierModalOpen: any,
@@ -72,7 +71,6 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.category.placeholder' })}
           text={text}
           record={record}
-          handleCellChange={handleCellChange}
           initialOptions={groupingOptions.map((group: any) => ({
             label: group.label,
             value: group.value,
@@ -85,6 +83,8 @@ export const Columns = (
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
           }}
+          setTableData={setTableData}
+          tableData={tableData}
         />
       ),
     },
@@ -102,7 +102,6 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.items.placeholder' })}
           text={text}
           record={record}
-          handleCellChange={handleCellChange}
           initialOptions={itemOptions}
           debounceTime={3000}
           mode="tags"
@@ -112,6 +111,8 @@ export const Columns = (
             openItemModal();
             setActiveItemRow(record.key);
           }}
+          setTableData={setTableData}
+          tableData={tableData}
         />
       ),
     },
@@ -130,7 +131,6 @@ export const Columns = (
           text={text}
           record={record}
           mode="tags"
-          handleCellChange={handleCellChange}
           initialOptions={supplierOptions}
           debounceTime={3000}
           allowAddNew={true}
@@ -138,6 +138,8 @@ export const Columns = (
             setIsSupplierModalOpen(true);
             setActiveSupplierRow(record.key);
           }}
+          tableData={tableData}
+          setTableData={setTableData}
         />
       ),
     },
@@ -153,7 +155,7 @@ export const Columns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
-          onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'description', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -172,7 +174,7 @@ export const Columns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.qty.placeholder' })}
           type="number"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'qty', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={3000}
           min={0}
@@ -191,7 +193,7 @@ export const Columns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
-          onDebouncedChange={value => handleValueChange(value, handleCellChange, record, 'unitCost')}
+          onDebouncedChange={value => handleValueChange(value, record, 'unitCost', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -221,7 +223,9 @@ export const Columns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
-          onDebouncedChange={value => handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin')}
+          onDebouncedChange={value =>
+            handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin', setTableData, tableData)
+          }
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -297,7 +301,9 @@ export const Columns = (
               id: 'app.home.detailInfo.table.footerInsurancePrice',
             })}`}
             // onChange={value => setFooterInsuranceCoefficient(value)}
-            onChange={value => handleCellChange(value, record.key, 'footerInsuranceCoefficient')}
+            onChange={value =>
+              handleCellChange(value, record.key, 'footerInsuranceCoefficient', setTableData, tableData)
+            }
             options={[
               { label: '0.085', value: '0.085' },
               { label: '0.2', value: '0.2' },
@@ -344,7 +350,9 @@ export const Columns = (
           value={text}
           placeholder="Enter rounded sale price"
           type="input"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'itemSalePriceRounded')}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'itemSalePriceRounded', setTableData, tableData)
+          }
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -387,7 +395,7 @@ export const Columns = (
               icon={faTrashCan}
               onClick={() => {
                 if (!isDisabled) {
-                  deleteRow(record.key);
+                  deleteRow(record.key, setTableData);
                 }
               }}
               style={{
