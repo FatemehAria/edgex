@@ -35,6 +35,7 @@ function ProformaTable({
     isCopyingProforma,
     selectedProformaInfo,
     singleProformaInfo,
+    headerData,
   } = useContext(IsEdittingProformaContext);
 
   useEffect(() => {
@@ -52,7 +53,14 @@ function ProformaTable({
     setinsurancePrice(calculatedInsurancePrice);
   }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
-  const payload = createProformaPayload(tableData, insurancePrice, isRowFilled, isEdittingProforma, singleProformaInfo);
+  const payload = createProformaPayload(
+    tableData,
+    insurancePrice,
+    isRowFilled,
+    isEdittingProforma,
+    singleProformaInfo,
+    headerData,
+  );
 
   console.log('payload', payload);
 

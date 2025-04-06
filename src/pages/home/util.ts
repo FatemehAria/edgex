@@ -178,27 +178,31 @@ export function createProformaPayload(
   isRowFilled: any,
   isEdittingProforma: any,
   proformaInfo?: any,
+  existingHeader?: {
+    customerId: string;
+    descriptionHeader: string;
+    eventTitle: string;
+    date: string;
+  },
 ) {
-  const headerData = {
-    customerId: localStorage.getItem('header-info-costumer')
-      ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-      : proformaInfo.customerId,
-    descriptionHeader: localStorage.getItem('header-info-desc')
-      ? JSON.parse(localStorage.getItem('header-info-desc')!)
-      : proformaInfo.descriptionHeader
-      ? proformaInfo.descriptionHeader
-      : null,
-    eventTitle: localStorage.getItem('header-info-title')
-      ? JSON.parse(localStorage.getItem('header-info-title')!)
-      : proformaInfo.eventTitle
-      ? proformaInfo.eventTitle
-      : '',
-    date: localStorage.getItem('header-info-date')
-      ? JSON.parse(localStorage.getItem('header-info-date')!)
-      : proformaInfo.date
-      ? proformaInfo.date
-      : '',
-  };
+  console.log('proforma info', proformaInfo);
+  const customerId = localStorage.getItem('header-info-costumer')
+    ? JSON.parse(localStorage.getItem('header-info-costumer')!)
+    : existingHeader?.customerId ?? null;
+
+  const descriptionHeader = localStorage.getItem('header-info-desc')
+    ? JSON.parse(localStorage.getItem('header-info-desc')!)
+    : existingHeader?.descriptionHeader ?? null;
+
+  const eventTitle = localStorage.getItem('header-info-title')
+    ? JSON.parse(localStorage.getItem('header-info-title')!)
+    : existingHeader?.eventTitle ?? '';
+
+  const date = localStorage.getItem('header-info-date')
+    ? JSON.parse(localStorage.getItem('header-info-date')!)
+    : existingHeader?.date ?? '';
+
+  const headerData = { customerId, descriptionHeader, eventTitle, date };
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
 
