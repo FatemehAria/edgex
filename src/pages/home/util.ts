@@ -179,28 +179,28 @@ export function createProformaPayload(
   isEdittingProforma: any,
   proformaInfo?: any,
   existingHeader?: {
-    customerId: string;
-    descriptionHeader: string;
-    eventTitle: string;
-    date: string;
+    'header-info-costumer': string;
+    'header-info-desc': string;
+    'header-info-title': string;
+    'header-info-date': string;
   },
 ) {
-  console.log('proforma info', proformaInfo);
+  console.log('existingHeader', existingHeader);
   const customerId = localStorage.getItem('header-info-costumer')
     ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-    : existingHeader?.customerId ?? null;
+    : existingHeader?.['header-info-costumer'] ?? null;
 
   const descriptionHeader = localStorage.getItem('header-info-desc')
     ? JSON.parse(localStorage.getItem('header-info-desc')!)
-    : existingHeader?.descriptionHeader ?? null;
+    : existingHeader?.['header-info-desc'] ?? null;
 
   const eventTitle = localStorage.getItem('header-info-title')
     ? JSON.parse(localStorage.getItem('header-info-title')!)
-    : existingHeader?.eventTitle ?? '';
+    : existingHeader?.['header-info-title'] ?? '';
 
   const date = localStorage.getItem('header-info-date')
     ? JSON.parse(localStorage.getItem('header-info-date')!)
-    : existingHeader?.date ?? '';
+    : existingHeader?.['header-info-date'] ?? '';
 
   const headerData = { customerId, descriptionHeader, eventTitle, date };
 
