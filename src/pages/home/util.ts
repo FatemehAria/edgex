@@ -69,7 +69,8 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       code: detail.code,
       // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
       existenceCategoryID: detail.existenceCategoryID,
-      category: detail.existenceCategoryTitle?.value,
+      category: detail.existenceCategoryID,
+      items: detail.stuffParentID,
       supplier: detail.suplierParentID,
       qty: detail.quantity,
       unitCost: detail.costUnit,
@@ -185,7 +186,7 @@ export function createProformaPayload(
     'header-info-date': string;
   },
 ) {
-  console.log('existingHeader', existingHeader);
+  // console.log('existingHeader', existingHeader);
   const customerId = localStorage.getItem('header-info-costumer')
     ? JSON.parse(localStorage.getItem('header-info-costumer')!)
     : existingHeader?.['header-info-costumer'] ?? null;
