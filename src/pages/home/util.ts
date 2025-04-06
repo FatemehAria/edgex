@@ -23,8 +23,6 @@ export const createProforma = async (payload: any) => {
     // console.log(data);
   } catch (error) {
     toast.error('خطا در انجام عملیات');
-
-    // console.log(error);
   }
 };
 
