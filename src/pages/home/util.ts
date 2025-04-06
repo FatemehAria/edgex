@@ -182,12 +182,22 @@ export function createProformaPayload(
   const headerData = {
     customerId: localStorage.getItem('header-info-costumer')
       ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-      : null,
+      : proformaInfo.customerId,
     descriptionHeader: localStorage.getItem('header-info-desc')
       ? JSON.parse(localStorage.getItem('header-info-desc')!)
+      : proformaInfo.descriptionHeader
+      ? proformaInfo.descriptionHeader
       : null,
-    eventTitle: localStorage.getItem('header-info-title') ? JSON.parse(localStorage.getItem('header-info-title')!) : '',
-    date: localStorage.getItem('header-info-date') ? JSON.parse(localStorage.getItem('header-info-date')!) : '',
+    eventTitle: localStorage.getItem('header-info-title')
+      ? JSON.parse(localStorage.getItem('header-info-title')!)
+      : proformaInfo.eventTitle
+      ? proformaInfo.eventTitle
+      : '',
+    date: localStorage.getItem('header-info-date')
+      ? JSON.parse(localStorage.getItem('header-info-date')!)
+      : proformaInfo.date
+      ? proformaInfo.date
+      : '',
   };
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
