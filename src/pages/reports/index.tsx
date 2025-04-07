@@ -28,9 +28,9 @@ function Reports() {
     ? allColumns.filter(column => selectedColumnKeys.includes(column.key))
     : allColumns;
 
-  // useEffect(() => {
-  //   getReportsData();
-  // }, []);
+  useEffect(() => {
+    getReportsData();
+  }, []);
 
   return (
     <div style={{ height: '100vh', backgroundColor: token.colorBgBlur }}>
