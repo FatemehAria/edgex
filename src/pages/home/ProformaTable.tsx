@@ -2,13 +2,13 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import './columns.css';
 
-import { Button, Table } from 'antd';
+import { Button, FormInstance, Table } from 'antd';
 import { useContext, useEffect } from 'react';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import FooterTableColumns from './FooterTableColumns';
+import { isRowFilled, resetRowFields } from './home-utils';
 import { calculateFinalValues, createProforma, createProformaPayload, updateProforma } from './util';
-import { isRowFilled } from './home-utils';
 
 function ProformaTable({
   tableData,
@@ -18,7 +18,8 @@ function ProformaTable({
   setinsurancePrice,
   setTotalCostOfRows,
   totalCostOfRows,
-  // isRowFilled,
+  setTableData,
+  form,
 }: {
   tableData: any;
   columns: any;
@@ -27,7 +28,8 @@ function ProformaTable({
   setinsurancePrice: Dispatch<SetStateAction<number>>;
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
-  // isRowFilled: any;
+  setTableData: Dispatch<SetStateAction<any[]>>;
+  form: FormInstance<any>;
 }) {
   const {
     isEdittingProforma,
@@ -75,6 +77,12 @@ function ProformaTable({
     } else {
       await createProforma(payload);
     }
+
+    form.resetFields();
+    setTableData(prevData => prevData.map(row => resetRowFields(row)));
+
+    setinsurancePrice(0);
+    setTotalCostOfRows(0);
   };
 
   return (

@@ -10,8 +10,8 @@ import FormLayout from '../layout/form-layout';
 import { getNatureList } from './util';
 
 interface IncDecFactorsProps {
-  initialValues?: Record<string, any>; // Data for editing
-  onSubmit: (formData: Record<string, any>) => void | Promise<void> | null; // Callback for form submission
+  initialValues?: Record<string, any>;
+  onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
   showButton?: boolean;
 }
 

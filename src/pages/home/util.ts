@@ -109,6 +109,7 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
     // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
+      //بیمه
       {
         priceAgent: 0,
         percentAgent: 0,
@@ -116,6 +117,15 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
         ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
+      },
+      //درصد سود
+      {
+        priceAgent: 0,
+        percentAgent: 0,
+        // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
+        ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
+        agentsReducingIncreasingID: '19256e6d-b0a0-4d79-a534-220882e586e7',
+        amountAgent: parseFloat(row.recordProfitMargin) || 0,
       },
     ],
     suplierParentID: row.supplier,

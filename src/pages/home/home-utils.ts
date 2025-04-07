@@ -6,6 +6,36 @@ import { createCustomer } from '../costumer-info/util';
 import { createSupplier } from '../supplier/util';
 import { createProformaCategory, createProformaStuff } from './util';
 
+export const resetRowFields = (row: any) => {
+  return {
+    ...row,
+    category: '',
+    items: '',
+    supplier: '',
+    description: '',
+    qty: '',
+    unitCost: '',
+    totalPriceWithoutFactors: 0,
+    recordProfitMargin: 0,
+    primarySalesPrice: 0,
+    itemTotalPrice: 0,
+    footerInsuranceCoefficient: '0.085',
+    insurancePriceForRecord: 0,
+    itemShareOfTaxAndIns: 0,
+    itemSalePrice: 0,
+    itemSalePriceRounded: 0,
+    finalSalePrice: 0,
+    totalFinalSalePrice: 0,
+    totalProfitMargin: 0,
+    insuranceCheckAmount: 0,
+    vat: 0,
+    total: 0,
+    tenPercentTax: 0,
+    finalProfit: 0,
+    factorValue: '',
+  };
+};
+
 export const deleteRow = (key: string, setTableData: Dispatch<SetStateAction<any[]>>) => {
   setTableData(prevData => {
     const rowToDelete = prevData.find(row => row.key === key);

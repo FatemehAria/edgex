@@ -368,15 +368,16 @@ export const Columns = (
     },
     //کپی
     {
-      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>,
       dataIndex: 'copy',
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
+            className="copy-icon"
           />
         </span>
       ),
@@ -403,6 +404,7 @@ export const Columns = (
                 marginRight: 8,
                 opacity: isDisabled ? 0.4 : 1,
               }}
+              className="delete-icon"
             />
           </span>
         );

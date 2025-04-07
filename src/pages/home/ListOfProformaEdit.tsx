@@ -476,6 +476,9 @@ function ListOfProformaEdit() {
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}
+          setTableData={setTableData}
+          form={form}
+          // isRowFilled={isRowFilled}
         />
       ),
       style: panelStyle,

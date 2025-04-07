@@ -108,6 +108,8 @@ export function ListOfProformaColumns({
                   refreshList();
                 })
               }
+              className="status-icon"
+              style={{ cursor: 'pointer', marginRight: 8 }}
             />
           )}
         </span>
@@ -122,7 +124,12 @@ export function ListOfProformaColumns({
       render: (_: any, record: any) => {
         return (
           <span className="center-align">
-            <FontAwesomeIcon icon={faPrint} onClick={() => getEngReport(record.ID)} />
+            <FontAwesomeIcon
+              icon={faPrint}
+              onClick={() => getEngReport(record.ID)}
+              className="print-icon"
+              style={{ cursor: 'pointer', marginRight: 8 }}
+            />
           </span>
         );
       },
@@ -136,7 +143,12 @@ export function ListOfProformaColumns({
       render: (_: any, record: any) => {
         return (
           <span className="center-align">
-            <FontAwesomeIcon icon={faPrint} onClick={() => getPerReport(record.ID)} />
+            <FontAwesomeIcon
+              icon={faPrint}
+              onClick={() => getPerReport(record.ID)}
+              className="print-icon"
+              style={{ cursor: 'pointer', marginRight: 8 }}
+            />
           </span>
         );
       },
@@ -161,24 +173,8 @@ export function ListOfProformaColumns({
                 singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
                 setSelectedProformaInfo({ id: record.ID, code: record.Code })
               )}
-            />
-          </span>
-        );
-      },
-    },
-    // حذف
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.delete' })}</span>,
-      dataIndex: 'delete',
-      key: 'delete',
-      render: (_: any, record: any) => {
-        return (
-          <span className="center-align">
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              onClick={() => {
-                deleteRow(record);
-              }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              className="edit-icon"
             />
           </span>
         );
@@ -199,9 +195,30 @@ export function ListOfProformaColumns({
               setSelectedProformaInfo({ id: record.ID, code: record.Code })
             )}
             style={{ cursor: 'pointer', marginRight: 8 }}
+            className="copy-icon"
           />
         </span>
       ),
+    },
+    // حذف
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.delete' })}</span>,
+      dataIndex: 'delete',
+      key: 'delete',
+      render: (_: any, record: any) => {
+        return (
+          <span className="center-align">
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              onClick={() => {
+                deleteRow(record);
+              }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              className="delete-icon"
+            />
+          </span>
+        );
+      },
     },
   ];
 }

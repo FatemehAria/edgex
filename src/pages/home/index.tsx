@@ -6,21 +6,20 @@ import { useEffect, useState } from 'react';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
-import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
-import { createCustomer, getCustomersList } from '../costumer-info/util';
+import { getCustomersList } from '../costumer-info/util';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import { getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';
 import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
-import { createSupplier, getSuppliersList } from '../supplier/util';
+import { getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
-import { createProformaCategory, createProformaStuff, getStuffbyId } from './util';
+import { getStuffbyId } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -246,6 +245,8 @@ function Home() {
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}
+          setTableData={setTableData}
+          form={form}
           // isRowFilled={isRowFilled}
         />
       ),
