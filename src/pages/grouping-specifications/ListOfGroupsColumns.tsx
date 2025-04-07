@@ -75,11 +75,8 @@ export function ListOfGroupsColumns({
             <FontAwesomeIcon
               icon={faPenToSquare}
               onClick={() => handleEdit(record)}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              color="darkblue"
             />
           </span>
         );
@@ -87,15 +84,16 @@ export function ListOfGroupsColumns({
     },
     // کپی
     {
-      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>, // Adjust translation if needed
+      title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>,
       dataIndex: 'copy',
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
+            color="darkgreen"
           />
         </span>
       ),
@@ -113,11 +111,8 @@ export function ListOfGroupsColumns({
             <FontAwesomeIcon
               icon={faTrashCan}
               onClick={() => deleteRow(record)}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              color="red"
             />
           </span>
         );

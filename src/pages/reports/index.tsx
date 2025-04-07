@@ -1,9 +1,10 @@
 import { Select, Table, theme } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ListButtons from '@/components/custom/ListButtons';
 
 import ReportsColumns from './ReportsColumns';
+import { getReportsData } from './util';
 
 const { Option } = Select;
 
@@ -26,6 +27,10 @@ function Reports() {
   const visibleColumns = selectedColumnKeys.length
     ? allColumns.filter(column => selectedColumnKeys.includes(column.key))
     : allColumns;
+
+  // useEffect(() => {
+  //   getReportsData();
+  // }, []);
 
   return (
     <div style={{ height: '100vh', backgroundColor: token.colorBgBlur }}>

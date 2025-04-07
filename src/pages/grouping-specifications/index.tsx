@@ -19,7 +19,6 @@ function GroupingSpecifications({ initialValues = {}, showButton = false, onSubm
 
   const handleSubmission = (values: any) => {
     onSubmit(values);
-    // Update the key to force re-mounting the form
     setFormKey(prevKey => prevKey + 1);
   };
 

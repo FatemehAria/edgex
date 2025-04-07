@@ -48,16 +48,6 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFo
     },
   ];
 
-  // const handleFormSubmit = (values: Record<string, any>) => {
-  //   if (initialValues && initialValues.key) {
-  //     // Edit mode: merge the key into the values before submitting
-  //     onSubmit({ ...values, key: initialValues.key });
-  //   } else {
-  //     // Create mode
-  //     onSubmit(values);
-  //   }
-  // };
-
   return (
     <div className="form-container">
       <FormLayout
@@ -67,18 +57,6 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFo
         isGrid={false}
         showButton={showButton}
       />
-      {/* <MyForm
-        options={groupingSpecificationsFormOptions}
-        onFinish={values => console.log('Submitted values:', values)}
-        layout="vertical"
-        className="form-styling"
-      >
-        <Form.Item className="btn-container">
-          <Button type="primary" htmlType="submit" className="submit-button">
-            ثبت
-          </Button>
-        </Form.Item>
-      </MyForm> */}
     </div>
   );
 }

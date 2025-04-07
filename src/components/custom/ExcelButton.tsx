@@ -22,6 +22,7 @@ function ExcelButton() {
         fontWeight={700}
         style={{ margin: '1rem 0' }}
         onClick={() => getExcelReport()}
+        cursor="pointer"
       />
     </Tooltip>
   );

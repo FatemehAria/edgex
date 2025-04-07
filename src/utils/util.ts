@@ -36,7 +36,7 @@ export const getCity = async (setter: React.Dispatch<React.SetStateAction<never[
 
 export const getExcelReport = async () => {
   try {
-    const response = await fetch('https://localhost:7214/api/PerformaInvoiceHeader/export-excel', {
+    const response = await fetch('https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel', {
       headers: {
         Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf, video/mp4',
       },

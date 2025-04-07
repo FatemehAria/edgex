@@ -48,7 +48,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       FormOptions={groupingFormOptions}
       layoutDir="vertical"
       submitForm={values => {
-        console.log('Submitted values:', values);
+        // console.log('Submitted values:', values);
 
         if (onGroupSubmit) {
           onGroupSubmit(values);

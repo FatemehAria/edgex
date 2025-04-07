@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { IsEdittingProformaContext } from '@/pages/home/context/IsEdittingProformaContext';
 import { useLocale } from '@/locales';
+import { useSelector } from 'react-redux';
 // import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
@@ -43,6 +44,7 @@ function ListComponent({
   catId,
 }: ListComponentProps) {
   const { formatMessage } = useLocale();
+  const { locale } = useSelector(state => state.user);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRowForEdit, setSelectedRowForEdit] = useState<any>(null);
   const [tableData, setTableData] = useState<any[]>([]);
@@ -225,6 +227,7 @@ function ListComponent({
         className="custom-footer-table"
         // scroll={{ x: 2000 }}
         loading={loading}
+        pagination={{ position: locale === 'en_US' ? ['bottomLeft'] : ['bottomRight'] }}
       />
       <Modal
         title={formatMessage({ id: 'app.home.listEditModal' })}
