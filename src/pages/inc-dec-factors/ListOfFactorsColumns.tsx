@@ -137,11 +137,8 @@ function ListOfFactorsColumns({
             <FontAwesomeIcon
               icon={faPenToSquare}
               onClick={() => handleEdit(record)}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              className="edit-icon"
             />
           </span>
         );
@@ -156,8 +153,9 @@ function ListOfFactorsColumns({
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
+            className="copy-icon"
           />
         </span>
       ),
@@ -177,11 +175,8 @@ function ListOfFactorsColumns({
               onClick={() => {
                 deleteRow(record);
               }}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              className="delete-icon"
             />
           </span>
         );
