@@ -62,3 +62,12 @@ label {
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
+.delete-icon {
+  color: red;
+}
+.copy-icon {
+  color: darkgreen;
+}
+.edit-icon {
+  color: darkblue;
+}

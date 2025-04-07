@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { useLocale } from '@/locales';
 
 import FormLayout from '../layout/form-layout';
-import Grouping from './grouping';
 import { getGroupItems } from './grouping/util';
 
 interface ProductInfoEditProps {
@@ -18,13 +17,7 @@ interface ProductInfoEditProps {
   setGroupValue: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-function ProductInfoEdit({
-  initialValues = {},
-  showButton = false,
-  onSubmit,
-  setGroupValue,
-  groupValue,
-}: ProductInfoEditProps) {
+function ProductInfoEdit({ initialValues = {}, showButton = false, onSubmit }: ProductInfoEditProps) {
   const { formatMessage } = useLocale();
   const [treeData, setTreeData] = useState([]);
   const { locale } = useSelector(state => state.user);
@@ -44,11 +37,6 @@ function ProductInfoEdit({
   };
 
   const treeDataAnt = addTreeData();
-
-  const handleChange = (newValue: any) => {
-    console.log('new value', newValue);
-    setGroupValue(newValue);
-  };
 
   const productInfoEditformOptions: MyFormOptions = [
     {
@@ -92,7 +80,6 @@ function ProductInfoEdit({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {/* <Grouping groupValue={groupValue} setGroupValue={setGroupValue} /> */}
       <FormLayout
         FormOptions={productInfoEditformOptions}
         layoutDir="vertical"

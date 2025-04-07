@@ -76,7 +76,7 @@ export function ListOfGroupsColumns({
               icon={faPenToSquare}
               onClick={() => handleEdit(record)}
               style={{ cursor: 'pointer', marginRight: 8 }}
-              color="darkblue"
+              className="edit-icon"
             />
           </span>
         );
@@ -93,7 +93,7 @@ export function ListOfGroupsColumns({
             icon={faCopy}
             onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
-            color="darkgreen"
+            className="copy-icon"
           />
         </span>
       ),
@@ -112,7 +112,7 @@ export function ListOfGroupsColumns({
               icon={faTrashCan}
               onClick={() => deleteRow(record)}
               style={{ cursor: 'pointer', marginRight: 8 }}
-              color="red"
+              className="delete-icon"
             />
           </span>
         );

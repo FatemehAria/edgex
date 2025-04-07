@@ -20,7 +20,7 @@ function ListOfProductsColumns({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`} //gloabal.listcolumns.search
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
           value={selectedKeys[0]}
           onChange={e => {
             const value = e.target.value;
@@ -96,11 +96,8 @@ function ListOfProductsColumns({
             <FontAwesomeIcon
               icon={faPenToSquare}
               onClick={() => handleEdit(record)}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              className="edit-icon"
+              style={{ cursor: 'pointer', marginRight: 8 }}
             />
           </span>
         );
@@ -115,8 +112,9 @@ function ListOfProductsColumns({
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => copyRow(record)} // Call copy function
+            onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
+            className="copy-icon"
           />
         </span>
       ),
@@ -136,11 +134,8 @@ function ListOfProductsColumns({
               onClick={() => {
                 deleteRow(record);
               }}
-              // style={{
-              //   cursor: isDisabled ? 'not-allowed' : 'pointer',
-              //   marginRight: 8,
-              //   opacity: isDisabled ? 0.4 : 1,
-              // }}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+              className="delete-icon"
             />
           </span>
         );
