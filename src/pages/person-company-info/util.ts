@@ -77,10 +77,10 @@ export const createCostumer = async (values?: any) => {
       address: localStorage.getItem('person-company-address')
         ? JSON.parse(localStorage.getItem('person-company-address')!)
         : safeValues['address'],
-      isActiveSuplier: activeSupplierLocal || safeValues['isActiveSuplier'],
-      isActiveCustomer: activeCustomerLocal || safeValues['isActiveCustomer'],
-      isCustomer: isCustomerLocal || safeValues['isCustomer'],
-      isSuplier: isSuplierLocal || safeValues['isSuplier'],
+      isActiveSuplier: activeSupplierLocal !== null ? activeSupplierLocal : false,
+      isActiveCustomer: activeCustomerLocal !== null ? activeCustomerLocal : false,
+      isCustomer: isCustomerLocal !== null ? isCustomerLocal : false,
+      isSuplier: isSuplierLocal !== null ? isSuplierLocal : false,
     };
 
     console.log(dataToPost);

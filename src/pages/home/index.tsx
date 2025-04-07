@@ -246,7 +246,7 @@ function Home() {
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}
-          isRowFilled={isRowFilled}
+          // isRowFilled={isRowFilled}
         />
       ),
       style: panelStyle,

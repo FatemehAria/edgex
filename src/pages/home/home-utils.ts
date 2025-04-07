@@ -265,7 +265,7 @@ export const isRowFilled = (row: any) => {
     'category',
     // 'items',
     'supplier',
-    'description',
+    // 'description',
     'qty',
     'unitCost',
     'recordProfitMargin',

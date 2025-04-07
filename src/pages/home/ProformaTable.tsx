@@ -8,6 +8,7 @@ import { useContext, useEffect } from 'react';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import FooterTableColumns from './FooterTableColumns';
 import { calculateFinalValues, createProforma, createProformaPayload, updateProforma } from './util';
+import { isRowFilled } from './home-utils';
 
 function ProformaTable({
   tableData,
@@ -17,7 +18,7 @@ function ProformaTable({
   setinsurancePrice,
   setTotalCostOfRows,
   totalCostOfRows,
-  isRowFilled,
+  // isRowFilled,
 }: {
   tableData: any;
   columns: any;
@@ -26,7 +27,7 @@ function ProformaTable({
   setinsurancePrice: Dispatch<SetStateAction<number>>;
   setTotalCostOfRows: Dispatch<SetStateAction<number>>;
   totalCostOfRows: number;
-  isRowFilled: any;
+  // isRowFilled: any;
 }) {
   const {
     isEdittingProforma,
