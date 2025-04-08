@@ -5,6 +5,7 @@ import { formatValue } from '@/utils/formatTypingNums';
 import { createCustomer } from '../costumer-info/util';
 import { createSupplier } from '../supplier/util';
 import { createProformaCategory, createProformaStuff } from './util';
+import { Locale } from '@/interface/user/user';
 
 export const resetRowFields = (row: any) => {
   return {
@@ -199,13 +200,32 @@ export const handleNewSupplier = (
   setTableData: Dispatch<SetStateAction<any[]>>,
   setActiveSupplierRow: Dispatch<SetStateAction<number | null>>,
   setIsSupplierModalOpen: Dispatch<SetStateAction<boolean>>,
+  locale: Locale,
 ) => {
+  // console.log(values);
   const newSupplier = {
-    label: values['companyPersonTitle'],
-    value: values['companyPersonTitle'],
-    personTypeCode: values['personTypeCode'],
-    companyPersonTitle: values['companyPersonTitle'],
+    label: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
+    value: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
+    personTypeCode: Number(values['personTypeCode']),
+    namePersian: values['namePersian'],
+    familyPersian: values['familyPersian'],
+    name: values['name'],
+    family: values['family'],
+    title: values['title'],
+    titlePersian: values['titlePersian'],
+    email: values['email'],
+    mobile: values['mobile'],
+    telephone: values['telephone'],
+    codeNational: values['codeNational'],
+    provinceID: values['provinceID'],
+    cityID: values['cityID'],
+    address: values['address'],
+    zipCode: values['zipCode'],
     isActive: values['isActive'],
+    isActiveSuplier: values['isActiveSuplier'],
+    isSuplier: values['isSuplier'],
+    isActiveCustomer: values['isActiveCustomer'],
+    isCustomer: values['isCustomer'],
   };
 
   setSupplierOptions(prev => [...prev, newSupplier]);

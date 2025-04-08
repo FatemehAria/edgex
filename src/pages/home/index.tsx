@@ -20,11 +20,13 @@ import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
+import { useSelector } from 'react-redux';
 
 function Home() {
   const { token } = theme.useToken();
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
+  const { locale } = useSelector(state => state.user);
   // const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
@@ -294,6 +296,7 @@ function Home() {
               setTableData,
               setActiveGroupingRow,
               setIsSupplierModalOpen,
+              locale
             )
           }
         />

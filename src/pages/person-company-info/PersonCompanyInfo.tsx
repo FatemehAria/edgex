@@ -95,7 +95,6 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       },
       hidden: personType === '2',
     },
-
     {
       name: 'Family',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnameEng' })}`,

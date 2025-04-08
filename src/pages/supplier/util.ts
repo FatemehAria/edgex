@@ -24,13 +24,30 @@ export const getSuppliersList = async (
 };
 
 export const createSupplier = async (values: any) => {
-  console.log('values in create suolier', values);
+  // console.log('values in create suolier', values);
 
   try {
     const { data } = await customAxiosInstance.post('/Suplier/create', {
-      companyPersonTitle: values['companyPersonTitle'],
-      personTypeCode: values['personTypeCode'] === 'Haghighi' ? 1 : 2,
+      personTypeCode: Number(values['personTypeCode']),
+      namePersian: values['namePersian'],
+      familyPersian: values['familyPersian'],
+      name: values['name'],
+      family: values['family'],
+      title: values['title'],
+      titlePersian: values['titlePersian'],
+      email: values['email'],
+      mobile: values['mobile'],
+      telephone: values['telephone'],
+      codeNational: values['codeNational'],
+      provinceID: values['provinceID'],
+      cityID: values['cityID'],
+      address: values['address'],
+      zipCode: values['zipCode'],
       isActive: values['isActive'],
+      isActiveSuplier: values['isActiveSuplier'],
+      isSuplier: values['isSuplier'],
+      isActiveCustomer: values['isActiveCustomer'],
+      isCustomer: values['isCustomer'],
     });
 
     // console.log(data);
