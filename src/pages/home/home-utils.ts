@@ -1,3 +1,4 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { formatValue } from '@/utils/formatTypingNums';
@@ -5,7 +6,6 @@ import { formatValue } from '@/utils/formatTypingNums';
 import { createCustomer } from '../costumer-info/util';
 import { createSupplier } from '../supplier/util';
 import { createProformaCategory, createProformaStuff } from './util';
-import { Locale } from '@/interface/user/user';
 
 export const resetRowFields = (row: any) => {
   return {

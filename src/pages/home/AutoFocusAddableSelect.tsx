@@ -1,8 +1,12 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { EditOutlined } from '@ant-design/icons';
 import { Input, Modal, Select } from 'antd';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { handleCellChange } from './home-utils';
+import { useEffect, useRef, useState } from 'react';
+
 import { useLocale } from '@/locales';
+
+import { handleCellChange } from './home-utils';
 
 interface SelectOption {
   label: React.ReactNode | any;
@@ -182,7 +186,7 @@ const AutoFocusAddableSelect = ({
 
   const handleEditSubmit = () => {
     if (editingOption) {
-      localStorage.setItem(`editedOption-${editingOption.value}`, editedValue);
+      localStorage.setItem(`editedOption-${dataIndex}`, editedValue);
 
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
       setIsEditModalVisible(false);

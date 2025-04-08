@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
 import { useLocale } from '@/locales';
@@ -20,7 +21,6 @@ import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
-import { useSelector } from 'react-redux';
 
 function Home() {
   const { token } = theme.useToken();
@@ -296,7 +296,7 @@ function Home() {
               setTableData,
               setActiveGroupingRow,
               setIsSupplierModalOpen,
-              locale
+              locale,
             )
           }
         />

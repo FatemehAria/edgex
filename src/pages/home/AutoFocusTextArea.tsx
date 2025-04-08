@@ -1,6 +1,7 @@
-import { useDebouncedFocus } from '@/hooks/useDebouncedFocus';
 import { Input } from 'antd';
 import React, { useRef } from 'react';
+
+import { useDebouncedFocus } from '@/hooks/useDebouncedFocus';
 
 type TextAreaProps = React.ComponentProps<typeof Input.TextArea>;
 

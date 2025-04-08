@@ -152,7 +152,7 @@ export const Columns = (
       render: (text: string, record: any) => (
         <AutoFocusTextArea
           id={`cell-${record.key}-description`}
-          nextId={`cell-${record.key}-recordProfitMargin`}
+          nextId={`cell-${record.key}-qty`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
           onDebouncedChange={value => handleCellChange(value, record.key, 'description', setTableData, tableData)}

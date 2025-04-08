@@ -11,17 +11,18 @@ import { handleValueChange } from '@/utils/formatTypingNums';
 import AutoFocusAddableSelect from './AutoFocusAddableSelect';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
+import { deleteRow, handleCellChange } from './home-utils';
 
 export const EditColumns = (
   formatMessage: (descriptor: any) => string,
-  handleCellChange: (value: string, key: string, dataIndex: string) => void,
-  deleteRow: (key: string) => void,
   tableData: any,
   isRowFilled: (row: any) => boolean,
   setIsSupplierModalOpen: any,
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
   insurancePrice: number,
+  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
+  // footerInsuranceCoefficient: string,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],
@@ -199,7 +200,7 @@ export const EditColumns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
-          onDebouncedChange={value => handleCellChange(value, record.key, 'description')}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'description', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={5000}
         />
@@ -218,7 +219,7 @@ export const EditColumns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.qty.placeholder' })}
           type="number"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'qty')}
+          onDebouncedChange={value => handleCellChange(value, record.key, 'qty', setTableData, tableData)}
           style={{ width: '100%' }}
           debounceTime={5000}
           min={0}
@@ -267,7 +268,9 @@ export const EditColumns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
-          onDebouncedChange={value => handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin')}
+          onDebouncedChange={value =>
+            handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin', setTableData, tableData)
+          }
           style={{ width: '100%' }}
           debounceTime={5000}
         />
@@ -343,7 +346,9 @@ export const EditColumns = (
               id: 'app.home.detailInfo.table.footerInsurancePrice',
             })}`}
             // onChange={value => setFooterInsuranceCoefficient(value)}
-            onChange={value => handleCellChange(value, record.key, 'footerInsuranceCoefficient')}
+            onChange={value =>
+              handleCellChange(value, record.key, 'footerInsuranceCoefficient', setTableData, tableData)
+            }
             options={[
               { label: '0.085', value: '0.085' },
               { label: '0.2', value: '0.2' },
@@ -352,9 +357,7 @@ export const EditColumns = (
             style={{ outline: 'none' }}
           />
           <span>
-            {Number(record.insurancePriceForRecord)
-              .toFixed(6)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            <span>{(record.insurancePriceForRecord || 0).toFixed(6).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
           </span>
         </div>
       ),
@@ -390,7 +393,9 @@ export const EditColumns = (
           value={text}
           placeholder="Enter rounded sale price"
           type="input"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'itemSalePriceRounded')}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'itemSalePriceRounded', setTableData, tableData)
+          }
           style={{ width: '100%' }}
           debounceTime={5000}
         />
@@ -433,7 +438,7 @@ export const EditColumns = (
               icon={faTrashCan}
               onClick={() => {
                 if (!isDisabled) {
-                  deleteRow(record.key);
+                  deleteRow(record.key, setTableData);
                 }
               }}
               style={{

@@ -67,6 +67,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       PerformaInvoiceDetailID: detail.id,
       id: detail.id,
       code: detail.code,
+      description: detail.description,
       // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
       existenceCategoryID: detail.existenceCategoryID,
       category: detail.existenceCategoryID,
@@ -76,7 +77,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       unitCost: detail.costUnit,
       totalPriceWithoutFactors: detail.costTotal,
       insurancePriceForRecord: detail.insuranceTax,
-      footerInsuranceCoefficient: '0.085',
+      footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[1].amountAgent,
       itemShareOfTaxAndIns: detail.insuranceTax,
       primarySalesPrice: detail.primarySalePrice,
       itemTotalPrice: detail.costTotal,
@@ -84,6 +85,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
       itemSalePrice: detail.priceSale,
       itemSalePriceRounded: detail.priceSaleRounded,
       finalSalePrice: detail.priceSaleFinal,
+      recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0].amountAgent,
     }));
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
@@ -91,7 +93,7 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
     console.log('finalArray', finalArray);
     setHeaderData(headerData);
     setSingleProformaInfo(finalArray);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -105,8 +107,6 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
     exportToExcel: false,
     existenceCategoryID: row.category,
     stuffParentID: isEdittingProforma === false ? null : row.items,
-    // stuffParentID: null,
-    // stuffParentTitle: row.items,
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       //بیمه
@@ -124,7 +124,7 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
         percentAgent: 0,
         // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
         ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
-        agentsReducingIncreasingID: '19256e6d-b0a0-4d79-a534-220882e586e7',
+        agentsReducingIncreasingID: 'E863A8A6-25E9-4F49-A083-667B2CCD26B8',
         amountAgent: parseFloat(row.recordProfitMargin) || 0,
       },
     ],
@@ -144,6 +144,8 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
     priceSaleRounded: parseFloat(String(row.itemSalePriceRounded).replace(/,/g, '')) || 0,
     priceSaleFinal: row.finalSalePrice || 0,
     costTotal: row.totalPriceWithoutFactors || 0,
+    existenceCategoryTitleModified: localStorage.getItem(`editedOption-category`) || '',
+    stuffParentTitleModified: localStorage.getItem(`editedOption-items`) || '',
   };
 }
 
