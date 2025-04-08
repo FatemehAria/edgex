@@ -241,12 +241,12 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
     {
       key: '1',
       label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.supplier' })}`,
-      children: <Supplier />,
+      children: <Supplier initialValues={initialValues} />,
     },
     {
       key: '2',
       label: `${formatMessage({ id: 'app.personComapnyInfo.tabs.defineType.tabs.costumer' })}`,
-      children: <CostumerInfo />,
+      children: <CostumerInfo initialValues={initialValues} />,
     },
   ];
 
