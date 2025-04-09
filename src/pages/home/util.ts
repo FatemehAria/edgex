@@ -16,9 +16,9 @@ export const createProforma = async (payload: any) => {
 
     toast.success('عملیات با موفقیت انجام شد.');
 
-    // ['header-info-title', 'header-info-costumer', 'header-info-date', 'header-info-date'].forEach(item =>
-    //   localStorage.removeItem(item),
-    // );
+    ['header-info-title', 'header-info-costumer', 'header-info-date', 'header-info-desc'].forEach(item =>
+      localStorage.removeItem(item),
+    );
 
     // console.log(data);
   } catch (error) {
@@ -46,8 +46,9 @@ export const updateProforma = async (payload: any) => {
   }
 };
 
-export const singleProformaInfo = async (id: string, setSingleProformaInfo: any, setHeaderData: any) => {
+export const getSingleProformaInfo = async (id: string, setSingleProformaInfo: any, setHeaderData: any) => {
   try {
+    console.log('runnid');
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
     const headerData = {
@@ -61,32 +62,38 @@ export const singleProformaInfo = async (id: string, setSingleProformaInfo: any,
 
     // console.log('HeaderAgentsReducingIncreasingList', HeaderAgentsReducingIncreasingList);
 
-    const mappedTableData = data.performaInvoiceDetailList.map((detail: any, index: number) => ({
-      key: index + 1,
-      // PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
-      PerformaInvoiceDetailID: detail.id,
-      id: detail.id,
-      code: detail.code,
-      description: detail.description,
-      // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
-      existenceCategoryID: detail.existenceCategoryID,
-      category: detail.existenceCategoryID,
-      items: detail.stuffParentID,
-      supplier: detail.suplierParentID,
-      qty: detail.quantity,
-      unitCost: detail.costUnit,
-      totalPriceWithoutFactors: detail.costTotal,
-      insurancePriceForRecord: detail.insuranceTax,
-      footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[1].amountAgent,
-      itemShareOfTaxAndIns: detail.insuranceTax,
-      primarySalesPrice: detail.primarySalePrice,
-      itemTotalPrice: detail.costTotal,
-      footerInsurancePrice: detail.insuranceTax,
-      itemSalePrice: detail.priceSale,
-      itemSalePriceRounded: detail.priceSaleRounded,
-      finalSalePrice: detail.priceSaleFinal,
-      recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0].amountAgent,
-    }));
+    const mappedTableData = data.performaInvoiceDetailList
+      .sort((x: any, y: any) => x.code - y.code)
+      .map((detail: any, index: number) => ({
+        key: index + 1,
+        // PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
+        PerformaInvoiceDetailID: detail.id,
+        id: detail.id,
+        code: detail.code,
+        description: detail.description,
+        // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
+        existenceCategoryID: detail.existenceCategoryID,
+        category: detail.existenceCategoryID,
+        items: detail.stuffParentID,
+        supplier: detail.suplierParentID,
+        qty: detail.quantity,
+        unitCost: detail.costUnit,
+        totalPriceWithoutFactors: detail.costTotal,
+        insurancePriceForRecord: detail.insuranceTax,
+        footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+          (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
+        ).amountAgent,
+        itemShareOfTaxAndIns: detail.insuranceTax,
+        primarySalesPrice: detail.primarySalePrice,
+        itemTotalPrice: detail.costTotal,
+        footerInsurancePrice: detail.insuranceTax,
+        itemSalePrice: detail.priceSale,
+        itemSalePriceRounded: detail.priceSaleRounded,
+        finalSalePrice: detail.priceSaleFinal,
+        recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+          (item: any) => item.agentsReducingIncreasingTitle === 'سود',
+        ).amountAgent,
+      }));
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
 

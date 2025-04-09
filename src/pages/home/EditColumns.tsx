@@ -438,7 +438,7 @@ export const EditColumns = (
               icon={faTrashCan}
               onClick={() => {
                 if (!isDisabled) {
-                  deleteRow(record.key, setTableData);
+                  deleteRow(record, setTableData);
                 }
               }}
               style={{

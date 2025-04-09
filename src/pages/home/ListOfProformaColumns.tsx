@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { useLocale } from '@/locales';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
-import { confirmProforma, getEngReport, getPerReport, singleProformaInfo } from './util';
+import { confirmProforma, getEngReport, getPerReport, getSingleProformaInfo } from './util';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -170,7 +170,7 @@ export function ListOfProformaColumns({
               icon={faPenToSquare}
               onClick={() => (
                 handleEdit(record),
-                singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
+                getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
                 setSelectedProformaInfo({ id: record.ID, code: record.Code })
               )}
               style={{ cursor: 'pointer', marginRight: 8 }}
@@ -191,7 +191,7 @@ export function ListOfProformaColumns({
             icon={faCopy}
             onClick={() => (
               copyRow(record),
-              singleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
+              getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
               setSelectedProformaInfo({ id: record.ID, code: record.Code })
             )}
             style={{ cursor: 'pointer', marginRight: 8 }}
