@@ -438,7 +438,7 @@ export const EditColumns = (
               icon={faTrashCan}
               onClick={() => {
                 if (!isDisabled) {
-                  deleteRow(record, setTableData);
+                  deleteRow(record.key, setTableData);
                 }
               }}
               style={{
@@ -446,6 +446,7 @@ export const EditColumns = (
                 marginRight: 8,
                 opacity: isDisabled ? 0.4 : 1,
               }}
+              className="delete-icon"
             />
           </span>
         );
