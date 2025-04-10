@@ -79,8 +79,8 @@ function ProformaTable({
       await createProforma(payload);
     }
 
-    form.resetFields();
-    setTableData(prevData => prevData.map(row => resetRowFields(row)));
+    // form.resetFields();
+    // setTableData(prevData => prevData.map(row => resetRowFields(row)));
 
     setinsurancePrice(0);
     setTotalCostOfRows(0);
