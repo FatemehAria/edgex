@@ -1,9 +1,9 @@
 import { Modal, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-
-import { IsEdittingProformaContext } from '@/pages/home/context/IsEdittingProformaContext';
-import { useLocale } from '@/locales';
 import { useSelector } from 'react-redux';
+
+import { useLocale } from '@/locales';
+import { IsEdittingProformaContext } from '@/pages/home/context/IsEdittingProformaContext';
 // import { deleteValues, getLists, updateValues } from '@/pages/person-company-info/util';
 
 interface ListComponentProps {
@@ -61,7 +61,6 @@ function ListComponent({
   };
 
   useEffect(() => {
-    // API CALL FOR GETTING USERS LIST
     getLists(getListEndpoint, setTableData, setLoading);
   }, []);
 
@@ -73,26 +72,7 @@ function ListComponent({
     getLists(getListEndpoint, setTableData, setLoading);
   };
 
-  // const handleEdit = (record: any) => {
-  //   if (record.StatusTitle === 'صادر شده' || proformaStatus === true) {
-  //     return;
-  //   }
-
-  //   const rowToEdit = { ...record };
-
-  //   if (!rowToEdit.isCopied) {
-  //     rowToEdit.isCopied = false;
-  //   }
-
-  //   setIsEdittingProforma && setIsEdittingProforma(true);
-  //   setSelectedRowForEdit(rowToEdit);
-  //   setIsEditModalOpen(true);
-  //   setIsCopied(rowToEdit.isCopied);
-  //   setIsCopyingProforma(rowToEdit.isCopied);
-  // };
-
   const handleEdit = (record: any) => {
-    // Do not open modal if the proforma is already confirmed
     if (record.StatusTitle === 'صادر شده' || proformaStatus === true) {
       return;
     }
@@ -109,27 +89,6 @@ function ListComponent({
     setIsCopied(false);
   };
 
-  // const copyRow = (record: any) => {
-  //   const index = tableData.findIndex(row => row.key === record.key);
-  //   const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
-  //   const newKey = (maxKey + 1).toString();
-
-  //   const newRow = { ...record, key: newKey, isCopied: true };
-
-  //   setTableData(prevData => {
-  //     const newData = [...prevData];
-
-  //     newData.splice(index + 1, 0, newRow);
-
-  //     return newData;
-  //   });
-
-  //   setSelectedRowForEdit(newRow);
-  //   setIsEditModalOpen(true);
-  //   setIsCopied(true);
-  //   setIsCopyingProforma(true);
-  // };
-
   const copyRow = (record: any) => {
     const index = tableData.findIndex(row => row.key === record.key);
     const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
@@ -145,42 +104,48 @@ function ListComponent({
       return newData;
     });
 
-    // In copy mode, we want the edit modal to open but with copying flags set.
     setSelectedRowForEdit(newRow);
     setIsEditModalOpen(true);
     setIsCopied(true);
     setIsCopyingProforma(true);
-    // Also ensure that the generic edit flag is true so modal opens
     setIsEdittingProforma && setIsEdittingProforma(true);
   };
 
-  const columns = columnsComponent({ deleteRow, handleEdit, copyRow, refreshList });
+  const handleCopy = (record: any) => {
+    const newRecord = JSON.parse(JSON.stringify(record));
 
-  // const handleUpdate = (updatedData: any) => {
-  //   const mergedData = { ...selectedRowForEdit };
+    delete newRecord.ID;
+    delete newRecord.id;
+    delete newRecord.code;
+    delete newRecord.Code;
 
-  //   Object.keys(updatedData).forEach(key => {
-  //     if (updatedData[key] !== '' && updatedData[key] !== null && updatedData[key] !== undefined) {
-  //       mergedData[key] = updatedData[key];
-  //     }
-  //   });
+    const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
+    const newKey = (maxKey + 1).toString();
 
-  //   setTableData(prevData => prevData.map(row => (row.key === mergedData.key ? mergedData : row)));
+    newRecord.key = newKey;
 
-  //   setIsEditModalOpen(false);
+    newRecord.isCopied = true;
 
-  //   const dataToCreate = transformData ? transformData(mergedData) : mergedData;
+    setTableData(prevData => {
+      const index = prevData.findIndex(row => row.key === record.key);
+      const newData = [...prevData];
 
-  //   if (isCopied) {
-  //     createListItem(dataToCreate, catId);
-  //   } else {
-  //     updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
-  //   }
+      newData.splice(index + 1, 0, newRecord);
 
-  //   setIsCopied(false);
-  //   setIsCopyingProforma(false);
-  //   setSelectedRowForEdit(null);
-  // };
+      return newData;
+    });
+
+    setSelectedRowForEdit(newRecord);
+    setIsEditModalOpen(true);
+    setIsCopied(true);
+    setIsCopyingProforma(true);
+
+    setIsEdittingProforma && setIsEdittingProforma(true);
+
+    return newRecord;
+  };
+
+  const columns = columnsComponent({ deleteRow, handleEdit, copyRow, refreshList, handleCopy });
 
   const handleUpdate = (updatedData: any) => {
     const mergedData = { ...selectedRowForEdit };
@@ -196,14 +161,12 @@ function ListComponent({
 
     const dataToCreate = transformData ? transformData(mergedData) : mergedData;
 
-    // If we are in copy mode, call the create API; otherwise call the update API.
     if (isCopyingProforma) {
       createListItem(dataToCreate, catId);
     } else {
       updateValues(updateEndpoint, mergedData, selectedRowForEdit?.ID);
     }
 
-    // Reset flags after submission.
     setIsCopied(false);
     setIsCopyingProforma(false);
     setSelectedRowForEdit(null);

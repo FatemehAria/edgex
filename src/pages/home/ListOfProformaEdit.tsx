@@ -7,10 +7,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
-import { formatValue } from '@/utils/formatTypingNums';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
-import { createCustomer, getCustomersList } from '../costumer-info/util';
+import { getCustomersList } from '../costumer-info/util';
 import ProformaGrouping from '../grouping-specifications/ProformaGrouping';
 import { getGroupList } from '../grouping-specifications/util';
 import FormLayout from '../layout/form-layout';

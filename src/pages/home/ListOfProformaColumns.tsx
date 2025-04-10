@@ -13,11 +13,13 @@ export function ListOfProformaColumns({
   handleEdit,
   copyRow,
   refreshList,
+  handleCopy,
 }: {
   deleteRow: (key: string) => void;
   handleEdit: any;
   copyRow: any;
   refreshList: any;
+  handleCopy: any;
 }) {
   const { formatMessage } = useLocale();
   const { setSingleProformaInfo, setHeaderData, setProformaStatus, setSelectedProformaInfo, proformaStatus } =
@@ -190,7 +192,7 @@ export function ListOfProformaColumns({
           <FontAwesomeIcon
             icon={faCopy}
             onClick={() => (
-              copyRow(record),
+              handleCopy(record),
               getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
               setSelectedProformaInfo({ id: record.ID, code: record.Code })
             )}
