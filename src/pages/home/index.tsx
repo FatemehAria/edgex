@@ -196,7 +196,6 @@ function Home() {
     setIsSupplierModalOpen,
     supplierOptions,
     setActiveSupplierRow,
-    insurancePrice,
     setActiveGroupingRow,
     setIsGroupingModalOpen,
     groupingOptions,
