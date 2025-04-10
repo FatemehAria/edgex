@@ -9,7 +9,7 @@ import { getReportsData } from './util';
 const { Option } = Select;
 
 function Reports() {
-  const [tableData, setTableData] = useState([]);
+  const [reports, setReports] = useState([]);
   const { token } = theme.useToken();
   const allColumns = ReportsColumns();
   const defaultColumnKeys = allColumns.map(column => column.key);
@@ -29,7 +29,7 @@ function Reports() {
     : allColumns;
 
   useEffect(() => {
-    getReportsData();
+    getReportsData(setReports);
   }, []);
 
   return (
@@ -51,7 +51,7 @@ function Reports() {
           ))}
         </Select>
 
-        <Table dataSource={tableData} columns={visibleColumns} scroll={{ x: 2000 }} />
+        <Table dataSource={reports} columns={visibleColumns} scroll={{ x: 2000 }} />
       </div>
     </div>
   );
