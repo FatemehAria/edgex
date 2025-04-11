@@ -170,25 +170,32 @@ export function ListOfProformaColumns({
       key: 'edit',
       width: 200,
       render: (_: any, record: any) => {
+        const isRegistered = record.StatusTitle === 'ثبت شده';
 
         return (
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
               onClick={async () => {
-                await getSingleProformaInfo(
-                  record.ID,
-                  setSingleProformaInfo,
-                  setHeaderData,
-                  isCopyingProforma,
-                  isCopyingProformaTableRow,
-                  setIsLoadingProformaInfo,
-                );
-                setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
-                handleEdit(record);
+                if (isRegistered) {
+                  await getSingleProformaInfo(
+                    record.ID,
+                    setSingleProformaInfo,
+                    setHeaderData,
+                    isCopyingProforma,
+                    isCopyingProformaTableRow,
+                    setIsLoadingProformaInfo,
+                  );
+                  setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+                  handleEdit(record);
+                }
               }}
-              style={{ cursor: 'pointer', marginRight: 8 }}
-              className="edit-icon"
+              style={{
+                cursor: isRegistered ? 'pointer' : 'default',
+                marginRight: 8,
+                color: isRegistered ? 'darkblue' : 'gray',
+              }}
+              // className="edit-icon"
             />
           </span>
         );
