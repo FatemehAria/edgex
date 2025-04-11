@@ -24,6 +24,7 @@ export function ListOfPersonTableColumns({
           value={selectedKeys[0]}
           onChange={e => {
             const value = e.target.value;
+
             setSelectedKeys(value ? [value] : []);
             confirm({ closeDropdown: false });
           }}
@@ -169,7 +170,7 @@ export function ListOfPersonTableColumns({
                 deleteRow(record);
               }}
               style={{ cursor: 'pointer', marginRight: 8 }}
-              className='delete-icon'
+              className="delete-icon"
             />
           </span>
         );

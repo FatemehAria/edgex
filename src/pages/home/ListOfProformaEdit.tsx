@@ -28,7 +28,7 @@ function ListOfProformaEdit() {
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
-  const { singleProformaInfo, headerData } = useContext(IsEdittingProformaContext);
+  const { singleProformaInfo, headerData, setHeaderData } = useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -73,7 +73,7 @@ function ListOfProformaEdit() {
     if (singleProformaInfo) {
       setTableData(singleProformaInfo);
     }
-  }, [singleProformaInfo]);
+  }, [singleProformaInfo, form]);
 
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
@@ -199,22 +199,20 @@ function ListOfProformaEdit() {
   }, [tableData]);
 
   const allColumns = EditColumns(
-    formatMessage, // 1. formatMessage
-    tableData, // 4. tableData
-    isRowFilled, // 5. isRowFilled
-    setIsSupplierModalOpen, // 6. setIsSupplierModalOpen
-    supplierOptions, // 7. supplierOptions
-    setActiveSupplierRow, // 8. setActiveSupplierRow
-    insurancePrice, // 9. insurancePrice
-    // setFooterInsuranceCoefficient, // 10. setFooterInsuranceCoefficient
-    // footerInsuranceCoefficient, // 11. footerInsuranceCoefficient
-    setActiveGroupingRow, // 12. setActiveGroupingRow
-    setIsGroupingModalOpen, // 13. setIsGroupingModalOpen
-    groupingOptions, // 14. groupingOptions
-    itemOptions, // 15. itemOptions
-    openItemModal, // 16. openItemModal
-    setActiveItemRow, // 17. setActiveItemRow
-    setTableData, // 18. setTableData
+    formatMessage,
+    tableData,
+    isRowFilled,
+    setIsSupplierModalOpen,
+    supplierOptions,
+    setActiveSupplierRow,
+    insurancePrice,
+    setActiveGroupingRow,
+    setIsGroupingModalOpen,
+    groupingOptions,
+    itemOptions,
+    openItemModal,
+    setActiveItemRow,
+    setTableData,
   );
 
   const columns = allColumns.filter(col => !col.hidden);
@@ -226,12 +224,18 @@ function ListOfProformaEdit() {
         'header-info-date': headerData['header-info-date'] ? dayjs(headerData['header-info-date']) : null,
       };
 
-      form.resetFields();
+      // form.resetFields();
       form.setFieldsValue(formattedData);
     }
   }, [headerData, form]);
 
-  const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal, headerData);
+  const proformaFormOptions: any = ProformaFormOptions(
+    formatMessage,
+    customerOptions,
+    openCustomerModal,
+    setHeaderData,
+    headerData,
+  );
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,

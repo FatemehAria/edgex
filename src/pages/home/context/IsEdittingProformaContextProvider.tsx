@@ -8,7 +8,7 @@ function IsEdittingProformaContextProvider({ children }: { children: React.React
   const [singleProformaInfo, setSingleProformaInfo] = useState([]);
   const [headerData, setHeaderData] = useState({});
   const [proformaStatus, setProformaStatus] = useState(false);
-  const [selectedProformaInfo, setSelectedProformaInfo] = useState({ id: '', code: '' });
+  const [selectedProformaInfo, setSelectedProformaInfo] = useState({ id: '', code: '', key: '' });
 
   return (
     <IsEdittingProformaContext.Provider

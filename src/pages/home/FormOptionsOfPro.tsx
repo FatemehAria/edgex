@@ -1,3 +1,5 @@
+import type { Dispatch } from 'react';
+
 export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
   {
     name: 'recordProfitMargin',
@@ -29,6 +31,7 @@ export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,
   customerOptions: { label: string; value: string }[],
   onOpenCustomerModal: () => void,
+  setHeaderData: Dispatch<any>,
   singleProformaInfo?: any,
 ) => [
   {
@@ -37,7 +40,12 @@ export const ProformaFormOptions = (
     type: 'input',
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}`,
-      onChange: (value: any) => localStorage.setItem('header-info-title', JSON.stringify(value.target.value)),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+
+        setHeaderData((prev: any) => ({ ...prev, 'header-info-title': newValue }));
+        localStorage.setItem('header-info-title', JSON.stringify(newValue));
+      },
     },
   },
   {
@@ -51,6 +59,7 @@ export const ProformaFormOptions = (
           onOpenCustomerModal();
         }
 
+        setHeaderData((prev: any) => ({ ...prev, 'header-info-costumer': value }));
         localStorage.setItem('header-info-costumer', JSON.stringify(value));
       },
     },
@@ -68,7 +77,7 @@ export const ProformaFormOptions = (
     type: 'date-picker',
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
-      onChange: (dateString: any) => {
+      onChange: (dateString: string) => {
         localStorage.setItem('header-info-date', JSON.stringify(dateString));
       },
     },
@@ -79,7 +88,12 @@ export const ProformaFormOptions = (
     type: 'textarea',
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}`,
-      onChange: (value: any) => localStorage.setItem('header-info-desc', JSON.stringify(value.target.value)),
+      onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const newValue = e.target.value;
+
+        setHeaderData((prev: any) => ({ ...prev, 'header-info-desc': newValue }));
+        localStorage.setItem('header-info-desc', JSON.stringify(newValue));
+      },
     },
   },
 ];

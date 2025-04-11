@@ -16,9 +16,14 @@ export const createProforma = async (payload: any) => {
 
     toast.success('عملیات با موفقیت انجام شد.');
 
-    ['header-info-title', 'header-info-costumer', 'header-info-date', 'header-info-desc'].forEach(item =>
-      localStorage.removeItem(item),
-    );
+    [
+      'header-info-title',
+      'header-info-costumer',
+      'header-info-date',
+      'header-info-desc',
+      'editedOption-items',
+      'editedOption-category',
+    ].forEach(item => localStorage.removeItem(item));
 
     // console.log(data);
   } catch (error) {
@@ -46,7 +51,12 @@ export const updateProforma = async (payload: any) => {
   }
 };
 
-export const getSingleProformaInfo = async (id: string, setSingleProformaInfo: any, setHeaderData: any) => {
+export const getSingleProformaInfo = async (
+  id: string,
+  setSingleProformaInfo: any,
+  setHeaderData: any,
+  isCopyingProforma: boolean,
+) => {
   try {
     console.log('runnid');
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
@@ -67,9 +77,7 @@ export const getSingleProformaInfo = async (id: string, setSingleProformaInfo: a
       .map((detail: any, index: number) => ({
         key: index + 1,
         // PerformaInvoiceDetailID: detail.performaInvoiceDetailAgentsReducingIncreasingList?.[0]?.performaInvoiceDetailID,
-        PerformaInvoiceDetailID: detail.id,
-        id: detail.id,
-        code: detail.code,
+        ...(!isCopyingProforma ? { PerformaInvoiceDetailID: detail.id, id: detail.id, code: detail.code } : {}),
         description: detail.description,
         // redIncId: detail.performaInvoiceDetailAgentsReducingIncreasingList.map((item: any) => item.id),
         existenceCategoryID: detail.existenceCategoryID,
@@ -106,22 +114,21 @@ export const getSingleProformaInfo = async (id: string, setSingleProformaInfo: a
   }
 };
 
-export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
-  console.log('row', row);
-  console.log(isEdittingProforma);
+export function mapRowToApiDetail(row: any, isEdittingProforma: boolean, isCopyingProforma: boolean): any {
+  // console.log('row', row);
+  // console.log(isEdittingProforma);
 
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
-    stuffParentID: isEdittingProforma === false ? null : row.items,
+    ...(!isCopyingProforma && { stuffParentID: row.items }),
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       //بیمه
       {
         priceAgent: 0,
         percentAgent: 0,
-        // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
-        ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
+        ...(!isCopyingProforma && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
       },
@@ -129,8 +136,7 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
       {
         priceAgent: 0,
         percentAgent: 0,
-        // performaInvoiceDetailID: row.PerformaInvoiceDetailID ? row.PerformaInvoiceDetailID : null,
-        ...(row.PerformaInvoiceDetailID && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
+        ...(!isCopyingProforma && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         agentsReducingIncreasingID: 'E863A8A6-25E9-4F49-A083-667B2CCD26B8',
         amountAgent: parseFloat(row.recordProfitMargin) || 0,
       },
@@ -141,8 +147,7 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean): any {
     primarySalePrice: row.primarySalesPrice || 0,
     increasing: 0,
     reducing: 0,
-    id: row.id,
-    code: row.code,
+    ...(!isCopyingProforma ? { id: row.id, code: row.code } : {}),
     priceFinal: row.finalSalePrice || 0,
     priceFinalReducing: 0,
     costUnit: parseFloat(String(row.unitCost).replace(/,/g, '')) || 0,
@@ -197,6 +202,7 @@ export function createProformaPayload(
   insurancePrice: any,
   isRowFilled: any,
   isEdittingProforma: any,
+  isCopyingProforma: boolean,
   proformaInfo?: any,
   existingHeader?: {
     'header-info-costumer': string;
@@ -205,7 +211,7 @@ export function createProformaPayload(
     'header-info-date': string;
   },
 ) {
-  // console.log('existingHeader', existingHeader);
+  console.log('existingHeader', existingHeader);
   const customerId = localStorage.getItem('header-info-costumer')
     ? JSON.parse(localStorage.getItem('header-info-costumer')!)
     : existingHeader?.['header-info-costumer'] ?? null;
@@ -228,14 +234,16 @@ export function createProformaPayload(
 
   const detailList = tableData
     .filter((row: any) => isRowFilled(row))
-    .map((row: any) => mapRowToApiDetail(row, isEdittingProforma));
+    .map((row: any) => mapRowToApiDetail(row, isEdittingProforma, isCopyingProforma));
 
   return {
     ...headerData,
     performaInvoiceDetailList: detailList,
     performaInvoiceHeaderAgentsReducingIncreasingList: [
       {
-        performaInvoiceHeaderID: proformaInfo?.[proformaInfo.length - 1]?.performaInvoiceHeaderID,
+        ...(!isCopyingProforma
+          ? { performaInvoiceHeaderID: proformaInfo?.[proformaInfo.length - 1]?.performaInvoiceHeaderID }
+          : {}),
         amountAgen: 10,
         agentsReducingIncreasingID: 'EDA36B90-5A9E-4487-8C62-7377E40743B8',
         increasing: 0,

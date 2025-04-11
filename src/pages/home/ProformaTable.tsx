@@ -62,6 +62,7 @@ function ProformaTable({
     insurancePrice,
     isRowFilled,
     isEdittingProforma,
+    isCopyingProforma,
     singleProformaInfo,
     headerData,
   );
@@ -73,14 +74,18 @@ function ProformaTable({
       await createProforma(payload);
       setIsCopyingProforma(false);
     } else if (isEdittingProforma) {
-      await updateProforma({ ...payload, id: selectedProformaInfo.id, code: selectedProformaInfo.code });
+      const updatedPayload = { ...payload, id: selectedProformaInfo.id, code: selectedProformaInfo.code };
+
+      await updateProforma(updatedPayload);
+      setTableData(prevData =>
+        prevData.map(row => (row.key === selectedProformaInfo.key ? { ...row, ...updatedPayload } : row)),
+      );
       setIsEdittingProforma(false);
     } else {
       await createProforma(payload);
+      form.resetFields();
+      setTableData(prevData => prevData.map(row => resetRowFields(row)));
     }
-
-    // form.resetFields();
-    // setTableData(prevData => prevData.map(row => resetRowFields(row)));
 
     setinsurancePrice(0);
     setTotalCostOfRows(0);

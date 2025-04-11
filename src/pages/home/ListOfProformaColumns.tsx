@@ -22,8 +22,14 @@ export function ListOfProformaColumns({
   handleCopy: any;
 }) {
   const { formatMessage } = useLocale();
-  const { setSingleProformaInfo, setHeaderData, setProformaStatus, setSelectedProformaInfo, proformaStatus } =
-    useContext(IsEdittingProformaContext);
+  const {
+    setSingleProformaInfo,
+    setHeaderData,
+    setProformaStatus,
+    setSelectedProformaInfo,
+    proformaStatus,
+    isCopyingProforma,
+  } = useContext(IsEdittingProformaContext);
 
   return [
     // ردیف
@@ -170,11 +176,11 @@ export function ListOfProformaColumns({
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPenToSquare}
-              onClick={() => (
-                handleEdit(record),
-                getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
-                setSelectedProformaInfo({ id: record.ID, code: record.Code })
-              )}
+              onClick={async () => {
+                await getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData, isCopyingProforma);
+                setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+                handleEdit(record);
+              }}
               style={{ cursor: 'pointer', marginRight: 8 }}
               className="edit-icon"
             />
@@ -191,11 +197,11 @@ export function ListOfProformaColumns({
         <span className="center-align">
           <FontAwesomeIcon
             icon={faCopy}
-            onClick={() => (
-              handleCopy(record),
-              getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData),
-              setSelectedProformaInfo({ id: record.ID, code: record.Code })
-            )}
+            onClick={async () => {
+              await getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData, isCopyingProforma);
+              setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+              handleCopy(record);
+            }}
             style={{ cursor: 'pointer', marginRight: 8 }}
             className="copy-icon"
           />

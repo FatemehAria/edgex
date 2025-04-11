@@ -27,7 +27,7 @@ export const createSupplier = async (values: any) => {
   // console.log('values in create suolier', values);
 
   try {
-    const { data } = await customAxiosInstance.post('/Suplier/create', {
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalSuplier', {
       personTypeCode: Number(values['personTypeCode']),
       namePersian: values['namePersian'],
       familyPersian: values['familyPersian'],

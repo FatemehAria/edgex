@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
@@ -21,6 +21,7 @@ import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 
 function Home() {
   const { token } = theme.useToken();
@@ -70,6 +71,7 @@ function Home() {
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+  const { setHeaderData } = useContext(IsEdittingProformaContext);
 
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
@@ -205,7 +207,12 @@ function Home() {
     setTableData,
   );
 
-  const proformaFormOptions: any = ProformaFormOptions(formatMessage, customerOptions, openCustomerModal);
+  const proformaFormOptions: any = ProformaFormOptions(
+    formatMessage,
+    customerOptions,
+    openCustomerModal,
+    setHeaderData,
+  );
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
