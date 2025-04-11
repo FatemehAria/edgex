@@ -28,7 +28,8 @@ function ListOfProformaEdit() {
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
-  const { singleProformaInfo, headerData, setHeaderData } = useContext(IsEdittingProformaContext);
+  const { singleProformaInfo, headerData, setHeaderData, isLoadingProformaInfo } =
+    useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -69,11 +70,12 @@ function ListOfProformaEdit() {
   ]);
   const [form] = Form.useForm();
 
+  console.log('singleProformaInfo', singleProformaInfo);
   useEffect(() => {
-    if (singleProformaInfo) {
-      setTableData(singleProformaInfo);
-    }
-  }, [singleProformaInfo, form]);
+    // if (singleProformaInfo) {
+    setTableData(singleProformaInfo);
+    // }
+  }, [singleProformaInfo]);
 
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
@@ -282,80 +284,86 @@ function ListOfProformaEdit() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur, overflow: 'auto' }}>
-      <Collapse
-        bordered={false}
-        defaultActiveKey={['1']}
-        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-        style={{ background: token.colorBgContainer }}
-        items={getItems(panelStyle)}
-      ></Collapse>
+      {!isLoadingProformaInfo ? (
+        <>
+          <Collapse
+            bordered={false}
+            defaultActiveKey={['1']}
+            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+            style={{ background: token.colorBgContainer }}
+            items={getItems(panelStyle)}
+          ></Collapse>
 
-      <Modal
-        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
-        open={isCustomerModalOpen}
-        onCancel={() => setIsCustomerModalOpen(false)}
-        footer={null}
-      >
-        <ProformaCostumer
-          onCustomerSubmit={values =>
-            handleNewCustomer(values, setCustomerOptions, setSelectedCostumer, setIsCustomerModalOpen)
-          }
-        />
-      </Modal>
+          <Modal
+            title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
+            open={isCustomerModalOpen}
+            onCancel={() => setIsCustomerModalOpen(false)}
+            footer={null}
+          >
+            <ProformaCostumer
+              onCustomerSubmit={values =>
+                handleNewCustomer(values, setCustomerOptions, setSelectedCostumer, setIsCustomerModalOpen)
+              }
+            />
+          </Modal>
 
-      <Modal
-        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
-        open={isSupplierModalOpen}
-        onCancel={() => setIsSupplierModalOpen(false)}
-        footer={null}
-      >
-        <ProformaSupplier
-          onSupplierSubmit={values =>
-            handleNewSupplier(
-              values,
-              setSupplierOptions,
-              activeSupplierRow,
-              setTableData,
-              setActiveGroupingRow,
-              setIsSupplierModalOpen,
-              locale,
-            )
-          }
-        />
-      </Modal>
+          <Modal
+            title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
+            open={isSupplierModalOpen}
+            onCancel={() => setIsSupplierModalOpen(false)}
+            footer={null}
+          >
+            <ProformaSupplier
+              onSupplierSubmit={values =>
+                handleNewSupplier(
+                  values,
+                  setSupplierOptions,
+                  activeSupplierRow,
+                  setTableData,
+                  setActiveGroupingRow,
+                  setIsSupplierModalOpen,
+                  locale,
+                )
+              }
+            />
+          </Modal>
 
-      <Modal
-        title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
-        open={isGroupingModalOpen}
-        onCancel={() => setIsGroupingModalOpen(false)}
-        footer={null}
-      >
-        <ProformaGrouping
-          onGroupSubmit={values =>
-            handleNewGroup(
-              values,
-              setGroupingOptions,
-              setIsGroupingModalOpen,
-              activeGroupingRow,
-              setTableData,
-              setActiveGroupingRow,
-            )
-          }
-        />
-      </Modal>
+          <Modal
+            title={formatMessage({ id: 'app.costumerInfo.modalHeader' })}
+            open={isGroupingModalOpen}
+            onCancel={() => setIsGroupingModalOpen(false)}
+            footer={null}
+          >
+            <ProformaGrouping
+              onGroupSubmit={values =>
+                handleNewGroup(
+                  values,
+                  setGroupingOptions,
+                  setIsGroupingModalOpen,
+                  activeGroupingRow,
+                  setTableData,
+                  setActiveGroupingRow,
+                )
+              }
+            />
+          </Modal>
 
-      <Modal
-        title={formatMessage({ id: 'app.itemsInfo.modalHeader' })}
-        open={isItemModalOpen}
-        onCancel={() => setIsItemModalOpen(false)}
-        footer={null}
-      >
-        <ProformaStuff
-          onItemSubmit={values =>
-            handleNewItem(values, setItemOptions, activeItemRow, setTableData, setActiveItemRow, setIsItemModalOpen)
-          }
-        />
-      </Modal>
+          <Modal
+            title={formatMessage({ id: 'app.itemsInfo.modalHeader' })}
+            open={isItemModalOpen}
+            onCancel={() => setIsItemModalOpen(false)}
+            footer={null}
+          >
+            <ProformaStuff
+              onItemSubmit={values =>
+                handleNewItem(values, setItemOptions, activeItemRow, setTableData, setActiveItemRow, setIsItemModalOpen)
+              }
+            />
+          </Modal>
+        </>
+      ) : (
+        <p>Loading</p>
+      )}
     </div>
   );
 }

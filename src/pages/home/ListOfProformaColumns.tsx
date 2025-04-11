@@ -30,6 +30,7 @@ export function ListOfProformaColumns({
     proformaStatus,
     isCopyingProforma,
     isCopyingProformaTableRow,
+    setIsLoadingProformaInfo,
   } = useContext(IsEdittingProformaContext);
 
   return [
@@ -184,6 +185,7 @@ export function ListOfProformaColumns({
                   setHeaderData,
                   isCopyingProforma,
                   isCopyingProformaTableRow,
+                  setIsLoadingProformaInfo,
                 );
                 setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                 handleEdit(record);
@@ -211,6 +213,7 @@ export function ListOfProformaColumns({
                 setHeaderData,
                 isCopyingProforma,
                 isCopyingProformaTableRow,
+                setIsLoadingProformaInfo,
               );
               setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
               handleCopy(record);

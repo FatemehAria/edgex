@@ -10,6 +10,7 @@ type EditProformaContextType = {
   proformaStatus: boolean;
   selectedProformaInfo: { id: string; code: string; key: any };
   isCopyingProformaTableRow: boolean;
+  isLoadingProformaInfo: boolean;
   setSelectedProformaInfo: Dispatch<SetStateAction<{ id: string; code: string; key: any }>>;
   setProformaStatus: Dispatch<SetStateAction<boolean>>;
   setHeaderData: Dispatch<SetStateAction<any>>;
@@ -17,6 +18,7 @@ type EditProformaContextType = {
   setIsCopyingProforma: Dispatch<SetStateAction<boolean>>;
   setIsCopyingProformaTableRow: Dispatch<SetStateAction<boolean>>;
   setSingleProformaInfo: Dispatch<SetStateAction<any>>;
+  setIsLoadingProformaInfo: Dispatch<SetStateAction<boolean>>;
 };
 
 export const IsEdittingProformaContext = createContext<EditProformaContextType>({
@@ -27,6 +29,7 @@ export const IsEdittingProformaContext = createContext<EditProformaContextType>(
   proformaStatus: false,
   selectedProformaInfo: { id: '', code: '', key: '' },
   isCopyingProformaTableRow: false,
+  isLoadingProformaInfo: false,
   setSelectedProformaInfo: () => {},
   setProformaStatus: () => {},
   setHeaderData: () => {},
@@ -34,4 +37,5 @@ export const IsEdittingProformaContext = createContext<EditProformaContextType>(
   setIsCopyingProforma: () => {},
   setIsCopyingProformaTableRow: () => {},
   setSingleProformaInfo: () => {},
+  setIsLoadingProformaInfo: () => {},
 });

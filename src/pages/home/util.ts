@@ -57,9 +57,10 @@ export const getSingleProformaInfo = async (
   setHeaderData: any,
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
+  setLoading: Dispatch<SetStateAction<boolean>>,
 ) => {
   try {
-    console.log('runnid');
+    setLoading(true);
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
     const headerData = {
@@ -112,6 +113,8 @@ export const getSingleProformaInfo = async (
     // console.log(data);
   } catch (error) {
     console.log(error);
+  } finally {
+    setLoading(false);
   }
 };
 
