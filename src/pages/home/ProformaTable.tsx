@@ -40,6 +40,7 @@ function ProformaTable({
     selectedProformaInfo,
     singleProformaInfo,
     headerData,
+    isCopyingProformaTableRow
   } = useContext(IsEdittingProformaContext);
 
   useEffect(() => {
@@ -63,8 +64,9 @@ function ProformaTable({
     isRowFilled,
     isEdittingProforma,
     isCopyingProforma,
-    singleProformaInfo,
+    isCopyingProformaTableRow,
     headerData,
+    singleProformaInfo,
   );
 
   console.log('payload', payload);

@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { useContext, type Dispatch, type SetStateAction } from 'react';
 
 import './columns.css';
 
@@ -12,6 +12,7 @@ import AutoFocusAddableSelect from './AutoFocusAddableSelect';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
 import { deleteRow, handleCellChange } from './home-utils';
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 
 export const EditColumns = (
   formatMessage: (descriptor: any) => string,
@@ -31,7 +32,10 @@ export const EditColumns = (
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
 ) => {
+  const { setIsCopyingProformaTableRow } = useContext(IsEdittingProformaContext);
+
   const copyRow = (record: any) => {
+    setIsCopyingProformaTableRow(true);
     setTableData(prevData => {
       const index = prevData.findIndex(row => row.key === record.key);
 

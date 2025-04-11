@@ -9,6 +9,7 @@ function IsEdittingProformaContextProvider({ children }: { children: React.React
   const [headerData, setHeaderData] = useState({});
   const [proformaStatus, setProformaStatus] = useState(false);
   const [selectedProformaInfo, setSelectedProformaInfo] = useState({ id: '', code: '', key: '' });
+  const [isCopyingProformaTableRow, setIsCopyingProformaTableRow] = useState(false);
 
   return (
     <IsEdittingProformaContext.Provider
@@ -19,11 +20,13 @@ function IsEdittingProformaContextProvider({ children }: { children: React.React
         headerData,
         proformaStatus,
         selectedProformaInfo,
+        isCopyingProformaTableRow,
         setSelectedProformaInfo,
         setProformaStatus,
         setHeaderData,
         setIsEdittingProforma,
         setIsCopyingProforma,
+        setIsCopyingProformaTableRow,
         setSingleProformaInfo,
       }}
     >

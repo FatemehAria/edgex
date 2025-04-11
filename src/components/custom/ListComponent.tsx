@@ -90,6 +90,7 @@ function ListComponent({
   };
 
   const copyRow = (record: any) => {
+    console.log('copy row', record);
     const index = tableData.findIndex(row => row.key === record.key);
     const maxKey = tableData.reduce((max, row) => Math.max(max, Number(row.key)), 0);
     const newKey = (maxKey + 1).toString();

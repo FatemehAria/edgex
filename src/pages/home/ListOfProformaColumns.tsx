@@ -29,6 +29,7 @@ export function ListOfProformaColumns({
     setSelectedProformaInfo,
     proformaStatus,
     isCopyingProforma,
+    isCopyingProformaTableRow,
   } = useContext(IsEdittingProformaContext);
 
   return [
@@ -177,7 +178,13 @@ export function ListOfProformaColumns({
             <FontAwesomeIcon
               icon={faPenToSquare}
               onClick={async () => {
-                await getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData, isCopyingProforma);
+                await getSingleProformaInfo(
+                  record.ID,
+                  setSingleProformaInfo,
+                  setHeaderData,
+                  isCopyingProforma,
+                  isCopyingProformaTableRow,
+                );
                 setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                 handleEdit(record);
               }}
@@ -198,7 +205,13 @@ export function ListOfProformaColumns({
           <FontAwesomeIcon
             icon={faCopy}
             onClick={async () => {
-              await getSingleProformaInfo(record.ID, setSingleProformaInfo, setHeaderData, isCopyingProforma);
+              await getSingleProformaInfo(
+                record.ID,
+                setSingleProformaInfo,
+                setHeaderData,
+                isCopyingProforma,
+                isCopyingProformaTableRow,
+              );
               setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
               handleCopy(record);
             }}
