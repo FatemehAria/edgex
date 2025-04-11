@@ -51,6 +51,14 @@ function ReportsColumns() {
     // گروهبندی
     {
       title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.group' })}</span>,
+      dataIndex: 'ExistenceCategoryTitle',
+      key: 'ExistenceCategoryTitle',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    //  گروهبندی مودیفای شده
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.groupModified' })}</span>,
       dataIndex: 'ExistenceCategoryTitleModified',
       key: 'ExistenceCategoryTitleModified',
       width: 300,
@@ -59,6 +67,14 @@ function ReportsColumns() {
     // آیتم
     {
       title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.item' })}</span>,
+      dataIndex: 'StuffParentTitle',
+      key: 'StuffParentTitle',
+      width: 300,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    },
+    // آیتم مودیفای شده
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.itemModified' })}</span>,
       dataIndex: 'StuffParentTitleModified',
       key: 'StuffParentTitleModified',
       width: 300,

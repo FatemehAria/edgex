@@ -14,6 +14,8 @@ function Reports() {
   const allColumns = ReportsColumns();
   const defaultColumnKeys = allColumns.map(column => column.key);
 
+  console.log('defaut key', defaultColumnKeys);
+
   const [selectedColumnKeys, setSelectedColumnKeys] = useState(defaultColumnKeys);
 
   const handleSelectChange = (selectedKeys: any) => {
