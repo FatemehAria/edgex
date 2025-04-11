@@ -1,18 +1,17 @@
-import { useContext, type Dispatch, type SetStateAction } from 'react';
-
 import './columns.css';
 
 import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from 'antd';
+import { type Dispatch, type SetStateAction, useContext } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
 import AutoFocusAddableSelect from './AutoFocusAddableSelect';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
-import { deleteRow, handleCellChange } from './home-utils';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
+import { deleteRow, handleCellChange } from './home-utils';
 
 export const EditColumns = (
   formatMessage: (descriptor: any) => string,
@@ -21,9 +20,6 @@ export const EditColumns = (
   setIsSupplierModalOpen: any,
   supplierOptions: { label: string; value: string }[],
   setActiveSupplierRow: any,
-  insurancePrice: number,
-  // setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>,
-  // footerInsuranceCoefficient: string,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],

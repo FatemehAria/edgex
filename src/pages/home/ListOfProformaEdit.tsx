@@ -205,7 +205,6 @@ function ListOfProformaEdit() {
     setIsSupplierModalOpen,
     supplierOptions,
     setActiveSupplierRow,
-    insurancePrice,
     setActiveGroupingRow,
     setIsGroupingModalOpen,
     groupingOptions,
