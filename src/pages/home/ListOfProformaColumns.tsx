@@ -170,9 +170,6 @@ export function ListOfProformaColumns({
       key: 'edit',
       width: 200,
       render: (_: any, record: any) => {
-        if (proformaStatus || record.StatusTitle === 'تایید شده') {
-          return <p>-</p>;
-        }
 
         return (
           <span className="center-align">
