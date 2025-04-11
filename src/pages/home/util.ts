@@ -87,14 +87,14 @@ export const getSingleProformaInfo = async (
         qty: detail.quantity,
         unitCost: detail.costUnit,
         totalPriceWithoutFactors: detail.costTotal,
-        insurancePriceForRecord: detail.insuranceTax,
+        insurancePriceForRecord: detail.insurancePrice,
         footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
           (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
         ).amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.costTotal,
-        footerInsurancePrice: detail.insuranceTax,
+        footerInsurancePrice: detail.insurancePrice,
         itemSalePrice: detail.priceSale,
         itemSalePriceRounded: detail.priceSaleRounded,
         finalSalePrice: detail.priceSaleFinal,
@@ -158,6 +158,7 @@ export function mapRowToApiDetail(row: any, isEdittingProforma: boolean, isCopyi
     costTotal: row.totalPriceWithoutFactors || 0,
     existenceCategoryTitleModified: localStorage.getItem(`editedOption-category`) || '',
     stuffParentTitleModified: localStorage.getItem(`editedOption-items`) || '',
+    insurancePrice: row.insurancePriceForRecord
   };
 }
 

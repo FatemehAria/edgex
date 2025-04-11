@@ -17,11 +17,11 @@ import ProformaStuff from '../proforma-stuff';
 import ProformaSupplier from '../supplier/ProformaSupplier';
 import { getSuppliersList } from '../supplier/util';
 import { Columns } from './Columns';
+import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
-import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 
 function Home() {
   const { token } = theme.useToken();
