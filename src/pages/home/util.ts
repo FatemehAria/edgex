@@ -92,7 +92,7 @@ export const getSingleProformaInfo = async (
         insurancePriceForRecord: detail.insurancePrice,
         footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
           (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
-        ).amountAgent,
+        )?.amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.costTotal,
@@ -102,7 +102,7 @@ export const getSingleProformaInfo = async (
         finalSalePrice: detail.priceSaleFinal,
         recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
           (item: any) => item.agentsReducingIncreasingTitle === 'سود',
-        ).amountAgent,
+        )?.amountAgent,
       }));
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
