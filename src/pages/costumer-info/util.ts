@@ -1,3 +1,4 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
 import toast from 'react-hot-toast';
@@ -6,10 +7,15 @@ import { customAxiosInstance } from '@/utils/axios-config';
 
 export const getCustomersList = async (
   setList: Dispatch<SetStateAction<any[]>>,
+  locale: Locale,
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
-    const { data } = await customAxiosInstance.get('/PerformaInvoiceHeader/GetCustomerList');
+    const { data } = await customAxiosInstance.get(
+      `${
+        locale === 'en_US' ? '/PerformaInvoiceHeader/GetCustomerList' : '/PerformaInvoiceHeader/GetCustomerPersianList'
+      }`,
+    );
 
     const formattedData = data.map((item: any, index: number) => ({
       ...item,

@@ -89,8 +89,8 @@ function Home() {
       }));
 
       setCustomerOptions(transformed);
-    });
-  }, []);
+    }, locale);
+  }, [locale]);
 
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([]);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
