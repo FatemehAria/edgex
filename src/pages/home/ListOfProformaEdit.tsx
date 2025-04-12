@@ -97,8 +97,8 @@ function ListOfProformaEdit() {
       }));
 
       setCustomerOptions(transformed);
-    });
-  }, []);
+    }, locale);
+  }, [locale]);
 
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([]);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
@@ -112,8 +112,8 @@ function ListOfProformaEdit() {
       }));
 
       setSupplierOptions(transformed);
-    });
-  }, []);
+    }, locale);
+  }, [locale]);
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
   const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);

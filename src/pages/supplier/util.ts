@@ -1,13 +1,19 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const getSuppliersList = async (
   setList: Dispatch<SetStateAction<any[]>>,
+  locale: Locale,
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
-    const { data } = await customAxiosInstance.get('/PerformaInvoiceHeader/GetSuplierList');
+    const { data } = await customAxiosInstance.get(
+      `${
+        locale === 'en_US' ? '/PerformaInvoiceHeader/GetSuplierList' : '/PerformaInvoiceHeader/GetSuplierPersianList'
+      }`,
+    );
 
     const formattedData = data.map((item: any, index: number) => ({
       ...item,

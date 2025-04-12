@@ -104,8 +104,8 @@ function Home() {
       }));
 
       setSupplierOptions(transformed);
-    });
-  }, []);
+    },locale);
+  }, [locale]);
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
   const [isGroupingModalOpen, setIsGroupingModalOpen] = useState(false);
