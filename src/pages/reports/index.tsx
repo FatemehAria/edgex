@@ -14,7 +14,7 @@ function Reports() {
   const allColumns = ReportsColumns();
   const defaultColumnKeys = allColumns.map(column => column.key);
 
-  console.log('defaut key', defaultColumnKeys);
+  // console.log('defaut key', defaultColumnKeys);
 
   const [selectedColumnKeys, setSelectedColumnKeys] = useState(defaultColumnKeys);
 
@@ -36,7 +36,10 @@ function Reports() {
 
   return (
     <div style={{ height: '100vh', backgroundColor: token.colorBgBlur }}>
-      <ListButtons />
+      <ListButtons
+        route="https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel"
+        title="report_export"
+      />
       <div>
         <Select
           mode="multiple"

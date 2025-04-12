@@ -104,14 +104,14 @@ function ReportsColumns() {
       width: 300,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
-    // حاشیه سود
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.profitMargin' })}</span>,
-      dataIndex: 'ProfitMarginFinal',
-      key: 'ProfitMarginFinal',
-      width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
-    },
+    // // حاشیه سود
+    // {
+    //   title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.profitMargin' })}</span>,
+    //   dataIndex: 'ProfitMarginFinal',
+    //   key: 'ProfitMarginFinal',
+    //   width: 300,
+    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    // },
     // سهم آیتم از بیمه و مالیات
     {
       title: <span className="center-align">{formatMessage({ id: 'app.reports.columns.shareOftaxAndIncome' })}</span>,
