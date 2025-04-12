@@ -11,6 +11,7 @@ import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
+import PublicRoute from './publicRoute';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
@@ -35,19 +36,19 @@ const ListOfGroups = lazy(() => import('@/pages/grouping-specifications/ListOfGr
 const routeList: RouteObject[] = [
   {
     path: '/login',
-    element: <WrapperRouteComponent element={<LoginPage />} titleId="title.login" />,
+    element: <WrapperRouteComponent element={<PublicRoute element={<LoginPage />} />} titleId="title.login" />,
   },
   {
     path: '/',
-    element: <WrapperRouteComponent element={<LayoutPage />} titleId="title.homepage" />,
+    element: <WrapperRouteComponent element={<LayoutPage />} titleId="title.homepage" auth={true} />,
     children: [
       {
         path: '',
-        element: <WrapperRouteComponent element={<HomePage />} titleId="title.homepage" />,
+        element: <WrapperRouteComponent element={<HomePage />} titleId="title.homepage" auth={true} />,
       },
       {
         path: '/proforma-list',
-        element: <WrapperRouteComponent element={<ListOfProforma />} titleId="title.homepage" />,
+        element: <WrapperRouteComponent element={<ListOfProforma />} titleId="title.homepage" auth={true} />,
       },
       {
         path: '/main-tables/grouping-specifications',
@@ -55,40 +56,45 @@ const routeList: RouteObject[] = [
           <WrapperRouteComponent
             element={<GroupingSpecifications onSubmit={values => createCategory(values)} showButton={true} />}
             titleId="title.grouping"
+            auth={true}
           />
         ),
       },
       {
         path: '/main-tables/grouping-specifications/groups-list',
-        element: <WrapperRouteComponent element={<ListOfGroups />} titleId="title.grouping" />,
+        element: <WrapperRouteComponent element={<ListOfGroups />} titleId="title.grouping" auth={true} />,
       },
       {
         path: '/main-tables/product-info',
-        element: <WrapperRouteComponent element={<ProductInfo />} titleId="title.productInfo" />,
+        element: <WrapperRouteComponent element={<ProductInfo />} titleId="title.productInfo" auth={true} />,
       },
       {
         path: '/main-tables/product-info/products-list',
-        element: <WrapperRouteComponent element={<ListOfProducts />} titleId="title.productInfo" />,
+        element: <WrapperRouteComponent element={<ListOfProducts />} titleId="title.productInfo" auth={true} />,
       },
       {
         path: '/main-tables/product-info/groups-list',
-        element: <WrapperRouteComponent element={<ListOfGroups />} titleId="title.productInfo" />,
+        element: <WrapperRouteComponent element={<ListOfGroups />} titleId="title.productInfo" auth={true} />,
       },
       {
         path: '/main-tables/person-company-info',
-        element: <WrapperRouteComponent element={<CompanyPersonInfo />} titleId="title.personCompanyInfo" />,
+        element: (
+          <WrapperRouteComponent element={<CompanyPersonInfo />} titleId="title.personCompanyInfo" auth={true} />
+        ),
       },
       {
         path: '/main-tables/person-company-info/person-company-list',
-        element: <WrapperRouteComponent element={<ListOfPersonCompany />} titleId="title.personCompanyInfo" />,
+        element: (
+          <WrapperRouteComponent element={<ListOfPersonCompany />} titleId="title.personCompanyInfo" auth={true} />
+        ),
       },
       {
         path: '/main-tables/product-supplier',
-        element: <WrapperRouteComponent element={<ProductSupplier />} titleId="title.productSupplier" />,
+        element: <WrapperRouteComponent element={<ProductSupplier />} titleId="title.productSupplier" auth={true} />,
       },
       {
         path: '/main-tables/costumer-info',
-        element: <WrapperRouteComponent element={<CostumerInfo />} titleId="title.costumerInfo" />,
+        element: <WrapperRouteComponent element={<CostumerInfo />} titleId="title.costumerInfo" auth={true} />,
       },
       {
         path: '/main-tables/factors',
@@ -96,40 +102,41 @@ const routeList: RouteObject[] = [
           <WrapperRouteComponent
             element={<IncDecFactors onSubmit={values => createFactor(values)} showButton={true} />}
             titleId="title.incDecFactors"
+            auth={true}
           />
         ),
       },
       {
         path: '/main-tables/factors/factors-list',
-        element: <WrapperRouteComponent element={<ListOfFactors />} titleId="title.incDecFactors" />,
+        element: <WrapperRouteComponent element={<ListOfFactors />} titleId="title.incDecFactors" auth={true} />,
       },
       {
         path: '/main-tables/supplier',
-        element: <WrapperRouteComponent element={<Supplier />} titleId="title.supplier" />,
+        element: <WrapperRouteComponent element={<Supplier />} titleId="title.supplier" auth={true} />,
       },
       {
         path: 'account',
-        element: <WrapperRouteComponent element={<DashboardPage />} titleId="title.account" />,
+        element: <WrapperRouteComponent element={<DashboardPage />} titleId="title.account" auth={true} />,
       },
       {
         path: 'metadata',
-        element: <WrapperRouteComponent element={<MetadataPage />} titleId="title.metadata" />,
+        element: <WrapperRouteComponent element={<MetadataPage />} titleId="title.metadata" auth={true} />,
       },
       {
         path: 'advanced-search',
-        element: <WrapperRouteComponent element={<AdvancedSearchPage />} titleId="title.advanced-search" />,
+        element: <WrapperRouteComponent element={<AdvancedSearchPage />} titleId="title.advanced-search" auth={true} />,
       },
       {
         path: 'favorites',
-        element: <WrapperRouteComponent element={<FavoritesPage />} titleId="title.favorites" />,
+        element: <WrapperRouteComponent element={<FavoritesPage />} titleId="title.favorites" auth={true} />,
       },
       {
         path: 'reports',
-        element: <WrapperRouteComponent element={<ReportsPage />} titleId="title.reports" />,
+        element: <WrapperRouteComponent element={<ReportsPage />} titleId="title.reports" auth={true} />,
       },
       {
         path: '*',
-        element: <WrapperRouteComponent element={<NotFound />} titleId="title.notFount" />,
+        element: <WrapperRouteComponent element={<NotFound />} titleId="title.notFount" auth={true} />,
       },
     ],
   },

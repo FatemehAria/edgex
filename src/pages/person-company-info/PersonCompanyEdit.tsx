@@ -1,8 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
-import type { CSSProperties } from 'react';
 
-import { CaretRightOutlined } from '@ant-design/icons';
-import { Button, Collapse, Tabs, theme } from 'antd';
+import { Tabs } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { ProvinceContext } from '@/context/ProvinceContext';
@@ -62,26 +60,26 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
       ],
     },
     {
-      name: 'person-company-firstname-persian',
+      name: 'NamePersian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.firstnamePer' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-firstname-persian'],
+        defaultValue: initialValues['NamePersian'],
       },
       hidden: personType === '2',
     },
     {
-      name: 'person-company-lastname-persian',
+      name: 'FamilyPersian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnamePer' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-lastname-persian'],
+        defaultValue: initialValues['FamilyPersian'],
       },
       hidden: personType === '2',
     },

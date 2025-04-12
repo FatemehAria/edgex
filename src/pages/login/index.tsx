@@ -1,9 +1,10 @@
 import type { LoginParams } from '@/interface/user/login';
-import type { FC } from 'react';
 
 import './index.less';
 
 import { Button, Checkbox, Dropdown, Form, Input, theme as antTheme } from 'antd';
+import { type FC } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -16,7 +17,6 @@ import { setUserItem } from '@/stores/user.store';
 // import { formatSearch } from '@/utils/formatSearch';
 import { loginAsync } from '../../stores/user.action';
 import LoginCarousel from './LoginCarousel';
-import toast from 'react-hot-toast';
 
 const initialValues: LoginParams = {
   username: '',
@@ -30,7 +30,7 @@ const LoginForm: FC = () => {
   const dispatch = useDispatch();
   const { formatMessage } = useLocale();
   const { token } = antTheme.useToken();
-  const { locale } = useSelector(state => state.user);
+  const { locale, logged } = useSelector(state => state.user);
   const { theme } = useSelector(state => state.global);
   const location = useLocation();
 

@@ -60,26 +60,27 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
       ],
     },
     {
-      name: 'person-company-firstname-persian',
+      // name: 'person-company-firstname-persian',
+      name: 'NamePersian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.firstnamePer' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-firstname-persian'],
+        defaultValue: initialValues['NamePersian'],
       },
       hidden: personType === '2',
     },
     {
-      name: 'person-company-lastname-persian',
+      name: 'FamilyPersian',
       label: `${formatMessage({ id: 'app.personComapnyInfo.lastnamePer' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) =>
           localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['person-company-lastname-persian'],
+        defaultValue: initialValues['FamilyPersian'],
       },
       hidden: personType === '2',
     },
