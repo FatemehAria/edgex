@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from '@ant-design/icons';
-import { Dropdown, Input, Layout, theme as antTheme, Tooltip } from 'antd';
-import { createElement, useContext } from 'react';
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Dropdown, Layout, theme as antTheme, Tooltip } from 'antd';
+import { createElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,9 +18,6 @@ import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
-import { SearchContext } from '../home/context/SearchContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const { Header } = Layout;
 
@@ -115,24 +112,16 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
           {logged ? (
             <Dropdown
               menu={{
+                onClick: info => {
+                  if (info.key === 'logout') {
+                    onActionClick('logout');
+                  }
+                },
                 items: [
-                  // {
-                  //   key: '1',
-                  //   icon: <UserOutlined />,
-                  //   label: (
-                  //     <span onClick={() => navigate('/account')}>
-                  //       <LocaleFormatter id="header.avator.account" />
-                  //     </span>
-                  //   ),
-                  // },
                   {
-                    key: '2',
+                    key: 'logout',
                     icon: <LogoutOutlined />,
-                    label: (
-                      <span onClick={() => onActionClick('logout')}>
-                        <LocaleFormatter id="header.avator.logout" />
-                      </span>
-                    ),
+                    label: <LocaleFormatter id="header.avator.logout" />,
                   },
                 ],
               }}
@@ -140,7 +129,6 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
               <span className="user-action">
                 <img src={Avator} className="user-avator" alt="avator" />
               </span>
-              {/* <span style={{ cursor: 'pointer' }}>{'🟢' + ' ' + username ? JSON.parse(username) : ''}</span> */}
             </Dropdown>
           ) : (
             <span style={{ cursor: 'pointer' }} onClick={toLogin}>

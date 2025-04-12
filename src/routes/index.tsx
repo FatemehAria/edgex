@@ -14,9 +14,6 @@ import WrapperRouteComponent from './config';
 import PublicRoute from './publicRoute';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
-const MetadataPage = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/metadata'));
-const AdvancedSearchPage = lazy(() => import(/* webpackChunkName: "guide'"*/ '@/pages/advanced-search'));
-const FavoritesPage = lazy(() => import(/* webpackChunkName: "form'"*/ '@/pages/favorites'));
 const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));
 const HomePage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/home'));
 const DashboardPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/account'));
@@ -117,18 +114,6 @@ const routeList: RouteObject[] = [
       {
         path: 'account',
         element: <WrapperRouteComponent element={<DashboardPage />} titleId="title.account" auth={true} />,
-      },
-      {
-        path: 'metadata',
-        element: <WrapperRouteComponent element={<MetadataPage />} titleId="title.metadata" auth={true} />,
-      },
-      {
-        path: 'advanced-search',
-        element: <WrapperRouteComponent element={<AdvancedSearchPage />} titleId="title.advanced-search" auth={true} />,
-      },
-      {
-        path: 'favorites',
-        element: <WrapperRouteComponent element={<FavoritesPage />} titleId="title.favorites" auth={true} />,
       },
       {
         path: 'reports',
