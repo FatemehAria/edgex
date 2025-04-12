@@ -40,7 +40,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('header-info-costumer', JSON.stringify(value.target.value)),
+        onChange: (value: any) => localStorage.setItem('header-info-customertitle', JSON.stringify(value.target.value)),
       },
     },
     {

@@ -2,12 +2,12 @@ import { faCheck, faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment-jalaali';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { confirmProforma, getEngReport, getPerReport, getSingleProformaInfo } from './util';
-import { useSelector } from 'react-redux';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -29,11 +29,13 @@ export function ListOfProformaColumns({
     setHeaderData,
     setProformaStatus,
     setSelectedProformaInfo,
-    proformaStatus,
     isCopyingProforma,
     isCopyingProformaTableRow,
     setIsLoadingProformaInfo,
+    headerData,
   } = useContext(IsEdittingProformaContext);
+
+  console.log('header data in listofproforma columns', headerData);
 
   return [
     // ردیف
@@ -50,7 +52,9 @@ export function ListOfProformaColumns({
       dataIndex: 'CustomerTitle',
       key: 'CustomerTitle',
       width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (customer: any) => {
+        return <span style={{ textAlign: 'center' }}> {customer?.label || customer}</span>;
+      },
     },
     // نام ایونت
     {

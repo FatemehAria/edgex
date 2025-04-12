@@ -78,7 +78,7 @@ function Home() {
   };
 
   useEffect(() => {
-    form.setFieldsValue({ 'header-info-costumer': selectedCostumer });
+    form.setFieldsValue({ 'CustomerTitle': selectedCostumer });
   }, [selectedCostumer, form]);
 
   useEffect(() => {

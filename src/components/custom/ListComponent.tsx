@@ -52,8 +52,14 @@ function ListComponent({
   const [selectedRowForDelete, setSelectedRowForDelete] = useState<any>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { isCopyingProforma, setIsCopyingProforma, proformaStatus, setIsEdittingProforma, isEdittingProforma } =
-    useContext(IsEdittingProformaContext);
+  const {
+    isCopyingProforma,
+    setIsCopyingProforma,
+    proformaStatus,
+    setIsEdittingProforma,
+    isEdittingProforma,
+    setHeaderData,
+  } = useContext(IsEdittingProformaContext);
 
   const deleteRow = (record: any) => {
     setSelectedRowForDelete(record);
@@ -87,6 +93,18 @@ function ListComponent({
     setSelectedRowForEdit(rowToEdit);
     setIsEditModalOpen(true);
     setIsCopied(false);
+  };
+
+  const updateEditedRow = (field: string, value: any) => {
+    setHeaderData((prev: any) => ({ ...prev, [field]: value }));
+
+    if (selectedRowForEdit) {
+      setTableData(prevData =>
+        prevData.map(row => (row.key === selectedRowForEdit.key ? { ...row, [field]: value } : row)),
+      );
+    }
+
+    localStorage.setItem(`header-info-${field.toLowerCase()}`, JSON.stringify(value));
   };
 
   const copyRow = (record: any) => {
@@ -213,6 +231,7 @@ function ListComponent({
           isCopied={isCopied}
           setGroupValue={setGroupValue}
           groupValue={groupValue}
+          updateEditedRow={updateEditedRow}
         />
       </Modal>
       <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>

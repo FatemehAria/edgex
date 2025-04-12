@@ -18,8 +18,8 @@ export const createProforma = async (payload: any) => {
     toast.success('عملیات با موفقیت انجام شد.');
 
     [
-      'header-info-title',
-      'header-info-costumer',
+      'header-info-event',
+      'header-info-customertitle',
       'header-info-date',
       'header-info-desc',
       'editedOption-items',
@@ -65,15 +65,13 @@ export const getSingleProformaInfo = async (
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
     const headerData = {
-      'header-info-title': data.eventTitle,
-      'header-info-costumer': data.customerId,
-      'header-info-date': data.date,
+      Event: data.eventTitle,
+      CustomerTitle: data.customerId,
+      Date: data.date,
       'header-info-desc': data.descriptionHeader,
     };
 
     const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
-
-    // console.log('HeaderAgentsReducingIncreasingList', HeaderAgentsReducingIncreasingList);
 
     const mappedTableData = data.performaInvoiceDetailList
       .sort((x: any, y: any) => x.code - y.code)
@@ -218,30 +216,31 @@ export function createProformaPayload(
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
   existingHeader?: {
-    'header-info-costumer': string;
+    CustomerTitle: any;
     'header-info-desc': string;
-    'header-info-title': string;
-    'header-info-date': string;
+    Event: string;
+    Date: string;
   },
   proformaInfo?: any,
 ) {
-  console.log('isCopyingProformaTableRow', isCopyingProformaTableRow);
-  const customerId = localStorage.getItem('header-info-costumer')
-    ? JSON.parse(localStorage.getItem('header-info-costumer')!)
-    : existingHeader?.['header-info-costumer'] ?? null;
+  console.log('existing header', existingHeader);
+  const customerId = localStorage.getItem('header-info-customertitle')
+    ? JSON.parse(localStorage.getItem('header-info-customertitle')!).value
+    : existingHeader?.['CustomerTitle'].value ?? null;
 
   const descriptionHeader = localStorage.getItem('header-info-desc')
     ? JSON.parse(localStorage.getItem('header-info-desc')!)
     : existingHeader?.['header-info-desc'] ?? null;
 
-  const eventTitle = localStorage.getItem('header-info-title')
-    ? JSON.parse(localStorage.getItem('header-info-title')!)
-    : existingHeader?.['header-info-title'] ?? '';
+  const eventTitle = localStorage.getItem('header-info-event')
+    ? JSON.parse(localStorage.getItem('header-info-event')!)
+    : existingHeader?.['Event'] ?? '';
 
   const date = localStorage.getItem('header-info-date')
     ? JSON.parse(localStorage.getItem('header-info-date')!)
-    : existingHeader?.['header-info-date'] ?? '';
+    : existingHeader?.['Date'] ?? '';
 
+  // console.log('date', date);
   const headerData = { customerId, descriptionHeader, eventTitle, date };
 
   const finalValues = calculateFinalValues(tableData, insurancePrice);
@@ -303,7 +302,7 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
 export const getProformaList = async (
   endpoint: string,
   setProformaList: Dispatch<SetStateAction<any[]>>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
     const { data } = await customAxiosInstance.get(endpoint);
@@ -318,7 +317,7 @@ export const getProformaList = async (
   } catch (error) {
     console.log(error);
   } finally {
-    setLoading(false);
+    setLoading && setLoading(false);
   }
 };
 

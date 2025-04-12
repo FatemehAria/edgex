@@ -1,4 +1,7 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch } from 'react';
+
+import { formatBackendDate } from '@/utils/format-backend-date';
 
 export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
   {
@@ -33,9 +36,13 @@ export const ProformaFormOptions = (
   onOpenCustomerModal: () => void,
   setHeaderData: Dispatch<any>,
   singleProformaInfo?: any,
+  updateEditedRow?: any,
+  locale?: Locale,
+  headerData?: any,
 ) => [
   {
-    name: 'header-info-title',
+    // name: 'header-info-title',
+    name: 'Event',
     label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
     type: 'input',
     innerProps: {
@@ -43,13 +50,13 @@ export const ProformaFormOptions = (
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
 
-        setHeaderData((prev: any) => ({ ...prev, 'header-info-title': newValue }));
-        localStorage.setItem('header-info-title', JSON.stringify(newValue));
+        updateEditedRow('Event', newValue);
       },
     },
   },
   {
-    name: 'header-info-costumer',
+    // name: 'header-info-costumer',
+    name: 'CustomerTitle',
     label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
     type: 'select',
     innerProps: {
@@ -59,8 +66,11 @@ export const ProformaFormOptions = (
           onOpenCustomerModal();
         }
 
-        setHeaderData((prev: any) => ({ ...prev, 'header-info-costumer': value }));
-        localStorage.setItem('header-info-costumer', JSON.stringify(value));
+        const selectedOption = customerOptions.find(opt => opt.value === value);
+
+        setHeaderData((prev: any) => ({ ...prev, CustomerTitle: selectedOption }));
+
+        updateEditedRow('CustomerTitle', selectedOption);
       },
     },
     options: [
@@ -72,15 +82,22 @@ export const ProformaFormOptions = (
     ],
   },
   {
-    name: 'header-info-date',
+    // name: 'header-info-date',
+    name: 'Date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
     type: 'date-picker',
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
-      onChange: (dateString: string) => {
-        localStorage.setItem('header-info-date', JSON.stringify(dateString));
+      onChange: (value: any) => {
+        const formattedDate = value.format('YYYY-MM-DD');
+
+        // console.log('Formatted Gregorian date:', formattedDate);
+
+        setHeaderData((prev: any) => ({ ...prev, Date: formattedDate }));
+        updateEditedRow('Date', formattedDate);
       },
     },
+    // initialValue: formatBackendDate(headerData?.Date, locale),
   },
   {
     name: 'header-info-desc',
@@ -92,7 +109,7 @@ export const ProformaFormOptions = (
         const newValue = e.target.value;
 
         setHeaderData((prev: any) => ({ ...prev, 'header-info-desc': newValue }));
-        localStorage.setItem('header-info-desc', JSON.stringify(newValue));
+        updateEditedRow('header-info-desc', newValue);
       },
     },
   },

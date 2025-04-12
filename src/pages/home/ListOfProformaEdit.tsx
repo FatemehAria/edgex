@@ -23,7 +23,7 @@ import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, is
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
 
-function ListOfProformaEdit() {
+function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   const { token } = theme.useToken();
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
@@ -86,7 +86,7 @@ function ListOfProformaEdit() {
   };
 
   useEffect(() => {
-    form.setFieldsValue({ 'header-info-costumer': selectedCostumer });
+    form.setFieldsValue({ CustomerTitle: selectedCostumer });
   }, [selectedCostumer, form]);
 
   useEffect(() => {
@@ -222,7 +222,7 @@ function ListOfProformaEdit() {
     if (headerData) {
       const formattedData = {
         ...headerData,
-        'header-info-date': headerData['header-info-date'] ? dayjs(headerData['header-info-date']) : null,
+        Date: headerData['Date'] ? dayjs(headerData['Date']) : null,
       };
 
       // form.resetFields();
@@ -236,6 +236,9 @@ function ListOfProformaEdit() {
     openCustomerModal,
     setHeaderData,
     headerData,
+    updateEditedRow,
+    locale,
+    headerData
   );
 
   const panelStyle: CSSProperties = {
