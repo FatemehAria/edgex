@@ -16,7 +16,7 @@ function ListOfProducts() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
-      <ListButtons />
+      <ListButtons route="https://localhost:7214/api/Stuff/export-excel" title="products_export" />
       <ListComponent
         ModalComponent={MainInfo}
         columnsComponent={ListOfProductsColumns}

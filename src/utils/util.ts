@@ -34,9 +34,9 @@ export const getCity = async (setter: React.Dispatch<React.SetStateAction<never[
   }
 };
 
-export const getExcelReport = async () => {
+export const getExcelReport = async (route: string, title: string) => {
   try {
-    const response = await fetch('https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel', {
+    const response = await fetch(route, {
       headers: {
         Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf, video/mp4',
       },
@@ -48,7 +48,8 @@ export const getExcelReport = async () => {
 
     const contentType = response.headers.get('content-type');
     const blob = await response.blob();
-    const filename = 'Export.xlsx';
+    const filename = `${title}.xlsx`;
+    // const filename = 'Export.xlsx';
 
     // Set the correct MIME type for Excel files
     const blobOptions = {

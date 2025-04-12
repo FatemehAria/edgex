@@ -136,7 +136,7 @@ export function ListOfProformaColumns({
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPrint}
-              onClick={() => getEngReport(record.ID)}
+              onClick={() => getEngReport(record.ID, record.CustomerTitle, record.Date)}
               className="print-icon"
               style={{ cursor: 'pointer', marginRight: 8 }}
             />
@@ -155,7 +155,7 @@ export function ListOfProformaColumns({
           <span className="center-align">
             <FontAwesomeIcon
               icon={faPrint}
-              onClick={() => getPerReport(record.ID)}
+              onClick={() => getPerReport(record.ID, record.CustomerTitle, record.Date)}
               className="print-icon"
               style={{ cursor: 'pointer', marginRight: 8 }}
             />

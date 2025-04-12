@@ -8,7 +8,10 @@ import { deleteProforma, getProformaList } from './util';
 function ListOfProforma() {
   return (
     <div style={{ minHeight: ' 100vh' }}>
-      <ListButtons />
+      <ListButtons
+        route="https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel"
+        title="proforma_export"
+      />
       <ListComponent
         ModalComponent={ListOfProformaEdit}
         columnsComponent={ListOfProformaColumns}

@@ -32,7 +32,7 @@ function ListOfPersonCompany() {
       isActive: data.IsActive,
       address: data.Address || '',
       roleIDs: data.RoleIDs || [0],
-      personTypeTitle: data.personTypeTitle || '', 
+      personTypeTitle: data.personTypeTitle || '',
       provinceID: data.ProvinceID || '',
       cityID: data.CityID || '',
       errorMessage: data.errorMessage || '',
@@ -49,7 +49,7 @@ function ListOfPersonCompany() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
-      <ListButtons />
+      <ListButtons route="https://localhost:7214/api/CompanyPerson/export-excel" title="company_person_export" />
       <ListComponent
         ModalComponent={PersonCompanyEdit}
         columnsComponent={ListOfPersonTableColumns}

@@ -1,9 +1,9 @@
+import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
-import { Locale } from '@/interface/user/user';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -379,7 +379,7 @@ export const confirmProforma = async (id: string, setProformaStatus: any) => {
   }
 };
 
-export const getEngReport = async (id: string) => {
+export const getEngReport = async (id: string, customerTitle: string, date: string) => {
   try {
     const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/print/${id}`, {
       method: 'GET',
@@ -398,7 +398,7 @@ export const getEngReport = async (id: string) => {
     const link = document.createElement('a');
 
     link.href = url;
-    link.setAttribute('download', 'PerformaInvoiceHeaderPrint.pdf');
+    link.setAttribute('download', `${customerTitle}_${date}_proforma.pdf`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -408,7 +408,7 @@ export const getEngReport = async (id: string) => {
   }
 };
 
-export const getPerReport = async (id: string) => {
+export const getPerReport = async (id: string, customerTitle: string, date: string) => {
   try {
     const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/printPersian/${id}`, {
       method: 'GET',
@@ -427,7 +427,7 @@ export const getPerReport = async (id: string) => {
     const link = document.createElement('a');
 
     link.href = url;
-    link.setAttribute('download', 'PerformaInvoiceHeaderPrint.pdf');
+    link.setAttribute('download', `${customerTitle}_${date}_proforma.pdf`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

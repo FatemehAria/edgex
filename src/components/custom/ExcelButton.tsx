@@ -6,7 +6,7 @@ import React from 'react';
 import { useLocale } from '@/locales';
 import { getExcelReport } from '@/utils/util';
 
-function ExcelButton() {
+function ExcelButton({ route, title }: { route: string; title: string }) {
   const { formatMessage } = useLocale();
 
   return (
@@ -21,7 +21,7 @@ function ExcelButton() {
         color="#2f7d32"
         fontWeight={700}
         style={{ margin: '1rem 0' }}
-        onClick={() => getExcelReport()}
+        onClick={() => getExcelReport(route, title)}
         cursor="pointer"
       />
     </Tooltip>

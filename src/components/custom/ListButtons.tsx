@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import BackButton from './BackButton';
 import ExcelButton from './ExcelButton';
 
-function ListButtons() {
+function ListButtons({ route, title }: { route: string; title: string }) {
   const { locale } = useSelector(state => state.user);
 
   return (
@@ -16,7 +16,7 @@ function ListButtons() {
         flexDirection: `${locale === 'en_US' ? 'row-reverse' : 'row'}`,
       }}
     >
-      <ExcelButton />
+      <ExcelButton route={route} title={title} />
       <BackButton />
     </div>
   );
