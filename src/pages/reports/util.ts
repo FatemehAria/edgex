@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const getReportsData = async (setReports: React.Dispatch<React.SetStateAction<never[]>>) => {
@@ -10,8 +12,10 @@ export const getReportsData = async (setReports: React.Dispatch<React.SetStateAc
     }));
 
     setReports(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
+    toast.error('خطا در دریافت اطلاعات');
+
     console.log(error);
   }
 };

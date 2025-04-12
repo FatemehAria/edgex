@@ -7,6 +7,7 @@ import { useLocale } from '@/locales';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { confirmProforma, getEngReport, getPerReport, getSingleProformaInfo } from './util';
+import { useSelector } from 'react-redux';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -21,6 +22,7 @@ export function ListOfProformaColumns({
   refreshList: any;
   handleCopy: any;
 }) {
+  const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
   const {
     setSingleProformaInfo,
@@ -109,7 +111,11 @@ export function ListOfProformaColumns({
       render: (text: any, record: any) => (
         <span className="center-align">
           {text === 'تایید شده' ? (
-            text
+            locale === 'fa_IR' ? (
+              text
+            ) : (
+              'confirmed'
+            )
           ) : (
             <FontAwesomeIcon
               icon={faCheck}
