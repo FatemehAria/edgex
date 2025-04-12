@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { Locale } from '@/interface/user/user';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -278,13 +279,19 @@ export function createProformaPayload(
   };
 }
 
-export const getStuffbyId = async (setStuffList: React.Dispatch<any>) => {
+export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale) => {
   const ID = localStorage.getItem('category-initialValue') || '';
 
   // console.log(ID);
 
   try {
-    const { data } = await customAxiosInstance(`/PerformaInvoiceHeader/GetStuffList/${ID}`);
+    const { data } = await customAxiosInstance(
+      `${
+        locale === 'en_US'
+          ? `/PerformaInvoiceHeader/GetStuffList/${ID}`
+          : `/PerformaInvoiceHeader/GetStuffPersianList/${ID}`
+      }`,
+    );
 
     // console.log(data);
     setStuffList(data);

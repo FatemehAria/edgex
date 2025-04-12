@@ -104,7 +104,7 @@ function Home() {
       }));
 
       setSupplierOptions(transformed);
-    },locale);
+    }, locale);
   }, [locale]);
 
   const [groupingOptions, setGroupingOptions] = useState<{ label: string; value: string }[]>([]);
@@ -138,8 +138,8 @@ function Home() {
       }));
 
       setItemOptions(transformed);
-    });
-  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue')]);
+    }, locale);
+  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue'), locale]);
 
   const createEmptyRow = () => {
     const newRow = {

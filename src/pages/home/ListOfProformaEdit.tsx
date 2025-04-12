@@ -147,8 +147,8 @@ function ListOfProformaEdit() {
       }));
 
       setItemOptions(transformed);
-    });
-  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue')]);
+    }, locale);
+  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue'), locale]);
 
   const createEmptyRow = () => {
     const newRow = {
