@@ -3,33 +3,6 @@ import type { Dispatch } from 'react';
 
 import { formatBackendDate } from '@/utils/format-backend-date';
 
-export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
-  {
-    name: 'recordProfitMargin',
-    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.profitMargin' })}`,
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'record-percentage-discount',
-    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.percentageDiscount' })}`,
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'record-commute',
-    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.commute' })}`,
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-  {
-    name: 'record-amount-discount',
-    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.amountDiscount' })}`,
-    type: 'input',
-    innerProps: { placeholder: '' },
-  },
-];
-
 export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,
   customerOptions: { label: string; value: string }[],
@@ -112,5 +85,32 @@ export const ProformaFormOptions = (
         updateEditedRow('header-info-desc', newValue);
       },
     },
+  },
+];
+
+export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
+  {
+    name: 'recordProfitMargin',
+    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.profitMargin' })}`,
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'record-percentage-discount',
+    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.percentageDiscount' })}`,
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'record-commute',
+    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.commute' })}`,
+    type: 'input',
+    innerProps: { placeholder: '' },
+  },
+  {
+    name: 'record-amount-discount',
+    label: `${formatMessage({ id: 'app.home.detailInfo.table.modalForm.amountDiscount' })}`,
+    type: 'input',
+    innerProps: { placeholder: '' },
   },
 ];
