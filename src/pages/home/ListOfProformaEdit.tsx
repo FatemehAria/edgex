@@ -70,7 +70,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   ]);
   const [form] = Form.useForm();
 
-  console.log('singleProformaInfo', singleProformaInfo);
+  // console.log('singleProformaInfo', singleProformaInfo);
   useEffect(() => {
     // if (singleProformaInfo) {
     setTableData(singleProformaInfo);

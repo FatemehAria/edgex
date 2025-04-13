@@ -106,7 +106,7 @@ export const getSingleProformaInfo = async (
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
 
-    console.log('finalArray', finalArray);
+    // console.log('finalArray', finalArray);
     setHeaderData(headerData);
     setSingleProformaInfo(finalArray);
     // console.log(data);
@@ -223,7 +223,7 @@ export function createProformaPayload(
   },
   proformaInfo?: any,
 ) {
-  console.log('existing header', existingHeader);
+  // console.log('existing header', existingHeader);
   const customerId = localStorage.getItem('header-info-customertitle')
     ? JSON.parse(localStorage.getItem('header-info-customertitle')!).value
     : existingHeader?.['CustomerTitle'].value ?? null;

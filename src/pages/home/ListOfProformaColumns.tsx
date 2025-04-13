@@ -35,7 +35,7 @@ export function ListOfProformaColumns({
     headerData,
   } = useContext(IsEdittingProformaContext);
 
-  console.log('header data in listofproforma columns', headerData);
+  // console.log('header data in listofproforma columns', headerData);
 
   return [
     // ردیف
