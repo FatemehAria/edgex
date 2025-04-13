@@ -1,19 +1,18 @@
 import moment from 'moment-jalaali';
 
 export function formatBackendDate(dateStr: string, locale: string) {
+  console.log('dateStr', dateStr);
   if (!dateStr) return null;
 
-  // Check if dateStr is in Jalali format
-  const isJalali = /^1[34]\d{2}-\d{2}-\d{2}$/.test(dateStr); // Roughly detects years 1300-1499
+  const isJalali = dateStr.startsWith('13') || dateStr.startsWith('14');
 
   if (locale === 'fa_IR') {
     // Persian UI → Calendar is Jalali
     if (isJalali) {
-      // All good, return Jalali moment
       return moment(dateStr, 'jYYYY-jMM-jDD');
     } else {
       // Backend sent Gregorian, convert to Jalali
-      return moment(dateStr, 'YYYY-MM-DD').format('jYYYY/jMM/jDD');
+      return moment(dateStr, 'YYYY-MM-DD').format('jYYYY-jMM-jDD');
     }
   } else {
     // English UI → Calendar is Gregorian

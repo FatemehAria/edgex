@@ -97,7 +97,7 @@ export const ProformaFormOptions = (
         updateEditedRow('Date', formattedDate);
       },
     },
-    // initialValue: formatBackendDate(headerData?.Date, locale),
+    initialValue: formatBackendDate(headerData?.Date, locale || 'en_US'),
   },
   {
     name: 'header-info-desc',

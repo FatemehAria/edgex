@@ -4,6 +4,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import moment from 'moment-jalaali';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -59,15 +60,18 @@ export const getSingleProformaInfo = async (
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
   setLoading: Dispatch<SetStateAction<boolean>>,
+  locale: Locale,
 ) => {
   try {
     setLoading(true);
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
+    const isJalali = data.date.startsWith('13') || data.date.startsWith('14');
+
     const headerData = {
       Event: data.eventTitle,
       CustomerTitle: data.customerId,
-      Date: data.date,
+      Date: locale === 'en_US' && isJalali ? moment(data.date, 'jYYYY-jMM-jDD').format('YYYY-MM-DD') : data.date,
       'header-info-desc': data.descriptionHeader,
     };
 
