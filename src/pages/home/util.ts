@@ -1,10 +1,11 @@
 import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
+import moment from 'moment-jalaali';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
-import moment from 'moment-jalaali';
+import dayjs from 'dayjs';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -71,7 +72,9 @@ export const getSingleProformaInfo = async (
     const headerData = {
       Event: data.eventTitle,
       CustomerTitle: data.customerId,
-      Date: locale === 'en_US' && isJalali ? moment(data.date, 'jYYYY-jMM-jDD').format('YYYY-MM-DD') : data.date,
+      Date: isJalali
+        ? dayjs(moment(data.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'))
+        : dayjs(moment(data.date, 'YYYY/MM/DD').format('YYYY-MM-DD')),
       'header-info-desc': data.descriptionHeader,
     };
 

@@ -71,7 +71,7 @@ export function ListOfProformaColumns({
       key: 'Date',
       width: 300,
       render: (text: string) => (
-        <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('jYYYY/jMM/jDD')}</span>
+        <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD')}</span>
       ),
     },
     // تعداد کل

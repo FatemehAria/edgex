@@ -218,27 +218,26 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
 
   const columns = allColumns.filter(col => !col.hidden);
 
-  useEffect(() => {
-    if (headerData) {
-      const formattedData = {
-        ...headerData,
-        Date: headerData['Date'] ? dayjs(headerData['Date']) : null,
-      };
+  // useEffect(() => {
+  //   if (headerData) {
+  //     const formattedData = {
+  //       ...headerData,
+  //       Date: headerData['Date'] ? dayjs(headerData['Date']) : null,
+  //     };
 
-      // form.resetFields();
-      form.setFieldsValue(formattedData);
-    }
-  }, [headerData, form]);
+  //     // form.resetFields();
+  //     form.setFieldsValue(formattedData);
+  //   }
+  // }, [headerData, form]);
 
   const proformaFormOptions: any = ProformaFormOptions(
     formatMessage,
     customerOptions,
     openCustomerModal,
     setHeaderData,
-    headerData,
     updateEditedRow,
     locale,
-    headerData
+    headerData,
   );
 
   const panelStyle: CSSProperties = {

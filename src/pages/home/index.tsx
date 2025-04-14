@@ -78,7 +78,7 @@ function Home() {
   };
 
   useEffect(() => {
-    form.setFieldsValue({ 'CustomerTitle': selectedCostumer });
+    form.setFieldsValue({ CustomerTitle: selectedCostumer });
   }, [selectedCostumer, form]);
 
   useEffect(() => {
@@ -207,11 +207,16 @@ function Home() {
     setTableData,
   );
 
+  const updateEditedRow = (field: string, value: any) => {
+    localStorage.setItem(`header-info-${field.toLowerCase()}`, JSON.stringify(value));
+  };
+
   const proformaFormOptions: any = ProformaFormOptions(
     formatMessage,
     customerOptions,
     openCustomerModal,
     setHeaderData,
+    updateEditedRow,
   );
 
   const panelStyle: CSSProperties = {

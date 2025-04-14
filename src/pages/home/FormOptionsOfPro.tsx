@@ -8,8 +8,8 @@ export const ProformaFormOptions = (
   customerOptions: { label: string; value: string }[],
   onOpenCustomerModal: () => void,
   setHeaderData: Dispatch<any>,
+  updateEditedRow: (field: string, value: any) => void,
   singleProformaInfo?: any,
-  updateEditedRow?: any,
   locale?: Locale,
   headerData?: any,
 ) => [
@@ -70,7 +70,7 @@ export const ProformaFormOptions = (
         updateEditedRow('Date', formattedDate);
       },
     },
-    initialValue: formatBackendDate(headerData?.Date, locale || 'en_US'),
+    initialValue: headerData?.Date,
   },
   {
     name: 'header-info-desc',
