@@ -72,9 +72,8 @@ export const getSingleProformaInfo = async (
     const headerData = {
       Event: data.eventTitle,
       CustomerTitle: data.customerId,
-      Date: isJalali
-        ? dayjs(moment(data.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'))
-        : dayjs(moment(data.date, 'YYYY/MM/DD').format('YYYY-MM-DD')),
+      Date: data.date,
+      isJalali,
       'header-info-desc': data.descriptionHeader,
     };
 

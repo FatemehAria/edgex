@@ -1,5 +1,11 @@
 import type { Locale } from '@/interface/user/user';
+import dayjs from 'dayjs';
+import moment from 'moment-jalaali';
 import type { Dispatch } from 'react';
+
+// isJalali
+// ? dayjs(moment(data.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'))
+// : dayjs(moment(data.date, 'YYYY/MM/DD').format('YYYY-MM-DD'))
 
 export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,
@@ -10,82 +16,95 @@ export const ProformaFormOptions = (
   singleProformaInfo?: any,
   locale?: Locale,
   headerData?: any,
-) => [
-  {
-    name: 'Event',
-    label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
-    type: 'input',
-    initialValue: headerData?.Event,
-    innerProps: {
-      placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}`,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
+) => {
+  let computedDate = headerData?.Date;
 
-        updateEditedRow('Event', newValue);
+  if (computedDate && headerData?.isJalali) {
+    computedDate = dayjs(moment(headerData.Date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'));
+  } else if (computedDate && !headerData?.isJalali) {
+    computedDate = dayjs(moment(headerData.Date, 'YYYY/MM/DD').format('YYYY-MM-DD'));
+  }
+
+  dayjs.locale(locale === 'fa_IR' ? 'fa' : 'en');
+
+  return [
+    {
+      name: 'Event',
+      label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
+      type: 'input',
+      initialValue: headerData?.Event,
+      innerProps: {
+        placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}`,
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+          const newValue = e.target.value;
+
+          updateEditedRow('Event', newValue);
+        },
       },
     },
-  },
-  {
-    name: 'CustomerTitle',
-    label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
-    type: 'select',
-    // initialValue: headerData?.CustomerTitle,
-    initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
-    innerProps: {
-      placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
-      onChange: (value: any) => {
-        if (value === 'add-new') {
-          onOpenCustomerModal();
-        }
+    {
+      name: 'CustomerTitle',
+      label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
+      type: 'select',
+      // initialValue: headerData?.CustomerTitle,
+      initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
+      innerProps: {
+        placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
+        onChange: (value: any) => {
+          if (value === 'add-new') {
+            onOpenCustomerModal();
+          }
 
-        const selectedOption = customerOptions.find(opt => opt.value === value);
+          const selectedOption = customerOptions.find(opt => opt.value === value);
 
-        setHeaderData((prev: any) => ({ ...prev, CustomerTitle: selectedOption }));
+          setHeaderData((prev: any) => ({ ...prev, CustomerTitle: selectedOption }));
 
-        updateEditedRow('CustomerTitle', selectedOption);
+          updateEditedRow('CustomerTitle', selectedOption);
+        },
+      },
+      options: [
+        ...customerOptions,
+        {
+          label: formatMessage({ id: 'app.home.headerInfo.costumer.addNew' }) || 'Add New Customer',
+          value: 'add-new',
+        },
+      ],
+    },
+    {
+      name: 'Date',
+      label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
+      type: 'date-picker',
+      // initialValue: headerData?.Date,
+      initialValue: computedDate,
+      innerProps: {
+        placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
+        onChange: (value: any) => {
+          const formattedDate = value.format('YYYY-MM-DD');
+
+          // console.log('Formatted Gregorian date:', formattedDate);
+
+          setHeaderData((prev: any) => ({ ...prev, Date: formattedDate }));
+          updateEditedRow('Date', formattedDate);
+        },
       },
     },
-    options: [
-      ...customerOptions,
-      {
-        label: formatMessage({ id: 'app.home.headerInfo.costumer.addNew' }) || 'Add New Customer',
-        value: 'add-new',
-      },
-    ],
-  },
-  {
-    name: 'Date',
-    label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
-    type: 'date-picker',
-    initialValue: headerData?.Date,
-    innerProps: {
-      placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
-      onChange: (value: any) => {
-        const formattedDate = value.format('YYYY-MM-DD');
+    {
+      name: 'header-info-desc',
+      label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
+      type: 'textarea',
+      initialValue: headerData?.['header-info-desc'],
+      innerProps: {
+        placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}`,
+        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          const newValue = e.target.value;
 
-        // console.log('Formatted Gregorian date:', formattedDate);
-
-        setHeaderData((prev: any) => ({ ...prev, Date: formattedDate }));
-        updateEditedRow('Date', formattedDate);
+          setHeaderData((prev: any) => ({ ...prev, 'header-info-desc': newValue }));
+          updateEditedRow('header-info-desc', newValue);
+        },
       },
     },
-  },
-  {
-    name: 'header-info-desc',
-    label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
-    type: 'textarea',
-    initialValue: headerData?.['header-info-desc'],
-    innerProps: {
-      placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}`,
-      onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newValue = e.target.value;
-
-        setHeaderData((prev: any) => ({ ...prev, 'header-info-desc': newValue }));
-        updateEditedRow('header-info-desc', newValue);
-      },
-    },
-  },
-];
+  ];
+};
 
 export const ModalFormOptions = (formatMessage: (descriptor: any) => string) => [
   {
