@@ -236,6 +236,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     openCustomerModal,
     setHeaderData,
     updateEditedRow,
+    headerData,
     locale,
     headerData,
   );

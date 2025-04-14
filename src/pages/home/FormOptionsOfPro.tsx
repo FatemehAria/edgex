@@ -1,8 +1,6 @@
 import type { Locale } from '@/interface/user/user';
 import type { Dispatch } from 'react';
 
-import { formatBackendDate } from '@/utils/format-backend-date';
-
 export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,
   customerOptions: { label: string; value: string }[],
@@ -14,10 +12,10 @@ export const ProformaFormOptions = (
   headerData?: any,
 ) => [
   {
-    // name: 'header-info-title',
     name: 'Event',
     label: `${formatMessage({ id: 'app.home.headerInfo.title' })}`,
     type: 'input',
+    initialValue: headerData?.Event,
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.title.placeholder' })}`,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +26,10 @@ export const ProformaFormOptions = (
     },
   },
   {
-    // name: 'header-info-costumer',
     name: 'CustomerTitle',
     label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
     type: 'select',
+    initialValue: headerData?.CustomerTitle,
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
       onChange: (value: any) => {
@@ -55,10 +53,10 @@ export const ProformaFormOptions = (
     ],
   },
   {
-    // name: 'header-info-date',
     name: 'Date',
     label: `${formatMessage({ id: 'app.home.headerInfo.date' })}`,
     type: 'date-picker',
+    initialValue: headerData?.Date,
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.date.placeholder' })}`,
       onChange: (value: any) => {
@@ -70,12 +68,12 @@ export const ProformaFormOptions = (
         updateEditedRow('Date', formattedDate);
       },
     },
-    initialValue: headerData?.Date,
   },
   {
     name: 'header-info-desc',
     label: `${formatMessage({ id: 'app.home.headerInfo.desc' })}`,
     type: 'textarea',
+    initialValue: headerData?.['header-info-desc'],
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.desc.placeholder' })}`,
       onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
