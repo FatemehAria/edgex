@@ -97,7 +97,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       FormOptions={costumerInfoFormOptions}
       layoutDir="vertical"
       submitForm={values => {
-        console.log('Submitted values:', values);
+        // console.log('Submitted values:', values);
 
         if (onCustomerSubmit) {
           onCustomerSubmit(values);

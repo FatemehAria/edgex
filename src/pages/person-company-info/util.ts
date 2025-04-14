@@ -83,7 +83,7 @@ export const createCostumer = async (values?: any) => {
       isSuplier: isSuplierLocal !== null ? isSuplierLocal : false,
     };
 
-    console.log(dataToPost);
+    // console.log(dataToPost);
     const { data } = await customAxiosInstance.post('/CompanyPerson/create', dataToPost);
 
     [
@@ -133,6 +133,7 @@ export const getLists = async (
     setTableData(formattedData);
     // console.log(data);
   } catch (error) {
+    toast.error('خطا در دریافت اطلاعات');
     console.log(error);
   } finally {
     setLoading(false);

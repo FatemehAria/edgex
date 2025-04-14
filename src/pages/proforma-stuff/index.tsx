@@ -44,7 +44,7 @@ function ProformaStuff({ onItemSubmit }: ProformaStuffProps) {
       FormOptions={proformaStuffFormOptions}
       layoutDir="vertical"
       submitForm={values => {
-        console.log('Submitted values:', values);
+        // console.log('Submitted values:', values);
 
         if (onItemSubmit) {
           onItemSubmit(values);

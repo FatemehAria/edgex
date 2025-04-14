@@ -1,11 +1,11 @@
 import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
+import dayjs from 'dayjs';
 import moment from 'moment-jalaali';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
-import dayjs from 'dayjs';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -84,7 +84,7 @@ export const getSingleProformaInfo = async (
       .map((detail: any, index: number) => ({
         key: index + 1,
         ...(!isCopyingProforma && !isCopyingProformaTableRow
-          ? { PerformaInvoiceDetailID: detail.id, id: detail.id, code: detail.code }
+          ? { PerformaInvoiceDetailID: detail.id, id: null, code: null }
           : {}),
         description: detail.description,
         existenceCategoryID: detail.existenceCategoryID,
@@ -334,7 +334,7 @@ export const createProformaStuff = async (values: any) => {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalStuff', {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
-      description: values['Description'],
+      description: values['Description'] ? values['Description'] : null,
       existenceCategoryID: categoryId,
     });
 

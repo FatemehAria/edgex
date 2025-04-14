@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { customAxiosInstance } from '@/utils/axios-config';
 
 export const createFactor = async (values: any) => {
-  console.log('values', values);
+  // console.log('values', values);
   const influenceValue =
     typeof values['influcence'] === 'string' && values['influcence'].includes('%')
       ? parseFloat(values['influcence'].replace('%', ''))
