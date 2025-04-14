@@ -51,7 +51,7 @@ export function ListOfProformaColumns({
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.customer' })}</span>,
       dataIndex: 'CustomerTitle',
       key: 'CustomerTitle',
-      width: 300,
+      width: 1000,
       render: (customer: any) => {
         return <span style={{ textAlign: 'center' }}> {customer?.label || customer}</span>;
       },
@@ -61,7 +61,7 @@ export function ListOfProformaColumns({
       title: <span className="center-align">{formatMessage({ id: 'app.home.columns.eventName' })}</span>,
       dataIndex: 'Event',
       key: 'Event',
-      width: 300,
+      width: 1000,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تاریخ
@@ -113,7 +113,7 @@ export function ListOfProformaColumns({
       key: 'StatusTitle',
       width: 200,
       render: (text: any, record: any) => (
-        <span className="center-align">
+        <span className="center-align" style={{ textWrap: 'nowrap' }}>
           {text === 'تایید شده' ? (
             locale === 'fa_IR' ? (
               text
@@ -195,7 +195,7 @@ export function ListOfProformaColumns({
                     isCopyingProforma,
                     isCopyingProformaTableRow,
                     setIsLoadingProformaInfo,
-                    locale
+                    locale,
                   );
                   setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                   handleEdit(record);
@@ -217,28 +217,38 @@ export function ListOfProformaColumns({
       title: <span className="center-align">{formatMessage({ id: 'gloabal.columns.copy' })}</span>,
       dataIndex: 'copy',
       key: 'copy',
-      render: (_: any, record: any) => (
-        <span className="center-align">
-          <FontAwesomeIcon
-            icon={faCopy}
-            onClick={async () => {
-              await getSingleProformaInfo(
-                record.ID,
-                setSingleProformaInfo,
-                setHeaderData,
-                isCopyingProforma,
-                isCopyingProformaTableRow,
-                setIsLoadingProformaInfo,
-                locale
-              );
-              setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
-              handleCopy(record);
-            }}
-            style={{ cursor: 'pointer', marginRight: 8 }}
-            className="copy-icon"
-          />
-        </span>
-      ),
+      render: (_: any, record: any) => {
+        const isRegistered = record.StatusTitle === 'ثبت شده';
+
+        return (
+          <span className="center-align">
+            <FontAwesomeIcon
+              icon={faCopy}
+              onClick={async () => {
+                if (isRegistered) {
+                  await getSingleProformaInfo(
+                    record.ID,
+                    setSingleProformaInfo,
+                    setHeaderData,
+                    isCopyingProforma,
+                    isCopyingProformaTableRow,
+                    setIsLoadingProformaInfo,
+                    locale,
+                  );
+                  setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+                  handleCopy(record);
+                }
+              }}
+              style={{
+                cursor: isRegistered ? 'pointer' : 'default',
+                marginRight: 8,
+                color: isRegistered ? 'darkgreen' : 'gray',
+              }}
+              // className="copy-icon"
+            />
+          </span>
+        );
+      },
     },
     // حذف
     {
