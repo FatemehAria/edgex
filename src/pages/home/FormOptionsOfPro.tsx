@@ -29,7 +29,8 @@ export const ProformaFormOptions = (
     name: 'CustomerTitle',
     label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
     type: 'select',
-    initialValue: headerData?.CustomerTitle,
+    // initialValue: headerData?.CustomerTitle,
+    initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
     innerProps: {
       placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
       onChange: (value: any) => {

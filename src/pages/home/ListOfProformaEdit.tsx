@@ -70,7 +70,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   ]);
   const [form] = Form.useForm();
 
-  // console.log('singleProformaInfo', singleProformaInfo);
+  console.log('headerData', headerData);
   useEffect(() => {
     // if (singleProformaInfo) {
     setTableData(singleProformaInfo);
@@ -99,6 +99,16 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
       setCustomerOptions(transformed);
     }, locale);
   }, [locale]);
+
+  useEffect(() => {
+    if (headerData && customerOptions.length > 0) {
+      // Ensure the form field "CustomerTitle" is updated with the customer ID.
+      // Assume headerData.CustomerTitle is a string ID.
+      form.setFieldsValue({
+        CustomerTitle: headerData.CustomerTitle,
+      });
+    }
+  }, [headerData, customerOptions, form]);
 
   const [supplierOptions, setSupplierOptions] = useState<{ label: string; value: string }[]>([]);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
