@@ -1,11 +1,8 @@
 import type { Locale } from '@/interface/user/user';
-import dayjs from 'dayjs';
-import moment from 'moment-jalaali';
 import type { Dispatch } from 'react';
 
-// isJalali
-// ? dayjs(moment(data.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'))
-// : dayjs(moment(data.date, 'YYYY/MM/DD').format('YYYY-MM-DD'))
+import dayjs from 'dayjs';
+import moment from 'moment-jalaali';
 
 export const ProformaFormOptions = (
   formatMessage: (descriptor: any) => string,

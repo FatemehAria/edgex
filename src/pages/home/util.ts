@@ -231,8 +231,8 @@ export function createProformaPayload(
 ) {
   // console.log('existing header', existingHeader);
   const customerId = localStorage.getItem('header-info-customertitle')
-    ? JSON.parse(localStorage.getItem('header-info-customertitle')!).value
-    : existingHeader?.['CustomerTitle'].value ?? null;
+    ? JSON.parse(localStorage.getItem('header-info-customertitle')!)?.value
+    : existingHeader?.['CustomerTitle'] ?? null;
 
   const descriptionHeader = localStorage.getItem('header-info-desc')
     ? JSON.parse(localStorage.getItem('header-info-desc')!)
