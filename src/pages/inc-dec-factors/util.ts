@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const createFactor = async (values: any) => {
   // console.log('values', values);
@@ -24,10 +25,9 @@ export const createFactor = async (values: any) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -53,7 +53,7 @@ export const getFactrosList = async (
     setTableData(formattedData);
     // console.log(formattedData);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading(false);
   }
@@ -107,10 +107,9 @@ export const updateFactor = async (endpoint: string, value: any, id: string) => 
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -123,9 +122,8 @@ export const deleteFactor = async (endpoint: string, id: string) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
