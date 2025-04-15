@@ -4,6 +4,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const getCustomersList = async (
   setList: Dispatch<SetStateAction<any[]>>,
@@ -25,7 +26,7 @@ export const getCustomersList = async (
     setList(formattedData);
     // console.log('customers list', data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading?.(false);
   }
@@ -49,10 +50,9 @@ export const createCustomer = async (values: any) => {
       isActive: values['isActive'],
     });
 
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
     // console.log(data);
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
