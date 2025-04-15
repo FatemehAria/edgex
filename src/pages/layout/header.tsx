@@ -130,7 +130,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                 <FontAwesomeIcon icon={faCircleDot} color="darkgreen" style={{ width: '1rem' }} />
-                <span>{JSON.parse(username)}</span>
+                <span style={{ fontWeight: '700' }}>{JSON.parse(username)}</span>
               </div>
             </Dropdown>
           ) : (

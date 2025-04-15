@@ -59,7 +59,7 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <div>
+    <div className="login">
       <LoginCarousel />
       <div className="login-container">
         <Dropdown
