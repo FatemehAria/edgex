@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const getReportsData = async (setReports: React.Dispatch<React.SetStateAction<never[]>>) => {
   try {
@@ -14,8 +15,6 @@ export const getReportsData = async (setReports: React.Dispatch<React.SetStateAc
     setReports(formattedData);
     // console.log(data);
   } catch (error) {
-    toast.error('خطا در دریافت اطلاعات');
-
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   }
 };
