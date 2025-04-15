@@ -300,7 +300,8 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
     // console.log(data);
     setStuffList(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
+    console.log(error);
+    // toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   }
 };
 
