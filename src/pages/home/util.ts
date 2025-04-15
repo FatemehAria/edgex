@@ -1,11 +1,10 @@
 import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
-import dayjs from 'dayjs';
-import moment from 'moment-jalaali';
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const createProforma = async (payload: any) => {
   console.log('payload', payload);
@@ -17,7 +16,7 @@ export const createProforma = async (payload: any) => {
       },
     });
 
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
 
     [
       'header-info-event',
@@ -30,7 +29,7 @@ export const createProforma = async (payload: any) => {
 
     // console.log(data);
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
   }
 };
 

@@ -6,23 +6,29 @@ import faIR from 'antd/es/locale/fa_IR';
 import { JalaliLocaleListener } from 'antd-jalali';
 import dayjs from 'dayjs';
 import { Suspense, useEffect } from 'react';
-import { IntlProvider } from 'react-intl';
+import {  useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { history, HistoryRouter } from '@/routes/history';
 
 import ProvinceContextProvider from './context/ProvinceContextProvider';
-import { localeConfig, LocaleFormatter } from './locales';
 import IsEdittingProformaContextProvider from './pages/home/context/IsEdittingProformaContextProvider';
 import SearchContextProvider from './pages/home/context/SearchContextProvider';
 import RenderRouter from './routes';
 import { setGlobalState } from './stores/global.store';
+import { setFormatMessage } from './utils/intl-service';
 
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);
-  const { theme, loading } = useSelector(state => state.global);
+  const { theme } = useSelector(state => state.global);
+  const intl = useIntl();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Register the formatMessage function globally once the component mounts.
+    setFormatMessage(intl.formatMessage);
+  }, [intl]);
 
   const setTheme = (dark = true) => {
     dispatch(
@@ -113,13 +119,13 @@ const App: React.FC = () => {
         direction={locale === 'fa_IR' ? 'rtl' : 'ltr'}
       >
         {locale === 'fa_IR' && <JalaliLocaleListener />}
-        <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
-          <HistoryRouter history={history}>
-            <SearchContextProvider>
-              <ProvinceContextProvider>
-                <IsEdittingProformaContextProvider>
-                  <Suspense fallback={null}>
-                    {/* <Spin
+        {/* <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}> */}
+        <HistoryRouter history={history}>
+          <SearchContextProvider>
+            <ProvinceContextProvider>
+              <IsEdittingProformaContextProvider>
+                <Suspense fallback={null}>
+                  {/* <Spin
                     spinning={loading}
                     className="app-loading-wrapper"
                     style={{
@@ -127,14 +133,14 @@ const App: React.FC = () => {
                     }}
                     tip={<LocaleFormatter id="gloabal.tips.loading" />}
                   > */}
-                    <RenderRouter />
-                    {/* </Spin> */}
-                  </Suspense>
-                </IsEdittingProformaContextProvider>
-              </ProvinceContextProvider>
-            </SearchContextProvider>
-          </HistoryRouter>
-        </IntlProvider>
+                  <RenderRouter />
+                  {/* </Spin> */}
+                </Suspense>
+              </IsEdittingProformaContextProvider>
+            </ProvinceContextProvider>
+          </SearchContextProvider>
+        </HistoryRouter>
+        {/* </IntlProvider> */}
       </ConfigProvider>
       {/* <CopyRight /> */}
     </div>
