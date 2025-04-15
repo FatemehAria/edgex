@@ -1,7 +1,10 @@
 import type { Locale } from '@/interface/user/user';
 import type { Dispatch, SetStateAction } from 'react';
 
+import toast from 'react-hot-toast';
+
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const getSuppliersList = async (
   setList: Dispatch<SetStateAction<any[]>>,
@@ -23,7 +26,7 @@ export const getSuppliersList = async (
     setList(formattedData);
     // console.log(data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   } finally {
     setLoading?.(false);
   }
@@ -56,8 +59,9 @@ export const createSupplier = async (values: any) => {
       isCustomer: values['isCustomer'],
     });
 
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
     // console.log(data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
   }
 };
