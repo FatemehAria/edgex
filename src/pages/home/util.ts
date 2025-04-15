@@ -18,6 +18,10 @@ export const createProforma = async (payload: any) => {
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
 
+    // console.log(data);
+  } catch (error) {
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
+  } finally {
     [
       'header-info-event',
       'header-info-customertitle',
@@ -26,10 +30,6 @@ export const createProforma = async (payload: any) => {
       'editedOption-items',
       'editedOption-category',
     ].forEach(item => localStorage.removeItem(item));
-
-    // console.log(data);
-  } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
   }
 };
 
