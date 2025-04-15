@@ -43,11 +43,11 @@ export const updateProforma = async (payload: any) => {
       },
     });
 
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
 
     console.log(data);
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
 
     console.log(error);
   }
@@ -116,7 +116,7 @@ export const getSingleProformaInfo = async (
     setSingleProformaInfo(finalArray);
     // console.log(data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   } finally {
     setLoading(false);
   }
@@ -300,7 +300,7 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
     // console.log(data);
     setStuffList(data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   }
 };
 
@@ -320,7 +320,7 @@ export const getProformaList = async (
     setProformaList(formattedData);
     // console.log(data);
   } catch (error) {
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   } finally {
     setLoading && setLoading(false);
   }
@@ -338,10 +338,9 @@ export const createProformaStuff = async (values: any) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
   }
 };
 
@@ -353,11 +352,9 @@ export const createProformaCategory = async (values: any) => {
       existenceCode: values['ExistenceCode'],
     });
 
-    // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
   }
 };
 
@@ -374,12 +371,9 @@ export const confirmProforma = async (id: string, setProformaStatus: any) => {
     );
 
     setProformaStatus(true);
-    toast.success('عملیات با موفقیت انجام شد.');
-    console.log(data);
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
-
-    console.log(error);
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
   }
 };
 
@@ -408,7 +402,7 @@ export const getEngReport = async (id: string, customerTitle: string, date: stri
     document.body.removeChild(link);
     setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    console.error('Error downloading the report:', error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   }
 };
 
@@ -437,7 +431,7 @@ export const getPerReport = async (id: string, customerTitle: string, date: stri
     document.body.removeChild(link);
     setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    console.error('Error downloading the report:', error);
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
   }
 };
 
@@ -450,9 +444,8 @@ export const deleteProforma = async (endpoint: string, id: string) => {
     });
 
     console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
   }
 };
