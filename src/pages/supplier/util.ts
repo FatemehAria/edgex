@@ -26,7 +26,7 @@ export const getSuppliersList = async (
     setList(formattedData);
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading?.(false);
   }
@@ -59,9 +59,9 @@ export const createSupplier = async (values: any) => {
       isCustomer: values['isCustomer'],
     });
 
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
   }
 };

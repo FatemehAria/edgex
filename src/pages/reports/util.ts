@@ -15,6 +15,6 @@ export const getReportsData = async (setReports: React.Dispatch<React.SetStateAc
     setReports(formattedData);
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   }
 };

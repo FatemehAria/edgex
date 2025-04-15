@@ -1,11 +1,7 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-
 import { useLocale } from '@/locales';
 
-import { getStuffbyId } from '../home/util';
 import FormLayout from '../layout/form-layout';
 
 interface ProformaStuffProps {
@@ -14,9 +10,6 @@ interface ProformaStuffProps {
 
 function ProformaStuff({ onItemSubmit }: ProformaStuffProps) {
   const { formatMessage } = useLocale();
-  const [stuffList, setStuffList] = useState<any>([]);
-  const { locale } = useSelector(state => state.user);
-
 
   const proformaStuffFormOptions: MyFormOptions = [
     {

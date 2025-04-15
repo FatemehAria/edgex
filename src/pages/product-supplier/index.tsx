@@ -1,6 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { ProvinceContext } from '@/context/ProvinceContext';
 import { useLocale } from '@/locales';

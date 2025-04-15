@@ -1,9 +1,10 @@
 import toast from 'react-hot-toast';
 
 import { customAxiosInstance } from '@/utils/axios-config';
+import { translate } from '@/utils/intl-service';
 
 export const createStuff = async (values: any) => {
-  console.log('create stuff values', values);
+  // console.log('create stuff values', values);
 
   try {
     const { data } = await customAxiosInstance.post('/Stuff/create', {
@@ -14,9 +15,9 @@ export const createStuff = async (values: any) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
     console.log(error);
   }
 };
@@ -29,7 +30,7 @@ export const createGroup = async (values: any) => {
 };
 
 export const updateStuff = async (endpoint: string, value: any, id: string) => {
-  console.log('update stuff', value);
+  // console.log('update stuff', value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -42,10 +43,9 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -58,9 +58,8 @@ export const deleteProduct = async (endpoint: string, id: string) => {
     });
 
     // console.log(data);
-    toast.success('عملیات با موفقیت انجام شد.');
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    console.log(error);
-    toast.error('خطا در انجام عملیات');
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
