@@ -29,7 +29,7 @@ export const createProforma = async (payload: any) => {
 
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
   }
 };
 
@@ -43,11 +43,11 @@ export const updateProforma = async (payload: any) => {
       },
     });
 
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
 
     console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
 
     console.log(error);
   }
@@ -116,7 +116,7 @@ export const getSingleProformaInfo = async (
     setSingleProformaInfo(finalArray);
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading(false);
   }
@@ -300,7 +300,7 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
     // console.log(data);
     setStuffList(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   }
 };
 
@@ -320,7 +320,7 @@ export const getProformaList = async (
     setProformaList(formattedData);
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading && setLoading(false);
   }
@@ -338,9 +338,9 @@ export const createProformaStuff = async (values: any) => {
     });
 
     // console.log(data);
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -352,9 +352,9 @@ export const createProformaCategory = async (values: any) => {
       existenceCode: values['ExistenceCode'],
     });
 
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -371,9 +371,9 @@ export const confirmProforma = async (id: string, setProformaStatus: any) => {
     );
 
     setProformaStatus(true);
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
 
@@ -402,7 +402,7 @@ export const getEngReport = async (id: string, customerTitle: string, date: stri
     document.body.removeChild(link);
     setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   }
 };
 
@@ -431,7 +431,7 @@ export const getPerReport = async (id: string, customerTitle: string, date: stri
     document.body.removeChild(link);
     setTimeout(() => window.URL.revokeObjectURL(url), 100);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   }
 };
 
@@ -444,8 +444,8 @@ export const deleteProforma = async (endpoint: string, id: string) => {
     });
 
     console.log(data);
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded.' }));
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed.' }));
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
