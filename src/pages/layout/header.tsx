@@ -18,6 +18,8 @@ import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
 
 const { Header } = Layout;
 
@@ -126,9 +128,10 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
                 ],
               }}
             >
-              <span className="user-action">
-                <img src={Avator} className="user-avator" alt="avator" />
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                <FontAwesomeIcon icon={faCircleDot} color="darkgreen" style={{ width: '1rem' }} />
+                <span>{JSON.parse(username)}</span>
+              </div>
             </Dropdown>
           ) : (
             <span style={{ cursor: 'pointer' }} onClick={toLogin}>
