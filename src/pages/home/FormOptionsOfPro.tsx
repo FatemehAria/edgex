@@ -96,7 +96,7 @@ export const ProformaFormOptions = (
           const newValue = e.target.value;
 
           setHeaderData((prev: any) => ({ ...prev, 'header-info-desc': newValue }));
-          updateEditedRow('header-info-desc', newValue);
+          updateEditedRow('desc', newValue);
         },
       },
     },
