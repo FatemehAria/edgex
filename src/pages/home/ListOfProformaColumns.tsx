@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useLocale } from '@/locales';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
-import { confirmProforma, getEngReport, getPerReport, getSingleProformaInfo } from './util';
+import { confirmProforma, copyConfirmedProformaInfo, getEngReport, getPerReport, getSingleProformaInfo } from './util';
 
 export function ListOfProformaColumns({
   deleteRow,
@@ -237,12 +237,25 @@ export function ListOfProformaColumns({
                   );
                   setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                   handleCopy(record);
+                } else {
+                  await copyConfirmedProformaInfo(
+                    record.ID,
+                    setSingleProformaInfo,
+                    setHeaderData,
+                    isCopyingProforma,
+                    isCopyingProformaTableRow,
+                    setIsLoadingProformaInfo,
+                    locale,
+                  );
+                  setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+                  handleCopy(record);
                 }
               }}
               style={{
-                cursor: isRegistered ? 'pointer' : 'default',
+                cursor: 'pointer',
+                // cursor: isRegistered ? 'pointer' : 'default',
                 marginRight: 8,
-                color: isRegistered ? 'darkgreen' : 'gray',
+                // color: isRegistered ? 'darkgreen' : 'gray',
               }}
               // className="copy-icon"
             />

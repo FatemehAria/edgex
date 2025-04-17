@@ -53,6 +53,75 @@ export const updateProforma = async (payload: any) => {
   }
 };
 
+export const copyConfirmedProformaInfo = async (
+  id: string,
+  setSingleProformaInfo: any,
+  setHeaderData: any,
+  isCopyingProforma: boolean,
+  isCopyingProformaTableRow: boolean,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  locale: Locale,
+) => {
+  try {
+    setLoading(true);
+    const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/Copy/${id}`);
+
+    const isJalali = data.date.startsWith('13') || data.date.startsWith('14');
+
+    const headerData = {
+      Event: data.eventTitle,
+      CustomerTitle: data.customerId,
+      Date: data.date,
+      isJalali,
+      'header-info-desc': data.descriptionHeader,
+    };
+
+    const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
+
+    const mappedTableData = data.performaInvoiceDetailList
+      .sort((x: any, y: any) => x.code - y.code)
+      .map((detail: any, index: number) => ({
+        key: index + 1,
+        ...(!isCopyingProforma && !isCopyingProformaTableRow
+          ? { PerformaInvoiceDetailID: detail.id, id: null, code: null }
+          : {}),
+        description: detail.description,
+        existenceCategoryID: detail.existenceCategoryID,
+        category: detail.existenceCategoryID,
+        items: detail.stuffParentID,
+        supplier: detail.suplierParentID,
+        qty: detail.quantity,
+        unitCost: detail.costUnit,
+        totalPriceWithoutFactors: detail.costTotal,
+        insurancePriceForRecord: detail.insurancePrice,
+        footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+          (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
+        )?.amountAgent,
+        itemShareOfTaxAndIns: detail.insuranceTax,
+        primarySalesPrice: detail.primarySalePrice,
+        itemTotalPrice: detail.costTotal,
+        footerInsurancePrice: detail.insurancePrice,
+        itemSalePrice: detail.priceSale,
+        itemSalePriceRounded: detail.priceSaleRounded,
+        finalSalePrice: detail.priceSaleFinal,
+        recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+          (item: any) => item.agentsReducingIncreasingTitle === 'سود',
+        )?.amountAgent,
+      }));
+
+    const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
+
+    // console.log('finalArray', finalArray);
+    setHeaderData(headerData);
+    setSingleProformaInfo(finalArray);
+    // console.log(data);
+  } catch (error) {
+    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
+  } finally {
+    setLoading(false);
+  }
+};
+
 export const getSingleProformaInfo = async (
   id: string,
   setSingleProformaInfo: any,
