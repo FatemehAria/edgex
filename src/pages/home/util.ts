@@ -152,7 +152,7 @@ export const getSingleProformaInfo = async (
       .map((detail: any, index: number) => ({
         key: index + 1,
         ...(!isCopyingProforma && !isCopyingProformaTableRow
-          ? { PerformaInvoiceDetailID: detail.id, id: null, code: null }
+          ? { PerformaInvoiceDetailID: detail.id, id: null, code: 0 }
           : {}),
         description: detail.description,
         existenceCategoryID: detail.existenceCategoryID,
