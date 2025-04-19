@@ -80,12 +80,23 @@ export class ControlMap {
   'date-picker'() {
     const currentLocale = dayjs.locale();
     const isPersian = currentLocale === 'fa' || currentLocale === 'fa_IR';
+    const getToday = () => dayjs().locale('fa');
 
     if (isPersian) {
-      return <DatePickerJalali {...this.innerProps} style={{ width: '100%' }} utc={true} />;
+      return (
+        <DatePickerJalali
+          {...this.innerProps}
+          style={{ width: '100%' }}
+          utc={true}
+          showToday={false}
+          renderExtraFooter={() => null}
+        />
+      );
     }
 
-    return <DatePicker {...this.innerProps} style={{ width: '100%' }} />;
+    return (
+      <DatePicker {...this.innerProps} style={{ width: '100%' }} showToday={false} renderExtraFooter={() => null} />
+    );
   }
 
   checkbox() {
