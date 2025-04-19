@@ -82,7 +82,7 @@ export class ControlMap {
     const isPersian = currentLocale === 'fa' || currentLocale === 'fa_IR';
 
     if (isPersian) {
-      return <DatePickerJalali {...this.innerProps} style={{ width: '100%' }} />;
+      return <DatePickerJalali {...this.innerProps} style={{ width: '100%' }} utc={true} />;
     }
 
     return <DatePicker {...this.innerProps} style={{ width: '100%' }} />;
