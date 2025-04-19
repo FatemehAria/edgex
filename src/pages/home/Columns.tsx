@@ -27,6 +27,7 @@ export const Columns = (
   openItemModal: any,
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
+  setSelectedCatId: Dispatch<SetStateAction<string | null>>
 ) => {
   const copyRow = (record: any) => {
     setTableData(prevData => {
@@ -82,6 +83,7 @@ export const Columns = (
           }}
           setTableData={setTableData}
           tableData={tableData}
+          setSelectedCatId={setSelectedCatId}
         />
       ),
     },

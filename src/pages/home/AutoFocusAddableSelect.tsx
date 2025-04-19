@@ -28,6 +28,7 @@ interface AutoFocusAddableSelectProps {
   editableOptions?: boolean;
   setTableData: Dispatch<SetStateAction<any[]>>;
   tableData: any[];
+  setSelectedCatId?: Dispatch<SetStateAction<string | null>>;
 }
 
 const AutoFocusAddableSelect = ({
@@ -45,6 +46,7 @@ const AutoFocusAddableSelect = ({
   editableOptions = false,
   tableData,
   setTableData,
+  setSelectedCatId,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
 
@@ -145,7 +147,13 @@ const AutoFocusAddableSelect = ({
         }
       }
 
-      localStorage.setItem('selected-cat-ID', JSON.stringify(selected[0]));
+      if (dataIndex === 'category') {
+        const categoryId = newValue.length > 0 ? newValue[0] : '';
+
+        setSelectedCatId && setSelectedCatId(categoryId);
+        localStorage.setItem('selected-cat-ID', categoryId);
+      }
+
       console.log('selected', selected);
     }
 

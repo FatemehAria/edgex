@@ -72,7 +72,12 @@ function Home() {
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const { setHeaderData } = useContext(IsEdittingProformaContext);
-const [selectedId,setSelectedId] = useState()
+  const [selectedCatId, setSelectedCatId] = useState(() => {
+    const stored = localStorage.getItem('selected-cat-ID');
+
+    return stored ? stored.replace(/^"|"$/g, '') : null; // Remove any existing quotes
+  });
+
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
   };
@@ -131,15 +136,19 @@ const [selectedId,setSelectedId] = useState()
   };
 
   useEffect(() => {
-    getStuffbyId((rawData: any) => {
-      const transformed = rawData.map((item: any) => ({
-        label: item.Title || item.text,
-        value: item.id,
-      }));
+    getStuffbyId(
+      (rawData: any) => {
+        const transformed = rawData.map((item: any) => ({
+          label: item.Title || item.text,
+          value: item.id,
+        }));
 
-      setItemOptions(transformed);
-    }, locale);
-  }, [localStorage.getItem('selected-cat-ID'), locale]);
+        setItemOptions(transformed);
+      },
+      locale,
+      selectedCatId || '', // No need for JSON.stringify here
+    );
+  }, [selectedCatId, locale]);
 
   const createEmptyRow = () => {
     const newRow = {
@@ -205,6 +214,7 @@ const [selectedId,setSelectedId] = useState()
     openItemModal,
     setActiveItemRow,
     setTableData,
+    setSelectedCatId,
   );
 
   const updateEditedRow = (field: string, value: any) => {

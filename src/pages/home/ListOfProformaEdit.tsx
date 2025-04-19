@@ -32,6 +32,11 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
+  const [selectedCatId, setSelectedCatId] = useState(() => {
+    const stored = localStorage.getItem('selected-cat-ID');
+
+    return stored ? stored.replace(/^"|"$/g, '') : null;
+  });
   const [tableData, setTableData] = useState<any[]>([
     {
       key: 1,
@@ -150,15 +155,19 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   };
 
   useEffect(() => {
-    getStuffbyId((rawData: any) => {
-      const transformed = rawData.map((item: any) => ({
-        label: item.Title || item.text,
-        value: item.id,
-      }));
+    getStuffbyId(
+      (rawData: any) => {
+        const transformed = rawData.map((item: any) => ({
+          label: item.Title || item.text,
+          value: item.id,
+        }));
 
-      setItemOptions(transformed);
-    }, locale);
-  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue'), locale]);
+        setItemOptions(transformed);
+      },
+      locale,
+      selectedCatId || '', // No need for JSON.stringify here
+    );
+  }, [selectedCatId, locale]);
 
   const createEmptyRow = () => {
     const newRow = {
@@ -224,6 +233,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     openItemModal,
     setActiveItemRow,
     setTableData,
+    setSelectedCatId,
   );
 
   const columns = allColumns.filter(col => !col.hidden);

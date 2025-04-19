@@ -352,8 +352,8 @@ export function createProformaPayload(
   };
 }
 
-export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale) => {
-  const ID = JSON.parse(localStorage.getItem('selected-cat-ID')!) || '';
+export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
+  const ID = id.replace(/^"|"$/g, '');
 
   console.log(ID);
 
@@ -397,7 +397,7 @@ export const getProformaList = async (
 };
 
 export const createProformaStuff = async (values: any) => {
-  const categoryId = localStorage.getItem('category-initialValue') || '';
+  const categoryId = localStorage.getItem('selected-cat-ID') || '';
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalStuff', {

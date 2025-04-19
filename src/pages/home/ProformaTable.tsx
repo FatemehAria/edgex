@@ -69,7 +69,7 @@ function ProformaTable({
     singleProformaInfo,
   );
 
-  console.log('payload', payload);
+  // console.log('payload', payload);
 
   const handleSubmition = async () => {
     if (isCopyingProforma) {
