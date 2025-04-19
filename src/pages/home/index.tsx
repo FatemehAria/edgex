@@ -72,7 +72,7 @@ function Home() {
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const { setHeaderData } = useContext(IsEdittingProformaContext);
-
+const [selectedId,setSelectedId] = useState()
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
   };
@@ -139,7 +139,7 @@ function Home() {
 
       setItemOptions(transformed);
     }, locale);
-  }, [localStorage.getItem('selected-cat-ID'), localStorage.getItem('category-initialValue'), locale]);
+  }, [localStorage.getItem('selected-cat-ID'), locale]);
 
   const createEmptyRow = () => {
     const newRow = {

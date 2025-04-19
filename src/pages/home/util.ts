@@ -353,9 +353,9 @@ export function createProformaPayload(
 }
 
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale) => {
-  const ID = localStorage.getItem('category-initialValue') || '';
+  const ID = JSON.parse(localStorage.getItem('selected-cat-ID')!) || '';
 
-  // console.log(ID);
+  console.log(ID);
 
   try {
     const { data } = await customAxiosInstance(
