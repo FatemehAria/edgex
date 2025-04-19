@@ -95,7 +95,13 @@ export class ControlMap {
     }
 
     return (
-      <DatePicker {...this.innerProps} style={{ width: '100%' }} showToday={false} renderExtraFooter={() => null} />
+      <DatePicker
+        {...this.innerProps}
+        style={{ width: '100%' }}
+        showToday={false}
+        renderExtraFooter={() => null}
+        utc={true}
+      />
     );
   }
 
