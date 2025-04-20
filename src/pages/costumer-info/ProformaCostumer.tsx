@@ -27,7 +27,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         placeholder: '',
         onChange: (value: any) => {
           setPersonType(value);
-          localStorage.setItem('person-company-type', JSON.stringify(value));
+          // localStorage.setItem('person-company-type', JSON.stringify(value));
         },
       },
       options: [
@@ -41,8 +41,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-firstname-persian', JSON.stringify(value.target.value)),
       },
       hidden: personType === '2',
     },
@@ -52,8 +52,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-lastname-persian', JSON.stringify(value.target.value)),
       },
       hidden: personType === '2',
     },
@@ -63,8 +63,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-firstname-english', JSON.stringify(value.target.value)),
       },
       hidden: personType === '2',
     },
@@ -74,8 +74,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-lastname-english', JSON.stringify(value.target.value)),
       },
       hidden: personType === '2',
     },
@@ -85,8 +85,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-title-english', JSON.stringify(value.target.value)),
       },
       hidden: personType === '1',
     },
@@ -96,8 +96,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-title-persian', JSON.stringify(value.target.value)),
       },
       hidden: personType === '1',
     },
@@ -107,7 +107,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('person-company-email', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-email', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -116,7 +116,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('person-company-mobile', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-mobile', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -125,8 +125,8 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) =>
-          localStorage.setItem('person-company-phonenumber', JSON.stringify(value.target.value)),
+        // onChange: (value: any) =>
+        //   localStorage.setItem('person-company-phonenumber', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -135,7 +135,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('person-company-nationalID', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-nationalID', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -146,7 +146,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         placeholder: '',
         onChange: (value: string) => {
           getCity(setCityList, value);
-          localStorage.setItem('person-company-province', JSON.stringify(value));
+          // localStorage.setItem('person-company-province', JSON.stringify(value));
         },
       },
       options: provinceList,
@@ -157,10 +157,10 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'select',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => {
-          // console.log('City changed:', value);
-          localStorage.setItem('person-company-city', JSON.stringify(value));
-        },
+        // onChange: (value: any) => {
+        //   // console.log('City changed:', value);
+        //   localStorage.setItem('person-company-city', JSON.stringify(value));
+        // },
       },
       options: cityList,
     },
@@ -170,7 +170,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('person-company-address', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-address', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -179,7 +179,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
       type: 'input',
       innerProps: {
         placeholder: '',
-        onChange: (value: any) => localStorage.setItem('person-company-postalCode', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-postalCode', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -191,7 +191,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         { label: `${formatMessage({ id: 'app.personComapnyInfo.status.deactive' })}`, value: false },
       ],
       innerProps: {
-        onChange: (value: any) => localStorage.setItem('person-company-active', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('person-company-active', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -203,7 +203,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.isNotCostumer' })}`, value: false },
       ],
       innerProps: {
-        onChange: (value: any) => localStorage.setItem('costumer-info-isCostumer', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('costumer-info-isCostumer', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -215,7 +215,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.status.deactive' })}`, value: false },
       ],
       innerProps: {
-        onChange: (value: any) => localStorage.setItem('costumer-info-active', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('costumer-info-active', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -227,7 +227,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         { label: `${formatMessage({ id: 'app.supplier.isNotSupplier' })}`, value: false },
       ],
       innerProps: {
-        onChange: (value: any) => localStorage.setItem('supplier-isSupplier', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('supplier-isSupplier', JSON.stringify(value.target.value)),
       },
     },
     {
@@ -239,7 +239,7 @@ function ProformaCostumer({ onCustomerSubmit }: ProformaCostumerProps) {
         { label: `${formatMessage({ id: 'app.costumerInfo.status.deactive' })}`, value: false },
       ],
       innerProps: {
-        onChange: (value: any) => localStorage.setItem('supplier-status', JSON.stringify(value.target.value)),
+        // onChange: (value: any) => localStorage.setItem('supplier-status', JSON.stringify(value.target.value)),
       },
     },
   ];
