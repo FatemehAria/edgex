@@ -166,15 +166,27 @@ export const handleNewCustomer = (
 ) => {
   // console.log('values for new customer', values);
   const newCustomer = {
-    label: values['companyPersonTitle'],
-    value: values['companyPersonTitle'],
-    companyPersonType: values['companyPersonType'],
-    companyPersonTitle: values['companyPersonTitle'],
-    telephone: values['telephone'],
-    provinceID: values['provinceID'],
-    cityID: values['cityID'],
-    address: values['address'],
-    isActive: values['isActive'],
+    label: values['personTypeTitle'] === 1 ? 'حقیقی' : 'حقوقی',
+    value: values['personTypeTitle'],
+    personTypeCode: Number(values['personTypeTitle']),
+    title: values['Title'],
+    name: values['Name'],
+    family: values['Family'],
+    telephone: values['Telephone'],
+    mobile: values['Mobile'],
+    email: values['Email'],
+    zipCode: values['ZipCode'],
+    codeNational: values['CodeNational'],
+    isActive: values['IsActive'],
+    provinceID: values['person-company-province'],
+    cityID: values['person-company-city'],
+    isActiveSuplier: values['IsActiveSuplier'],
+    isActiveCustomer: values['IsActiveCustomer'],
+    isCustomer: values['IsCustomer'],
+    isSuplier: values['IsSuplier'],
+    titlePersian: values['TitlePersian'],
+    namePersian: values['NamePersian'],
+    familyPersian: values['FamilyPersian'],
   };
 
   setCustomerOptions(prev => [...prev, newCustomer]);

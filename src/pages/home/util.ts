@@ -198,7 +198,7 @@ export function mapRowToApiDetail(
   isCopyingProformaTableRow: boolean,
 ): any {
   // console.log('row', row);
-  console.log('row.category', row.category);
+  // console.log(isEdittingProforma);
 
   return {
     exportToExcel: false,

@@ -33,21 +33,29 @@ export const getCustomersList = async (
 };
 
 export const createCustomer = async (values: any) => {
-  // console.log('values in createCustomer', values);
+  console.log('values in createCustomer', values);
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalCustomer', {
-      companyPersonType: values['companyPersonType'] === 'Haghighi' ? 1 : 2,
-      companyPersonTitle: values['companyPersonTitle'],
-      companyPersonAddressList: [
-        {
-          telephone: values['telephone'],
-          provinceID: values['provinceID'],
-          cityID: values['cityID'],
-          address: values['address'],
-        },
-      ],
+      personTypeCode: values['personTypeCode'],
+      title: values['title'],
+      name: values['name'],
+      family: values['family'],
+      telephone: values['telephone'],
+      mobile: values['mobile'],
+      email: values['email'],
+      zipCode: values['zipCode'],
+      codeNational: values['codeNational'],
       isActive: values['isActive'],
+      provinceID: values['provinceID'],
+      cityID: values['cityID'],
+      isActiveSuplier: values['isActiveSuplier'],
+      isActiveCustomer: values['isActiveCustomer'],
+      isCustomer: values['isCustomer'],
+      isSuplier: values['isSuplier'],
+      titlePersian: values['titlePersian'],
+      namePersian: values['namePersian'],
+      familyPersian: values['familyPersian'],
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
