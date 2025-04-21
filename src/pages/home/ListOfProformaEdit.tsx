@@ -33,10 +33,11 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [selectedCatId, setSelectedCatId] = useState(() => {
-    const stored = localStorage.getItem('category-intialValue');
+    const stored = localStorage.getItem('category-initialValue');
 
-    return stored ? stored.replace(/^"|"$/g, '') : null;
+    return stored ? stored.replace(/^"|"$/g, '') : null; // Remove any existing quotes
   });
+
   const [tableData, setTableData] = useState<any[]>([
     {
       key: 1,
@@ -75,7 +76,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   ]);
   const [form] = Form.useForm();
 
-  console.log('headerData', headerData);
+  // console.log('headerData', headerData);
   useEffect(() => {
     // if (singleProformaInfo) {
     setTableData(singleProformaInfo);
@@ -163,7 +164,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
         setItemOptions(transformed);
       },
       locale,
-      selectedCatId!,
+      selectedCatId!, // No need for JSON.stringify here
     );
   }, [selectedCatId, locale]);
 

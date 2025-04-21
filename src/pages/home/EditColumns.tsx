@@ -122,12 +122,14 @@ export const EditColumns = (
             value: group.value,
           }))}
           debounceTime={5000}
-          mode="tags"
+          // mode="tags"
           editableOptions={true}
           allowAddNew={true}
           onAddNew={() => {
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
+            handleCellChange('', record.key, 'items', setTableData, tableData);
+            localStorage.removeItem('items-initialValue');
           }}
           setTableData={setTableData}
           tableData={tableData}
@@ -151,7 +153,7 @@ export const EditColumns = (
           record={record}
           initialOptions={itemOptions}
           debounceTime={5000}
-          mode="tags"
+          // mode="tags"
           editableOptions={true}
           allowAddNew={true}
           onAddNew={() => {
@@ -177,7 +179,7 @@ export const EditColumns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
           text={record.spplierLabel}
           record={record}
-          mode="tags"
+          // mode="tags"
           initialOptions={supplierOptions}
           debounceTime={5000}
           allowAddNew={true}

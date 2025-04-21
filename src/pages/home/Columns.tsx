@@ -27,7 +27,7 @@ export const Columns = (
   openItemModal: any,
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
-  setSelectedCatId: Dispatch<SetStateAction<string | null>>
+  setSelectedCatId: Dispatch<SetStateAction<string | null>>,
 ) => {
   const copyRow = (record: any) => {
     setTableData(prevData => {
@@ -81,7 +81,7 @@ export const Columns = (
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
             handleCellChange('', record.key, 'items', setTableData, tableData);
-            localStorage.removeItem('items-initialValue')
+            localStorage.removeItem('items-initialValue');
           }}
           setTableData={setTableData}
           tableData={tableData}
