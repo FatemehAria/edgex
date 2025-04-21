@@ -148,12 +148,12 @@ const AutoFocusAddableSelect = ({
       }
 
       if (dataIndex === 'category') {
-        const categoryId = newValue.length > 0 ? newValue[0] : '';
+        const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
 
         setSelectedCatId && setSelectedCatId(categoryId);
         //added for deleting selected item
         handleCellChange('', record.key, 'items', setTableData, tableData);
-        localStorage.setItem('selected-cat-ID', categoryId);
+        localStorage.setItem('category-initialValue', categoryId);
       }
 
       // console.log('selected', selected);
@@ -206,7 +206,7 @@ const AutoFocusAddableSelect = ({
   useEffect(() => {
     console.log('selected state updated:', selected);
   }, [selected]);
-  
+
   const transformedOptions = editableOptions
     ? options.map(opt => ({
         ...opt,

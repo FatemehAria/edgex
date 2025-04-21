@@ -80,6 +80,8 @@ export const Columns = (
           onAddNew={() => {
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
+            handleCellChange('', record.key, 'items', setTableData, tableData);
+            localStorage.removeItem('items-initialValue')
           }}
           setTableData={setTableData}
           tableData={tableData}

@@ -27,7 +27,7 @@ export const EditColumns = (
   openItemModal: any,
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
-  setSelectedCatId: Dispatch<SetStateAction<string | null>>
+  setSelectedCatId: Dispatch<SetStateAction<string | null>>,
 ) => {
   const { setIsCopyingProformaTableRow } = useContext(IsEdittingProformaContext);
 

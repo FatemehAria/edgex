@@ -33,7 +33,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [selectedCatId, setSelectedCatId] = useState(() => {
-    const stored = localStorage.getItem('selected-cat-ID');
+    const stored = localStorage.getItem('category-intialValue');
 
     return stored ? stored.replace(/^"|"$/g, '') : null;
   });
@@ -165,7 +165,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
         setItemOptions(transformed);
       },
       locale,
-      selectedCatId || '', // No need for JSON.stringify here
+      selectedCatId!, // No need for JSON.stringify here
     );
   }, [selectedCatId, locale]);
 

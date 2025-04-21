@@ -166,7 +166,7 @@ export const handleNewCustomer = (
 ) => {
   // console.log('values for new customer', values);
   const newCustomer = {
-    label: values['personTypeTitle'] === 1 ? 'حقیقی' : 'حقوقی',
+    label: values['personTypeTitle'] === '1' ? values['Name'] + ' ' + values['Family'] : values['Title'],
     value: values['personTypeTitle'],
     personTypeCode: Number(values['personTypeTitle']),
     title: values['Title'],

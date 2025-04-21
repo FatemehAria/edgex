@@ -6,12 +6,13 @@ import { customAxiosInstance } from '@/utils/axios-config';
 import { translate } from '@/utils/intl-service';
 
 export const createCostumer = async (values?: any) => {
-  // console.log(values);
   const safeValues = values || {};
+
+  // console.log('values', values);
 
   try {
     const rawPersonCompanyType = localStorage.getItem('person-company-type');
-    const personCompanyType = rawPersonCompanyType ? JSON.parse(rawPersonCompanyType) : null;
+    const personCompanyType = rawPersonCompanyType ? JSON.parse(rawPersonCompanyType) : values['personTypeCode'];
 
     const rawFirstNamePersian = localStorage.getItem('person-company-firstname-persian');
     const firstNamePersian = rawFirstNamePersian ? JSON.parse(rawFirstNamePersian) : '';
@@ -36,7 +37,7 @@ export const createCostumer = async (values?: any) => {
     const nameEnglish = rawNameEnglish ? JSON.parse(rawNameEnglish) : '';
 
     const dataToPost = {
-      personTypeCode: (personCompanyType === '1' ? 1 : 2) || safeValues['personTypeCode'],
+      personTypeCode: Number(personCompanyType),
       namePersian: firstNamePersian || safeValues['namePersian'],
       name: nameEnglish || safeValues['name'] || '',
       familyPersian: localStorage.getItem('person-company-lastname-persian')
@@ -181,6 +182,29 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
   } catch (error) {
     // console.log(error);
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
+  } finally {
+    [
+      'person-company-type',
+      'person-company-firstname-persian',
+      'person-company-firstname-english',
+      'person-company-lastname-persian',
+      'person-company-lastname-english',
+      'person-company-title-english',
+      'person-company-title-persian',
+      'person-company-phonenumber',
+      'person-company-mobile',
+      'person-company-email',
+      'person-company-postalCode',
+      'person-company-province',
+      'person-company-city',
+      'person-company-active',
+      'person-company-nationalID',
+      'person-company-address',
+      'supplier-status',
+      'costumer-info-active',
+      'costumer-info-isCostumer',
+      'supplier-isSupplier',
+    ].forEach(key => localStorage.removeItem(key));
   }
 };
 

@@ -73,7 +73,7 @@ function Home() {
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const { setHeaderData } = useContext(IsEdittingProformaContext);
   const [selectedCatId, setSelectedCatId] = useState(() => {
-    const stored = localStorage.getItem('selected-cat-ID');
+    const stored = localStorage.getItem('category-initialValue');
 
     return stored ? stored.replace(/^"|"$/g, '') : null; // Remove any existing quotes
   });
@@ -146,7 +146,7 @@ function Home() {
         setItemOptions(transformed);
       },
       locale,
-      selectedCatId || '', // No need for JSON.stringify here
+      selectedCatId!, // No need for JSON.stringify here
     );
   }, [selectedCatId, locale]);
 

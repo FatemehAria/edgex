@@ -99,7 +99,7 @@ export const copyConfirmedProformaInfo = async (
         )?.amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
-        itemTotalPrice: detail.costTotal,
+        itemTotalPrice: detail.priceFinal,
         footerInsurancePrice: detail.insurancePrice,
         itemSalePrice: detail.priceSale,
         itemSalePriceRounded: detail.priceSaleRounded,
@@ -180,7 +180,7 @@ export const getSingleProformaInfo = async (
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
 
-    // console.log('finalArray', finalArray);
+    console.log('finalArray', finalArray);
     setHeaderData(headerData);
     setSingleProformaInfo(finalArray);
     // console.log(data);
@@ -197,13 +197,16 @@ export function mapRowToApiDetail(
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
 ): any {
-  // console.log('row', row);
-  // console.log(isEdittingProforma);
+  console.log('row', row);
+  // console.log('isCopyingProforma', isCopyingProforma);
+  // console.log('isCopyingProformaTableRow', isCopyingProformaTableRow);
+  console.log('isEdittingProforma', isEdittingProforma);
 
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
-    ...(!isCopyingProforma && !isCopyingProformaTableRow && { stuffParentID: row.items }),
+    ...(row.items ? { stuffParentID: row.items } : {}),
+    // ...(isCopyingProforma && isCopyingProformaTableRow && isEdittingProforma ? { stuffParentID: row.items } : {}),
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       //بیمه
@@ -297,7 +300,7 @@ export function createProformaPayload(
   },
   proformaInfo?: any,
 ) {
-  // console.log('existing header', existingHeader);
+  console.log('existing header', existingHeader);
   const customerId = localStorage.getItem('header-info-customertitle')
     ? JSON.parse(localStorage.getItem('header-info-customertitle')!)?.value
     : existingHeader?.['CustomerTitle'] ?? null;
@@ -353,7 +356,7 @@ export function createProformaPayload(
 }
 
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
-  const ID = id.replace(/^"|"$/g, '');
+  const ID = id?.replace(/^"|"$/g, '');
 
   console.log(ID);
 
@@ -397,7 +400,7 @@ export const getProformaList = async (
 };
 
 export const createProformaStuff = async (values: any) => {
-  const categoryId = localStorage.getItem('selected-cat-ID') || '';
+  const categoryId = localStorage.getItem('category-initialValue');
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalStuff', {
@@ -419,7 +422,7 @@ export const createProformaCategory = async (values: any) => {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalExistenceCategory', {
       title: values['Title'],
       titlePersian: values['grp-specification-title-persian'],
-      existenceCode: values['ExistenceCode'],
+      existenceCode: Number(values['ExistenceCode']),
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
