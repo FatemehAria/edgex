@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 
 import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Layout, theme as antTheme, Tooltip } from 'antd';
 import { createElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,8 +20,6 @@ import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
 
 const { Header } = Layout;
 
@@ -130,7 +130,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                 <FontAwesomeIcon icon={faCircleDot} color="darkgreen" style={{ width: '1rem' }} />
-                <span style={{ fontWeight: '700' }}>{username ? username : ''}</span>
+                <span style={{ fontWeight: '700' }}>{username ? username.replace(/^"|"$/g, '') : ''}</span>
               </div>
             </Dropdown>
           ) : (
