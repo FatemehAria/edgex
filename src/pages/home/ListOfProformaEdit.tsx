@@ -107,8 +107,6 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
 
   useEffect(() => {
     if (headerData && customerOptions.length > 0) {
-      // Ensure the form field "CustomerTitle" is updated with the customer ID.
-      // Assume headerData.CustomerTitle is a string ID.
       form.setFieldsValue({
         CustomerTitle: headerData.CustomerTitle,
       });
@@ -165,7 +163,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
         setItemOptions(transformed);
       },
       locale,
-      selectedCatId!, // No need for JSON.stringify here
+      selectedCatId!,
     );
   }, [selectedCatId, locale]);
 

@@ -115,7 +115,7 @@ export const EditColumns = (
           nextId={`cell-${record.key}-items`}
           dataIndex="category"
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.category.placeholder' })}
-          text={text}
+          text={record.categoryLabel}
           record={record}
           initialOptions={groupingOptions.map((group: any) => ({
             label: group.label,
@@ -147,7 +147,7 @@ export const EditColumns = (
           nextId={`cell-${record.key}-supplier`}
           dataIndex="items"
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.items.placeholder' })}
-          text={text}
+          text={record.itemsLabel}
           record={record}
           initialOptions={itemOptions}
           debounceTime={5000}
@@ -175,7 +175,7 @@ export const EditColumns = (
           nextId={`cell-${record.key}-description`}
           dataIndex="supplier"
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
-          text={text}
+          text={record.spplierLabel}
           record={record}
           mode="tags"
           initialOptions={supplierOptions}
