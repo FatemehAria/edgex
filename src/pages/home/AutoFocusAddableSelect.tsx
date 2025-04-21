@@ -4,6 +4,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Input, Modal, Select } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
+import usePrevious from '@/hooks/usePrevious';
 import { useLocale } from '@/locales';
 
 import { handleCellChange } from './home-utils';
@@ -49,6 +50,7 @@ const AutoFocusAddableSelect = ({
   setSelectedCatId,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
+  const prevOptions = usePrevious(initialOptions);
 
   const [options, setOptions] = useState(() => {
     const opts = [...initialOptions];
@@ -95,19 +97,45 @@ const AutoFocusAddableSelect = ({
 
   useEffect(() => {
     if (!text && initialOptions.length > 0) {
-      const defaultVal = initialOptions[0].value;
+      const currentValue = tableData.find(r => r.key === record.key)?.[dataIndex];
 
-      handleCellChange(defaultVal, record.key, dataIndex, setTableData, tableData);
+      if ((currentValue === '' || currentValue == null) && initialOptions.length > 0) {
+        const defaultVal = initialOptions[0].value;
 
-      localStorage.setItem(localStorageKey, defaultVal);
+        handleCellChange(defaultVal, record.key, dataIndex, setTableData, tableData);
+        localStorage.setItem(localStorageKey, defaultVal);
 
-      if (mode === 'tags' || mode === 'multiple') {
-        setSelected([defaultVal]);
-      } else {
-        setSelected(defaultVal);
+        if (mode === 'tags' || mode === 'multiple') {
+          setSelected([defaultVal]);
+        } else {
+          setSelected(defaultVal);
+        }
+
+        if (dataIndex === 'category') {
+          setSelectedCatId?.(defaultVal);
+          // clear the items cell
+          handleCellChange('', record.key, 'items', setTableData, tableData);
+          localStorage.setItem('category-initialValue', defaultVal);
+        }
       }
     }
-  }, []);
+  }, [initialOptions, text, dataIndex]);
+
+  useEffect(() => {
+    // only for the "items" column, and only if the options actually changed
+    if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
+      const firstVal = initialOptions[0].value;
+
+      // 1) reset the cell value in your table
+      handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData);
+
+      // 2) persist it if you like
+      localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
+
+      // 3) reset *this* select’s state so the UI shows the new item
+      setSelected(firstVal);
+    }
+  }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
 
   const onChange = (value: any) => {
     if (!mode) {

@@ -72,11 +72,7 @@ function Home() {
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const { setHeaderData } = useContext(IsEdittingProformaContext);
-  const [selectedCatId, setSelectedCatId] = useState(() => {
-    const stored = localStorage.getItem('category-initialValue');
-
-    return stored ? stored.replace(/^"|"$/g, '') : null; // Remove any existing quotes
-  });
+  const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
 
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
@@ -136,18 +132,20 @@ function Home() {
   };
 
   useEffect(() => {
-    getStuffbyId(
-      (rawData: any) => {
-        const transformed = rawData.map((item: any) => ({
-          label: item.Title || item.text,
-          value: item.id,
-        }));
+    if (selectedCatId) {
+      getStuffbyId(
+        (rawData: any) => {
+          const transformed = rawData.map((item: any) => ({
+            label: item.text,
+            value: item.id,
+          }));
 
-        setItemOptions(transformed);
-      },
-      locale,
-      selectedCatId!, // No need for JSON.stringify here
-    );
+          setItemOptions(transformed);
+        },
+        locale,
+        selectedCatId!,
+      );
+    }
   }, [selectedCatId, locale]);
 
   const createEmptyRow = () => {

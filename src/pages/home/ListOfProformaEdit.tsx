@@ -32,11 +32,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
-  const [selectedCatId, setSelectedCatId] = useState(() => {
-    const stored = localStorage.getItem('category-initialValue');
-
-    return stored ? stored.replace(/^"|"$/g, '') : null; // Remove any existing quotes
-  });
+  const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
 
   const [tableData, setTableData] = useState<any[]>([
     {
@@ -154,18 +150,20 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
   };
 
   useEffect(() => {
-    getStuffbyId(
-      (rawData: any) => {
-        const transformed = rawData.map((item: any) => ({
-          label: item.Title || item.text,
-          value: item.id,
-        }));
+    if (selectedCatId) {
+      getStuffbyId(
+        (rawData: any) => {
+          const transformed = rawData.map((item: any) => ({
+            label: item.text,
+            value: item.id,
+          }));
 
-        setItemOptions(transformed);
-      },
-      locale,
-      selectedCatId!, // No need for JSON.stringify here
-    );
+          setItemOptions(transformed);
+        },
+        locale,
+        selectedCatId!,
+      );
+    }
   }, [selectedCatId, locale]);
 
   const createEmptyRow = () => {

@@ -206,13 +206,13 @@ export function mapRowToApiDetail(
   console.log('row', row);
   // console.log('isCopyingProforma', isCopyingProforma);
   // console.log('isCopyingProformaTableRow', isCopyingProformaTableRow);
-  console.log('isEdittingProforma', isEdittingProforma);
+  // console.log('isEdittingProforma', isEdittingProforma);
 
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
-    ...(row.items ? { stuffParentID: row.items } : {}),
-    // ...(isCopyingProforma && isCopyingProformaTableRow && isEdittingProforma ? { stuffParentID: row.items } : {}),
+    // ...(row.items ? { stuffParentID: row.items } : {}),
+    ...(isCopyingProforma || isCopyingProformaTableRow || isEdittingProforma ? { stuffParentID: row.items } : {}),
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       //بیمه
@@ -306,10 +306,25 @@ export function createProformaPayload(
   },
   proformaInfo?: any,
 ) {
-  console.log('existing header', existingHeader);
-  const customerId = localStorage.getItem('header-info-customertitle')
-    ? JSON.parse(localStorage.getItem('header-info-customertitle')!)?.value
-    : existingHeader?.['CustomerTitle'] ?? null;
+  // console.log('existing header', existingHeader);
+  // const customerId = localStorage.getItem('header-info-customertitle')
+  //   ? JSON.parse(localStorage.getItem('header-info-customertitle')!)?.value
+  //   : existingHeader?.['CustomerTitle'] ?? null;
+
+  const rawCust = localStorage.getItem('header-info-customertitle');
+  let customerId: string | null = null;
+
+  if (rawCust && rawCust !== 'undefined') {
+    try {
+      const parsed = JSON.parse(rawCust);
+
+      customerId = typeof parsed === 'object' && parsed.value != null ? parsed.value : String(parsed);
+    } catch {
+      customerId = rawCust;
+    }
+  } else {
+    customerId = existingHeader?.CustomerTitle ?? null;
+  }
 
   const descriptionHeader = localStorage.getItem('header-info-desc')
     ? JSON.parse(localStorage.getItem('header-info-desc')!)
@@ -362,9 +377,9 @@ export function createProformaPayload(
 }
 
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
-  const ID = id?.replace(/^"|"$/g, '');
+  const ID = id;
 
-  console.log(ID);
+  console.log('getStuffById', ID);
 
   try {
     const { data } = await customAxiosInstance(
@@ -375,7 +390,7 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
       }`,
     );
 
-    // console.log(data);
+    console.log(data);
     setStuffList(data);
   } catch (error) {
     console.log(error);
