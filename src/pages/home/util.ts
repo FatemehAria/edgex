@@ -211,8 +211,8 @@ export function mapRowToApiDetail(
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
-    // ...(row.items ? { stuffParentID: row.items } : {}),
-    ...(isCopyingProforma || isCopyingProformaTableRow || isEdittingProforma ? { stuffParentID: row.items } : {}),
+    ...(row.items ? { stuffParentID: row.items } : {}),
+    // ...(isCopyingProforma || isCopyingProformaTableRow || isEdittingProforma ? { stuffParentID: row.items } : {}),
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
       //بیمه
