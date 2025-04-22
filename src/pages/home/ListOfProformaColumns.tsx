@@ -96,7 +96,27 @@ export function ListOfProformaColumns({
       dataIndex: 'Date',
       key: 'Date',
       width: 300,
-      ...getColumnSearchProps('Date'),
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
+            value={selectedKeys[0]}
+            onChange={e => {
+              const value = e.target.value;
+
+              setSelectedKeys(value ? [value] : []);
+              confirm({ closeDropdown: false });
+            }}
+            style={{ width: 180, display: 'block' }}
+          />
+        </div>
+      ),
+      filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+      onFilter: (value: string, record: any) => {
+        const formattedDate = moment(record['Date'], 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD');
+
+        return formattedDate.includes(value);
+      },
       render: (text: string) => (
         <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD')}</span>
       ),
