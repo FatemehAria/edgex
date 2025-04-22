@@ -14,7 +14,8 @@ import { ReactComponent as FaIRSvg } from '@/assets/header/fa_IR.svg';
 import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
 import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
-import Egdex from '@/assets/logo/logo.svg';
+import EgdexBlack from '@/assets/logo/logo.svg';
+import EgdexWhite from '@/assets/logo/logo-white.png';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserItem } from '@/stores/user.store';
@@ -92,7 +93,11 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
       {device !== 'MOBILE' && (
         <div className="logo" style={{ width: collapsed ? 80 : 200 }}>
-          <img src={Egdex} alt="edgex-logo" style={{ width: '300px' }} />
+          <img
+            src={theme === 'light' ? EgdexBlack : EgdexWhite}
+            alt="edgex-logo"
+            style={{ width: theme === 'dark' ? '65px' : '300px' }}
+          />
         </div>
       )}
       <div className="layout-page-header-main">
