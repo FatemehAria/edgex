@@ -1,5 +1,7 @@
+import { SearchOutlined } from '@ant-design/icons';
 import { faCheck, faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Input } from 'antd';
 import moment from 'moment-jalaali';
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,6 +39,28 @@ export function ListOfProformaColumns({
 
   // console.log('header data in listofproforma columns', headerData);
 
+  const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
+          value={selectedKeys[0]}
+          onChange={e => {
+            const value = e.target.value;
+
+            setSelectedKeys(value ? [value] : []);
+            confirm({ closeDropdown: false });
+          }}
+          // allowClear
+          style={{ width: 180, display: 'block' }}
+        />
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value: string, record: any) =>
+      record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : false,
+  });
+
   return [
     // ردیف
     {
@@ -52,6 +76,7 @@ export function ListOfProformaColumns({
       dataIndex: 'CustomerTitle',
       key: 'CustomerTitle',
       width: 1000,
+      ...getColumnSearchProps('CustomerTitle'),
       render: (customer: any) => {
         return <span style={{ textAlign: 'center' }}> {customer?.label || customer}</span>;
       },
@@ -62,6 +87,7 @@ export function ListOfProformaColumns({
       dataIndex: 'Event',
       key: 'Event',
       width: 1000,
+      ...getColumnSearchProps('Event'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تاریخ
@@ -70,6 +96,7 @@ export function ListOfProformaColumns({
       dataIndex: 'Date',
       key: 'Date',
       width: 300,
+      ...getColumnSearchProps('Date'),
       render: (text: string) => (
         <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD')}</span>
       ),
@@ -80,6 +107,7 @@ export function ListOfProformaColumns({
       dataIndex: 'QuantityTotal',
       key: 'QuantityTotal',
       width: 300,
+      ...getColumnSearchProps('QuantityTotal'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // هزینه واحد کل
@@ -88,6 +116,7 @@ export function ListOfProformaColumns({
       dataIndex: 'UnitCostTotal',
       key: 'UnitCostTotal',
       width: 300,
+      ...getColumnSearchProps('UnitCostTotal'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // قیمت نهایی
@@ -96,6 +125,7 @@ export function ListOfProformaColumns({
       dataIndex: 'PriceSaleFinalTotal',
       key: 'PriceSaleFinalTotal',
       width: 600,
+      ...getColumnSearchProps('PriceSaleFinalTotal'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // حاشیه سود نهایی
@@ -104,6 +134,7 @@ export function ListOfProformaColumns({
       dataIndex: 'ProfitMarginFinal',
       key: 'ProfitMarginFinal',
       width: 600,
+      ...getColumnSearchProps('ProfitMarginFinal'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // تایید وضعیت
@@ -112,6 +143,7 @@ export function ListOfProformaColumns({
       dataIndex: 'StatusTitle',
       key: 'StatusTitle',
       width: 200,
+      ...getColumnSearchProps('StatusTitle'),
       render: (text: any, record: any) => (
         <span className="center-align" style={{ textWrap: 'nowrap' }}>
           {text === 'تایید شده' ? (
