@@ -5,6 +5,7 @@ import ListButtons from '@/components/custom/ListButtons';
 
 import ReportsColumns from './ReportsColumns';
 import { getReportsData } from './util';
+import { ColumnType } from 'antd/es/table';
 
 const { Option } = Select;
 
@@ -56,7 +57,7 @@ function Reports() {
           ))}
         </Select>
 
-        <Table dataSource={reports} columns={visibleColumns} scroll={{ x: 2000 }} />
+        <Table dataSource={reports} columns={visibleColumns as ColumnType<any>[]} scroll={{ x: 2000 }} />
       </div>
     </div>
   );
