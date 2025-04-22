@@ -295,14 +295,15 @@ export const handleNewGroup = (
 
 export const handleNewItem = (
   values: any,
-  setItemOptions: Dispatch<SetStateAction<any[]>>,
+  // ← now a map-of-arrays setter:
+  setItemOptionsMap: Dispatch<SetStateAction<Record<string, any[]>>>,
   activeItemRow: number | null,
   setTableData: Dispatch<SetStateAction<any[]>>,
   setActiveItemRow: Dispatch<SetStateAction<number | null>>,
   setIsItemModalOpen: Dispatch<SetStateAction<boolean>>,
+  // ← you need to pass in the categoryId for this row:
+  categoryId: string,
 ) => {
-  // console.log('item values', values);
-
   const newItem = {
     label: values['title'],
     value: values['title'],
@@ -311,10 +312,14 @@ export const handleNewItem = (
     Description: values['description'],
   };
 
-  setItemOptions(prev => [...prev, newItem]);
+  // merge _just_ this category’s list:
+  setItemOptionsMap(prev => ({
+    ...prev,
+    [categoryId]: [...(prev[categoryId] || []), newItem],
+  }));
 
   if (activeItemRow !== null) {
-    setTableData(prevData => prevData.map(row => (row.key === activeItemRow ? { ...row, items: newItem.value } : row)));
+    setTableData(prev => prev.map(row => (row.key === activeItemRow ? { ...row, items: newItem.value } : row)));
     setActiveItemRow(null);
   }
 

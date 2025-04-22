@@ -23,7 +23,7 @@ export const Columns = (
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
   setIsGroupingModalOpen: Dispatch<SetStateAction<boolean>>,
   groupingOptions: { label: string; value: string }[],
-  itemOptions: { label: string; value: string }[],
+  itemOptions: any,
   openItemModal: any,
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
@@ -103,7 +103,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.items.placeholder' })}
           text={text}
           record={record}
-          initialOptions={itemOptions}
+          initialOptions={itemOptions[record.category] || []}
           debounceTime={3000}
           mode="tags"
           editableOptions={true}

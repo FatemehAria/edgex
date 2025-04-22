@@ -141,7 +141,8 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     });
   }, [groupRefresh]);
 
-  const [itemOptions, setItemOptions] = useState<any[]>([]);
+  const [itemOptionsMap, setItemOptionsMap] = useState<Record<string, { label: string; value: string }[]>>({});
+  // const [itemOptions, setItemOptions] = useState<any[]>([]);
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
 
@@ -158,7 +159,10 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
             value: item.id,
           }));
 
-          setItemOptions(transformed);
+          setItemOptionsMap(prev => ({
+            ...prev,
+            [selectedCatId!]: transformed,
+          }));
         },
         locale,
         selectedCatId!,
@@ -226,7 +230,7 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
     setActiveGroupingRow,
     setIsGroupingModalOpen,
     groupingOptions,
-    itemOptions,
+    itemOptionsMap,
     openItemModal,
     setActiveItemRow,
     setTableData,
@@ -376,7 +380,15 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
           >
             <ProformaStuff
               onItemSubmit={values =>
-                handleNewItem(values, setItemOptions, activeItemRow, setTableData, setActiveItemRow, setIsItemModalOpen)
+                handleNewItem(
+                  values,
+                  setItemOptionsMap, // << map setter
+                  activeItemRow,
+                  setTableData,
+                  setActiveItemRow,
+                  setIsItemModalOpen,
+                  selectedCatId!, // << current category
+                )
               }
             />
           </Modal>

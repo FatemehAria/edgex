@@ -123,7 +123,8 @@ function Home() {
     });
   }, []);
 
-  const [itemOptions, setItemOptions] = useState<any[]>([]);
+  // const [itemOptions, setItemOptions] = useState<any[]>([]);
+  const [itemOptionsMap, setItemOptionsMap] = useState<Record<string, { label: string; value: string }[]>>({});
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
 
@@ -140,7 +141,10 @@ function Home() {
             value: item.id,
           }));
 
-          setItemOptions(transformed);
+          setItemOptionsMap(prev => ({
+            ...prev,
+            [selectedCatId!]: transformed,
+          }));
         },
         locale,
         selectedCatId!,
@@ -208,7 +212,7 @@ function Home() {
     setActiveGroupingRow,
     setIsGroupingModalOpen,
     groupingOptions,
-    itemOptions,
+    itemOptionsMap,
     openItemModal,
     setActiveItemRow,
     setTableData,
@@ -341,8 +345,17 @@ function Home() {
         footer={null}
       >
         <ProformaStuff
+          // initialOptions={itemOptionsMap[selectedCatId!] || []} // << supply only this category
           onItemSubmit={values =>
-            handleNewItem(values, setItemOptions, activeItemRow, setTableData, setActiveItemRow, setIsItemModalOpen)
+            handleNewItem(
+              values,
+              setItemOptionsMap, // << map setter
+              activeItemRow,
+              setTableData,
+              setActiveItemRow,
+              setIsItemModalOpen,
+              selectedCatId!, // << current category
+            )
           }
         />
       </Modal>
