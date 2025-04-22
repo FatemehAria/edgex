@@ -1,5 +1,7 @@
+import { SearchOutlined } from '@ant-design/icons';
 import { faCopy, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -24,6 +26,28 @@ export function ListOfGroupsColumns({
     getExistenceList(setExistanceList, locale);
   }, []);
 
+  const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
+          value={selectedKeys[0]}
+          onChange={e => {
+            const value = e.target.value;
+
+            setSelectedKeys(value ? [value] : []);
+            confirm({ closeDropdown: false });
+          }}
+          // allowClear
+          style={{ width: 180, display: 'block' }}
+        />
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value: string, record: any) =>
+      record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : false,
+  });
+
   return [
     // ردیف
     {
@@ -39,6 +63,7 @@ export function ListOfGroupsColumns({
       dataIndex: 'Code',
       key: 'Code',
       width: 300,
+      ...getColumnSearchProps('Code'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // عنوان
@@ -47,6 +72,7 @@ export function ListOfGroupsColumns({
       dataIndex: 'TitlePersian',
       key: 'TitlePersian',
       width: 300,
+      ...getColumnSearchProps('TitlePersian'),
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // موجودیت
@@ -54,6 +80,27 @@ export function ListOfGroupsColumns({
       title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.exisatnce' })}</span>,
       dataIndex: 'ExistenceCode',
       key: 'ExistenceCode',
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
+            value={selectedKeys[0]}
+            onChange={e => {
+              const value = e.target.value;
+
+              setSelectedKeys(value ? [value] : []);
+              confirm({ closeDropdown: false });
+            }}
+            style={{ width: 180, display: 'block' }}
+          />
+        </div>
+      ),
+      filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+      onFilter: (value: string, record: any) => {
+        const label = existanceList.find((item: any) => item.value === Number(record.ExistenceCode))?.label || '';
+
+        return label.toLowerCase().includes((value as string).toLowerCase());
+      },
       width: 300,
       render: (text: string) => (
         <span style={{ textAlign: 'center' }}>
