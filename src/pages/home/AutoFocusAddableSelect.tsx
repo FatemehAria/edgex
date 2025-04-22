@@ -51,6 +51,7 @@ const AutoFocusAddableSelect = ({
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
   const prevOptions = usePrevious(initialOptions);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const [options, setOptions] = useState(() => {
     const opts = [...initialOptions];
@@ -122,17 +123,13 @@ const AutoFocusAddableSelect = ({
   }, [initialOptions, text, dataIndex]);
 
   useEffect(() => {
-    // only for the "items" column, and only if the options actually changed
     if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
       const firstVal = initialOptions[0].value;
 
-      // 1) reset the cell value in your table
       handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData);
 
-      // 2) persist it if you like
       localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
 
-      // 3) reset *this* select’s state so the UI shows the new item
       setSelected(firstVal);
     }
   }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
@@ -140,6 +137,7 @@ const AutoFocusAddableSelect = ({
   const onChange = (value: any) => {
     if (!mode) {
       if (allowAddNew && value === 'add-new') {
+        setDropdownVisible(false);
         onAddNew && onAddNew();
 
         return;
@@ -154,6 +152,8 @@ const AutoFocusAddableSelect = ({
       }
     } else {
       const newValue: string[] = Array.isArray(value) ? value : [value];
+
+      setDropdownVisible(false);
 
       if (allowAddNew && newValue[newValue.length - 1] === 'add-new') {
         onAddNew && onAddNew();
@@ -179,7 +179,6 @@ const AutoFocusAddableSelect = ({
         const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
 
         setSelectedCatId && setSelectedCatId(categoryId);
-        //added for deleting selected item
         handleCellChange('', record.key, 'items', setTableData, tableData);
         localStorage.setItem('category-initialValue', categoryId);
       }
@@ -187,12 +186,9 @@ const AutoFocusAddableSelect = ({
       // console.log('selected', selected);
     }
 
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-    }
-
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     timeoutRef.current = window.setTimeout(() => {
-      if (nextId) {
+      if (!isEditModalVisible && nextId) {
         const nextElem = document.getElementById(nextId);
 
         if (nextElem) nextElem.focus();
@@ -212,8 +208,22 @@ const AutoFocusAddableSelect = ({
   const [editingOption, setEditingOption] = useState<{ value: string; label: string; originalValue: any } | null>(null);
   const [editedValue, setEditedValue] = useState('');
 
+  useEffect(() => {
+    if (isEditModalVisible && timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, [isEditModalVisible]);
+
   const handleEditClick = (option: { value: string; label: string }, e: React.MouseEvent) => {
     e.stopPropagation();
+    setDropdownVisible(false);
+
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
     setEditingOption({ ...option, originalValue: option.value });
 
     const stored = localStorage.getItem(`editedOption-${option.value}`);
@@ -263,6 +273,7 @@ const AutoFocusAddableSelect = ({
         onChange={onChange}
         options={transformedOptions}
         style={{ width: '100%' }}
+        onDropdownVisibleChange={open => setDropdownVisible(open)}
       />
       {isEditModalVisible && (
         <Modal
