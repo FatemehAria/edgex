@@ -78,31 +78,25 @@ export class ControlMap {
   }
 
   'date-picker'() {
+    const commonProps = {
+      ...this.innerProps,
+      // format: 'YYYY-MM-DD',
+      // mask: '____-__-__',
+      inputReadOnly: true, // ← set to true if you want to disable typing entirely
+      style: { width: '100%' },
+      showToday: false,
+      renderExtraFooter: () => null,
+      utc: true,
+    };
+
     const currentLocale = dayjs.locale();
     const isPersian = currentLocale === 'fa' || currentLocale === 'fa_IR';
-    const getToday = () => dayjs().locale('fa');
 
     if (isPersian) {
-      return (
-        <DatePickerJalali
-          {...this.innerProps}
-          style={{ width: '100%' }}
-          utc={true}
-          showToday={false}
-          renderExtraFooter={() => null}
-        />
-      );
+      return <DatePickerJalali {...commonProps} />;
     }
 
-    return (
-      <DatePicker
-        {...this.innerProps}
-        style={{ width: '100%' }}
-        showToday={false}
-        renderExtraFooter={() => null}
-        utc={true}
-      />
-    );
+    return <DatePicker {...commonProps} />;
   }
 
   checkbox() {
