@@ -237,6 +237,9 @@ const AutoFocusAddableSelect = ({
       localStorage.setItem(`editedOption-${dataIndex}`, editedValue);
 
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
+      // for not resetting the editted label in ui
+      handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
+
       setIsEditModalVisible(false);
     }
   };
