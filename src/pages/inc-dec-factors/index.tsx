@@ -119,7 +119,7 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit, onCan
   };
 
   return (
-    <div style={{ backgroundColor: token.colorBgBlur, minHeight: '100vh' }}>
+    <div style={{ backgroundColor: token.colorBgBlur }}>
       <RedirectionButton
         btnText={formatMessage({ id: 'app.incDecFactors.redirectionBtn' })}
         linkAddress="/main-tables/factors/factors-list"
