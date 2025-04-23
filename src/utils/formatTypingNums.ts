@@ -3,8 +3,14 @@ import type { Dispatch, SetStateAction } from 'react';
 import { handleCellChange } from '@/pages/home/home-utils';
 
 // Function to format the value: remove commas, convert to number, ceil, then format with commas.
+// export const formatValue = (val: string): string => {
+//   const plain = val.replace(/,/g, '');
+
+//   return Number(plain).toLocaleString('en-US');
+// };
+
+//handling decimals in fields
 export const formatValue = (val: string): string => {
-  // drop existing commas
   const plain = val.replace(/,/g, '');
 
   if (plain === '') return '';

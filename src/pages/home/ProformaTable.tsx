@@ -210,8 +210,8 @@ function ProformaTable({
                   if (col.dataIndex === 'insurancePriceForRecord') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{round2(totalInsurancePriceForRecord).toLocaleString()}</strong>
-                        {/* <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
+                        {/* <strong>{parseFloat(totalInsurancePriceForRecord.toFixed(4))}</strong> */}
+                        <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
                   }

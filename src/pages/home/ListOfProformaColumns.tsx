@@ -34,7 +34,6 @@ export function ListOfProformaColumns({
     isCopyingProforma,
     isCopyingProformaTableRow,
     setIsLoadingProformaInfo,
-    headerData,
   } = useContext(IsEdittingProformaContext);
 
   // console.log('header data in listofproforma columns', headerData);

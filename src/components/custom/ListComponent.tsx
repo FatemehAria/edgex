@@ -134,6 +134,8 @@ function ListComponent({
     const newRecord = JSON.parse(JSON.stringify(record));
 
     delete newRecord.ID;
+    // added for resetting the StatusTitle in listOfProformaColumns
+    newRecord.StatusTitle = '';
     delete newRecord.id;
     delete newRecord.code;
     delete newRecord.Code;
@@ -142,7 +144,6 @@ function ListComponent({
     const newKey = (maxKey + 1).toString();
 
     newRecord.key = newKey;
-
     newRecord.isCopied = true;
 
     setTableData(prevData => {
