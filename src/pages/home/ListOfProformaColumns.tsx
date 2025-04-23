@@ -127,7 +127,7 @@ export function ListOfProformaColumns({
       key: 'QuantityTotal',
       width: 300,
       ...getColumnSearchProps('QuantityTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
     // هزینه واحد کل
     {
@@ -136,7 +136,9 @@ export function ListOfProformaColumns({
       key: 'UnitCostTotal',
       width: 300,
       ...getColumnSearchProps('UnitCostTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => {
+        return <span style={{ textAlign: 'center' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>;
+      },
     },
     // قیمت نهایی
     {
@@ -145,7 +147,9 @@ export function ListOfProformaColumns({
       key: 'PriceSaleFinalTotal',
       width: 600,
       ...getColumnSearchProps('PriceSaleFinalTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => (
+        <span style={{ textAlign: 'center' }}>{text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
+      ),
     },
     // حاشیه سود نهایی
     {
@@ -154,7 +158,7 @@ export function ListOfProformaColumns({
       key: 'ProfitMarginFinal',
       width: 600,
       ...getColumnSearchProps('ProfitMarginFinal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span style={{ textAlign: 'center' }}>{text.toFixed(2)}</span>,
     },
     // تایید وضعیت
     {
