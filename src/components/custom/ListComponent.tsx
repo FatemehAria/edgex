@@ -1,4 +1,4 @@
-import { Modal, Table } from 'antd';
+import { Button, Modal, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -23,6 +23,7 @@ interface ListComponentProps {
   setGroupValue?: React.Dispatch<React.SetStateAction<any[]>>;
   groupValue?: any[];
   catId?: any;
+  mode?: 'create' | 'edit' | 'copy';
 }
 
 function ListComponent({
@@ -42,6 +43,7 @@ function ListComponent({
   setGroupValue,
   groupValue,
   catId,
+  mode,
 }: ListComponentProps) {
   const { formatMessage } = useLocale();
   const { locale } = useSelector(state => state.user);
@@ -202,6 +204,18 @@ function ListComponent({
     setIsDeleteModalOpen(false);
   };
 
+  const handleModalCancel = () => {
+    if (isCopied && selectedRowForEdit) {
+      setTableData(prevData => prevData.filter(row => row.key !== selectedRowForEdit.key));
+    }
+
+    setIsEditModalOpen(false);
+    setIsCopied(false);
+    setIsCopyingProforma(false);
+
+    setIsEdittingProforma(false);
+  };
+
   return (
     <React.Fragment>
       <Table
@@ -233,6 +247,8 @@ function ListComponent({
           setGroupValue={setGroupValue}
           groupValue={groupValue}
           updateEditedRow={updateEditedRow}
+          onCancel={handleModalCancel}
+          mode={mode}
         />
       </Modal>
       <Modal title="" open={iseDeleteModalOpen} onCancel={() => setIsDeleteModalOpen(false)} onOk={handleOk}>

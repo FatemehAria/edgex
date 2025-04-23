@@ -14,10 +14,11 @@ import Supplier from '../supplier';
 interface PersonCompanyInfoProps {
   initialValues?: Record<string, any>;
   onSubmit: any;
+  onCancel: () => void;
   showButton?: boolean;
 }
 
-function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }: PersonCompanyInfoProps) {
+function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false, onCancel }: PersonCompanyInfoProps) {
   const { formatMessage } = useLocale();
   const { provinceList } = useContext(ProvinceContext);
   const [cityList, setCityList] = useState([]);
@@ -259,6 +260,8 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false }:
         children={
           <Tabs defaultActiveKey="1" items={items} style={{ padding: '0 1rem' }} destroyInactiveTabPane={false} />
         }
+        onCancel={onCancel}
+        showCancelButton={!!initialValues.key}
       />
     </div>
   );

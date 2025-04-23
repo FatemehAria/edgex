@@ -23,7 +23,7 @@ import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, is
 import ProformaTable from './ProformaTable';
 import { getStuffbyId } from './util';
 
-function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
+function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: any; onCancel: () => void }) {
   const { token } = theme.useToken();
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
@@ -299,6 +299,8 @@ function ListOfProformaEdit({ updateEditedRow }: { updateEditedRow?: any }) {
           totalCostOfRows={totalCostOfRows}
           setTableData={setTableData}
           form={form}
+          onCancel={onCancel}
+          showCancelButton={true}
           // isRowFilled={isRowFilled}
         />
       ),

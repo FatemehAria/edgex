@@ -12,10 +12,11 @@ interface MainInfoProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
   showButton?: boolean;
+  onCancel: () => void;
   children?: React.ReactNode;
 }
 
-function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }: MainInfoProps) {
+function MainInfo({ initialValues = {}, showButton = false, onSubmit, children, onCancel }: MainInfoProps) {
   const { formatMessage } = useLocale();
   const [treeData, setTreeData] = useState([]);
   const { locale } = useSelector(state => state.user);
@@ -98,6 +99,8 @@ function MainInfo({ initialValues = {}, showButton = false, onSubmit, children }
         submitForm={onSubmit}
         isGrid={true}
         showButton={showButton}
+        onCancel={onCancel}
+        showCancelButton={!!initialValues.key}
       />
     </div>
   );

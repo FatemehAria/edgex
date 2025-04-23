@@ -32,4 +32,5 @@ export const enUS_globalTips = {
   'gloabal.tips.excel': 'Excel output',
   'gloabal.columns.copy': 'Copy',
   'gloabal.listcolumns.search': 'search',
+  'gloabal.buttons.cancel': 'cancel',
 };

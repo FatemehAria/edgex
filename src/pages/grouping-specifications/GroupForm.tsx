@@ -1,5 +1,6 @@
 import type { MyFormOptions } from '@/components/core/form';
 
+import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -11,10 +12,11 @@ import { getExistenceList } from './util';
 interface GroupFormProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
+  onCancel: () => void;
   showButton?: boolean;
 }
 
-function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFormProps) {
+function GroupForm({ initialValues = {}, showButton = false, onSubmit, onCancel }: GroupFormProps) {
   const { formatMessage } = useLocale();
   const { locale } = useSelector(state => state.user);
   const [existanceList, setExistenceList] = useState<any>([]);
@@ -56,6 +58,8 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit }: GroupFo
         submitForm={onSubmit}
         isGrid={false}
         showButton={showButton}
+        onCancel={onCancel}
+        showCancelButton={!!initialValues.key}
       />
     </div>
   );

@@ -12,10 +12,11 @@ import { getNatureList } from './util';
 interface IncDecFactorsProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
+  onCancel: () => void;
   showButton?: boolean;
 }
 
-function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: IncDecFactorsProps) {
+function IncDecFactors({ initialValues = {}, showButton = false, onSubmit, onCancel }: IncDecFactorsProps) {
   const { formatMessage } = useLocale();
   const [natureList, setNatureList] = useState([]);
   const [display, setDisplay] = useState('block');
@@ -132,6 +133,8 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit }: Inc
         submitForm={handleSubmission}
         isGrid={true}
         showButton={showButton}
+        showCancelButton={!!initialValues.key}
+        onCancel={onCancel}
       />
     </div>
   );

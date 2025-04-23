@@ -13,17 +13,21 @@ function FormLayout({
   submitForm,
   isGrid,
   showButton,
+  showCancelButton = false,
   form,
   children,
+  onCancel,
 }: {
   FormOptions: MyFormOptions;
   layoutDir: AntdFormLayout;
   submitForm: (values?: any) => void;
   isGrid: boolean;
   showButton?: boolean;
+  showCancelButton?: boolean;
   form?: any;
   initialValues?: any;
   children?: React.ReactNode;
+  onCancel?: () => void;
 }) {
   const { formatMessage } = useLocale();
 
@@ -38,16 +42,37 @@ function FormLayout({
         style={{ padding: '0 1rem' }}
       >
         {children}
-        <Form.Item className="btn-container">
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="submit-button"
-            style={{ display: showButton ? 'inline' : 'none' }}
-          >
-            {formatMessage({ id: 'gloabal.tips.submitBtn' })}
-          </Button>
-        </Form.Item>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            // backgroundColor: 'yellow',
+          }}
+        >
+          <Form.Item>
+            <Button
+              type="default"
+              htmlType="button"
+              className="submit-button"
+              style={{ display: showCancelButton ? 'inline' : 'none' }}
+              onClick={onCancel}
+            >
+              {formatMessage({ id: 'gloabal.buttons.cancel' })}
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="submit-button"
+              style={{ display: showButton ? 'inline' : 'none' }}
+            >
+              {formatMessage({ id: 'gloabal.tips.submitBtn' })}
+            </Button>
+          </Form.Item>
+        </div>
       </MyForm>
     </React.Fragment>
   );

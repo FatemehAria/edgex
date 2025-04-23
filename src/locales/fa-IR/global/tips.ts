@@ -32,4 +32,5 @@ export const faIR_globalTips = {
   'gloabal.tips.excel': 'خروجی به اکسل',
   'gloabal.columns.copy': 'کپی',
   'gloabal.listcolumns.search': 'جستجو',
+  'gloabal.buttons.cancel': 'لغو',
 };

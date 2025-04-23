@@ -21,6 +21,8 @@ function ProformaTable({
   totalCostOfRows,
   setTableData,
   form,
+  onCancel,
+  showCancelButton,
 }: {
   tableData: any;
   columns: any;
@@ -31,6 +33,8 @@ function ProformaTable({
   totalCostOfRows: number;
   setTableData: Dispatch<SetStateAction<any[]>>;
   form: FormInstance<any>;
+  onCancel?: () => void;
+  showCancelButton?: boolean;
 }) {
   const {
     isEdittingProforma,
@@ -284,7 +288,21 @@ function ProformaTable({
           );
         }}
       />
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: showCancelButton ? 'space-between' : 'flex-end',
+          marginTop: '0.5rem',
+        }}
+      >
+        <Button
+          type="default"
+          htmlType="button"
+          style={{ display: showCancelButton ? 'inline' : 'none' }}
+          onClick={onCancel}
+        >
+          {formatMessage({ id: 'gloabal.buttons.cancel' })}
+        </Button>
         <Button type="primary" onClick={handleSubmition}>
           {formatMessage({ id: 'app.home.submissionBtn' })}
         </Button>

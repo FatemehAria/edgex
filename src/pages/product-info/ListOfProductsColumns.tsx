@@ -54,7 +54,7 @@ function ListOfProductsColumns({
       key: 'Title',
       width: 300,
       ...getColumnSearchProps('Title'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
     },
     // عنوان فارسی
     {
@@ -63,7 +63,7 @@ function ListOfProductsColumns({
       key: 'TitlePersian',
       width: 300,
       ...getColumnSearchProps('TitlePersian'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
     },
     // نرخ
     {
@@ -72,7 +72,7 @@ function ListOfProductsColumns({
       key: 'rate',
       width: 300,
       ...getColumnSearchProps('rate'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
     },
     // توضیحات
     {
@@ -80,7 +80,7 @@ function ListOfProductsColumns({
       dataIndex: 'Description',
       key: 'Description',
       width: 300,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
     },
     // ویرایش
     {
