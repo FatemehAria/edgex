@@ -8,7 +8,7 @@ import { useContext, useEffect } from 'react';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import FooterTableColumns from './FooterTableColumns';
-import { isRowFilled, resetRowFields } from './home-utils';
+import { isRowFilled, resetRowFields, round2 } from './home-utils';
 import { calculateFinalValues, createProforma, createProformaPayload, updateProforma } from './util';
 
 function ProformaTable({
@@ -40,13 +40,13 @@ function ProformaTable({
     selectedProformaInfo,
     singleProformaInfo,
     headerData,
-    isCopyingProformaTableRow
+    isCopyingProformaTableRow,
   } = useContext(IsEdittingProformaContext);
 
   useEffect(() => {
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
 
-    setTotalCostOfRows(totalCost);
+    setTotalCostOfRows(round2(totalCost));
 
     const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
       const rowTotal = parseFloat(row.itemTotalPrice) || 0;
@@ -55,7 +55,7 @@ function ProformaTable({
       return sum + rowTotal * rowCoefficient;
     }, 0);
 
-    setinsurancePrice(calculatedInsurancePrice);
+    setinsurancePrice(round2(calculatedInsurancePrice));
   }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
   const payload = createProformaPayload(
@@ -106,15 +106,28 @@ function ProformaTable({
           const FooterTableData = [
             {
               key: 'footer',
-              vat: `${Math.round(finalValues.vat)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              total: `${finalValues.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              finalProfit: `${finalValues.finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              vat: round2(finalValues.vat)
+                .toFixed(2)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+              // vat: `${Math.round(finalValues.vat)
+              //   .toString()
+              //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              total: round2(finalValues.total)
+                .toFixed(2)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+              // total: `${finalValues.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              finalProfit: round2(finalValues.finalProfit)
+                .toFixed(2)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+              // finalProfit: `${finalValues.finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // finalProfitMargin: round2(finalValues.totalProfitMargin).toFixed(2),
               finalProfitMargin: `${finalValues.totalProfitMargin}`,
               insuranceCheckAmount: `${Math.round(finalValues.insuranceCheckAmount)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+              // insuranceCheckAmount: `${Math.round(finalValues.insuranceCheckAmount)
+              //   .toString()
+              //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
             },
           ];
 
@@ -179,7 +192,8 @@ function ProformaTable({
                   if (col.dataIndex === 'unitCost') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalUnitCosts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalUnitCosts).toLocaleString()}</strong>
+                        {/* <strong>{totalUnitCosts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -187,7 +201,8 @@ function ProformaTable({
                   if (col.dataIndex === 'primarySalesPrice') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalPrimarySalesPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalPrimarySalesPrice).toLocaleString()}</strong>
+                        {/* <strong>{totalPrimarySalesPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -195,7 +210,8 @@ function ProformaTable({
                   if (col.dataIndex === 'insurancePriceForRecord') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalInsurancePriceForRecord).toLocaleString()}</strong>
+                        {/* <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -203,7 +219,8 @@ function ProformaTable({
                   if (col.dataIndex === 'itemShareOfTaxAndIns') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalItemShareOfTaxAndIns.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalItemShareOfTaxAndIns).toLocaleString()}</strong>
+                        {/* <strong>{totalItemShareOfTaxAndIns.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -211,7 +228,8 @@ function ProformaTable({
                   if (col.dataIndex === 'itemSalePrice') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalItemSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalItemSalePrice).toLocaleString()}</strong>
+                        {/* <strong>{totalItemSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -227,7 +245,8 @@ function ProformaTable({
                   if (col.dataIndex === 'totalPriceWithoutFactors') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalCostWithout).toLocaleString()}</strong>
+                        {/* <strong>{totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -235,7 +254,8 @@ function ProformaTable({
                   if (col.dataIndex === 'totalCostWithFactors') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalCostOfRows).toLocaleString()}</strong>
+                        {/* <strong>{totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -243,7 +263,8 @@ function ProformaTable({
                   if (col.dataIndex === 'finalSalePrice') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
+                        <strong>{round2(totalFinalSalePrice).toLocaleString()}</strong>
+                        {/* <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }

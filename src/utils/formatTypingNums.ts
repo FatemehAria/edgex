@@ -4,9 +4,21 @@ import { handleCellChange } from '@/pages/home/home-utils';
 
 // Function to format the value: remove commas, convert to number, ceil, then format with commas.
 export const formatValue = (val: string): string => {
+  // drop existing commas
   const plain = val.replace(/,/g, '');
 
-  return Number(plain).toLocaleString('en-US');
+  if (plain === '') return '';
+
+  const match = plain.match(/^(\d*)(\.\d*)?$/);
+
+  if (!match) {
+    return plain;
+  }
+
+  const [, intPart, decPart] = match;
+  const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  return decPart != null ? `${withCommas}${decPart}` : withCommas;
 };
 
 export const handleValueChange = (

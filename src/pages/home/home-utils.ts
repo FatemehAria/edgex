@@ -7,6 +7,11 @@ import { createCustomer } from '../costumer-info/util';
 import { createSupplier } from '../supplier/util';
 import { createProformaCategory, createProformaStuff } from './util';
 
+export function round2(n: number): number {
+  // +Number.EPSILON guards against floating-point weirdness
+  return Math.round((n + Number.EPSILON) * 100) / 100;
+}
+
 export const resetRowFields = (row: any) => {
   return {
     ...row,
@@ -75,7 +80,7 @@ export const handleCellChange = (
           const unitCost = parseFloat(String(updatedRow.unitCost).replace(/,/g, '')) || 0;
 
           // هزینه کل
-          updatedRow.totalPriceWithoutFactors = qty * unitCost;
+          updatedRow.totalPriceWithoutFactors = round2(qty * unitCost);
 
           const {
             'record-percentage-discount': percentageDiscount = 0,
@@ -86,17 +91,17 @@ export const handleCellChange = (
           // قیمت فروش اولیه
           const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
 
-          updatedRow.primarySalesPrice = primarySalesPrice;
+          updatedRow.primarySalesPrice = round2(primarySalesPrice);
 
           // قیمت کل آیتم
           const itemTotalPrice = primarySalesPrice * qty;
 
-          updatedRow.itemTotalPrice = itemTotalPrice;
+          updatedRow.itemTotalPrice = round2(itemTotalPrice);
 
           // مبلغ بیمه برای هر رکورد
           const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
 
-          updatedRow.insurancePriceForRecord = insurancePriceForRecord;
+          updatedRow.insurancePriceForRecord = round2(insurancePriceForRecord);
 
           // const totalCost = totalCostOfRows || 1;
           const qtyNumber = qty || 1;
@@ -106,7 +111,7 @@ export const handleCellChange = (
             0,
           );
 
-          console.log(sumOfItemTotalPrice);
+          // console.log(sumOfItemTotalPrice);
           const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
 
           // سهم آیتم از بیمه و مالیات
@@ -114,12 +119,12 @@ export const handleCellChange = (
           const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
 
           // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
-          updatedRow.itemShareOfTaxAndIns = shareOfTaxAndIns;
+          updatedRow.itemShareOfTaxAndIns = parseFloat(shareOfTaxAndIns.toFixed(4));
 
           // قیمت فروش آیتم
           const itemSalePrice = primarySalesPrice + shareOfTaxAndIns;
 
-          updatedRow.itemSalePrice = itemSalePrice;
+          updatedRow.itemSalePrice = round2(itemSalePrice);
           // قیمت فروش آیتم رند شده
 
           if (dataIndex === 'itemSalePriceRounded') {
@@ -131,9 +136,11 @@ export const handleCellChange = (
           // قیمت فروش نهایی
           const finalSalePrice = parseFloat(String(updatedRow.itemSalePriceRounded).replace(/,/g, '')) * qty;
 
-          updatedRow.finalSalePrice = finalSalePrice;
+          updatedRow.finalSalePrice = round2(finalSalePrice);
 
-          const recordPercentageDiscount = (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors;
+          const recordPercentageDiscount = round2(
+            (Number(percentageDiscount) / 100) * updatedRow.totalPriceWithoutFactors,
+          );
 
           updatedRow.totalPriceWithFactors =
             primarySalesPrice +
