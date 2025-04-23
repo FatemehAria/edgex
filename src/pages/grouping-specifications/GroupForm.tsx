@@ -12,7 +12,7 @@ import { getExistenceList } from './util';
 interface GroupFormProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
-  onCancel: () => void;
+  onCancel?: () => void;
   showButton?: boolean;
 }
 

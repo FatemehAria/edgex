@@ -12,7 +12,7 @@ import { getNatureList } from './util';
 interface IncDecFactorsProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
-  onCancel: () => void;
+  onCancel?: () => void;
   showButton?: boolean;
 }
 

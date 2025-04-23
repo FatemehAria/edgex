@@ -12,7 +12,7 @@ interface MainInfoProps {
   initialValues?: Record<string, any>;
   onSubmit: (formData: Record<string, any>) => void | Promise<void> | null;
   showButton?: boolean;
-  onCancel: () => void;
+  onCancel?: () => void;
   children?: React.ReactNode;
 }
 
