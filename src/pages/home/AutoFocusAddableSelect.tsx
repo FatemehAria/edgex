@@ -277,6 +277,7 @@ const AutoFocusAddableSelect = ({
         options={transformedOptions}
         style={{ width: '100%' }}
         onDropdownVisibleChange={open => setDropdownVisible(open)}
+        open={dropdownVisible}
       />
       {isEditModalVisible && (
         <Modal
