@@ -77,8 +77,7 @@ const AutoFocusAddableSelect = ({
     }
 
     setOptions(opts);
-  }, [initialOptions]);
-  // }, [initialOptions, allowAddNew, formatMessage]);
+  }, [initialOptions, allowAddNew, formatMessage]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
   const [selected, setSelected] = useState(() => {
@@ -252,16 +251,22 @@ const AutoFocusAddableSelect = ({
   // }, [selected]);
 
   const transformedOptions = editableOptions
-    ? initialOptions.map(opt => ({
+    ? options.map(opt => ({
         ...opt,
         label: (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{localStorage.getItem(`editedOption-${dataIndex}`) || opt.label}</span>
-            <EditOutlined onClick={e => handleEditClick(opt, e)} />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <span>{localStorage.getItem(`editedOption-${opt.value}`) || opt.label}</span>
+            <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
           </div>
         ),
       }))
-    : initialOptions;
+    : options;
 
   return (
     <>
