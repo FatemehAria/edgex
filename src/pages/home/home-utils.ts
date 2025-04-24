@@ -66,6 +66,10 @@ export const handleCellChange = (
       if (row.key === key) {
         const updatedRow = { ...row, [dataIndex]: value };
 
+        if (dataIndex === 'items') {
+          updatedRow.unitCost = ''; // Clear unitCost for the new item
+        }
+
         if (
           [
             'qty',

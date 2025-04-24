@@ -21,7 +21,7 @@ import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { ProformaFormOptions } from './FormOptionsOfPro';
 import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
 import ProformaTable from './ProformaTable';
-import { getStuffbyId } from './util';
+import { getLastUnitCostByID, getStuffbyId } from './util';
 
 function Home() {
   const { token } = theme.useToken();
@@ -73,6 +73,7 @@ function Home() {
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const { setHeaderData } = useContext(IsEdittingProformaContext);
   const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
+  const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
 
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
@@ -201,6 +202,34 @@ function Home() {
       setTableData(prevData => [...prevData, createEmptyRow()]);
     }
   }, [tableData]);
+
+  useEffect(() => {
+    tableData.forEach(row => {
+      const itemId = row.items;
+      const rowKey = row.key;
+
+      if (processedItems.has(`${rowKey}-${itemId}`) && row.unitCost === '') {
+        setProcessedItems(prev => {
+          const newSet = new Set(prev);
+
+          newSet.delete(`${rowKey}-${itemId}`);
+
+          return newSet;
+        });
+      }
+
+      if (itemId && !processedItems.has(`${rowKey}-${itemId}`) && !row.unitCost) {
+        getLastUnitCostByID(itemId).then(unitCost => {
+          if (unitCost !== undefined) {
+            setTableData(prevData =>
+              prevData.map(r => (r.key === rowKey ? { ...r, unitCost: unitCost.toString() } : r)),
+            );
+            setProcessedItems(prev => new Set(prev.add(`${rowKey}-${itemId}`)));
+          }
+        });
+      }
+    });
+  }, [tableData, processedItems, setTableData]);
 
   const columns = Columns(
     formatMessage,
