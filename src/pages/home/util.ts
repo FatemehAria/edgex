@@ -22,14 +22,21 @@ export const createProforma = async (payload: any) => {
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
   } finally {
-    [
-      'header-info-event',
-      'header-info-customertitle',
-      'header-info-date',
-      'header-info-desc',
-      'editedOption-items',
-      'editedOption-category',
-    ].forEach(item => localStorage.removeItem(item));
+    const prefixes = [
+      'header-info-',
+      'editedOption-category-',
+      'editedOption-items-',
+      'category-initialValue',
+      'items-initialValue',
+    ];
+
+    const allKeys = Object.keys(localStorage);
+
+    allKeys.forEach(key => {
+      if (prefixes.some(prefix => key.startsWith(prefix))) {
+        localStorage.removeItem(key);
+      }
+    });
   }
 };
 
@@ -50,6 +57,22 @@ export const updateProforma = async (payload: any) => {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
 
     console.log(error);
+  } finally {
+    const prefixes = [
+      'header-info-',
+      'editedOption-category-',
+      'editedOption-items-',
+      'category-initialValue',
+      'items-initialValue',
+    ];
+
+    const allKeys = Object.keys(localStorage);
+
+    allKeys.forEach(key => {
+      if (prefixes.some(prefix => key.startsWith(prefix))) {
+        localStorage.removeItem(key);
+      }
+    });
   }
 };
 
