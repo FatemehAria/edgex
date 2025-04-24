@@ -1,10 +1,9 @@
-import type { Dispatch, SetStateAction } from 'react';
-
 import './columns.css';
 
 import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from 'antd';
+import { type Dispatch, type SetStateAction, useState } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
@@ -29,6 +28,9 @@ export const Columns = (
   setTableData: Dispatch<SetStateAction<any[]>>,
   setSelectedCatId: Dispatch<SetStateAction<string | null>>,
 ) => {
+  const [editVersion, setEditVersion] = useState(0);
+  const bumpVersion = () => setEditVersion(v => v + 1);
+
   const copyRow = (record: any) => {
     setTableData(prevData => {
       const index = prevData.findIndex(row => row.key === record.key);
@@ -86,6 +88,8 @@ export const Columns = (
           setTableData={setTableData}
           tableData={tableData}
           setSelectedCatId={setSelectedCatId}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },
@@ -114,6 +118,8 @@ export const Columns = (
           }}
           setTableData={setTableData}
           tableData={tableData}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },
@@ -141,6 +147,8 @@ export const Columns = (
           }}
           tableData={tableData}
           setTableData={setTableData}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },

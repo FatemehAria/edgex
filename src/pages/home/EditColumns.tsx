@@ -3,7 +3,7 @@ import './columns.css';
 import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from 'antd';
-import { type Dispatch, type SetStateAction, useContext } from 'react';
+import { type Dispatch, type SetStateAction, useContext, useState } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
@@ -30,6 +30,8 @@ export const EditColumns = (
   setSelectedCatId: Dispatch<SetStateAction<string | null>>,
 ) => {
   const { setIsCopyingProformaTableRow } = useContext(IsEdittingProformaContext);
+  const [editVersion, setEditVersion] = useState(0);
+  const bumpVersion = () => setEditVersion(v => v + 1);
 
   const copyRow = (record: any) => {
     setIsCopyingProformaTableRow(true);
@@ -134,6 +136,8 @@ export const EditColumns = (
           setTableData={setTableData}
           tableData={tableData}
           setSelectedCatId={setSelectedCatId}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },
@@ -162,6 +166,8 @@ export const EditColumns = (
           }}
           setTableData={setTableData}
           tableData={tableData}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },
@@ -189,6 +195,8 @@ export const EditColumns = (
           }}
           setTableData={setTableData}
           tableData={tableData}
+          editVersion={editVersion}
+          onOptionEdited={bumpVersion}
         />
       ),
     },

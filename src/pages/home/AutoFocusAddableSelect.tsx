@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import { EditOutlined } from '@ant-design/icons';
 import { Input, Modal, Select } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import usePrevious from '@/hooks/usePrevious';
 import { useLocale } from '@/locales';
@@ -30,6 +30,8 @@ interface AutoFocusAddableSelectProps {
   setTableData: Dispatch<SetStateAction<any[]>>;
   tableData: any[];
   setSelectedCatId?: Dispatch<SetStateAction<string | null>>;
+  editVersion: number;
+  onOptionEdited: () => void;
 }
 
 const AutoFocusAddableSelect = ({
@@ -48,11 +50,13 @@ const AutoFocusAddableSelect = ({
   tableData,
   setTableData,
   setSelectedCatId,
+  editVersion,
+  onOptionEdited,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
   const prevOptions = usePrevious(initialOptions);
   const [dropdownVisible, setDropdownVisible] = useState(false);
-
+  const ID_PREFIX = `editedOption-${dataIndex}-`;
   const [options, setOptions] = useState(() => {
     const opts = [...initialOptions];
 
@@ -228,7 +232,7 @@ const AutoFocusAddableSelect = ({
 
     setEditingOption({ ...option, originalValue: option.value });
 
-    const stored = localStorage.getItem(`editedOption-${option.value}`);
+    const stored = localStorage.getItem(`${ID_PREFIX}${option.value}`);
 
     setEditedValue(stored || option.label);
     setIsEditModalVisible(true);
@@ -236,8 +240,8 @@ const AutoFocusAddableSelect = ({
 
   const handleEditSubmit = () => {
     if (editingOption) {
-      localStorage.setItem(`editedOption-${dataIndex}-${editingOption.originalValue}`, editedValue);
-
+      localStorage.setItem(`${ID_PREFIX}${editingOption.originalValue}`, editedValue);
+      onOptionEdited?.();
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
       // for not resetting the editted label in ui
       // handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
@@ -250,23 +254,43 @@ const AutoFocusAddableSelect = ({
   //   console.log('selected state updated:', selected);
   // }, [selected]);
 
-  const transformedOptions = editableOptions
-    ? options.map(opt => ({
-        ...opt,
-        label: (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <span>{localStorage.getItem(`editedOption-${opt.value}`) || opt.label}</span>
-            <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
-          </div>
-        ),
-      }))
-    : options;
+  const transformedOptions = useMemo(() => {
+    return editableOptions
+      ? options.map(opt => ({
+          ...opt,
+          label: (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <span>{localStorage.getItem(`${ID_PREFIX}${opt.value}`) ?? opt.label}</span>
+              <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
+            </div>
+          ),
+        }))
+      : options;
+  }, [options, ID_PREFIX, editableOptions, editVersion]);
+
+  // const transformedOptions = editableOptions
+  //   ? options.map(opt => ({
+  //       ...opt,
+  //       label: (
+  //         <div
+  //           style={{
+  //             display: 'flex',
+  //             justifyContent: 'space-between',
+  //             alignItems: 'center',
+  //           }}
+  //         >
+  //           <span>{localStorage.getItem(`editedOption-${dataIndex}-${opt.value}`) ?? opt.label}</span>
+  //           <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
+  //         </div>
+  //       ),
+  //     }))
+  //   : options;
 
   return (
     <>
