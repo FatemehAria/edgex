@@ -249,8 +249,8 @@ export function mapRowToApiDetail(
     priceSaleRounded: parseFloat(String(row.itemSalePriceRounded).replace(/,/g, '')) || 0,
     priceSaleFinal: row.finalSalePrice || 0,
     costTotal: row.totalPriceWithoutFactors || 0,
-    existenceCategoryTitleModified: localStorage.getItem(`editedOption-category`) || null,
-    stuffParentTitleModified: localStorage.getItem(`editedOption-items`) || null,
+    existenceCategoryTitleModified: localStorage.getItem(`editedOption-category-${row.category}`) || null,
+    stuffParentTitleModified: localStorage.getItem(`editedOption-items-${row.items}`) || null,
     insurancePrice: row.insurancePriceForRecord,
   };
 }

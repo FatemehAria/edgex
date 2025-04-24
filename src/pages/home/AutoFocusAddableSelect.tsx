@@ -236,7 +236,7 @@ const AutoFocusAddableSelect = ({
 
   const handleEditSubmit = () => {
     if (editingOption) {
-      localStorage.setItem(`editedOption-${dataIndex}`, editedValue);
+      localStorage.setItem(`editedOption-${dataIndex}-${editingOption.originalValue}`, editedValue);
 
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
       // for not resetting the editted label in ui
