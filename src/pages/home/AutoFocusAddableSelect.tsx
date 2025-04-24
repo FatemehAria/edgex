@@ -77,7 +77,8 @@ const AutoFocusAddableSelect = ({
     }
 
     setOptions(opts);
-  }, [initialOptions, allowAddNew, formatMessage]);
+  }, [initialOptions]);
+  // }, [initialOptions, allowAddNew, formatMessage]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
   const [selected, setSelected] = useState(() => {
@@ -240,7 +241,7 @@ const AutoFocusAddableSelect = ({
 
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
       // for not resetting the editted label in ui
-      handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
+      // handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
 
       setIsEditModalVisible(false);
     }
@@ -251,22 +252,16 @@ const AutoFocusAddableSelect = ({
   // }, [selected]);
 
   const transformedOptions = editableOptions
-    ? options.map(opt => ({
+    ? initialOptions.map(opt => ({
         ...opt,
         label: (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <span>{localStorage.getItem(`editedOption-${opt.value}`) || opt.label}</span>
-            <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>{localStorage.getItem(`editedOption-${dataIndex}`) || opt.label}</span>
+            <EditOutlined onClick={e => handleEditClick(opt, e)} />
           </div>
         ),
       }))
-    : options;
+    : initialOptions;
 
   return (
     <>
