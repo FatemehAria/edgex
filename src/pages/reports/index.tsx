@@ -2,6 +2,7 @@ import type { ColumnType } from 'antd/es/table';
 
 import { Select, Table, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import ListButtons from '@/components/custom/ListButtons';
 
@@ -11,8 +12,9 @@ import { getReportsData } from './util';
 const { Option } = Select;
 
 function Reports() {
-  const [reports, setReports] = useState([]);
   const { token } = theme.useToken();
+  const { locale } = useSelector(state => state.user);
+  const [reports, setReports] = useState([]);
   const allColumns = ReportsColumns();
   const defaultColumnKeys = allColumns.map(column => column.key);
 
@@ -58,7 +60,12 @@ function Reports() {
           ))}
         </Select>
 
-        <Table dataSource={reports} columns={visibleColumns as ColumnType<any>[]} scroll={{ x: 'max-content' }} />
+        <Table
+          dataSource={reports}
+          columns={visibleColumns as ColumnType<any>[]}
+          scroll={{ x: 'max-content' }}
+          pagination={{ position: locale === 'en_US' ? ['bottomLeft'] : ['bottomRight'] }}
+        />
       </div>
     </div>
   );

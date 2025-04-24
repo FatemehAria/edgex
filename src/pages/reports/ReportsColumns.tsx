@@ -7,9 +7,9 @@ import { useLocale } from '@/locales';
 function ReportsColumns() {
   const { formatMessage } = useLocale();
 
-  const getColumnSearchProps = (dataIndex: string) => ({
+  const getColumnSearchProps = (dataIndex: string, columnWidth: number) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
-      <div style={{ padding: 8 }}>
+      <div style={{ padding: 2, width: columnWidth }}>
         <Input
           placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
           value={selectedKeys[0]}
@@ -20,7 +20,7 @@ function ReportsColumns() {
             confirm({ closeDropdown: false });
           }}
           // allowClear
-          style={{ width: 180, display: 'block' }}
+          style={{ width: '100%' }}
         />
       </div>
     ),
@@ -45,7 +45,7 @@ function ReportsColumns() {
       key: 'Date',
       width: 300,
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 2, width: 300 }}>
           <Input
             placeholder={`${formatMessage({ id: 'gloabal.listcolumns.search' })}`}
             value={selectedKeys[0]}
@@ -55,7 +55,7 @@ function ReportsColumns() {
               setSelectedKeys(value ? [value] : []);
               confirm({ closeDropdown: false });
             }}
-            style={{ width: 180, display: 'block' }}
+            style={{ width: '100%' }}
           />
         </div>
       ),
@@ -73,7 +73,7 @@ function ReportsColumns() {
       dataIndex: 'Event',
       key: 'Event',
       width: 300,
-      ...getColumnSearchProps('Event'),
+      ...getColumnSearchProps('Event', 300),
       render: (text: string) => <span>{text}</span>,
     },
     // مشتری
@@ -82,7 +82,7 @@ function ReportsColumns() {
       dataIndex: 'CustomerTitle',
       key: 'CustomerTitle',
       width: 300,
-      ...getColumnSearchProps('CustomerTitle'),
+      ...getColumnSearchProps('CustomerTitle', 300),
       render: (text: string) => <span>{text}</span>,
     },
     // تامین کننده
@@ -91,7 +91,7 @@ function ReportsColumns() {
       dataIndex: 'SuplierTitle',
       key: 'SuplierTitle',
       width: 300,
-      ...getColumnSearchProps('SuplierTitle'),
+      ...getColumnSearchProps('SuplierTitle', 300),
       render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // گروهبندی
@@ -100,7 +100,7 @@ function ReportsColumns() {
       dataIndex: 'ExistenceCategoryTitle',
       key: 'ExistenceCategoryTitle',
       width: 300,
-      ...getColumnSearchProps('ExistenceCategoryTitle'),
+      ...getColumnSearchProps('ExistenceCategoryTitle', 300),
       render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     //  گروهبندی مودیفای شده
@@ -109,7 +109,7 @@ function ReportsColumns() {
       dataIndex: 'ExistenceCategoryTitleModified',
       key: 'ExistenceCategoryTitleModified',
       width: 300,
-      ...getColumnSearchProps('ExistenceCategoryTitleModified'),
+      ...getColumnSearchProps('ExistenceCategoryTitleModified', 300),
       render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // آیتم
@@ -118,7 +118,7 @@ function ReportsColumns() {
       dataIndex: 'StuffParentTitle',
       key: 'StuffParentTitle',
       width: 300,
-      ...getColumnSearchProps('StuffParentTitle'),
+      ...getColumnSearchProps('StuffParentTitle', 300),
       render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // آیتم مودیفای شده
@@ -127,7 +127,7 @@ function ReportsColumns() {
       dataIndex: 'StuffParentTitleModified',
       key: 'StuffParentTitleModified',
       width: 300,
-      ...getColumnSearchProps('StuffParentTitleModified'),
+      ...getColumnSearchProps('StuffParentTitleModified', 300),
       render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // تعداد
@@ -136,7 +136,7 @@ function ReportsColumns() {
       dataIndex: 'QuantityTotal',
       key: 'QuantityTotal',
       width: 300,
-      ...getColumnSearchProps('QuantityTotal'),
+      ...getColumnSearchProps('QuantityTotal', 300),
       render: (text: number) => <span>{text}</span>,
     },
     // هزینه واحد
@@ -145,7 +145,7 @@ function ReportsColumns() {
       dataIndex: 'CostUnit',
       key: 'CostUnit',
       width: 300,
-      ...getColumnSearchProps('CostUnit'),
+      ...getColumnSearchProps('CostUnit', 300),
       render: (text: number) => {
         return <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>;
       },
@@ -156,7 +156,7 @@ function ReportsColumns() {
       dataIndex: 'CostTotal',
       key: 'CostTotal',
       width: 300,
-      ...getColumnSearchProps('CostTotal'),
+      ...getColumnSearchProps('CostTotal', 300),
       render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // // حاشیه سود
@@ -173,7 +173,7 @@ function ReportsColumns() {
       dataIndex: 'InsuranceTax',
       key: 'InsuranceTax',
       width: 300,
-      ...getColumnSearchProps('InsuranceTax'),
+      ...getColumnSearchProps('InsuranceTax', 300),
       render: (text: number) => (
         <span>
           {text
@@ -189,7 +189,7 @@ function ReportsColumns() {
       dataIndex: 'PriceSale',
       key: 'PriceSale',
       width: 300,
-      ...getColumnSearchProps('PriceSale'),
+      ...getColumnSearchProps('PriceSale', 300),
       render: (text: number) => (
         <span>
           {text
@@ -207,7 +207,7 @@ function ReportsColumns() {
       dataIndex: 'PriceSaleRounded',
       key: 'PriceSaleRounded',
       width: 300,
-      ...getColumnSearchProps('PriceSaleRounded'),
+      ...getColumnSearchProps('PriceSaleRounded', 300),
       render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // قیمت نهایی
@@ -216,7 +216,7 @@ function ReportsColumns() {
       dataIndex: 'PriceSaleFinal',
       key: 'PriceSaleFinal',
       width: 300,
-      ...getColumnSearchProps('PriceSaleFinal'),
+      ...getColumnSearchProps('PriceSaleFinal', 300),
       render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // حاشیه سود نهایی
@@ -225,7 +225,7 @@ function ReportsColumns() {
       dataIndex: 'ProfitMarginFinal',
       key: 'ProfitMarginFinal',
       width: 300,
-      ...getColumnSearchProps('ProfitMarginFinal'),
+      ...getColumnSearchProps('ProfitMarginFinal', 300),
       render: (text: number) => (
         <span>
           {text
@@ -243,7 +243,7 @@ function ReportsColumns() {
       dataIndex: 'ProfitFinalMinusInsuranceVatCostTotal',
       key: 'ProfitFinalMinusInsuranceVatCostTotal',
       width: 300,
-      ...getColumnSearchProps('ProfitFinalMinusInsuranceVatCostTotal'),
+      ...getColumnSearchProps('ProfitFinalMinusInsuranceVatCostTotal', 300),
       render: (text: number) => (
         <span>
           {text

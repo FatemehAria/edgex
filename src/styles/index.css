@@ -1,0 +1,149 @@
+@font-face {
+  font-family: 'IranYekan';
+  src: url('../../public/fonts/iranyekan/woff/iranyekanwebregular.woff');
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-size: 14px;
+}
+a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+th {
+  text-wrap: nowrap;
+}
+#searchForm > .ant-row > .ant-row.ant-form-item {
+  width: 100%;
+  text-align: right;
+  padding-right: 12px;
+}
+#searchForm > .ant-row > .ant-row.ant-form-item .ant-col {
+  flex: 1;
+  max-width: 100%;
+  width: 100%;
+}
+#searchForm > .ant-row > .ant-row.ant-form-item .ant-col .ant-btn:first-child {
+  margin-right: 10px;
+}
+.app-loading-wrapper.ant-spin-spinning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.submit-button {
+  width: 100%;
+}
+label {
+  font-weight: 700;
+}
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.delete-icon {
+  color: red;
+}
+.copy-icon {
+  color: darkgreen;
+}
+.edit-icon {
+  color: darkblue;
+}
+.status-icon {
+  color: #3d8e15;
+}
+.print-icon {
+  color: #796700;
+}
+/* global stylesheet, or .module.css */
+.ant-picker-panel .ant-picker-content thead {
+  display: none !important;
+}
+.ant-table-cell {
+  text-align: center;
+}
+.ant-list-item {
+  padding: 12px 12px !important;
+}
+.ant-table-cell .ant-btn.ant-btn-link {
+  padding: 0 4px !important;
+}
+.ant-btn + .ant-btn {
+  margin-left: 10px;
+}
+[data-theme="light"] {
+  background-color: #fff !important;
+}
+[data-theme="light"] .bg-1,
+[data-theme="light"] .bg-2 {
+  background-color: #fff !important;
+}
+[data-theme="light"] .ant-layout-sider {
+  background-color: #fff !important;
+}
+[data-theme="light"] .text-1 {
+  color: #000;
+}
+[data-theme="light"] .text-2 {
+  color: rgba(0, 0, 0, 0.85);
+}
+[data-theme="dark"] .bg-1 {
+  background-color: #000 !important;
+}
+[data-theme="dark"] .bg-2 {
+  background-color: #1f1f1f !important;
+}
+[data-theme="dark"] .text-1 {
+  color: #fff;
+}
+[data-theme="dark"] .text-2 {
+  color: rgba(255, 255, 255, 0.65);
+}
+/* For Chrome, Edge, and Safari */
+.ant-table-content::-webkit-scrollbar {
+  width: 6px !important;
+  /* scrollbar thickness */
+  height: 6px;
+  /* horizontal scrollbar thickness */
+}
+.ant-table-content::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  /* track color */
+  border-radius: 6px;
+  /* track corner rounding */
+}
+.ant-table-content::-webkit-scrollbar-thumb {
+  background-color: #999;
+  /* thumb color */
+  border-radius: 6px;
+  /* thumb corner rounding */
+}
+/* For Firefox */
+.ant-table-content {
+  scrollbar-width: thin !important;
+  /* makes scrollbar thinner */
+  scrollbar-color: #5B9793 #f5f5f5 !important;
+  /* thumb color, track color */
+}
