@@ -37,7 +37,7 @@ function Reports() {
   }, []);
 
   return (
-    <div style={{ height: '100vh', backgroundColor: token.colorBgBlur }}>
+    <div style={{ backgroundColor: token.colorBgBlur }}>
       <ListButtons
         route="https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel"
         title="report_export"

@@ -25,6 +25,5 @@ root.render(
         }}
       />
     </AppWithIntl>
-    ,
   </Provider>,
 );

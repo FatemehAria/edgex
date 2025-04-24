@@ -221,7 +221,6 @@ function ListComponent({
       <Table
         dataSource={tableData}
         columns={columns}
-        className="custom-footer-table"
         // scroll={{ x: 2000 }}
         loading={loading}
         pagination={{ position: locale === 'en_US' ? ['bottomLeft'] : ['bottomRight'] }}
