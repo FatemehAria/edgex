@@ -12,6 +12,7 @@ export const faIR_title = {
   'title.metadata': 'ورود متادیتا',
   'title.advanced-search': 'جستجوی پیشرفته',
   'title.reports': 'گزارشات',
+  'title.confirmedReports': 'گزارشات تایید شده',
   'title.favorites': 'علاقه مندی ها',
   'title.permission.route': 'دسترسی مسیرها',
   'title.permission.button': 'دسترسی دکمه ها',

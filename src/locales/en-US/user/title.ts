@@ -12,6 +12,7 @@ export const enUS_title = {
   'title.metadata': 'Metadata',
   'title.advanced-search': 'Advanced Search',
   'title.reports': 'Reports',
+  'title.confirmedReports': 'Confirmed Reports',
   'title.favorites': 'Favorites',
   'title.permission.route': 'Route Permission',
   'title.permission.button': 'Button Permission',

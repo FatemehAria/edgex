@@ -12,6 +12,7 @@ import LayoutPage from '@/pages/layout';
 
 import WrapperRouteComponent from './config';
 import PublicRoute from './publicRoute';
+import ApprovedProformaReports from '@/pages/reports/ApprovedProformaReports';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));
@@ -118,6 +119,12 @@ const routeList: RouteObject[] = [
       {
         path: 'reports',
         element: <WrapperRouteComponent element={<ReportsPage />} titleId="title.reports" auth={true} />,
+      },
+      {
+        path: '/reports/confirmed-reports',
+        element: (
+          <WrapperRouteComponent element={<ApprovedProformaReports />} titleId="title.confirmedReports" auth={true} />
+        ),
       },
       {
         path: '*',

@@ -92,10 +92,19 @@ const mockMenuList: MenuList = [
         code: 'proforma-report',
         label: {
           // zh_CN: '首页',
-          en_US: 'Proforma report',
-          fa_IR: 'گزارش آیتم های پیش فاکتور',
+          en_US: 'Proformas',
+          fa_IR: 'پیش فاکتورها',
         },
         path: '/reports',
+      },
+      {
+        code: 'confirmed-reports',
+        label: {
+          // zh_CN: '首页',
+          en_US: 'Confirmed Proformas',
+          fa_IR: 'پیش فاکتورهای تایید شده',
+        },
+        path: '/reports/confirmed-reports',
       },
     ],
   },
