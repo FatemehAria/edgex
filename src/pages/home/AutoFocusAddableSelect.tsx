@@ -244,9 +244,9 @@ const AutoFocusAddableSelect = ({
     }
   };
 
-  useEffect(() => {
-    console.log('selected state updated:', selected);
-  }, [selected]);
+  // useEffect(() => {
+  //   console.log('selected state updated:', selected);
+  // }, [selected]);
 
   const transformedOptions = editableOptions
     ? options.map(opt => ({
@@ -275,7 +275,7 @@ const AutoFocusAddableSelect = ({
         placeholder={placeholder}
         onChange={onChange}
         options={transformedOptions}
-        style={{ width: '100%' }}
+        style={{ width: '100%', textAlign: 'right' }}
         onDropdownVisibleChange={open => setDropdownVisible(open)}
         open={dropdownVisible}
       />
