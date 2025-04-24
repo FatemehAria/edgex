@@ -166,6 +166,8 @@ const AutoFocusAddableSelect = ({
       if (newValue.length > 0) {
         const latestValue = newValue[newValue.length - 1];
 
+        setSelected([latestValue]);
+
         handleCellChange(latestValue, record.key, dataIndex, setTableData, tableData);
 
         localStorage.setItem(localStorageKey, latestValue);
