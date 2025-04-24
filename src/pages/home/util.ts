@@ -551,9 +551,8 @@ export const getLastUnitCostByID = async (stuffId: string) => {
     );
 
     return data;
-    console.log(data);
-    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+    // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
+    console.log(error);
   }
 };
