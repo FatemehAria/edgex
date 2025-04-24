@@ -543,3 +543,17 @@ export const deleteProforma = async (endpoint: string, id: string) => {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
 };
+
+export const getLastUnitCostByID = async (stuffId: string) => {
+  try {
+    const { data } = await customAxiosInstance.get(
+      '/PerformaInvoiceHeader/LastUnitCostByStuffParentID?stuffParentID=' + stuffId,
+    );
+
+    return data;
+    console.log(data);
+    toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+  } catch (error) {
+    toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
+  }
+};
