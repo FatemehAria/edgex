@@ -1,3 +1,5 @@
+import type { ColumnType } from 'antd/es/table';
+
 import { Select, Table, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 
@@ -5,7 +7,6 @@ import ListButtons from '@/components/custom/ListButtons';
 
 import ReportsColumns from './ReportsColumns';
 import { getReportsData } from './util';
-import { ColumnType } from 'antd/es/table';
 
 const { Option } = Select;
 
@@ -50,14 +51,14 @@ function Reports() {
           onChange={handleSelectChange}
           showSearch={false}
         >
-          {visibleColumns.map(column => (
+          {allColumns.map(column => (
             <Option key={column.key} value={column.key}>
               {column.title}
             </Option>
           ))}
         </Select>
 
-        <Table dataSource={reports} columns={visibleColumns as ColumnType<any>[]} scroll={{ x: 2000 }} />
+        <Table dataSource={reports} columns={visibleColumns as ColumnType<any>[]} scroll={{ x: 'max-content' }} />
       </div>
     </div>
   );

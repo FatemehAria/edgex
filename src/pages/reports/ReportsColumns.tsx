@@ -36,7 +36,7 @@ function ReportsColumns() {
       dataIndex: 'key',
       key: 'key',
       width: 50,
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text}</span>,
     },
     // تاریخ
     {
@@ -65,9 +65,7 @@ function ReportsColumns() {
 
         return formattedDate.includes(value);
       },
-      render: (text: string) => (
-        <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('jYYYY/jMM/jDD')}</span>
-      ),
+      render: (text: string) => <span>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('jYYYY/jMM/jDD')}</span>,
     },
     // رویداد
     {
@@ -76,7 +74,7 @@ function ReportsColumns() {
       key: 'Event',
       width: 300,
       ...getColumnSearchProps('Event'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text}</span>,
     },
     // مشتری
     {
@@ -85,7 +83,7 @@ function ReportsColumns() {
       key: 'CustomerTitle',
       width: 300,
       ...getColumnSearchProps('CustomerTitle'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text}</span>,
     },
     // تامین کننده
     {
@@ -94,7 +92,7 @@ function ReportsColumns() {
       key: 'SuplierTitle',
       width: 300,
       ...getColumnSearchProps('SuplierTitle'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // گروهبندی
     {
@@ -103,7 +101,7 @@ function ReportsColumns() {
       key: 'ExistenceCategoryTitle',
       width: 300,
       ...getColumnSearchProps('ExistenceCategoryTitle'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     //  گروهبندی مودیفای شده
     {
@@ -112,7 +110,7 @@ function ReportsColumns() {
       key: 'ExistenceCategoryTitleModified',
       width: 300,
       ...getColumnSearchProps('ExistenceCategoryTitleModified'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // آیتم
     {
@@ -121,7 +119,7 @@ function ReportsColumns() {
       key: 'StuffParentTitle',
       width: 300,
       ...getColumnSearchProps('StuffParentTitle'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // آیتم مودیفای شده
     {
@@ -130,7 +128,7 @@ function ReportsColumns() {
       key: 'StuffParentTitleModified',
       width: 300,
       ...getColumnSearchProps('StuffParentTitleModified'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span>{text ? text : '-'}</span>,
     },
     // تعداد
     {
@@ -139,7 +137,7 @@ function ReportsColumns() {
       key: 'QuantityTotal',
       width: 300,
       ...getColumnSearchProps('QuantityTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span>{text}</span>,
     },
     // هزینه واحد
     {
@@ -148,7 +146,9 @@ function ReportsColumns() {
       key: 'CostUnit',
       width: 300,
       ...getColumnSearchProps('CostUnit'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => {
+        return <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>;
+      },
     },
     // هزینه کل
     {
@@ -157,7 +157,7 @@ function ReportsColumns() {
       key: 'CostTotal',
       width: 300,
       ...getColumnSearchProps('CostTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // // حاشیه سود
     // {
@@ -165,7 +165,7 @@ function ReportsColumns() {
     //   dataIndex: 'ProfitMarginFinal',
     //   key: 'ProfitMarginFinal',
     //   width: 300,
-    //   render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+    //   render: (text: string) => <span>{text}</span>,
     // },
     // سهم آیتم از بیمه و مالیات
     {
@@ -174,7 +174,14 @@ function ReportsColumns() {
       key: 'InsuranceTax',
       width: 300,
       ...getColumnSearchProps('InsuranceTax'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => (
+        <span>
+          {text
+            ? text?.toFixed(4).toString()
+            : // .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              '-'}
+        </span>
+      ),
     },
     // قیمت فروش آیتم
     {
@@ -183,7 +190,16 @@ function ReportsColumns() {
       key: 'PriceSale',
       width: 300,
       ...getColumnSearchProps('PriceSale'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => (
+        <span>
+          {text
+            ? text
+                ?.toFixed(3)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            : '-'}
+        </span>
+      ),
     },
     // قیمت فروش آیتم رند شده
     {
@@ -192,7 +208,7 @@ function ReportsColumns() {
       key: 'PriceSaleRounded',
       width: 300,
       ...getColumnSearchProps('PriceSaleRounded'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // قیمت نهایی
     {
@@ -201,7 +217,7 @@ function ReportsColumns() {
       key: 'PriceSaleFinal',
       width: 300,
       ...getColumnSearchProps('PriceSaleFinal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => <span>{text ? text?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}</span>,
     },
     // حاشیه سود نهایی
     {
@@ -210,7 +226,16 @@ function ReportsColumns() {
       key: 'ProfitMarginFinal',
       width: 300,
       ...getColumnSearchProps('ProfitMarginFinal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => (
+        <span>
+          {text
+            ? text
+                ?.toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            : '-'}
+        </span>
+      ),
     },
     // مبلغ سود نهایی
     {
@@ -219,7 +244,16 @@ function ReportsColumns() {
       key: 'ProfitFinalMinusInsuranceVatCostTotal',
       width: 300,
       ...getColumnSearchProps('ProfitFinalMinusInsuranceVatCostTotal'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: number) => (
+        <span>
+          {text
+            ? text
+                ?.toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            : '-'}
+        </span>
+      ),
     },
   ];
 
