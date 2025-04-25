@@ -75,8 +75,17 @@ const AutoFocusAddableSelectEdit = ({
     return opts;
   });
 
+  // In AutoFocusAddableSelectEdit component
   useEffect(() => {
     const opts = [...initialOptions];
+
+    // Check if the current record's value and label exist and are not in the options
+    const currentValue = record[dataIndex];
+    const currentLabel = record[`${dataIndex}Label`];
+
+    if (currentValue && currentLabel && !opts.some(opt => opt.value === currentValue)) {
+      opts.push({ label: currentLabel, value: currentValue });
+    }
 
     if (allowAddNew) {
       opts.push({
@@ -86,19 +95,25 @@ const AutoFocusAddableSelectEdit = ({
     }
 
     setOptions(opts);
-  }, [initialOptions, allowAddNew, formatMessage]);
+  }, [initialOptions, allowAddNew, formatMessage, record, dataIndex]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
 
   const getInitial = () => {
+    //For showing label
+    // const recordValue = record[dataIndex];
+    // const recordLabel = record[dataIndex + 'Label'];  // e.g. record.categoryLabel or record.itemsLabel
+    // if (recordValue != null) {
+    //   if (mode === 'tags' || mode === 'multiple') {
+    //     return [{ value: recordValue, label: recordLabel }];
+    //   } else {
+    //     return { value: recordValue, label: recordLabel };
+    //   }
+    // }
     const recordValue = record[dataIndex];
-    const recordLabel = record[`${dataIndex}Label`];
 
     if (recordValue != null) {
-      // return full object when in labelInValue mode
-      const initial = { value: recordValue, label: recordLabel };
-
-      return mode ? [initial] : initial;
+      return mode ? [recordValue] : recordValue;
     }
 
     const match = initialOptions.find(opt => String(opt.label) === text);
@@ -301,24 +316,6 @@ const AutoFocusAddableSelectEdit = ({
         }))
       : options;
   }, [options, ID_PREFIX, editableOptions, editVersion]);
-
-  // const transformedOptions = editableOptions
-  //   ? options.map(opt => ({
-  //       ...opt,
-  //       label: (
-  //         <div
-  //           style={{
-  //             display: 'flex',
-  //             justifyContent: 'space-between',
-  //             alignItems: 'center',
-  //           }}
-  //         >
-  //           <span>{localStorage.getItem(`editedOption-${dataIndex}-${opt.value}`) ?? opt.label}</span>
-  //           <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
-  //         </div>
-  //       ),
-  //     }))
-  //   : options;
 
   return (
     <>

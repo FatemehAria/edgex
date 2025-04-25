@@ -136,7 +136,7 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     getGroupList('/ExistenceCategory', (rawData: any) => {
       const transformed = rawData.map((item: any) => ({
         label: item.Title,
-        value: item.ID,
+        value: String(item.ID),
       }));
 
       setGroupingOptions(transformed);
