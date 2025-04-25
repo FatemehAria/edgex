@@ -92,16 +92,20 @@ const AutoFocusAddableSelect = ({
 
   // const getInitial = () => {
   const getInitial = () => {
+    // const recordValue = record[dataIndex];
+    // const recordLabel = record[`${dataIndex}Label`];
+
+    // if (recordValue != null) {
+    //   // return full object when in labelInValue mode
+    //   const initial = { value: recordValue, label: recordLabel };
+
+    //   return mode ? [initial] : initial;
+    // }
     const recordValue = record[dataIndex];
-    const recordLabel = record[`${dataIndex}Label`];
 
     if (recordValue != null) {
-      // return full object when in labelInValue mode
-      const initial = { value: recordValue, label: recordLabel };
-
-      return mode ? [initial] : initial;
+      return mode ? [recordValue] : recordValue;
     }
-
     const match = initialOptions.find(opt => String(opt.label) === text);
 
     if (match) {

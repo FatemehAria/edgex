@@ -77,7 +77,7 @@ export const Columns = (
             value: group.value,
           }))}
           debounceTime={3000}
-          mode="tags"
+          // mode="tags"
           editableOptions={true}
           allowAddNew={true}
           onAddNew={() => {
@@ -112,7 +112,7 @@ export const Columns = (
           record={record}
           initialOptions={itemOptions[record.category] || []}
           debounceTime={3000}
-          mode="tags"
+          // mode="tags"
           editableOptions={true}
           allowAddNew={true}
           onAddNew={() => {
@@ -142,7 +142,7 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.supplier.placeholder' })}
           text={text}
           record={record}
-          mode="tags"
+          // mode="tags"
           initialOptions={supplierOptions}
           debounceTime={3000}
           allowAddNew={true}
