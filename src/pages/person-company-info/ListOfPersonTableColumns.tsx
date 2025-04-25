@@ -70,7 +70,16 @@ export function ListOfPersonTableColumns({
       key: 'personTypeTitle',
       width: 300,
       ...getColumnSearchProps('personTypeTitle'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (_: any, record: any) => {
+        const code = Number(record.personTypeTitle);
+        // you could also use record.personTypeCode if you prefer
+        const label =
+          code === 1
+            ? formatMessage({ id: 'app.costumerInfo.costumerType.haghighi' })
+            : formatMessage({ id: 'app.costumerInfo.costumerType.hoghooghi' });
+
+        return <span style={{ textAlign: 'center' }}>{label}</span>;
+      },
     },
     // عنوان
     {

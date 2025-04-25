@@ -55,8 +55,8 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
         defaultValue: initialValues['personTypeTitle'],
       },
       options: [
-        { label: 'حقیقی', value: '1' },
-        { label: 'حقوقی', value: '2' },
+        { label: `${formatMessage({ id: 'app.productSupplier.personType.haghighi' })}`, value: '1' },
+        { label: `${formatMessage({ id: 'app.productSupplier.personType.hoghooghi' })}`, value: '2' },
       ],
     },
     {
