@@ -55,6 +55,7 @@ const AutoFocusAddableSelect = ({
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
   const prevOptions = usePrevious(initialOptions);
+  const prevCategory = usePrevious(record.category);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const ID_PREFIX = `editedOption-${dataIndex}-`;
   const [options, setOptions] = useState(() => {
@@ -88,10 +89,8 @@ const AutoFocusAddableSelect = ({
   const getInitial = () => {
     const recordValue = record[dataIndex];
 
-    if (recordValue != null && recordValue !== '') {
-      return mode
-        ? [recordValue] // tags/multiple mode wants an array
-        : recordValue; // single‐select wants the scalar
+    if (recordValue != null) {
+      return mode ? (recordValue ? [recordValue] : []) : recordValue;
     }
 
     const match = initialOptions.find(opt => String(opt.label) === text);
@@ -133,17 +132,48 @@ const AutoFocusAddableSelect = ({
     }
   }, [initialOptions, text, dataIndex]);
 
+  // useEffect(() => {
+  //   if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
+  //     const firstVal = initialOptions[0].value;
+
+  //     handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData);
+
+  //     localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
+
+  //     setSelected(firstVal);
+  //   }
+  // }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
+
   useEffect(() => {
-    if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
-      const firstVal = initialOptions[0].value;
+    // only for the “items” column
+    if (dataIndex !== 'items') return;
 
-      handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData);
+    // if the category really changed…
+    if (prevCategory !== record.category) {
+      if (initialOptions.length > 0) {
+        // we have new items → default to the first
+        const defaultItem = initialOptions[0].value;
 
-      localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
+        setSelected(defaultItem);
+        handleCellChange(defaultItem, record.key, 'items', setTableData, tableData);
+      } else {
+        // no items for this category → _clear_ the select
+        const empty = mode === 'tags' || mode === 'multiple' ? [] : '';
 
-      setSelected(firstVal);
+        setSelected(empty);
+        handleCellChange('', record.key, 'items', setTableData, tableData);
+      }
     }
-  }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
+  }, [
+    record.category, // watch the category
+    prevCategory, // compare to last render’s category
+    initialOptions, // so we know whether there _are_ any items
+    dataIndex,
+    record.key,
+    setTableData,
+    tableData,
+    mode, // to know whether to clear to '' or []
+  ]);
 
   const onChange = (value: any) => {
     if (!mode) {

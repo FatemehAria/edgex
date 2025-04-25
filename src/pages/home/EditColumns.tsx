@@ -149,6 +149,7 @@ export const EditColumns = (
       width: 300,
       render: (text: string, record: any) => (
         <AutoFocusAddableSelect
+        key={record.category + '-' + record.key}
           id={`cell-${record.key}-items`}
           nextId={`cell-${record.key}-supplier`}
           dataIndex="items"
