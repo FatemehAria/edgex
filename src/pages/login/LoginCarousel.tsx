@@ -4,7 +4,7 @@ import { Carousel } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import LoginBg from '../../assets/login-carousel/beautiful-scenery-pathway-forest-with-trees-covered-with-frost.jpg';
+import LoginBg from '../../assets/login-carousel/login-bg3.jpg';
 
 function LoginCarousel() {
   const [imgs, setImgs] = useState<any[]>([]);
