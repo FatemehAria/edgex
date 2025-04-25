@@ -7,7 +7,7 @@ import { type Dispatch, type SetStateAction, useContext, useState } from 'react'
 
 import { handleValueChange } from '@/utils/formatTypingNums';
 
-import AutoFocusAddableSelect from './AutoFocusAddableSelect';
+import AutoFocusAddableSelectEdit from './AutoFocusAddableSelectEdit';
 import AutoFocusInput from './AutoFocusInput';
 import AutoFocusTextArea from './AutoFocusTextArea';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
@@ -114,7 +114,7 @@ export const EditColumns = (
       key: 'category',
       width: 300,
       render: (text: string, record: any) => (
-        <AutoFocusAddableSelect
+        <AutoFocusAddableSelectEdit
           id={`cell-${record.key}-category`}
           nextId={`cell-${record.key}-items`}
           dataIndex="category"
@@ -152,7 +152,7 @@ export const EditColumns = (
       key: 'items',
       width: 300,
       render: (text: string, record: any) => (
-        <AutoFocusAddableSelect
+        <AutoFocusAddableSelectEdit
           key={record.category + '-' + record.key}
           id={`cell-${record.key}-items`}
           nextId={`cell-${record.key}-supplier`}
@@ -185,7 +185,7 @@ export const EditColumns = (
       key: 'supplier',
       width: 300,
       render: (text: string, record: any) => (
-        <AutoFocusAddableSelect
+        <AutoFocusAddableSelectEdit
           id={`cell-${record.key}-supplier`}
           nextId={`cell-${record.key}-description`}
           dataIndex="supplier"
