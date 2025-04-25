@@ -78,6 +78,13 @@ const AutoFocusAddableSelect = ({
   useEffect(() => {
     const opts = [...initialOptions];
 
+    const currentValue = record[dataIndex];
+    const currentLabel = record[`${dataIndex}Label`]; // e.g., itemsLabel
+
+    if (currentValue && currentLabel && !opts.some(opt => opt.value === currentValue)) {
+      opts.push({ label: currentLabel, value: currentValue });
+    }
+
     if (allowAddNew) {
       opts.push({
         label: `${formatMessage({ id: 'app.home.headerInfo.addNew' })}`,
@@ -86,7 +93,7 @@ const AutoFocusAddableSelect = ({
     }
 
     setOptions(opts);
-  }, [initialOptions, allowAddNew, formatMessage]);
+  }, [initialOptions, allowAddNew, formatMessage, record, dataIndex]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
 
@@ -106,6 +113,7 @@ const AutoFocusAddableSelect = ({
     if (recordValue != null) {
       return mode ? [recordValue] : recordValue;
     }
+
     const match = initialOptions.find(opt => String(opt.label) === text);
 
     if (match) {
