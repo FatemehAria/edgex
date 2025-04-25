@@ -84,19 +84,26 @@ const AutoFocusAddableSelect = ({
   }, [initialOptions, allowAddNew, formatMessage]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
-  const [selected, setSelected] = useState(() => {
-    const stored = localStorage.getItem(localStorageKey);
 
-    if (stored) {
-      return mode ? [stored] : stored;
+  const getInitial = () => {
+    const recordValue = record[dataIndex];
+
+    if (recordValue != null && recordValue !== '') {
+      return mode
+        ? [recordValue] // tags/multiple mode wants an array
+        : recordValue; // single‐select wants the scalar
     }
 
-    if (mode === 'tags' || mode === 'multiple') {
-      return text ? [text] : initialOptions.length > 0 ? [initialOptions[0].value] : [];
-    } else {
-      return text || (initialOptions.length > 0 ? initialOptions[0].value : '');
+    const match = initialOptions.find(opt => String(opt.label) === text);
+
+    if (match) {
+      return mode ? [match.value] : match.value;
     }
-  });
+
+    return mode ? (text ? [text] : []) : text || '';
+  };
+
+  const [selected, setSelected] = useState(getInitial);
 
   const timeoutRef = useRef<number | null>(null);
 
@@ -203,12 +210,8 @@ const AutoFocusAddableSelect = ({
   };
 
   useEffect(() => {
-    if (!mode) {
-      setSelected(text);
-    } else {
-      setSelected(text ? [text] : []);
-    }
-  }, [text, mode]);
+    setSelected(getInitial());
+  }, [record[dataIndex], text, initialOptions, mode]);
 
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editingOption, setEditingOption] = useState<{ value: string; label: string; originalValue: any } | null>(null);
