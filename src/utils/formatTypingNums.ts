@@ -33,9 +33,11 @@ export const handleValueChange = (
   dataIndex: string,
   setTableData: Dispatch<SetStateAction<any[]>>,
   tableData: any,
+  insurancePrice: number,
+  totalCostOfRows: number,
 ) => {
   // Option 1: Format on every change (live)
   const formatted = formatValue(value);
 
-  handleCellChange(formatted, record.key, dataIndex, setTableData, tableData);
+  handleCellChange(formatted, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
 };

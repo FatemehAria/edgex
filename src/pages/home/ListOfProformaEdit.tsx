@@ -28,6 +28,7 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const { singleProformaInfo, headerData, setHeaderData, isLoadingProformaInfo } =
     useContext(IsEdittingProformaContext);
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
@@ -264,6 +265,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     setActiveItemRow,
     setTableData,
     setSelectedCatId,
+    insurancePrice,
+    totalCostOfRows,
   );
 
   const columns = allColumns.filter(col => !col.hidden);
@@ -330,7 +333,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
           form={form}
           onCancel={onCancel}
           showCancelButton={true}
-          // isRowFilled={isRowFilled}
+          footerInsuranceCoefficient={footerInsuranceCoefficient}
+          setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
         />
       ),
       style: panelStyle,
@@ -357,7 +361,15 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
           >
             <ProformaCostumer
               onCustomerSubmit={values =>
-                handleNewCustomer(values, setCustomerOptions, setSelectedCostumer, setIsCustomerModalOpen)
+                handleNewCustomer(
+                  values,
+                  setCustomerOptions,
+                  setSelectedCostumer,
+                  setIsCustomerModalOpen,
+                  form,
+                  setHeaderData,
+                  updateEditedRow,
+                )
               }
             />
           </Modal>

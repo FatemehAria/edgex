@@ -135,9 +135,10 @@ function ListComponent({
   const handleCopy = (record: any) => {
     const newRecord = JSON.parse(JSON.stringify(record));
 
-    delete newRecord.ID;
+    // delete newRecord.ID;
     // added for resetting the StatusTitle in listOfProformaColumns
-    newRecord.StatusTitle = '';
+    // newRecord.StatusTitle = '';
+    newRecord.StatusTitle = 'ثبت شده';
     delete newRecord.id;
     delete newRecord.code;
     delete newRecord.Code;
@@ -171,6 +172,10 @@ function ListComponent({
 
   const handleUpdate = (updatedData: any) => {
     const mergedData = { ...selectedRowForEdit };
+
+    if (isCopyingProforma) {
+      delete mergedData.ID;
+    }
 
     Object.keys(updatedData).forEach(key => {
       if (updatedData[key] !== '' && updatedData[key] !== null && updatedData[key] !== undefined) {

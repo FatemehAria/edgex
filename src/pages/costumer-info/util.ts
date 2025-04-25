@@ -33,7 +33,7 @@ export const getCustomersList = async (
 };
 
 export const createCustomer = async (values: any) => {
-  console.log('values in createCustomer', values);
+  // console.log('values in createCustomer', values);
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalCustomer', {
@@ -59,6 +59,8 @@ export const createCustomer = async (values: any) => {
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+
+    return data;
     // console.log(data);
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));

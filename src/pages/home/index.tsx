@@ -28,7 +28,7 @@ function Home() {
   const { formatMessage } = useLocale();
   const [nextKey, setNextKey] = useState(2);
   const { locale } = useSelector(state => state.user);
-  // const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
+  const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const [insurancePrice, setinsurancePrice] = useState<number>(0);
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [tableData, setTableData] = useState<any[]>([
@@ -246,6 +246,8 @@ function Home() {
     setActiveItemRow,
     setTableData,
     setSelectedCatId,
+    insurancePrice,
+    totalCostOfRows,
   );
 
   const updateEditedRow = (field: string, value: any) => {
@@ -297,6 +299,8 @@ function Home() {
           totalCostOfRows={totalCostOfRows}
           setTableData={setTableData}
           form={form}
+          footerInsuranceCoefficient={footerInsuranceCoefficient}
+          setFooterInsuranceCoefficient={setFooterInsuranceCoefficient}
         />
       ),
       style: panelStyle,
@@ -321,7 +325,15 @@ function Home() {
       >
         <ProformaCostumer
           onCustomerSubmit={values =>
-            handleNewCustomer(values, setCustomerOptions, setSelectedCostumer, setIsCustomerModalOpen)
+            handleNewCustomer(
+              values,
+              setCustomerOptions,
+              setSelectedCostumer,
+              setIsCustomerModalOpen,
+              form,
+              setHeaderData,
+              updateEditedRow,
+            )
           }
         />
       </Modal>

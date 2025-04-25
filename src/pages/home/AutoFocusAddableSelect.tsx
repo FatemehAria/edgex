@@ -32,6 +32,8 @@ interface AutoFocusAddableSelectProps {
   setSelectedCatId?: Dispatch<SetStateAction<string | null>>;
   editVersion: number;
   onOptionEdited: () => void;
+  insurancePrice: number;
+  totalCostOfRows: number;
 }
 
 const AutoFocusAddableSelect = ({
@@ -52,6 +54,8 @@ const AutoFocusAddableSelect = ({
   setSelectedCatId,
   editVersion,
   onOptionEdited,
+  insurancePrice,
+  totalCostOfRows,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
   const prevOptions = usePrevious(initialOptions);
@@ -86,17 +90,22 @@ const AutoFocusAddableSelect = ({
 
   const localStorageKey = `${dataIndex}-initialValue`;
 
+  // const getInitial = () => {
   const getInitial = () => {
     const recordValue = record[dataIndex];
+    const recordLabel = record[`${dataIndex}Label`];
 
     if (recordValue != null) {
-      return mode ? (recordValue ? [recordValue] : []) : recordValue;
+      // return full object when in labelInValue mode
+      const initial = { value: recordValue, label: recordLabel };
+
+      return mode ? [initial] : initial;
     }
 
     const match = initialOptions.find(opt => String(opt.label) === text);
 
     if (match) {
-      return mode ? [match.value] : match.value;
+      return mode ? [match] : match;
     }
 
     return mode ? (text ? [text] : []) : text || '';
@@ -113,7 +122,7 @@ const AutoFocusAddableSelect = ({
       if ((currentValue === '' || currentValue == null) && initialOptions.length > 0) {
         const defaultVal = initialOptions[0].value;
 
-        handleCellChange(defaultVal, record.key, dataIndex, setTableData, tableData);
+        handleCellChange(defaultVal, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
         localStorage.setItem(localStorageKey, defaultVal);
 
         if (mode === 'tags' || mode === 'multiple') {
@@ -125,7 +134,7 @@ const AutoFocusAddableSelect = ({
         if (dataIndex === 'category') {
           setSelectedCatId?.(defaultVal);
           // clear the items cell
-          handleCellChange('', record.key, 'items', setTableData, tableData);
+          handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
           localStorage.setItem('category-initialValue', defaultVal);
         }
       }
@@ -136,7 +145,7 @@ const AutoFocusAddableSelect = ({
   //   if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
   //     const firstVal = initialOptions[0].value;
 
-  //     handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData);
+  //     handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
 
   //     localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
 
@@ -145,35 +154,22 @@ const AutoFocusAddableSelect = ({
   // }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
 
   useEffect(() => {
-    // only for the “items” column
     if (dataIndex !== 'items') return;
 
-    // if the category really changed…
     if (prevCategory !== record.category) {
       if (initialOptions.length > 0) {
-        // we have new items → default to the first
         const defaultItem = initialOptions[0].value;
 
         setSelected(defaultItem);
-        handleCellChange(defaultItem, record.key, 'items', setTableData, tableData);
+        handleCellChange(defaultItem, record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
       } else {
-        // no items for this category → _clear_ the select
         const empty = mode === 'tags' || mode === 'multiple' ? [] : '';
 
         setSelected(empty);
-        handleCellChange('', record.key, 'items', setTableData, tableData);
+        handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
       }
     }
-  }, [
-    record.category, // watch the category
-    prevCategory, // compare to last render’s category
-    initialOptions, // so we know whether there _are_ any items
-    dataIndex,
-    record.key,
-    setTableData,
-    tableData,
-    mode, // to know whether to clear to '' or []
-  ]);
+  }, [record.category, prevCategory, initialOptions, dataIndex, record.key, setTableData, tableData, mode]);
 
   const onChange = (value: any) => {
     if (!mode) {
@@ -185,7 +181,7 @@ const AutoFocusAddableSelect = ({
       }
 
       setSelected(value);
-      handleCellChange(value, record.key, dataIndex, setTableData, tableData);
+      handleCellChange(value, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
       localStorage.setItem(localStorageKey, value);
 
       if (!options.find(opt => opt.value === value)) {
@@ -209,7 +205,7 @@ const AutoFocusAddableSelect = ({
 
         setSelected([latestValue]);
 
-        handleCellChange(latestValue, record.key, dataIndex, setTableData, tableData);
+        handleCellChange(latestValue, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
 
         localStorage.setItem(localStorageKey, latestValue);
 
@@ -222,7 +218,7 @@ const AutoFocusAddableSelect = ({
         const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
 
         setSelectedCatId && setSelectedCatId(categoryId);
-        handleCellChange('', record.key, 'items', setTableData, tableData);
+        handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
         localStorage.setItem('category-initialValue', categoryId);
       }
 
@@ -283,9 +279,9 @@ const AutoFocusAddableSelect = ({
     }
   };
 
-  // useEffect(() => {
-  //   console.log('selected state updated:', selected);
-  // }, [selected]);
+  useEffect(() => {
+    console.log('selected state updated:', selected);
+  }, [selected]);
 
   const transformedOptions = useMemo(() => {
     return editableOptions
@@ -337,6 +333,8 @@ const AutoFocusAddableSelect = ({
         style={{ width: '100%', textAlign: 'right' }}
         onDropdownVisibleChange={open => setDropdownVisible(open)}
         open={dropdownVisible}
+        optionLabelProp="label"
+        // labelInValue
       />
       {isEditModalVisible && (
         <Modal

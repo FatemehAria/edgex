@@ -1,4 +1,5 @@
 import type { Locale } from '@/interface/user/user';
+import type { FormInstance } from 'antd';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { formatValue } from '@/utils/formatTypingNums';
@@ -60,6 +61,8 @@ export const handleCellChange = (
   dataIndex: string,
   setTableData: Dispatch<SetStateAction<any[]>>,
   tableData: any[],
+  insurancePrice: number,
+  totalCostOfRows: number,
 ) => {
   setTableData(prevData =>
     prevData.map(row => {
@@ -103,24 +106,24 @@ export const handleCellChange = (
           updatedRow.itemTotalPrice = round2(itemTotalPrice);
 
           // مبلغ بیمه برای هر رکورد
-          const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
+          // const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
 
-          updatedRow.insurancePriceForRecord = round2(insurancePriceForRecord);
+          // updatedRow.insurancePriceForRecord = round2(insurancePriceForRecord);
 
-          // const totalCost = totalCostOfRows || 1;
+          const totalCost = totalCostOfRows || 1;
           const qtyNumber = qty || 1;
 
-          const sumOfItemTotalPrice = tableData.reduce(
-            (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
-            0,
-          );
+          // const sumOfItemTotalPrice = tableData.reduce(
+          //   (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
+          //   0,
+          // );
 
           // console.log(sumOfItemTotalPrice);
-          const shareOfTaxAndInsModulo = insurancePriceForRecord / sumOfItemTotalPrice / qtyNumber;
+          const shareOfTaxAndInsModulo = insurancePrice / totalCost / qtyNumber;
 
           // سهم آیتم از بیمه و مالیات
-          // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
-          const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
+          const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
+          // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
 
           // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
           updatedRow.itemShareOfTaxAndIns = parseFloat(shareOfTaxAndIns.toFixed(4));
@@ -162,7 +165,7 @@ export const handleCellChange = (
   );
 };
 
-export const handleNewCustomer = (
+export const handleNewCustomer = async (
   values: any,
   setCustomerOptions: Dispatch<
     SetStateAction<
@@ -174,6 +177,9 @@ export const handleNewCustomer = (
   >,
   setSelectedCostumer: Dispatch<SetStateAction<string>>,
   setIsCustomerModalOpen: Dispatch<SetStateAction<boolean>>,
+  form: FormInstance,
+  setHeaderData: Dispatch<any>,
+  updateEditedRow: (field: string, value: any) => void,
 ) => {
   // console.log('values for new customer', values);
   const newCustomer = {
@@ -200,16 +206,18 @@ export const handleNewCustomer = (
     familyPersian: values['FamilyPersian'],
   };
 
-  setCustomerOptions(prev => [...prev, newCustomer]);
+  const newId = await createCustomer(newCustomer);
+  const newLabel = values.personTypeTitle === '1' ? `${values.Name} ${values.Family}` : values.Title;
 
-  setSelectedCostumer(newCustomer.value);
+  setCustomerOptions(prev => [...prev, { label: newLabel, value: newId }]);
 
-  createCustomer(newCustomer);
-
+  setHeaderData((prev: any) => ({ ...prev, CustomerTitle: newId }));
+  updateEditedRow('CustomerTitle', newId);
+  form.setFieldsValue({ CustomerTitle: newId });
   setIsCustomerModalOpen(false);
 };
 
-export const handleNewSupplier = (
+export const handleNewSupplier = async (
   values: any,
   setSupplierOptions: Dispatch<
     SetStateAction<
@@ -226,46 +234,47 @@ export const handleNewSupplier = (
   locale: Locale,
 ) => {
   // console.log(values);
-  const newSupplier = {
-    label: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
-    value: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
-    personTypeCode: Number(values['personTypeCode']),
-    namePersian: values['namePersian'],
-    familyPersian: values['familyPersian'],
-    name: values['name'],
-    family: values['family'],
-    title: values['title'],
-    titlePersian: values['titlePersian'],
-    email: values['email'],
-    mobile: values['mobile'],
-    telephone: values['telephone'],
-    codeNational: values['codeNational'],
-    provinceID: values['provinceID'],
-    cityID: values['cityID'],
-    address: values['address'],
-    zipCode: values['zipCode'],
-    isActive: values['isActive'],
-    isActiveSuplier: values['isActiveSuplier'],
-    isSuplier: values['isSuplier'],
-    isActiveCustomer: values['isActiveCustomer'],
-    isCustomer: values['isCustomer'],
-  };
+  // const newSupplier = {
+  //   label: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
+  //   value: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
+  //   personTypeCode: Number(values['personTypeCode']),
+  //   namePersian: values['namePersian'],
+  //   familyPersian: values['familyPersian'],
+  //   name: values['name'],
+  //   family: values['family'],
+  //   title: values['title'],
+  //   titlePersian: values['titlePersian'],
+  //   email: values['email'],
+  //   mobile: values['mobile'],
+  //   telephone: values['telephone'],
+  //   codeNational: values['codeNational'],
+  //   provinceID: values['provinceID'],
+  //   cityID: values['cityID'],
+  //   address: values['address'],
+  //   zipCode: values['zipCode'],
+  //   isActive: values['isActive'],
+  //   isActiveSuplier: values['isActiveSuplier'],
+  //   isSuplier: values['isSuplier'],
+  //   isActiveCustomer: values['isActiveCustomer'],
+  //   isCustomer: values['isCustomer'],
+  // };
 
-  setSupplierOptions(prev => [...prev, newSupplier]);
+  const newId = await createSupplier(values);
+  const newLabel = values.personTypeCode === '1' ? `${values.name} ${values.family}` : `${values.title}`;
+  const newOption = { label: newLabel, value: newId };
+
+  console.log('newLable', newLabel);
+  setSupplierOptions(prev => [...prev, newOption]);
 
   if (activeSupplierRow !== null) {
-    setTableData(prevData =>
-      prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newSupplier.value } : row)),
-    );
+    setTableData(prevData => prevData.map(row => (row.key === activeSupplierRow ? { ...row, supplier: newId } : row)));
     setActiveSupplierRow(null);
   }
-
-  createSupplier(values);
 
   setIsSupplierModalOpen(false);
 };
 
-export const handleNewGroup = (
+export const handleNewGroup = async (
   values: any,
   setGroupingOptions: Dispatch<
     SetStateAction<
@@ -290,21 +299,20 @@ export const handleNewGroup = (
     ExistenceCode: values['ExistenceCode'] || '1',
   };
 
-  setGroupingOptions(prev => [...prev, newGroup]);
+  const newId = await createProformaCategory(newGroup);
+  const newLabel = values.Title;
+
+  setGroupingOptions(prev => [...prev, { label: newLabel, value: newId }]);
 
   if (activeGroupingRow !== null) {
-    setTableData(prevData =>
-      prevData.map(row => (row.key === activeGroupingRow ? { ...row, category: newGroup.value } : row)),
-    );
+    setTableData(prevData => prevData.map(row => (row.key === activeGroupingRow ? { ...row, category: newId } : row)));
     setActiveGroupingRow(null);
   }
-
-  createProformaCategory(newGroup);
 
   setIsGroupingModalOpen(false);
 };
 
-export const handleNewItem = (
+export const handleNewItem = async (
   values: any,
   // ← now a map-of-arrays setter:
   setItemOptionsMap: Dispatch<SetStateAction<Record<string, any[]>>>,
@@ -323,18 +331,24 @@ export const handleNewItem = (
     Description: values['description'],
   };
 
-  // merge _just_ this category’s list:
+  const newId = await createProformaStuff(newItem);
+  const newLabel = values.title;
+
+  console.log(newLabel);
+
   setItemOptionsMap(prev => ({
     ...prev,
-    [categoryId]: [...(prev[categoryId] || []), newItem],
+    [categoryId]: [...(prev[categoryId] || []), { label: newLabel, value: newId.toString() }],
   }));
 
   if (activeItemRow !== null) {
-    setTableData(prev => prev.map(row => (row.key === activeItemRow ? { ...row, items: newItem.value } : row)));
+    setTableData(prev =>
+      prev.map(row => (row.key === activeItemRow ? { ...row, items: newId.toString(), itemsLabel: newLabel } : row)),
+    );
     setActiveItemRow(null);
   }
 
-  createProformaStuff(newItem);
+  // createProformaStuff(newItem);
   setIsItemModalOpen(false);
 };
 

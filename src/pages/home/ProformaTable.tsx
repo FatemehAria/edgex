@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import './columns.css';
 
-import { Button, Table } from 'antd';
+import { Button, Select, Table } from 'antd';
 import { useContext, useEffect } from 'react';
 
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
@@ -23,6 +23,8 @@ function ProformaTable({
   form,
   onCancel,
   showCancelButton,
+  footerInsuranceCoefficient,
+  setFooterInsuranceCoefficient,
 }: {
   tableData: any;
   columns: any;
@@ -35,6 +37,8 @@ function ProformaTable({
   form: FormInstance<any>;
   onCancel?: () => void;
   showCancelButton?: boolean;
+  footerInsuranceCoefficient: string;
+  setFooterInsuranceCoefficient: Dispatch<SetStateAction<string>>;
 }) {
   const {
     isEdittingProforma,
@@ -54,9 +58,9 @@ function ProformaTable({
 
     const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
       const rowTotal = parseFloat(row.itemTotalPrice) || 0;
-      const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
+      // const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
 
-      return sum + rowTotal * rowCoefficient;
+      return sum + rowTotal * Number(footerInsuranceCoefficient);
     }, 0);
 
     setinsurancePrice(round2(calculatedInsurancePrice));
@@ -135,7 +139,39 @@ function ProformaTable({
             },
           ];
 
-          const footerContent = <div></div>;
+          const footerContent = (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '0 0.5rem',
+                borderRadius: '0.5rem',
+                width: '200px',
+                margin: 'auto',
+                border: '1px solid #dcdcdc',
+              }}
+            >
+              <Select
+                variant="borderless"
+                value={footerInsuranceCoefficient}
+                placeholder={formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}
+                onChange={value => {
+                  // update the global coefficient
+                  setFooterInsuranceCoefficient(value);
+                  // push it into each row so they recalc
+                  setTableData(rows => rows.map(r => ({ ...r, footerInsuranceCoefficient: value })));
+                }}
+                options={[
+                  { label: '0.085', value: '0.085' },
+                  { label: '0.2', value: '0.2' },
+                  { label: '0', value: '0' },
+                ]}
+                style={{ outline: 'none' }}
+              />
+              <span>{Math.round(insurancePrice).toLocaleString()}</span>
+            </div>
+          );
 
           return <FooterTableColumns tableData={FooterTableData} footerContent={footerContent} />;
         }}

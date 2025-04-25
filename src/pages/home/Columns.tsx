@@ -2,7 +2,6 @@ import './columns.css';
 
 import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select } from 'antd';
 import { type Dispatch, type SetStateAction, useState } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
@@ -27,6 +26,8 @@ export const Columns = (
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
   setSelectedCatId: Dispatch<SetStateAction<string | null>>,
+  insurancePrice: number,
+  totalCostOfRows: number,
 ) => {
   const [editVersion, setEditVersion] = useState(0);
   const bumpVersion = () => setEditVersion(v => v + 1);
@@ -82,7 +83,7 @@ export const Columns = (
           onAddNew={() => {
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
-            handleCellChange('', record.key, 'items', setTableData, tableData);
+            handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
             localStorage.removeItem('items-initialValue');
           }}
           setTableData={setTableData}
@@ -90,6 +91,8 @@ export const Columns = (
           setSelectedCatId={setSelectedCatId}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -120,6 +123,8 @@ export const Columns = (
           tableData={tableData}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -149,6 +154,8 @@ export const Columns = (
           setTableData={setTableData}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -164,7 +171,9 @@ export const Columns = (
           nextId={`cell-${record.key}-qty`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
-          onDebouncedChange={value => handleCellChange(value, record.key, 'description', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'description', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -183,7 +192,9 @@ export const Columns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.qty.placeholder' })}
           type="number"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'qty', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'qty', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={3000}
           min={0}
@@ -202,7 +213,9 @@ export const Columns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
-          onDebouncedChange={value => handleValueChange(value, record, 'unitCost', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleValueChange(value, record, 'unitCost', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={3000}
         />
@@ -233,7 +246,15 @@ export const Columns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
           onDebouncedChange={value =>
-            handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin', setTableData, tableData)
+            handleCellChange(
+              value.replace('/', '.'),
+              record.key,
+              'recordProfitMargin',
+              setTableData,
+              tableData,
+              insurancePrice,
+              totalCostOfRows,
+            )
           }
           style={{ width: '100%' }}
           debounceTime={3000}
@@ -284,50 +305,50 @@ export const Columns = (
       ),
     },
     // مبلغ بیمه
-    {
-      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.insurancePrice' })}</span>,
-      dataIndex: 'insurancePriceForRecord',
-      key: 'insurancePriceForRecord',
-      render: (text: string, record: any) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: '0 0.5rem',
-            borderRadius: '0.5rem',
-            width: '200px',
-            margin: 'auto',
-            border: '1px solid #dcdcdc',
-          }}
-        >
-          <Select
-            variant="borderless"
-            // value={footerInsuranceCoefficient}
-            value={record.footerInsuranceCoefficient || '0.085'}
-            placeholder={`${formatMessage({
-              id: 'app.home.detailInfo.table.footerInsurancePrice',
-            })}`}
-            // onChange={value => setFooterInsuranceCoefficient(value)}
-            onChange={value =>
-              handleCellChange(value, record.key, 'footerInsuranceCoefficient', setTableData, tableData)
-            }
-            options={[
-              { label: '0.085', value: '0.085' },
-              { label: '0.2', value: '0.2' },
-              { label: '0', value: '0' },
-            ]}
-            style={{ outline: 'none' }}
-          />
-          <span>
-            {Math.round(record.insurancePriceForRecord)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </span>
-        </div>
-      ),
-    },
+    // {
+    //   title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.insurancePrice' })}</span>,
+    //   dataIndex: 'insurancePriceForRecord',
+    //   key: 'insurancePriceForRecord',
+    //   render: (text: string, record: any) => (
+    //     <div
+    //       style={{
+    //         display: 'flex',
+    //         justifyContent: 'space-between',
+    //         flexDirection: 'row',
+    //         alignItems: 'center',
+    //         padding: '0 0.5rem',
+    //         borderRadius: '0.5rem',
+    //         width: '200px',
+    //         margin: 'auto',
+    //         border: '1px solid #dcdcdc',
+    //       }}
+    //     >
+    //       <Select
+    //         variant="borderless"
+    //         // value={footerInsuranceCoefficient}
+    //         value={record.footerInsuranceCoefficient || '0.085'}
+    //         placeholder={`${formatMessage({
+    //           id: 'app.home.detailInfo.table.footerInsurancePrice',
+    //         })}`}
+    //         // onChange={value => setFooterInsuranceCoefficient(value)}
+    //         onChange={value =>
+    //           handleCellChange(value, record.key, 'footerInsuranceCoefficient', setTableData, tableData)
+    //         }
+    //         options={[
+    //           { label: '0.085', value: '0.085' },
+    //           { label: '0.2', value: '0.2' },
+    //           { label: '0', value: '0' },
+    //         ]}
+    //         style={{ outline: 'none' }}
+    //       />
+    //       <span>
+    //         {Math.round(record.insurancePriceForRecord)
+    //           .toString()
+    //           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
     //سهم از بیمه و مالیات
     {
       title: (
@@ -360,7 +381,15 @@ export const Columns = (
           placeholder="Enter rounded sale price"
           type="input"
           onDebouncedChange={value =>
-            handleCellChange(value, record.key, 'itemSalePriceRounded', setTableData, tableData)
+            handleCellChange(
+              value,
+              record.key,
+              'itemSalePriceRounded',
+              setTableData,
+              tableData,
+              insurancePrice,
+              totalCostOfRows,
+            )
           }
           style={{ width: '100%' }}
           debounceTime={3000}

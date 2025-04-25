@@ -28,6 +28,8 @@ export const EditColumns = (
   setActiveItemRow: any,
   setTableData: Dispatch<SetStateAction<any[]>>,
   setSelectedCatId: Dispatch<SetStateAction<string | null>>,
+  insurancePrice: number,
+  totalCostOfRows: number,
 ) => {
   const { setIsCopyingProformaTableRow } = useContext(IsEdittingProformaContext);
   const [editVersion, setEditVersion] = useState(0);
@@ -130,7 +132,7 @@ export const EditColumns = (
           onAddNew={() => {
             setIsGroupingModalOpen(true);
             setActiveGroupingRow(record.key);
-            handleCellChange('', record.key, 'items', setTableData, tableData);
+            handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
             localStorage.removeItem('items-initialValue');
           }}
           setTableData={setTableData}
@@ -138,6 +140,8 @@ export const EditColumns = (
           setSelectedCatId={setSelectedCatId}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -149,7 +153,7 @@ export const EditColumns = (
       width: 300,
       render: (text: string, record: any) => (
         <AutoFocusAddableSelect
-        key={record.category + '-' + record.key}
+          key={record.category + '-' + record.key}
           id={`cell-${record.key}-items`}
           nextId={`cell-${record.key}-supplier`}
           dataIndex="items"
@@ -169,6 +173,8 @@ export const EditColumns = (
           tableData={tableData}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -198,6 +204,8 @@ export const EditColumns = (
           tableData={tableData}
           editVersion={editVersion}
           onOptionEdited={bumpVersion}
+          insurancePrice={insurancePrice}
+          totalCostOfRows={totalCostOfRows}
         />
       ),
     },
@@ -213,7 +221,9 @@ export const EditColumns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.desc.placeholder' })}
-          onDebouncedChange={value => handleCellChange(value, record.key, 'description', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'description', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={5000}
         />
@@ -232,7 +242,9 @@ export const EditColumns = (
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.qty.placeholder' })}
           type="number"
-          onDebouncedChange={value => handleCellChange(value, record.key, 'qty', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleCellChange(value, record.key, 'qty', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={5000}
           min={0}
@@ -251,7 +263,9 @@ export const EditColumns = (
           nextId={`cell-${record.key}-recordProfitMargin`}
           value={text}
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.unitCost.placeholder' })}
-          onDebouncedChange={value => handleValueChange(value, record, 'unitCost', setTableData, tableData)}
+          onDebouncedChange={value =>
+            handleValueChange(value, record, 'unitCost', setTableData, tableData, insurancePrice, totalCostOfRows)
+          }
           style={{ width: '100%' }}
           debounceTime={5000}
         />
@@ -282,7 +296,15 @@ export const EditColumns = (
           placeholder={formatMessage({ id: 'app.home.detailInfo.table.profitPercentage.placeholder' })}
           type="text"
           onDebouncedChange={value =>
-            handleCellChange(value.replace('/', '.'), record.key, 'recordProfitMargin', setTableData, tableData)
+            handleCellChange(
+              value.replace('/', '.'),
+              record.key,
+              'recordProfitMargin',
+              setTableData,
+              tableData,
+              insurancePrice,
+              totalCostOfRows,
+            )
           }
           style={{ width: '100%' }}
           debounceTime={5000}
@@ -360,7 +382,15 @@ export const EditColumns = (
             })}`}
             // onChange={value => setFooterInsuranceCoefficient(value)}
             onChange={value =>
-              handleCellChange(value, record.key, 'footerInsuranceCoefficient', setTableData, tableData)
+              handleCellChange(
+                value,
+                record.key,
+                'footerInsuranceCoefficient',
+                setTableData,
+                tableData,
+                insurancePrice,
+                totalCostOfRows,
+              )
             }
             options={[
               { label: '0.085', value: '0.085' },
@@ -407,7 +437,15 @@ export const EditColumns = (
           placeholder="Enter rounded sale price"
           type="input"
           onDebouncedChange={value =>
-            handleCellChange(value, record.key, 'itemSalePriceRounded', setTableData, tableData)
+            handleCellChange(
+              value,
+              record.key,
+              'itemSalePriceRounded',
+              setTableData,
+              tableData,
+              insurancePrice,
+              totalCostOfRows,
+            )
           }
           style={{ width: '100%' }}
           debounceTime={5000}

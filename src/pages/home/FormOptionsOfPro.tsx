@@ -43,20 +43,31 @@ export const ProformaFormOptions = (
       name: 'CustomerTitle',
       label: `${formatMessage({ id: 'app.home.headerInfo.costumer' })}`,
       type: 'select',
-      // initialValue: headerData?.CustomerTitle,
-      initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
+      initialValue: headerData?.CustomerTitle,
+      // initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
       innerProps: {
         placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
-        onChange: (value: any) => {
+        // onChange: (value: any) => {
+        //   if (value === 'add-new') {
+        //     onOpenCustomerModal();
+        //   }
+
+        //   const selectedOption = customerOptions.find(opt => opt.value === value);
+
+        //   setHeaderData((prev: any) => ({ ...prev, CustomerTitle: selectedOption }));
+
+        //   updateEditedRow('CustomerTitle', selectedOption);
+        // },
+        onChange: (value: string) => {
           if (value === 'add-new') {
             onOpenCustomerModal();
+
+            return;
           }
 
-          const selectedOption = customerOptions.find(opt => opt.value === value);
-
-          setHeaderData((prev: any) => ({ ...prev, CustomerTitle: selectedOption }));
-
-          updateEditedRow('CustomerTitle', selectedOption);
+          // store the raw ID (not an object)
+          setHeaderData((prev: any) => ({ ...prev, CustomerTitle: value }));
+          updateEditedRow('CustomerTitle', value);
         },
       },
       options: [

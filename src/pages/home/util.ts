@@ -158,6 +158,7 @@ export const getSingleProformaInfo = async (
   locale: Locale,
 ) => {
   try {
+    console.log('id', id);
     setLoading(true);
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
@@ -456,6 +457,8 @@ export const createProformaStuff = async (values: any) => {
 
     // console.log(data);
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+
+    return data;
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }
@@ -470,6 +473,8 @@ export const createProformaCategory = async (values: any) => {
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+
+    return data;
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   }

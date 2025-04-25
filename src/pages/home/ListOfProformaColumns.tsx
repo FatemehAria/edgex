@@ -3,11 +3,12 @@ import { faCheck, faCopy, faPenToSquare, faPrint, faTrashCan } from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Input } from 'antd';
 import moment from 'moment-jalaali';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 
+import { getCustomersList } from '../costumer-info/util';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { confirmProforma, copyConfirmedProformaInfo, getEngReport, getPerReport, getSingleProformaInfo } from './util';
 
@@ -37,6 +38,18 @@ export function ListOfProformaColumns({
   } = useContext(IsEdittingProformaContext);
 
   // console.log('header data in listofproforma columns', headerData);
+  const [customers, setCustomers] = useState<{ label: string; value: string }[]>([]);
+
+  useEffect(() => {
+    getCustomersList((rawData: any) => {
+      const transformed = rawData.map((item: any) => ({
+        label: item.text ? item.text : '',
+        value: item.id ? item.id : '',
+      }));
+
+      setCustomers(transformed);
+    }, locale);
+  }, [locale]);
 
   const getColumnSearchProps = (dataIndex: string) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }: any) => (
@@ -76,8 +89,10 @@ export function ListOfProformaColumns({
       key: 'CustomerTitle',
       width: 1000,
       ...getColumnSearchProps('CustomerTitle'),
-      render: (customer: any) => {
-        return <span style={{ textAlign: 'center' }}> {customer?.label || customer}</span>;
+      render: (customerId: string) => {
+        const customer = customers.find(c => c.value === customerId);
+
+        return <span style={{ textAlign: 'center' }}>{customer?.label || customerId}</span>;
       },
     },
     // نام ایونت
