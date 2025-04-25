@@ -47,6 +47,13 @@ function ListOfProductsColumns({
       width: 50,
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
     },
+    // HasRelation
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.personComapnyInfo.List.code' })}</span>,
+      dataIndex: 'HasRelation',
+      key: 'HasRelation',
+      hidden: true,
+    },
     // عنوان
     {
       title: <span className="center-align">{formatMessage({ id: 'app.productInfo.List.titleEng' })}</span>,
@@ -125,7 +132,7 @@ function ListOfProductsColumns({
       dataIndex: 'delete',
       key: 'delete',
       render: (_: any, record: any) => {
-        // const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
+        const isDisabled = record['HasRelation'] === 1;
 
         return (
           <span className="center-align">
@@ -134,8 +141,8 @@ function ListOfProductsColumns({
               onClick={() => {
                 deleteRow(record);
               }}
-              style={{ cursor: 'pointer', marginRight: 8 }}
-              className="delete-icon"
+              style={{ marginRight: 8 }}
+              className={`${isDisabled ? 'disable-delete-icon' : 'delete-icon'}`}
             />
           </span>
         );
