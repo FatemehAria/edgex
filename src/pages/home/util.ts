@@ -44,11 +44,11 @@ export const updateProforma = async (payload: any) => {
   console.log('payload', payload);
 
   try {
-    // const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
+    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
 
