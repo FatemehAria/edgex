@@ -137,7 +137,7 @@ export const handleCellChange = (
           if (dataIndex === 'itemSalePriceRounded') {
             updatedRow.itemSalePriceRounded = formatValue(value);
           } else {
-            updatedRow.itemSalePriceRounded = formatValue(String(Math.round(itemSalePrice)));
+            updatedRow.itemSalePriceRounded = formatValue(String(Math.ceil(itemSalePrice)));
           }
 
           // قیمت فروش نهایی
