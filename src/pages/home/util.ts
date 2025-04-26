@@ -427,7 +427,7 @@ export function createProformaPayload(
           ? { performaInvoiceHeaderID: proformaInfo?.[proformaInfo.length - 1]?.performaInvoiceHeaderID }
           : {}),
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
-        amountAgent: parseFloat(footerInsuranceCoefficient) || 0,
+        amounAgent: parseFloat(footerInsuranceCoefficient) || 0,
         insurancePrice: insurancePrice,
       },
     ],
