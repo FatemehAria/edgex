@@ -196,6 +196,12 @@ const AutoFocusAddableSelect = ({
       handleCellChange(value, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
       localStorage.setItem(localStorageKey, value);
 
+      if (dataIndex === 'category') {
+        setSelectedCatId?.(value);
+        handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
+        localStorage.setItem('category-initialValue', value);
+      }
+
       if (!options.find(opt => opt.value === value)) {
         setOptions([...options, { label: value, value }]);
       }

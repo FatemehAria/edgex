@@ -414,7 +414,7 @@ export function createProformaPayload(
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
   const ID = id;
 
-  console.log('getStuffById', ID);
+  // console.log('getStuffById', ID);
 
   try {
     const { data } = await customAxiosInstance(
@@ -425,7 +425,7 @@ export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Lo
       }`,
     );
 
-    console.log(data);
+    // console.log(data);
     setStuffList(data);
   } catch (error) {
     console.log(error);
