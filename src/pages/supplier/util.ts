@@ -60,6 +60,7 @@ export const createSupplier = async (values: any) => {
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+    localStorage.setItem('supplier-initialValue', data);
 
     return data;
     // console.log(data);

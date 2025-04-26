@@ -334,16 +334,16 @@ export const handleNewItem = async (
   const newId = await createProformaStuff(newItem);
   const newLabel = values.title;
 
-  console.log(newLabel);
+  // console.log(newLabel);
 
   setItemOptionsMap(prev => ({
     ...prev,
-    [categoryId]: [...(prev[categoryId] || []), { label: newLabel, value: newId.toString() }],
+    [categoryId]: [...(prev[categoryId] || []), { label: newLabel, value: newId?.toString() }],
   }));
 
   if (activeItemRow !== null) {
     setTableData(prev =>
-      prev.map(row => (row.key === activeItemRow ? { ...row, items: newId.toString(), itemsLabel: newLabel } : row)),
+      prev.map(row => (row.key === activeItemRow ? { ...row, items: newId?.toString(), itemsLabel: newLabel } : row)),
     );
     setActiveItemRow(null);
   }

@@ -468,6 +468,7 @@ export const createProformaStuff = async (values: any) => {
 
     // console.log(data);
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+    localStorage.setItem('items-initialValue', data);
 
     return data;
   } catch (error) {
@@ -484,6 +485,7 @@ export const createProformaCategory = async (values: any) => {
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
+    localStorage.setItem('category-initialValue', data);
 
     return data;
   } catch (error) {
