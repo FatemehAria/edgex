@@ -73,6 +73,7 @@ function ProformaTable({
     isEdittingProforma,
     isCopyingProforma,
     isCopyingProformaTableRow,
+    footerInsuranceCoefficient,
     headerData,
     singleProformaInfo,
   );

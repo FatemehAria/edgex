@@ -239,15 +239,15 @@ export function mapRowToApiDetail(
     // ...(isCopyingProforma || isCopyingProformaTableRow || isEdittingProforma ? { stuffParentID: row.items } : {}),
     description: row.description?.length > 0 ? row.description : null,
     performaInvoiceDetailAgentsReducingIncreasingList: [
-      //بیمه
-      {
-        priceAgent: 0,
-        percentAgent: 0,
-        ...(!isCopyingProforma &&
-          !isCopyingProformaTableRow && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
-        agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
-        amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
-      },
+      // //بیمه
+      // {
+      //   priceAgent: 0,
+      //   percentAgent: 0,
+      //   ...(!isCopyingProforma &&
+      //     !isCopyingProformaTableRow && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
+      //   agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
+      //   amountAgent: parseFloat(row.footerInsuranceCoefficient) || 0,
+      // },
       //درصد سود
       {
         priceAgent: 0,
@@ -322,6 +322,7 @@ export function createProformaPayload(
   isEdittingProforma: any,
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
+  footerInsuranceCoefficient: string,
   existingHeader?: {
     CustomerTitle: any;
     'header-info-desc': string;
@@ -388,6 +389,16 @@ export function createProformaPayload(
         number: 0,
         rate: 0,
         price: 0,
+      },
+      //بیمه
+      {
+        priceAgent: 0,
+        percentAgent: 0,
+        ...(!isCopyingProforma && !isCopyingProformaTableRow
+          ? { performaInvoiceHeaderID: proformaInfo?.[proformaInfo.length - 1]?.performaInvoiceHeaderID }
+          : {}),
+        agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
+        amountAgent: parseFloat(footerInsuranceCoefficient) || 0,
       },
     ],
     // should be set later
