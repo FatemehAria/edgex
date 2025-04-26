@@ -137,8 +137,8 @@ function ListComponent({
 
     delete newRecord.ID;
     // added for resetting the StatusTitle in listOfProformaColumns
-    newRecord.StatusTitle = '';
-    // newRecord.StatusTitle = 'ثبت شده';
+    // newRecord.StatusTitle = '';
+    newRecord.StatusTitle = 'ثبت شده';
     delete newRecord.id;
     delete newRecord.code;
     delete newRecord.Code;
