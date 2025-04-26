@@ -76,7 +76,7 @@ export const Columns = (
             label: group.label,
             value: group.value,
           }))}
-          debounceTime={3000}
+          debounceTime={5000}
           // mode="tags"
           editableOptions={true}
           allowAddNew={true}
@@ -111,7 +111,7 @@ export const Columns = (
           text={text}
           record={record}
           initialOptions={itemOptions[record.category] || []}
-          debounceTime={3000}
+          debounceTime={5000}
           // mode="tags"
           editableOptions={true}
           allowAddNew={true}
@@ -144,7 +144,7 @@ export const Columns = (
           record={record}
           // mode="tags"
           initialOptions={supplierOptions}
-          debounceTime={3000}
+          debounceTime={5000}
           allowAddNew={true}
           onAddNew={() => {
             setIsSupplierModalOpen(true);
@@ -175,7 +175,7 @@ export const Columns = (
             handleCellChange(value, record.key, 'description', setTableData, tableData, insurancePrice, totalCostOfRows)
           }
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -196,7 +196,7 @@ export const Columns = (
             handleCellChange(value, record.key, 'qty', setTableData, tableData, insurancePrice, totalCostOfRows)
           }
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
           min={0}
         />
       ),
@@ -217,7 +217,7 @@ export const Columns = (
             handleValueChange(value, record, 'unitCost', setTableData, tableData, insurancePrice, totalCostOfRows)
           }
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -257,7 +257,7 @@ export const Columns = (
             )
           }
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },
@@ -392,7 +392,7 @@ export const Columns = (
             )
           }
           style={{ width: '100%' }}
-          debounceTime={3000}
+          debounceTime={5000}
         />
       ),
     },

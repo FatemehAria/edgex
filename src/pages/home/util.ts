@@ -215,7 +215,8 @@ export const getSingleProformaInfo = async (
     setSingleProformaInfo(finalArray);
     // console.log(data);
   } catch (error) {
-    toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
+    console.log(error);
+    // toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {
     setLoading(false);
   }
