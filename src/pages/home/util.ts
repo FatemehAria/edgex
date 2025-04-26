@@ -256,7 +256,7 @@ export function mapRowToApiDetail(
         ...(!isCopyingProforma &&
           !isCopyingProformaTableRow && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         agentsReducingIncreasingID: 'E863A8A6-25E9-4F49-A083-667B2CCD26B8',
-        amountAgent: parseFloat(row.recordProfitMargin) || 0,
+        amountAgen: parseFloat(row.recordProfitMargin) || 0,
       },
     ],
     suplierParentID: row.supplier,
