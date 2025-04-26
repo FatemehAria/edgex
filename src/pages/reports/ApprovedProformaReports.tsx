@@ -41,7 +41,7 @@ function ApprovedProformaReports() {
   return (
     <div style={{ backgroundColor: token.colorBgBlur }}>
       <ListButtons
-        route="https://localhost:7214/api/ReportPerformaInvoiceHeaderDetailConfirmed/export-excel"
+        route="https://edgex.liara.run/api/ReportPerformaInvoiceHeaderDetailConfirmed/export-excel"
         title="confirmed_report_export"
       />
       <div>

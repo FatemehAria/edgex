@@ -41,7 +41,7 @@ function Reports() {
   return (
     <div style={{ backgroundColor: token.colorBgBlur }}>
       <ListButtons
-        route="https://localhost:7214/api/ReportPerformaInvoiceHeaderDetail/export-excel"
+        route="https://edgex.liara.run/api/ReportPerformaInvoiceHeaderDetail/export-excel"
         title="report_export"
       />
       <div>

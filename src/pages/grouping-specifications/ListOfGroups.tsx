@@ -13,7 +13,7 @@ function ListOfGroups() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
-      <ListButtons route="https://localhost:7214/api/ExistenceCategory/export-excel" title="category_export" />
+      <ListButtons route="https://edgex.liara.run/api/ExistenceCategory/export-excel" title="category_export" />
       <ListComponent
         ModalComponent={GroupForm}
         columnsComponent={ListOfGroupsColumns}

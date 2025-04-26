@@ -8,7 +8,7 @@ import { deleteProforma, getProformaList } from './util';
 function ListOfProforma() {
   return (
     <div style={{ minHeight: ' 100vh' }}>
-      <ListButtons route="https://localhost:7214/api/PerformaInvoiceHeader/export-excel" title="proforma_export" />
+      <ListButtons route="https://edgex.liara.run/api/PerformaInvoiceHeader/export-excel" title="proforma_export" />
       <ListComponent
         ModalComponent={ListOfProformaEdit}
         columnsComponent={ListOfProformaColumns}

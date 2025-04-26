@@ -49,7 +49,7 @@ function ListOfPersonCompany() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur }}>
-      <ListButtons route="https://localhost:7214/api/CompanyPerson/export-excel" title="company_person_export" />
+      <ListButtons route="https://edgex.liara.run/api/CompanyPerson/export-excel" title="company_person_export" />
       <ListComponent
         ModalComponent={PersonCompanyEdit}
         columnsComponent={ListOfPersonTableColumns}

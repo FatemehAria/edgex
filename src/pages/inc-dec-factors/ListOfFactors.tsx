@@ -27,7 +27,7 @@ function ListOfFactors() {
 
   return (
     <div style={{ backgroundColor: token.colorBgBlur, minHeight: '100vh' }}>
-      <ListButtons route="https://localhost:7214/api/AgentsReducingIncreasing/export-excel" title="agents_export" />
+      <ListButtons route="https://edgex.liara.run/api/AgentsReducingIncreasing/export-excel" title="agents_export" />
       <ListComponent
         ModalComponent={IncDecFactors}
         columnsComponent={ListOfFactorsColumns}

@@ -544,7 +544,7 @@ export const confirmProforma = async (id: string, setProformaStatus: any) => {
 
 export const getEngReport = async (id: string, customerTitle: string, date: string) => {
   try {
-    const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/print/${id}`, {
+    const response = await fetch(`https://edgex.liara.run/api/PerformaInvoiceHeader/print/${id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/pdf',
@@ -573,7 +573,7 @@ export const getEngReport = async (id: string, customerTitle: string, date: stri
 
 export const getPerReport = async (id: string, customerTitle: string, date: string) => {
   try {
-    const response = await fetch(`https://localhost:7214/api/PerformaInvoiceHeader/printPersian/${id}`, {
+    const response = await fetch(`https://edgex.liara.run/api/PerformaInvoiceHeader/printPersian/${id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/pdf',
