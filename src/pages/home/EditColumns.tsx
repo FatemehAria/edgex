@@ -89,7 +89,24 @@ export const EditColumns = (
       render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
       hidden: true,
     },
-    // performaInvoiceHeaderAgentsReducingIncreasingList
+    // existenceCategoryTitleModified
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'existenceCategoryTitleModified',
+      key: 'existenceCategoryTitleModified',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
+    // existenceCategoryTitleModified
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
+      dataIndex: 'stuffParentTitleModified',
+      key: 'stuffParentTitleModified',
+      width: 50,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      hidden: true,
+    },
     {
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.row' })}</span>,
       dataIndex: 'headerReducingIncreasingId',

@@ -44,15 +44,15 @@ export const updateProforma = async (payload: any) => {
   console.log('payload', payload);
 
   try {
-    const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    // const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
 
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Error during the operation' }));
 
@@ -133,6 +133,8 @@ export const copyConfirmedProformaInfo = async (
         recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
           (item: any) => item.agentsReducingIncreasingTitle === 'سود',
         )?.amountAgent,
+        stuffParentTitleModified: detail.stuffParentTitleModified,
+        existenceCategoryTitleModified: detail.existenceCategoryTitleModified,
       }));
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
@@ -206,6 +208,8 @@ export const getSingleProformaInfo = async (
         recordProfitMargin: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
           (item: any) => item.agentsReducingIncreasingTitle === 'سود',
         )?.amountAgent,
+        stuffParentTitleModified: detail.stuffParentTitleModified,
+        existenceCategoryTitleModified: detail.existenceCategoryTitleModified,
       }));
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
@@ -233,6 +237,30 @@ export function mapRowToApiDetail(
   // console.log('isCopyingProformaTableRow', isCopyingProformaTableRow);
   // console.log('isEdittingProforma', isEdittingProforma);
 
+  let existenceCategoryTitleModified;
+
+  if (!localStorage.getItem(`editedOption-category-${row.category}`)) {
+    if (row.existenceCategoryTitleModified) {
+      existenceCategoryTitleModified = row.existenceCategoryTitleModified;
+    } else {
+      existenceCategoryTitleModified = null;
+    }
+  } else {
+    existenceCategoryTitleModified = localStorage.getItem(`editedOption-category-${row.category}`);
+  }
+
+  let stuffParentTitleModified;
+
+  if (!localStorage.getItem(`editedOption-items-${row.items}`)) {
+    if (row.stuffParentTitleModified) {
+      stuffParentTitleModified = row.stuffParentTitleModified;
+    } else {
+      stuffParentTitleModified = null;
+    }
+  } else {
+    stuffParentTitleModified = localStorage.getItem(`editedOption-items-${row.items}`);
+  }
+
   return {
     exportToExcel: false,
     existenceCategoryID: row.category,
@@ -256,7 +284,7 @@ export function mapRowToApiDetail(
         ...(!isCopyingProforma &&
           !isCopyingProformaTableRow && { performaInvoiceDetailID: row.PerformaInvoiceDetailID }),
         agentsReducingIncreasingID: 'E863A8A6-25E9-4F49-A083-667B2CCD26B8',
-        amountAgen: parseFloat(row.recordProfitMargin) || 0,
+        amountAgent: parseFloat(row.recordProfitMargin) || 0,
       },
     ],
     suplierParentID: row.supplier,
@@ -274,9 +302,9 @@ export function mapRowToApiDetail(
     priceSaleRounded: parseFloat(String(row.itemSalePriceRounded).replace(/,/g, '')) || 0,
     priceSaleFinal: row.finalSalePrice || 0,
     costTotal: row.totalPriceWithoutFactors || 0,
-    existenceCategoryTitleModified: localStorage.getItem(`editedOption-category-${row.category}`) || null,
-    stuffParentTitleModified: localStorage.getItem(`editedOption-items-${row.items}`) || null,
-    insurancePrice: row.insurancePriceForRecord,
+    existenceCategoryTitleModified: existenceCategoryTitleModified,
+    stuffParentTitleModified: stuffParentTitleModified,
+    // insurancePrice: row.insurancePriceForRecord,
   };
 }
 
@@ -400,6 +428,7 @@ export function createProformaPayload(
           : {}),
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgent: parseFloat(footerInsuranceCoefficient) || 0,
+        insurancePrice: insurancePrice,
       },
     ],
     // should be set later

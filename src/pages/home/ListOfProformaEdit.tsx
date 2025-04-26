@@ -59,6 +59,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       finalProfit: 0,
       qty: '',
       unitCost: '',
+      stuffParentTitleModified: '',
+      existenceCategoryTitleModified: '',
       totalPriceWithFactors: 0,
       description: '',
       factorValue: '',
@@ -86,6 +88,13 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     const initialCoefficient = insuranceEntry?.amountAgen?.toString() || '0.085';
 
     setFooterInsuranceCoefficient(initialCoefficient);
+
+    const insurancePriceEntry = singleProformaInfo?.find((item: any) => item.agentsReducingIncreasingTitle === 'بیمه');
+
+    // Set footerInsuranceCoefficient from amountAgen or default to '0.085'
+    const inPirce = insurancePriceEntry?.insurancePrice;
+
+    setinsurancePrice(inPirce);
     // }
   }, [singleProformaInfo]);
 
@@ -209,6 +218,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       description: '',
       factorValue: '',
       insurancePriceForRecord: 0,
+      stuffParentTitleModified: '',
+      existenceCategoryTitleModified: '',
       modalValues: {
         'record-percentage-discount': 0,
         'record-commute': 0,
