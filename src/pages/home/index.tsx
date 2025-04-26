@@ -151,6 +151,8 @@ function Home() {
         selectedCatId!,
       );
     }
+
+    console.log('selectedCatId', selectedCatId);
   }, [selectedCatId, locale]);
 
   const createEmptyRow = () => {

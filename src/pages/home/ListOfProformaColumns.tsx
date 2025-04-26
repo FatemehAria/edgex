@@ -132,7 +132,11 @@ export function ListOfProformaColumns({
         return formattedDate.includes(value);
       },
       render: (text: string) => (
-        <span style={{ textAlign: 'center' }}>{moment(text, 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD')}</span>
+        <span style={{ textAlign: 'center' }}>
+          {locale === 'en_US'
+            ? moment(text, 'YYYY-MM-DDTHH:mm:ss').format('YYYY/MM/DD')
+            : moment(text, 'YYYY-MM-DDTHH:mm:ss').format('jYYYY/jMM/jDD')}
+        </span>
       ),
     },
     // تعداد کل
