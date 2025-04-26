@@ -120,9 +120,9 @@ export const copyConfirmedProformaInfo = async (
         unitCost: detail.costUnit,
         totalPriceWithoutFactors: detail.costTotal,
         insurancePriceForRecord: detail.insurancePrice,
-        footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
-          (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
-        )?.amountAgent,
+        // footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+        //   (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
+        // )?.amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.priceFinal,
@@ -193,9 +193,9 @@ export const getSingleProformaInfo = async (
         unitCost: detail.costUnit,
         totalPriceWithoutFactors: detail.costTotal,
         insurancePriceForRecord: detail.insurancePrice,
-        footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
-          (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
-        )?.amountAgent,
+        // footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
+        //   (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
+        // )?.amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.costTotal,

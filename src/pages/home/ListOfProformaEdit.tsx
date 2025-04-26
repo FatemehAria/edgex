@@ -74,10 +74,18 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
 
+  console.log('singleProformaInfo', singleProformaInfo);
   // console.log('headerData', headerData);
   useEffect(() => {
     // if (singleProformaInfo) {
     setTableData(singleProformaInfo);
+
+    const insuranceEntry = singleProformaInfo?.find((item: any) => item.agentsReducingIncreasingTitle === 'بیمه');
+
+    // Set footerInsuranceCoefficient from amountAgen or default to '0.085'
+    const initialCoefficient = insuranceEntry?.amountAgen?.toString() || '0.085';
+
+    setFooterInsuranceCoefficient(initialCoefficient);
     // }
   }, [singleProformaInfo]);
 
