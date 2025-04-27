@@ -68,19 +68,36 @@ function ProformaTable({
 
   console.log('footer', footerInsuranceCoefficient);
   // In ProformaTable component
+  // useEffect(() => {
+  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
+  //   setTotalCostOfRows(round2(totalCost));
+
+  //   // Only calculate if not initial load
+  //   if (insurancePrice !== headerData?.insurancePrice) {
+  //     const calculated = tableData.reduce((sum: number, row: any) => {
+  //       const rowTotal = parseFloat(row.itemTotalPrice) || 0;
+
+  //       return sum + rowTotal * Number(footerInsuranceCoefficient);
+  //     }, 0);
+
+  //     setinsurancePrice(round2(calculated));
+  //   }
+  // }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows]); // Add footerInsuranceCoefficient
+
+  // Replace the existing useEffect with this optimized version
   useEffect(() => {
-    // Only calculate if not initial load
-    if (insurancePrice !== headerData?.insurancePrice) {
-      const calculated = tableData.reduce((sum: number, row: any) => {
-        const rowTotal = parseFloat(row.itemTotalPrice) || 0;
+    // Calculate total cost of rows
+    const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
 
-        return sum + rowTotal * Number(footerInsuranceCoefficient);
-      }, 0);
+    setTotalCostOfRows(round2(totalCost));
 
-      setinsurancePrice(round2(calculated));
-    }
-  }, [tableData, footerInsuranceCoefficient]); // Add footerInsuranceCoefficient
-  
+    // Calculate insurance price using current coefficient
+    const calculatedInsurancePrice = totalCost * Number(footerInsuranceCoefficient);
+
+    setinsurancePrice(round2(calculatedInsurancePrice));
+  }, [tableData, footerInsuranceCoefficient]); // Include both dependencies
+
   const payload = createProformaPayload(
     tableData,
     insurancePrice,
