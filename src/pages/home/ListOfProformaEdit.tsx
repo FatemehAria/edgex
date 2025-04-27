@@ -76,27 +76,25 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
 
-  console.log('singleProformaInfo', singleProformaInfo);
+  // console.log('singleProformaInfo', singleProformaInfo);
   // console.log('headerData', headerData);
+
   useEffect(() => {
-    // if (singleProformaInfo) {
+    // if (singleProformaInfo?.length) {
     setTableData(singleProformaInfo);
 
-    const insuranceEntry = singleProformaInfo?.find((item: any) => item.agentsReducingIncreasingTitle === 'بیمه');
+    const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
 
-    // Set footerInsuranceCoefficient from amountAgen or default to '0.085'
-    const initialCoefficient = insuranceEntry?.amountAgen?.toString() || '0.085';
+    setFooterInsuranceCoefficient(insuranceEntry?.amountAgen?.toString() ?? '0.085');
 
-    setFooterInsuranceCoefficient(initialCoefficient);
-
-    const insurancePriceEntry = singleProformaInfo?.find((item: any) => item.agentsReducingIncreasingTitle === 'بیمه');
-
-    // Set footerInsuranceCoefficient from amountAgen or default to '0.085'
-    const inPirce = insurancePriceEntry?.insurancePrice;
-
-    setinsurancePrice(inPirce);
     // }
   }, [singleProformaInfo]);
+
+  useEffect(() => {
+    if (headerData?.insurancePrice != null) {
+      setinsurancePrice(headerData.insurancePrice);
+    }
+  }, [headerData.insurancePrice]);
 
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
@@ -290,18 +288,6 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
 
   const columns = allColumns.filter(col => !col.hidden);
 
-  // useEffect(() => {
-  //   if (headerData) {
-  //     const formattedData = {
-  //       ...headerData,
-  //       Date: headerData['Date'] ? dayjs(headerData['Date']) : null,
-  //     };
-
-  //     // form.resetFields();
-  //     form.setFieldsValue(formattedData);
-  //   }
-  // }, [headerData, form]);
-
   const proformaFormOptions: any = ProformaFormOptions(
     formatMessage,
     customerOptions,
@@ -344,7 +330,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
           columns={columns}
           formatMessage={formatMessage}
           tableData={tableData}
-          insurancePrice={insurancePrice}
+          // insurancePrice={insurancePrice}
+          insurancePrice={headerData.insurancePrice}
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}

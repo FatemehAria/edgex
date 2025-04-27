@@ -79,6 +79,7 @@ function ProformaTable({
   );
 
   // console.log('payload', payload);
+  // console.log('insu', insurancePrice);
 
   const handleSubmition = async () => {
     if (isCopyingProforma) {

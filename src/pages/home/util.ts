@@ -97,6 +97,7 @@ export const copyConfirmedProformaInfo = async (
       Date: data.date,
       isJalali,
       'header-info-desc': data.descriptionHeader,
+      insurancePrice: data.insurancePrice,
     };
 
     const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
@@ -126,7 +127,7 @@ export const copyConfirmedProformaInfo = async (
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.priceFinal,
-        footerInsurancePrice: detail.insurancePrice,
+        // footerInsurancePrice: detail.insurancePrice,
         itemSalePrice: detail.priceSale,
         itemSalePriceRounded: detail.priceSaleRounded,
         finalSalePrice: detail.priceSaleFinal,
@@ -172,6 +173,7 @@ export const getSingleProformaInfo = async (
       Date: data.date,
       isJalali,
       'header-info-desc': data.descriptionHeader,
+      insurancePrice: data.insurancePrice,
     };
 
     const HeaderAgentsReducingIncreasingList = data.performaInvoiceHeaderAgentsReducingIncreasingList;
@@ -194,14 +196,14 @@ export const getSingleProformaInfo = async (
         qty: detail.quantity,
         unitCost: detail.costUnit,
         totalPriceWithoutFactors: detail.costTotal,
-        insurancePriceForRecord: detail.insurancePrice,
+        // insurancePriceForRecord: detail.insurancePrice,
         // footerInsuranceCoefficient: detail.performaInvoiceDetailAgentsReducingIncreasingList?.find(
         //   (item: any) => item.agentsReducingIncreasingTitle === 'بیمه',
         // )?.amountAgent,
         itemShareOfTaxAndIns: detail.insuranceTax,
         primarySalesPrice: detail.primarySalePrice,
         itemTotalPrice: detail.costTotal,
-        footerInsurancePrice: detail.insurancePrice,
+        // footerInsurancePrice: detail.insurancePrice,
         itemSalePrice: detail.priceSale,
         itemSalePriceRounded: detail.priceSaleRounded,
         finalSalePrice: detail.priceSaleFinal,
@@ -428,7 +430,6 @@ export function createProformaPayload(
           : {}),
         agentsReducingIncreasingID: '19256E6D-B0A0-4D79-A534-220882E586E7',
         amountAgen: parseFloat(footerInsuranceCoefficient) || 0,
-        insurancePrice: insurancePrice,
       },
     ],
     // should be set later
@@ -438,6 +439,7 @@ export function createProformaPayload(
     unitCostTotal: finalValues.unitCostTotal,
     profitFinalMinusInsuranceVatCostTotal: finalValues.finalProfit,
     quantityTotal: finalValues.quantityTotal,
+    insurancePrice: insurancePrice,
   };
 }
 
