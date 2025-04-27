@@ -51,21 +51,36 @@ function ProformaTable({
     isCopyingProformaTableRow,
   } = useContext(IsEdittingProformaContext);
 
+  // useEffect(() => {
+  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+
+  //   setTotalCostOfRows(round2(totalCost));
+
+  //   const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
+  //     const rowTotal = parseFloat(row.itemTotalPrice) || 0;
+  //     // const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
+
+  //     return sum + rowTotal * Number(footerInsuranceCoefficient);
+  //   }, 0);
+
+  //   setinsurancePrice(round2(calculatedInsurancePrice));
+  // }, [tableData, setTotalCostOfRows, setinsurancePrice]);
+
+  console.log('footer', footerInsuranceCoefficient);
+  // In ProformaTable component
   useEffect(() => {
-    const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
+    // Only calculate if not initial load
+    if (insurancePrice !== headerData?.insurancePrice) {
+      const calculated = tableData.reduce((sum: number, row: any) => {
+        const rowTotal = parseFloat(row.itemTotalPrice) || 0;
 
-    setTotalCostOfRows(round2(totalCost));
+        return sum + rowTotal * Number(footerInsuranceCoefficient);
+      }, 0);
 
-    const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
-      const rowTotal = parseFloat(row.itemTotalPrice) || 0;
-      // const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
-
-      return sum + rowTotal * Number(footerInsuranceCoefficient);
-    }, 0);
-
-    setinsurancePrice(round2(calculatedInsurancePrice));
-  }, [tableData, setTotalCostOfRows, setinsurancePrice]);
-
+      setinsurancePrice(round2(calculated));
+    }
+  }, [tableData, footerInsuranceCoefficient]); // Add footerInsuranceCoefficient
+  
   const payload = createProformaPayload(
     tableData,
     insurancePrice,

@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
 import dayjs from 'dayjs';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
@@ -90,11 +90,22 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     // }
   }, [singleProformaInfo]);
 
+  // Add at top of component
+  const initialized = useRef(false);
+
+  // Add initialization useEffect
   useEffect(() => {
-    if (headerData?.insurancePrice != null) {
+    if (headerData?.insurancePrice !== undefined && !initialized.current) {
       setinsurancePrice(headerData.insurancePrice);
+      initialized.current = true;
     }
-  }, [headerData.insurancePrice]);
+  }, [headerData?.insurancePrice]);
+
+  // useEffect(() => {
+  //   if (headerData?.insurancePrice != null) {
+  //     setinsurancePrice(headerData.insurancePrice);
+  //   }
+  // }, [headerData.insurancePrice]);
 
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
@@ -330,8 +341,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
           columns={columns}
           formatMessage={formatMessage}
           tableData={tableData}
-          // insurancePrice={insurancePrice}
-          insurancePrice={headerData.insurancePrice}
+          insurancePrice={insurancePrice}
+          // insurancePrice={headerData.insurancePrice}
           setinsurancePrice={setinsurancePrice}
           setTotalCostOfRows={setTotalCostOfRows}
           totalCostOfRows={totalCostOfRows}
