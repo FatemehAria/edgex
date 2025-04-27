@@ -53,14 +53,14 @@ const mockMenuList: MenuList = [
       //   },
       //   path: '/main-tables/costumer-info',
       // },
-      {
-        code: 'increasing/decreasing factors',
-        label: {
-          en_US: 'Increasing/decreasing factors',
-          fa_IR: 'عوامل افزاینده/کاهنده',
-        },
-        path: '/main-tables/factors',
-      },
+      // {
+      //   code: 'increasing/decreasing factors',
+      //   label: {
+      //     en_US: 'Increasing/decreasing factors',
+      //     fa_IR: 'عوامل افزاینده/کاهنده',
+      //   },
+      //   path: '/main-tables/factors',
+      // },
       {
         code: 'product info',
         label: {
