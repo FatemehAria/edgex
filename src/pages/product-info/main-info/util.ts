@@ -11,7 +11,7 @@ export const createStuff = async (values: any) => {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'] ? values['Description'] : null,
-      existenceCategoryIDs: [values['categoryId']],
+      existenceCategoryIDs: Array.isArray(values.categoryId) ? values.categoryId : [values.categoryId],
     });
 
     // console.log(data);
@@ -38,7 +38,7 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
       title: value['Title'],
       titlePersian: value['TitlePersian'],
       description: value['Description'],
-      existenceCategoryIDs: [value['categoryId']],
+      existenceCategoryIDs: Array.isArray(value.categoryId) ? value.categoryId : [value.categoryId],
       //نرخ
     });
 
