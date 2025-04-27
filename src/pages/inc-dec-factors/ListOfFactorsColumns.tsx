@@ -119,7 +119,13 @@ function ListOfFactorsColumns({
       key: 'displayDocument',
       width: 600,
       ...getBooleanColumnSearchProps('displayDocument'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? 'بله' : 'خیر'}</span>,
+      render: (text: string) => (
+        <span style={{ textAlign: 'center' }}>
+          {text
+            ? formatMessage({ id: 'app.costumerInfo.isCostumer' })
+            : formatMessage({ id: 'app.costumerInfo.isNotCostumer' })}
+        </span>
+      ),
     },
     // نمایش در قلم
     {
@@ -128,7 +134,13 @@ function ListOfFactorsColumns({
       key: 'displayPen',
       width: 250,
       ...getBooleanColumnSearchProps('displayPen'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? 'بله' : 'خیر'}</span>,
+      render: (text: string) => (
+        <span style={{ textAlign: 'center' }}>
+          {text
+            ? formatMessage({ id: 'app.costumerInfo.isCostumer' })
+            : formatMessage({ id: 'app.costumerInfo.isNotCostumer' })}
+        </span>
+      ),
     },
     // ویرایش
     {
