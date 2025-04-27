@@ -104,14 +104,14 @@ export function ListOfGroupsColumns({
       ),
       filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
       onFilter: (value: string, record: any) => {
-        const label = existanceList.find((item: any) => item.value === Number(record.ExistenceCode))?.label || '';
+        const label = existanceList?.find((item: any) => item.value === Number(record.ExistenceCode))?.label || '';
 
         return label.toLowerCase().includes((value as string).toLowerCase());
       },
       width: 300,
       render: (text: string) => (
         <span style={{ textAlign: 'center' }}>
-          {existanceList.find((item: any) => item.value === Number(text)).label}
+          {existanceList.find((item: any) => item.value === Number(text))?.label}
         </span>
       ),
     },

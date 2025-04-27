@@ -16,6 +16,7 @@ export const getProductsList = async (
     const formattedData = data.rows.map((item: any, index: number) => ({
       ...item,
       key: index + 1,
+      categoryId: item.ExistenceCategoryID,
     }));
 
     setTableData(formattedData);
