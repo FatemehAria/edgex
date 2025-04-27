@@ -106,3 +106,14 @@ label {
 .ant-table-cell {
   text-align: center;
 }
+/* For Gregorian DatePicker */
+.ant-picker-cell-today {
+  border: none !important;
+}
+
+/* For Jalali DatePicker (if different class is needed) */
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner {
+  &::before {
+    border: none !important;
+  }
+}
