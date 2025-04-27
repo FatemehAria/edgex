@@ -11,7 +11,7 @@ export const createStuff = async (values: any) => {
       title: values['Title'],
       titlePersian: values['TitlePersian'],
       description: values['Description'] ? values['Description'] : null,
-      existenceCategoryIDs: values['categoryId'],
+      existenceCategoryIDs: [values['categoryId']],
     });
 
     // console.log(data);
@@ -30,7 +30,7 @@ export const createGroup = async (values: any) => {
 };
 
 export const updateStuff = async (endpoint: string, value: any, id: string) => {
-  // console.log('update stuff', value);
+  console.log('update stuff', value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {
@@ -38,7 +38,7 @@ export const updateStuff = async (endpoint: string, value: any, id: string) => {
       title: value['Title'],
       titlePersian: value['TitlePersian'],
       description: value['Description'],
-      existenceCategoryIDs: value.categoryId,
+      existenceCategoryIDs: [value['categoryId']],
       //نرخ
     });
 
