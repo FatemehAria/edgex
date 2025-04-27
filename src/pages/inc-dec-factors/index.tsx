@@ -35,6 +35,11 @@ function IncDecFactors({ initialValues = {}, showButton = false, onSubmit, onCan
     }
   }, []);
 
+  useEffect(() => {
+    // bump the key so FormLayout fully remounts with the new initialValues
+    setFormKey(k => k + 1);
+  }, [initialValues]);
+
   const incDecFactorsFormOptions: MyFormOptions = [
     {
       name: 'Title',
