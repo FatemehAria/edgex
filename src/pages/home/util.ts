@@ -447,7 +447,7 @@ export function createProformaPayload(
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
   const ID = id;
 
-  // console.log('getStuffById', ID);
+  console.log('getStuffById');
 
   try {
     const { data } = await customAxiosInstance(

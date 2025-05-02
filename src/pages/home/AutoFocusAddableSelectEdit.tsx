@@ -198,6 +198,21 @@ const AutoFocusAddableSelectEdit = ({
       handleCellChange(value, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
       localStorage.setItem(localStorageKey, value);
 
+      if (dataIndex === 'category') {
+        console.log('category changed to', value); // ← debug check
+        setSelectedCatId?.(value); // ← parent effect watches this
+        handleCellChange(
+          '',
+          record.key,
+          'items', // ← clear old items
+          setTableData,
+          tableData,
+          insurancePrice,
+          totalCostOfRows,
+        );
+        localStorage.setItem('category-initialValue', value);
+      }
+
       if (!options.find(opt => opt.value === value)) {
         setOptions([...options, { label: value, value }]);
       }
@@ -228,14 +243,20 @@ const AutoFocusAddableSelectEdit = ({
         }
       }
 
+      // if (dataIndex === 'category') {
+      //   const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
+
+      //   setSelectedCatId && setSelectedCatId(categoryId);
+      //   handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
+      //   localStorage.setItem('category-initialValue', categoryId);
+      // }
+
       if (dataIndex === 'category') {
-        const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
-
-        setSelectedCatId && setSelectedCatId(categoryId);
+        setSelectedCatId?.(value);
+        // clear any old “items” selection on this row
         handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
-        localStorage.setItem('category-initialValue', categoryId);
+        localStorage.setItem('category-initialValue', value);
       }
-
       // console.log('selected', selected);
     }
 
