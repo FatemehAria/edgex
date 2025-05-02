@@ -30,6 +30,7 @@ export const faIR_globalTips = {
   'gloabal.tips.theme.addMedia': 'بارگذاری',
   'gloabal.tips.submitBtn': 'ثبت',
   'gloabal.tips.excel': 'خروجی به اکسل',
+  'gloabal.tips.copyAndAddRow': 'کپی یا اضافه کردن سطر جدید',
   'gloabal.columns.copy': 'کپی',
   'gloabal.listcolumns.search': 'جستجو',
   'gloabal.buttons.cancel': 'لغو',

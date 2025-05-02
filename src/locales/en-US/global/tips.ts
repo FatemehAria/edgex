@@ -30,6 +30,7 @@ export const enUS_globalTips = {
   'gloabal.tips.theme.addMedia': 'Upload',
   'gloabal.tips.submitBtn': 'Submit',
   'gloabal.tips.excel': 'Excel output',
+  'gloabal.tips.copyAndAddRow': 'Copy Or Add New Row',
   'gloabal.columns.copy': 'Copy',
   'gloabal.listcolumns.search': 'search',
   'gloabal.buttons.cancel': 'cancel',

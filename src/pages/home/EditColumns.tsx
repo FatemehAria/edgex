@@ -2,7 +2,7 @@ import './columns.css';
 
 import { faCopy, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select } from 'antd';
+import { Select, Tooltip } from 'antd';
 import { type Dispatch, type SetStateAction, useContext, useState } from 'react';
 
 import { handleValueChange } from '@/utils/formatTypingNums';
@@ -484,11 +484,17 @@ export const EditColumns = (
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
-          <FontAwesomeIcon
-            icon={faCopy}
-            onClick={() => copyRow(record)}
-            style={{ cursor: 'pointer', marginRight: 8 }}
-          />
+          <Tooltip
+            title={formatMessage({
+              id: 'gloabal.tips.copyAndAddRow',
+            })}
+          >
+            <FontAwesomeIcon
+              icon={faCopy}
+              onClick={() => copyRow(record)}
+              style={{ cursor: 'pointer', marginRight: 8 }}
+            />
+          </Tooltip>
         </span>
       ),
     },
