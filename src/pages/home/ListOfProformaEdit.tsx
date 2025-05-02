@@ -27,7 +27,7 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const { token } = theme.useToken();
   const { locale } = useSelector(state => state.user);
   const { formatMessage } = useLocale();
-  const [nextKey, setNextKey] = useState(2);
+  const [nextKey, setNextKey] = useState(0);
   const [footerInsuranceCoefficient, setFooterInsuranceCoefficient] = useState<string>('0.085'); // default "0.085"
   const { singleProformaInfo, headerData, setHeaderData, isLoadingProformaInfo } =
     useContext(IsEdittingProformaContext);
@@ -83,11 +83,56 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     // if (singleProformaInfo?.length) {
     const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
 
-    // drop ANY row that is “empty”
-    const filledOnly = incoming.filter(row => isRowFilled(row));
+    // 2) drop any “empty” placeholders the backend might have sent
+    const filledRows = incoming.filter(row => isRowFilled(row));
 
-    // now add exactly one empty row
-    setTableData([...filledOnly, createEmptyRow()]);
+    // 3) find the highest existing key
+    const maxKey = filledRows.length ? Math.max(...filledRows.map(r => Number(r.key))) : 0;
+
+    // 4) define your one blank row
+    const blank: any = {
+      key: maxKey + 1,
+      category: '',
+      items: '',
+      supplier: '',
+      recordProfitMargin: 0,
+      primarySalesPrice: 0,
+      itemTotalPrice: 0,
+      footerInsuranceCoefficient: '0.085',
+      footerInsurancePrice: 0,
+      itemShareOfTaxAndIns: 0,
+      itemSalePrice: 0,
+      finalSalePrice: 0,
+      totalFinalSalePrice: 0,
+      totalProfitMargin: 0,
+      insuranceCheckAmount: 0,
+      itemSalePriceRounded: 0,
+      vat: 0,
+      total: 0,
+      finalProfit: 0,
+      tenPercentTax: 0,
+      qty: '',
+      unitCost: '',
+      totalPriceWithFactors: 0,
+      totalPriceWithoutFactors: 0,
+      description: '',
+      factorValue: '',
+      insurancePriceForRecord: 0,
+      stuffParentTitleModified: '',
+      existenceCategoryTitleModified: '',
+      modalValues: {
+        'record-percentage-discount': 0,
+        'record-commute': 0,
+        'record-amount-discount': 0,
+      },
+      factor: '',
+    };
+
+    // 5) seed nextKey for future user-added rows
+    setNextKey(maxKey + 2);
+
+    // 6) set tableData to server rows + one blank
+    setTableData([...filledRows, blank]);
 
     const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
 
