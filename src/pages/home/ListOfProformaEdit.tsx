@@ -36,42 +36,42 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
 
   const [tableData, setTableData] = useState<any[]>([
-    {
-      key: 1,
-      category: '',
-      supplier: '',
-      recordProfitMargin: 0,
-      primarySalesPrice: 0,
-      itemTotalPrice: 0,
-      footerInsuranceCoefficient: '0.085',
-      totalPriceWithoutFactors: 0,
-      footerInsurancePrice: 0,
-      itemShareOfTaxAndIns: 0,
-      itemSalePrice: 0,
-      itemSalePriceRounded: 0,
-      finalSalePrice: 0,
-      totalFinalSalePrice: 0,
-      totalProfitMargin: 0,
-      insuranceCheckAmount: 0,
-      vat: 0,
-      total: 0,
-      tenPercentTax: 0,
-      finalProfit: 0,
-      qty: '',
-      unitCost: '',
-      stuffParentTitleModified: '',
-      existenceCategoryTitleModified: '',
-      totalPriceWithFactors: 0,
-      description: '',
-      factorValue: '',
-      insurancePriceForRecord: 0,
-      modalValues: {
-        'record-percentage-discount': 0,
-        'record-commute': 0,
-        'record-amount-discount': 0,
-      },
-      factor: '',
-    },
+    // {
+    //   key: 1,
+    //   category: '',
+    //   supplier: '',
+    //   recordProfitMargin: 0,
+    //   primarySalesPrice: 0,
+    //   itemTotalPrice: 0,
+    //   footerInsuranceCoefficient: '0.085',
+    //   totalPriceWithoutFactors: 0,
+    //   footerInsurancePrice: 0,
+    //   itemShareOfTaxAndIns: 0,
+    //   itemSalePrice: 0,
+    //   itemSalePriceRounded: 0,
+    //   finalSalePrice: 0,
+    //   totalFinalSalePrice: 0,
+    //   totalProfitMargin: 0,
+    //   insuranceCheckAmount: 0,
+    //   vat: 0,
+    //   total: 0,
+    //   tenPercentTax: 0,
+    //   finalProfit: 0,
+    //   qty: '',
+    //   unitCost: '',
+    //   stuffParentTitleModified: '',
+    //   existenceCategoryTitleModified: '',
+    //   totalPriceWithFactors: 0,
+    //   description: '',
+    //   factorValue: '',
+    //   insurancePriceForRecord: 0,
+    //   modalValues: {
+    //     'record-percentage-discount': 0,
+    //     'record-commute': 0,
+    //     'record-amount-discount': 0,
+    //   },
+    //   factor: '',
+    // },
   ]);
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
@@ -81,7 +81,13 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
 
   useEffect(() => {
     // if (singleProformaInfo?.length) {
-    setTableData(singleProformaInfo);
+    const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
+
+    // drop ANY row that is “empty”
+    const filledOnly = incoming.filter(row => isRowFilled(row));
+
+    // now add exactly one empty row
+    setTableData([...filledOnly, createEmptyRow()]);
 
     const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
 
@@ -242,13 +248,13 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     return newRow;
   };
 
-  useEffect(() => {
-    const lastRow = tableData[tableData.length - 1];
+  // useEffect(() => {
+  //   const lastRow = tableData[tableData.length - 1];
 
-    if (lastRow && isRowFilled(lastRow)) {
-      setTableData(prevData => [...prevData, createEmptyRow()]);
-    }
-  }, [tableData]);
+  //   if (lastRow && isRowFilled(lastRow)) {
+  //     setTableData(prevData => [...prevData, createEmptyRow()]);
+  //   }
+  // }, [tableData]);
 
   useEffect(() => {
     tableData.forEach(row => {
