@@ -314,7 +314,7 @@ function Home() {
       <RedirectionButton btnText={formatMessage({ id: 'app.home.redirectionBtn' })} linkAddress="/proforma-list" />
       <Collapse
         bordered={false}
-        defaultActiveKey={['1']}
+        defaultActiveKey={['1', '2']}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         style={{ background: token.colorBgContainer }}
         items={getItems(panelStyle)}
