@@ -80,7 +80,16 @@ export function ListOfGroupsColumns({
       key: 'TitlePersian',
       width: 300,
       ...getColumnSearchProps('TitlePersian'),
-      render: (text: string) => <span style={{ textAlign: 'center' }}>{text}</span>,
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
+    },
+    // (انگلیسی) عنوان
+    {
+      title: <span className="center-align">{formatMessage({ id: 'app.grouping.List.titleEng' })}</span>,
+      dataIndex: 'Title',
+      key: 'Title',
+      width: 300,
+      ...getColumnSearchProps('Title'),
+      render: (text: string) => <span style={{ textAlign: 'center' }}>{text ? text : '-'}</span>,
     },
     // موجودیت
     {
