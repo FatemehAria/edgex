@@ -20,7 +20,7 @@ export const getProductsList = async (
     }));
 
     setTableData(formattedData);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastErrorFetch', defaultMessage: 'Error fetching data' }));
   } finally {

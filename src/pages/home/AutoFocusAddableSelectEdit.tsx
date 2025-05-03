@@ -214,7 +214,7 @@ const AutoFocusAddableSelectEdit = ({
       localStorage.setItem(localStorageKey, value);
 
       if (dataIndex === 'category') {
-        console.log('category changed to', value); // ← debug check
+        // console.log('category changed to', value); // ← debug check
         setSelectedCatId?.(value); // ← parent effect watches this
         handleCellChange(
           '',
@@ -345,9 +345,9 @@ const AutoFocusAddableSelectEdit = ({
     }
   };
 
-  useEffect(() => {
-    console.log('selected state updated:', selected);
-  }, [selected]);
+  // useEffect(() => {
+  //   console.log('selected state updated:', selected);
+  // }, [selected]);
 
   const transformedOptions = useMemo(() => {
     return editableOptions

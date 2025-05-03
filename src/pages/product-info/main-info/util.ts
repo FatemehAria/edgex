@@ -23,14 +23,14 @@ export const createStuff = async (values: any) => {
 };
 
 export const createGroup = async (values: any) => {
-  console.log(values);
+  // console.log(values);
 
   try {
   } catch (error) {}
 };
 
 export const updateStuff = async (endpoint: string, value: any, id: string) => {
-  console.log('update stuff', value);
+  // console.log('update stuff', value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {

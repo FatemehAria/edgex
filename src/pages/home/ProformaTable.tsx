@@ -66,7 +66,7 @@ function ProformaTable({
   //   setinsurancePrice(round2(calculatedInsurancePrice));
   // }, [tableData, setTotalCostOfRows, setinsurancePrice]);
 
-  console.log('footer', footerInsuranceCoefficient);
+  // console.log('footer', footerInsuranceCoefficient);
   // In ProformaTable component
   // useEffect(() => {
   //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);

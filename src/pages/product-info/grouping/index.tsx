@@ -43,7 +43,7 @@ function Grouping({
   // }, [treeDataAnt, groupValue, setGroupValue]);
 
   const handleChange = (newValue: any) => {
-    console.log('new value', newValue);
+    // console.log('new value', newValue);
     setGroupValue(newValue);
   };
 

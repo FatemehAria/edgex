@@ -142,7 +142,7 @@ export const getLists = async (
 };
 
 export const updateValues = async (endpoint: string, value: any, id: string) => {
-  console.log('updateValues', value);
+  // console.log('updateValues', value);
 
   try {
     const { data } = await customAxiosInstance.post(endpoint, {

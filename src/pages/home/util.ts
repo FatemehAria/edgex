@@ -7,7 +7,7 @@ import { customAxiosInstance } from '@/utils/axios-config';
 import { translate } from '@/utils/intl-service';
 
 export const createProforma = async (payload: any) => {
-  console.log('payload', payload);
+  // console.log('payload', payload);
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/create', payload, {
@@ -41,7 +41,7 @@ export const createProforma = async (payload: any) => {
 };
 
 export const updateProforma = async (payload: any) => {
-  console.log('payload', payload);
+  // console.log('payload', payload);
 
   try {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/edit', payload, {
@@ -161,7 +161,7 @@ export const getSingleProformaInfo = async (
   locale: Locale,
 ) => {
   try {
-    console.log('id', id);
+    // console.log('id', id);
     setLoading(true);
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 
@@ -216,7 +216,7 @@ export const getSingleProformaInfo = async (
 
     const finalArray = mappedTableData?.concat(HeaderAgentsReducingIncreasingList);
 
-    console.log('finalArray', finalArray);
+    // console.log('finalArray', finalArray);
     setHeaderData(headerData);
     setSingleProformaInfo(finalArray);
     // console.log(data);
@@ -234,7 +234,7 @@ export function mapRowToApiDetail(
   isCopyingProforma: boolean,
   isCopyingProformaTableRow: boolean,
 ): any {
-  console.log('row', row);
+  // console.log('row', row);
   // console.log('isCopyingProforma', isCopyingProforma);
   // console.log('isCopyingProformaTableRow', isCopyingProformaTableRow);
   // console.log('isEdittingProforma', isEdittingProforma);
@@ -447,7 +447,7 @@ export function createProformaPayload(
 export const getStuffbyId = async (setStuffList: React.Dispatch<any>, locale: Locale, id: string) => {
   const ID = id;
 
-  console.log('getStuffById');
+  // console.log('getStuffById');
 
   try {
     const { data } = await customAxiosInstance(
@@ -611,7 +611,7 @@ export const deleteProforma = async (endpoint: string, id: string) => {
       },
     });
 
-    console.log(data);
+    // console.log(data);
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));

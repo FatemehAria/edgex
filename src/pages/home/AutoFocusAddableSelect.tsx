@@ -297,9 +297,9 @@ const AutoFocusAddableSelect = ({
     }
   };
 
-  useEffect(() => {
-    console.log('selected state updated:', selected);
-  }, [selected]);
+  // useEffect(() => {
+  //   console.log('selected state updated:', selected);
+  // }, [selected]);
 
   const transformedOptions = useMemo(() => {
     return editableOptions

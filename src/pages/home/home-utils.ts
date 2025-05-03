@@ -263,7 +263,7 @@ export const handleNewSupplier = async (
   const newLabel = values.personTypeCode === '1' ? `${values.name} ${values.family}` : `${values.title}`;
   const newOption = { label: newLabel, value: newId };
 
-  console.log('newLable', newLabel);
+  // console.log('newLable', newLabel);
   setSupplierOptions(prev => [...prev, newOption]);
 
   if (activeSupplierRow !== null) {
