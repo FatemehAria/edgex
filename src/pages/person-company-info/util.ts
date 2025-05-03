@@ -165,15 +165,23 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       address: value['Address'],
       isActiveSuplier: localStorage.getItem('supplier-status')
         ? JSON.parse(localStorage.getItem('supplier-status')!)
+        : value['IsActiveSuplier'] === 'True'
+        ? true
         : false,
       isActiveCustomer: localStorage.getItem('costumer-info-active')
         ? JSON.parse(localStorage.getItem('costumer-info-active')!)
+        : value['IsActiveCustomer'] === 'True'
+        ? true
         : false,
       isCustomer: localStorage.getItem('costumer-info-isCostumer')
         ? JSON.parse(localStorage.getItem('costumer-info-isCostumer')!)
+        : value['IsCustomer'] === 'True'
+        ? true
         : false,
       isSuplier: localStorage.getItem('supplier-isSupplier')
         ? JSON.parse(localStorage.getItem('supplier-isSupplier')!)
+        : value['IsSuplier'] === 'True'
+        ? true
         : false,
     });
 
