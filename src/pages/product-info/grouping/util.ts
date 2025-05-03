@@ -9,7 +9,7 @@ export const getGroupItems = async (setTreeData: React.Dispatch<React.SetStateAc
   try {
     const { data } = await customAxiosInstance.get(
       `${
-        // locale === 'en_US' ?
+        // locale === 'en_US'?
         '/PerformaInvoiceHeader/ExistenceCategoryList'
         // : '/Stuff/GetExistenceCategoryPersianTreeList'
       }`,

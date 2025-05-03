@@ -1,39 +1,12 @@
 import type { TreeSelectProps } from 'antd';
 
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Table, TreeSelect } from 'antd';
+import { TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useLocale } from '@/locales';
 
-import GroupItemTableColumn from './GroupItemTableColumn';
 import { getGroupItems } from './util';
-
-const dataSource = [
-  {
-    key: '1',
-    index: '1',
-    group: 'گروه یک',
-    product: 'کالا 1',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-  {
-    key: '2',
-    index: '2',
-    group: 'گروه دو',
-    product: 'کالا 2',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-  {
-    key: '3',
-    index: '3',
-    group: 'گروه سه',
-    product: 'کالا 3',
-    delete: <FontAwesomeIcon icon={faTrashCan} />,
-  },
-];
 
 function Grouping({
   setGroupValue,

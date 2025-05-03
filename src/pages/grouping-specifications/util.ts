@@ -83,8 +83,8 @@ export const createCategory = async (values: any) => {
 
   try {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
-      titlePersian: values['TitlePersian'],
-      title: values['Title'],
+      titlePersian: values['TitlePersian'] ? values['TitlePersian'] : null,
+      title: values['Title'] ? values['Title'] : null,
       existenceCode: values['ExistenceCode'],
     });
 

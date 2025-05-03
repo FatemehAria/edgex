@@ -1,5 +1,3 @@
-import React from 'react';
-
 function GroupItemTableColumn({
   handleDelete,
   formatMessage,
