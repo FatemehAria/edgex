@@ -135,7 +135,7 @@ function ListComponent({
   const handleCopy = (record: any) => {
     const newRecord = JSON.parse(JSON.stringify(record));
 
-    delete newRecord.ID;
+    // delete newRecord.ID;
     // added for resetting the StatusTitle in listOfProformaColumns
     // newRecord.StatusTitle = '';
     newRecord.StatusTitle = 'ثبت شده';

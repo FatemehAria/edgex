@@ -160,8 +160,9 @@ export const getSingleProformaInfo = async (
   setLoading: Dispatch<SetStateAction<boolean>>,
   locale: Locale,
 ) => {
+  // console.log('id', id);
+
   try {
-    // console.log('id', id);
     setLoading(true);
     const { data } = await customAxiosInstance.get(`/PerformaInvoiceHeader/edit/${id}`);
 

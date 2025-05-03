@@ -262,7 +262,7 @@ export function ListOfProformaColumns({
               icon={faPenToSquare}
               onClick={async () => {
                 if (isRegistered) {
-                  await getSingleProformaInfo(
+                  await copyConfirmedProformaInfo(
                     record.ID,
                     setSingleProformaInfo,
                     setHeaderData,
@@ -271,10 +271,19 @@ export function ListOfProformaColumns({
                     setIsLoadingProformaInfo,
                     locale,
                   );
+                  // await getSingleProformaInfo(
+                  //   record.ID,
+                  //   setSingleProformaInfo,
+                  //   setHeaderData,
+                  //   isCopyingProforma,
+                  //   isCopyingProformaTableRow,
+                  //   setIsLoadingProformaInfo,
+                  //   locale,
+                  // );
                   setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                   handleEdit(record);
                 }
-                // else {
+                //  else {
                 //   await copyConfirmedProformaInfo(
                 //     record.ID,
                 //     setSingleProformaInfo,
