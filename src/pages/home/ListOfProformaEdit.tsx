@@ -302,6 +302,14 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   // }, [tableData]);
 
   useEffect(() => {
+    const lastRow = tableData[tableData.length - 1];
+
+    if (lastRow && isRowFilled(lastRow)) {
+      setTableData(prevData => [...prevData, createEmptyRow()]);
+    }
+  }, [tableData, isRowFilled]); // Add isRowFilled to dependencies if needed
+
+  useEffect(() => {
     tableData.forEach(row => {
       const itemId = row.items;
       const rowKey = row.key;
