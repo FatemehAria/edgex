@@ -66,6 +66,7 @@ function Grouping({
           treeDefaultExpandAll
           placeholder={`${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`}
           allowClear
+          multiple={false}
           // treeCheckable
         />
       </div>

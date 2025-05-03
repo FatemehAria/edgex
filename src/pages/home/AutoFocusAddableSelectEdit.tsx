@@ -75,16 +75,31 @@ const AutoFocusAddableSelectEdit = ({
     return opts;
   });
 
-  // In AutoFocusAddableSelectEdit component
+  // In AutoFocusAddableSelectEdit.tsx
+  const currentLabel = useMemo(() => {
+    let label = record[`${dataIndex}Label`];
+
+    // Check for modified titles
+    if (dataIndex === 'category' && record.existenceCategoryTitleModified) {
+      label = record.existenceCategoryTitleModified;
+    } else if (dataIndex === 'items' && record.stuffParentTitleModified) {
+      label = record.stuffParentTitleModified;
+    }
+
+    return label;
+  }, [dataIndex, record.existenceCategoryTitleModified, record.stuffParentTitleModified, record]);
+
   useEffect(() => {
     const opts = [...initialOptions];
-
-    // Check if the current record's value and label exist and are not in the options
     const currentValue = record[dataIndex];
-    const currentLabel = record[`${dataIndex}Label`];
+    const originalLabel = record[`${dataIndex}Label`]; // Always use original label
 
-    if (currentValue && currentLabel && !opts.some(opt => opt.value === currentValue)) {
-      opts.push({ label: currentLabel, value: currentValue });
+    if (currentValue && originalLabel) {
+      const exists = opts.some(opt => opt.value === currentValue);
+
+      if (!exists) {
+        opts.push({ label: originalLabel, value: currentValue });
+      }
     }
 
     if (allowAddNew) {
@@ -95,7 +110,7 @@ const AutoFocusAddableSelectEdit = ({
     }
 
     setOptions(opts);
-  }, [initialOptions, allowAddNew, formatMessage, record, dataIndex]);
+  }, [initialOptions, record, dataIndex, allowAddNew, formatMessage]);
 
   const localStorageKey = `${dataIndex}-initialValue`;
 
@@ -289,27 +304,43 @@ const AutoFocusAddableSelectEdit = ({
     e.stopPropagation();
     setDropdownVisible(false);
 
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+    // Get modified title if exists
+    let modifiedValue = '';
+
+    if (dataIndex === 'category' && record.existenceCategoryTitleModified) {
+      modifiedValue = record.existenceCategoryTitleModified;
+    } else if (dataIndex === 'items' && record.stuffParentTitleModified) {
+      modifiedValue = record.stuffParentTitleModified;
     }
 
-    setEditingOption({ ...option, originalValue: option.value });
+    setEditingOption({
+      ...option,
+      originalValue: option.value,
+      label: modifiedValue || option.label, // Show modified in modal if exists
+    });
 
-    const stored = localStorage.getItem(`${ID_PREFIX}${option.value}`);
-
-    setEditedValue(stored || option.label);
+    setEditedValue(modifiedValue || option.label);
     setIsEditModalVisible(true);
   };
 
   const handleEditSubmit = () => {
     if (editingOption) {
+      // Determine which modified field to update
+      const modifiedField = dataIndex === 'category' ? 'existenceCategoryTitleModified' : 'stuffParentTitleModified';
+
+      // Update the record's modified field
+      handleCellChange(
+        editedValue,
+        record.key,
+        modifiedField,
+        setTableData,
+        tableData,
+        insurancePrice,
+        totalCostOfRows,
+      );
+
       localStorage.setItem(`${ID_PREFIX}${editingOption.originalValue}`, editedValue);
       onOptionEdited?.();
-      setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
-      // for not resetting the editted label in ui
-      // handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
-
       setIsEditModalVisible(false);
     }
   };

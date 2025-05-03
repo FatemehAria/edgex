@@ -49,7 +49,8 @@ function ProductInfoEdit({ initialValues = {}, showButton = false, onSubmit }: P
         placeholder: `${formatMessage({ id: 'app.productInfo.grouping.tree.placeholder' })}`,
         allowClear: true,
         defaultValue: initialValues['categoryId'],
-        treeCheckable: true,
+        treeCheckable: false,
+        multiple: false,
       },
     },
     {
