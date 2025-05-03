@@ -371,57 +371,6 @@ export const EditColumns = (
         <span className="center-align">{text ? text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0'}</span>
       ),
     },
-    // مبلغ بیمه
-    // {
-    //   title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.insurancePrice' })}</span>,
-    //   dataIndex: 'insurancePriceForRecord',
-    //   key: 'insurancePriceForRecord',
-    //   render: (text: string, record: any) => (
-    //     <div
-    //       style={{
-    //         display: 'flex',
-    //         justifyContent: 'space-between',
-    //         flexDirection: 'row',
-    //         alignItems: 'center',
-    //         padding: '0 0.5rem',
-    //         borderRadius: '0.5rem',
-    //         width: '200px',
-    //         margin: 'auto',
-    //         border: '1px solid #dcdcdc',
-    //       }}
-    //     >
-    //       <Select
-    //         variant="borderless"
-    //         // value={footerInsuranceCoefficient}
-    //         value={record.footerInsuranceCoefficient || '0.085'}
-    //         placeholder={`${formatMessage({
-    //           id: 'app.home.detailInfo.table.footerInsurancePrice',
-    //         })}`}
-    //         // onChange={value => setFooterInsuranceCoefficient(value)}
-    //         onChange={value =>
-    //           handleCellChange(
-    //             value,
-    //             record.key,
-    //             'footerInsuranceCoefficient',
-    //             setTableData,
-    //             tableData,
-    //             insurancePrice,
-    //             totalCostOfRows,
-    //           )
-    //         }
-    //         options={[
-    //           { label: '0.085', value: '0.085' },
-    //           { label: '0.2', value: '0.2' },
-    //           { label: '0', value: '0' },
-    //         ]}
-    //         style={{ outline: 'none' }}
-    //       />
-    //       <span>
-    //         <span>{(record.insurancePriceForRecord || 0).toFixed(6).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
-    //       </span>
-    //     </div>
-    //   ),
-    // },
     //سهم از بیمه و مالیات
     {
       title: (

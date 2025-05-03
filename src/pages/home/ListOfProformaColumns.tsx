@@ -273,19 +273,20 @@ export function ListOfProformaColumns({
                   );
                   setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
                   handleEdit(record);
-                } else {
-                  await copyConfirmedProformaInfo(
-                    record.ID,
-                    setSingleProformaInfo,
-                    setHeaderData,
-                    isCopyingProforma,
-                    isCopyingProformaTableRow,
-                    setIsLoadingProformaInfo,
-                    locale,
-                  );
-                  setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
-                  handleCopy(record);
                 }
+                // else {
+                //   await copyConfirmedProformaInfo(
+                //     record.ID,
+                //     setSingleProformaInfo,
+                //     setHeaderData,
+                //     isCopyingProforma,
+                //     isCopyingProformaTableRow,
+                //     setIsLoadingProformaInfo,
+                //     locale,
+                //   );
+                //   setSelectedProformaInfo({ id: record.ID, code: record.Code, key: record.key });
+                //   handleCopy(record);
+                // }
               }}
               style={{
                 cursor: isRegistered ? 'pointer' : 'default',
