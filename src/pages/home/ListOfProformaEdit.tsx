@@ -234,7 +234,7 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       getStuffbyId(
         (rawData: any) => {
           const transformed = rawData.map((item: any) => ({
-            label: item.text,
+            label: item.text ? item.text : locale === 'fa_IR' ? 'تعریف نشده' : 'Not defined',
             value: item.id,
           }));
 
