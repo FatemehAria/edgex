@@ -484,17 +484,17 @@ export const EditColumns = (
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
-          <Tooltip
+          {/* <Tooltip
             title={formatMessage({
               id: 'gloabal.tips.copyAndAddRow',
             })}
-          >
-            <FontAwesomeIcon
-              icon={faCopy}
-              onClick={() => copyRow(record)}
-              style={{ cursor: 'pointer', marginRight: 8 }}
-            />
-          </Tooltip>
+          > */}
+          <FontAwesomeIcon
+            icon={faCopy}
+            onClick={() => copyRow(record)}
+            style={{ cursor: 'pointer', marginRight: 8 }}
+          />
+          {/* </Tooltip> */}
         </span>
       ),
     },
