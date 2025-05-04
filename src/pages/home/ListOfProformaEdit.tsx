@@ -118,7 +118,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       const primarySalesPrice = row.primarySalesPrice;
       const itemTotalPrice = row.itemTotalPrice;
 
-      const shareOfTaxAndIns = totalCost === 0 ? 0 : (calculatedInsurancePrice / totalCost) * 0.115 * itemTotalPrice;
+      const shareOfTaxAndIns =
+        totalCost === 0 ? 0 : (calculatedInsurancePrice / totalCost / row.qty) * 0.115 * itemTotalPrice;
       const itemSalePrice = round2(primarySalesPrice + shareOfTaxAndIns);
       const itemSalePriceRounded = Math.ceil(itemSalePrice);
       const finalSalePrice = round2(itemSalePriceRounded * qty);
