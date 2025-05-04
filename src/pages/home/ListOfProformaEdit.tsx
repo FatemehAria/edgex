@@ -19,7 +19,15 @@ import { getSuppliersList } from '../supplier/util';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { EditColumns } from './EditColumns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
-import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled, round2 } from './home-utils';
+import {
+  handleCellChange,
+  handleNewCustomer,
+  handleNewGroup,
+  handleNewItem,
+  handleNewSupplier,
+  isRowFilled,
+  round2,
+} from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getLastUnitCostByID, getStuffbyId } from './util';
 
@@ -38,60 +46,6 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [tableData, setTableData] = useState<any[]>([]);
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
-
-  // useEffect(() => {
-  //   const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
-
-  //   const filledRows = incoming.filter(row => isRowFilled(row));
-
-  //   const maxKey = filledRows.length ? Math.max(...filledRows.map(r => Number(r.key))) : 0;
-
-  //   const blank: any = {
-  //     key: maxKey + 1,
-  //     category: '',
-  //     items: '',
-  //     supplier: '',
-  //     recordProfitMargin: 0,
-  //     primarySalesPrice: 0,
-  //     itemTotalPrice: 0,
-  //     footerInsuranceCoefficient: '0.085',
-  //     footerInsurancePrice: 0,
-  //     itemShareOfTaxAndIns: 0,
-  //     itemSalePrice: 0,
-  //     finalSalePrice: 0,
-  //     totalFinalSalePrice: 0,
-  //     totalProfitMargin: 0,
-  //     insuranceCheckAmount: 0,
-  //     itemSalePriceRounded: 0,
-  //     vat: 0,
-  //     total: 0,
-  //     finalProfit: 0,
-  //     tenPercentTax: 0,
-  //     qty: '',
-  //     unitCost: '',
-  //     totalPriceWithFactors: 0,
-  //     totalPriceWithoutFactors: 0,
-  //     description: '',
-  //     factorValue: '',
-  //     insurancePriceForRecord: 0,
-  //     stuffParentTitleModified: '',
-  //     existenceCategoryTitleModified: '',
-  //     modalValues: {
-  //       'record-percentage-discount': 0,
-  //       'record-commute': 0,
-  //       'record-amount-discount': 0,
-  //     },
-  //     factor: '',
-  //   };
-
-  //   setNextKey(maxKey + 2);
-
-  //   setTableData([...filledRows, blank]);
-
-  //   const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
-
-  //   setFooterInsuranceCoefficient(insuranceEntry?.amountAgen?.toString() ?? '0.085');
-  // }, [singleProformaInfo]);
 
   useEffect(() => {
     const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
@@ -348,15 +302,21 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       if (itemId && !processedItems.has(`${rowKey}-${itemId}`) && !row.unitCost) {
         getLastUnitCostByID(itemId).then(unitCost => {
           if (unitCost !== undefined) {
-            setTableData(prevData =>
-              prevData.map(r => (r.key === rowKey ? { ...r, unitCost: unitCost.toString() } : r)),
+            handleCellChange(
+              unitCost.toString(),
+              rowKey,
+              'unitCost',
+              setTableData,
+              tableData,
+              insurancePrice,
+              totalCostOfRows,
             );
             setProcessedItems(prev => new Set(prev.add(`${rowKey}-${itemId}`)));
           }
         });
       }
     });
-  }, [tableData, processedItems, setTableData]);
+  }, [tableData, processedItems, setTableData, insurancePrice, totalCostOfRows]);
 
   const allColumns = EditColumns(
     formatMessage,
