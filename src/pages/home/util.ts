@@ -626,7 +626,6 @@ export const getLastUnitCostByID = async (stuffId: string) => {
     );
 
     return data;
-    // console.log(data);
   } catch (error) {
     console.log(error);
   }

@@ -51,52 +51,15 @@ function ProformaTable({
     isCopyingProformaTableRow,
   } = useContext(IsEdittingProformaContext);
 
-  // useEffect(() => {
-  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
-
-  //   setTotalCostOfRows(round2(totalCost));
-
-  //   const calculatedInsurancePrice = tableData.reduce((sum: number, row: any) => {
-  //     const rowTotal = parseFloat(row.itemTotalPrice) || 0;
-  //     // const rowCoefficient = Number(row.footerInsuranceCoefficient) || 0;
-
-  //     return sum + rowTotal * Number(footerInsuranceCoefficient);
-  //   }, 0);
-
-  //   setinsurancePrice(round2(calculatedInsurancePrice));
-  // }, [tableData, setTotalCostOfRows, setinsurancePrice]);
-
-  // console.log('footer', footerInsuranceCoefficient);
-  // In ProformaTable component
-  // useEffect(() => {
-  //   const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
-
-  //   setTotalCostOfRows(round2(totalCost));
-
-  //   // Only calculate if not initial load
-  //   if (insurancePrice !== headerData?.insurancePrice) {
-  //     const calculated = tableData.reduce((sum: number, row: any) => {
-  //       const rowTotal = parseFloat(row.itemTotalPrice) || 0;
-
-  //       return sum + rowTotal * Number(footerInsuranceCoefficient);
-  //     }, 0);
-
-  //     setinsurancePrice(round2(calculated));
-  //   }
-  // }, [tableData, footerInsuranceCoefficient, setTotalCostOfRows]); // Add footerInsuranceCoefficient
-
-  // Replace the existing useEffect with this optimized version
   useEffect(() => {
-    // Calculate total cost of rows
     const totalCost = tableData.reduce((sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0), 0);
 
     setTotalCostOfRows(round2(totalCost));
 
-    // Calculate insurance price using current coefficient
     const calculatedInsurancePrice = totalCost * Number(footerInsuranceCoefficient);
 
     setinsurancePrice(round2(calculatedInsurancePrice));
-  }, [tableData, footerInsuranceCoefficient]); // Include both dependencies
+  }, [tableData, footerInsuranceCoefficient]);
 
   const payload = createProformaPayload(
     tableData,
@@ -109,9 +72,6 @@ function ProformaTable({
     headerData,
     singleProformaInfo,
   );
-
-  // console.log('payload', payload);
-  // console.log('insu', insurancePrice);
 
   const handleSubmition = async () => {
     if (isCopyingProforma) {
@@ -151,25 +111,16 @@ function ProformaTable({
               vat: round2(finalValues.vat)
                 .toFixed(2)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-              // vat: `${Math.round(finalValues.vat)
-              //   .toString()
-              //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               total: round2(finalValues.total)
                 .toFixed(2)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-              // total: `${finalValues.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
               finalProfit: round2(finalValues.finalProfit)
                 .toFixed(2)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-              // finalProfit: `${finalValues.finalProfit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              // finalProfitMargin: round2(finalValues.totalProfitMargin).toFixed(2),
               finalProfitMargin: `${finalValues.totalProfitMargin}`,
               insuranceCheckAmount: `${Math.round(finalValues.insuranceCheckAmount)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
-              // insuranceCheckAmount: `${Math.round(finalValues.insuranceCheckAmount)
-              //   .toString()
-              //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
             },
           ];
 
@@ -191,9 +142,7 @@ function ProformaTable({
                 value={footerInsuranceCoefficient}
                 placeholder={formatMessage({ id: 'app.home.detailInfo.table.footerInsurancePrice' })}
                 onChange={value => {
-                  // update the global coefficient
                   setFooterInsuranceCoefficient(value);
-                  // push it into each row so they recalc
                   setTableData(rows => rows.map(r => ({ ...r, footerInsuranceCoefficient: value })));
                 }}
                 options={[
@@ -267,7 +216,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalUnitCosts).toLocaleString()}</strong>
-                        {/* <strong>{totalUnitCosts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -276,7 +224,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalPrimarySalesPrice).toLocaleString()}</strong>
-                        {/* <strong>{totalPrimarySalesPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -284,7 +231,6 @@ function ProformaTable({
                   if (col.dataIndex === 'insurancePriceForRecord') {
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
-                        {/* <strong>{parseFloat(totalInsurancePriceForRecord.toFixed(4))}</strong> */}
                         <strong>{totalInsurancePriceForRecord.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                       </Table.Summary.Cell>
                     );
@@ -294,7 +240,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalItemShareOfTaxAndIns).toLocaleString()}</strong>
-                        {/* <strong>{totalItemShareOfTaxAndIns.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -303,7 +248,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalItemSalePrice).toLocaleString()}</strong>
-                        {/* <strong>{totalItemSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -320,7 +264,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalCostWithout).toLocaleString()}</strong>
-                        {/* <strong>{totalCostWithout.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -329,7 +272,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalCostOfRows).toLocaleString()}</strong>
-                        {/* <strong>{totalCostOfRows.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }
@@ -338,7 +280,6 @@ function ProformaTable({
                     return (
                       <Table.Summary.Cell index={index} key={col.key || index}>
                         <strong>{round2(totalFinalSalePrice).toLocaleString()}</strong>
-                        {/* <strong>{totalFinalSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> */}
                       </Table.Summary.Cell>
                     );
                   }

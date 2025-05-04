@@ -2,14 +2,6 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import { handleCellChange } from '@/pages/home/home-utils';
 
-// Function to format the value: remove commas, convert to number, ceil, then format with commas.
-// export const formatValue = (val: string): string => {
-//   const plain = val.replace(/,/g, '');
-
-//   return Number(plain).toLocaleString('en-US');
-// };
-
-//handling decimals in fields
 export const formatValue = (val: string): string => {
   const plain = val.replace(/,/g, '');
 
@@ -36,7 +28,6 @@ export const handleValueChange = (
   insurancePrice: number,
   totalCostOfRows: number,
 ) => {
-  // Option 1: Format on every change (live)
   const formatted = formatValue(value);
 
   handleCellChange(formatted, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);

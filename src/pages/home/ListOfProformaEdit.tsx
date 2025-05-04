@@ -19,7 +19,7 @@ import { getSuppliersList } from '../supplier/util';
 import { IsEdittingProformaContext } from './context/IsEdittingProformaContext';
 import { EditColumns } from './EditColumns';
 import { ProformaFormOptions } from './FormOptionsOfPro';
-import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled } from './home-utils';
+import { handleNewCustomer, handleNewGroup, handleNewItem, handleNewSupplier, isRowFilled, round2 } from './home-utils';
 import ProformaTable from './ProformaTable';
 import { getLastUnitCostByID, getStuffbyId } from './util';
 
@@ -35,61 +35,104 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [totalCostOfRows, setTotalCostOfRows] = useState<number>(0);
   const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
 
-  const [tableData, setTableData] = useState<any[]>([
-    // {
-    //   key: 1,
-    //   category: '',
-    //   supplier: '',
-    //   recordProfitMargin: 0,
-    //   primarySalesPrice: 0,
-    //   itemTotalPrice: 0,
-    //   footerInsuranceCoefficient: '0.085',
-    //   totalPriceWithoutFactors: 0,
-    //   footerInsurancePrice: 0,
-    //   itemShareOfTaxAndIns: 0,
-    //   itemSalePrice: 0,
-    //   itemSalePriceRounded: 0,
-    //   finalSalePrice: 0,
-    //   totalFinalSalePrice: 0,
-    //   totalProfitMargin: 0,
-    //   insuranceCheckAmount: 0,
-    //   vat: 0,
-    //   total: 0,
-    //   tenPercentTax: 0,
-    //   finalProfit: 0,
-    //   qty: '',
-    //   unitCost: '',
-    //   stuffParentTitleModified: '',
-    //   existenceCategoryTitleModified: '',
-    //   totalPriceWithFactors: 0,
-    //   description: '',
-    //   factorValue: '',
-    //   insurancePriceForRecord: 0,
-    //   modalValues: {
-    //     'record-percentage-discount': 0,
-    //     'record-commute': 0,
-    //     'record-amount-discount': 0,
-    //   },
-    //   factor: '',
-    // },
-  ]);
+  const [tableData, setTableData] = useState<any[]>([]);
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
 
-  // console.log('singleProformaInfo', singleProformaInfo);
-  // console.log('headerData', headerData);
+  // useEffect(() => {
+  //   const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
+
+  //   const filledRows = incoming.filter(row => isRowFilled(row));
+
+  //   const maxKey = filledRows.length ? Math.max(...filledRows.map(r => Number(r.key))) : 0;
+
+  //   const blank: any = {
+  //     key: maxKey + 1,
+  //     category: '',
+  //     items: '',
+  //     supplier: '',
+  //     recordProfitMargin: 0,
+  //     primarySalesPrice: 0,
+  //     itemTotalPrice: 0,
+  //     footerInsuranceCoefficient: '0.085',
+  //     footerInsurancePrice: 0,
+  //     itemShareOfTaxAndIns: 0,
+  //     itemSalePrice: 0,
+  //     finalSalePrice: 0,
+  //     totalFinalSalePrice: 0,
+  //     totalProfitMargin: 0,
+  //     insuranceCheckAmount: 0,
+  //     itemSalePriceRounded: 0,
+  //     vat: 0,
+  //     total: 0,
+  //     finalProfit: 0,
+  //     tenPercentTax: 0,
+  //     qty: '',
+  //     unitCost: '',
+  //     totalPriceWithFactors: 0,
+  //     totalPriceWithoutFactors: 0,
+  //     description: '',
+  //     factorValue: '',
+  //     insurancePriceForRecord: 0,
+  //     stuffParentTitleModified: '',
+  //     existenceCategoryTitleModified: '',
+  //     modalValues: {
+  //       'record-percentage-discount': 0,
+  //       'record-commute': 0,
+  //       'record-amount-discount': 0,
+  //     },
+  //     factor: '',
+  //   };
+
+  //   setNextKey(maxKey + 2);
+
+  //   setTableData([...filledRows, blank]);
+
+  //   const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
+
+  //   setFooterInsuranceCoefficient(insuranceEntry?.amountAgen?.toString() ?? '0.085');
+  // }, [singleProformaInfo]);
 
   useEffect(() => {
-    // if (singleProformaInfo?.length) {
     const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
-
-    // 2) drop any “empty” placeholders the backend might have sent
     const filledRows = incoming.filter(row => isRowFilled(row));
 
-    // 3) find the highest existing key
-    const maxKey = filledRows.length ? Math.max(...filledRows.map(r => Number(r.key))) : 0;
+    const processedRows = filledRows.map(row => {
+      const qty = parseFloat(row.qty) || 0;
+      const unitCost = parseFloat(row.unitCost) || 0;
+      const recordProfitMargin = parseFloat(row.recordProfitMargin) || 0;
 
-    // 4) define your one blank row
+      const primarySalesPrice = round2(unitCost * (1 + recordProfitMargin));
+      const itemTotalPrice = round2(primarySalesPrice * qty);
+
+      return { ...row, primarySalesPrice, itemTotalPrice };
+    });
+
+    const totalCost = processedRows.reduce((sum, row) => sum + row.itemTotalPrice, 0);
+    const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
+    const footerInsuranceCoefficientValue = insuranceEntry?.amountAgen?.toString() ?? '0.085';
+    const calculatedInsurancePrice = totalCost * parseFloat(footerInsuranceCoefficientValue);
+
+    const finalProcessedRows = processedRows.map(row => {
+      const qty = parseFloat(row.qty) || 0;
+      const primarySalesPrice = row.primarySalesPrice;
+      const itemTotalPrice = row.itemTotalPrice;
+
+      const shareOfTaxAndIns = totalCost === 0 ? 0 : (calculatedInsurancePrice / totalCost) * 0.115 * itemTotalPrice;
+      const itemSalePrice = round2(primarySalesPrice + shareOfTaxAndIns);
+      const itemSalePriceRounded = Math.ceil(itemSalePrice);
+      const finalSalePrice = round2(itemSalePriceRounded * qty);
+
+      return {
+        ...row,
+        itemShareOfTaxAndIns: round2(shareOfTaxAndIns),
+        itemSalePrice,
+        itemSalePriceRounded,
+        finalSalePrice,
+      };
+    });
+
+    const maxKey = filledRows.length ? Math.max(...filledRows.map(r => Number(r.key))) : 0;
     const blank: any = {
       key: maxKey + 1,
       category: '',
@@ -128,35 +171,21 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
       factor: '',
     };
 
-    // 5) seed nextKey for future user-added rows
     setNextKey(maxKey + 2);
-
-    // 6) set tableData to server rows + one blank
-    setTableData([...filledRows, blank]);
-
-    const insuranceEntry = singleProformaInfo.find((i: any) => i.agentsReducingIncreasingTitle === 'بیمه');
-
-    setFooterInsuranceCoefficient(insuranceEntry?.amountAgen?.toString() ?? '0.085');
-
-    // }
+    setTableData([...finalProcessedRows, blank]);
+    setFooterInsuranceCoefficient(footerInsuranceCoefficientValue);
+    setinsurancePrice(round2(calculatedInsurancePrice));
+    setTotalCostOfRows(round2(totalCost));
   }, [singleProformaInfo]);
 
-  // Add at top of component
   const initialized = useRef(false);
 
-  // Add initialization useEffect
   useEffect(() => {
     if (headerData?.insurancePrice !== undefined && !initialized.current) {
       setinsurancePrice(headerData.insurancePrice);
       initialized.current = true;
     }
   }, [headerData?.insurancePrice]);
-
-  // useEffect(() => {
-  //   if (headerData?.insurancePrice != null) {
-  //     setinsurancePrice(headerData.insurancePrice);
-  //   }
-  // }, [headerData.insurancePrice]);
 
   const [customerOptions, setCustomerOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedCostumer, setSelectedCostumer] = useState<string>('');
@@ -221,7 +250,6 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   }, [groupRefresh]);
 
   const [itemOptionsMap, setItemOptionsMap] = useState<Record<string, { label: string; value: string }[]>>({});
-  // const [itemOptions, setItemOptions] = useState<any[]>([]);
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
 
@@ -293,21 +321,13 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     return newRow;
   };
 
-  // useEffect(() => {
-  //   const lastRow = tableData[tableData.length - 1];
-
-  //   if (lastRow && isRowFilled(lastRow)) {
-  //     setTableData(prevData => [...prevData, createEmptyRow()]);
-  //   }
-  // }, [tableData]);
-
   useEffect(() => {
     const lastRow = tableData[tableData.length - 1];
 
     if (lastRow && isRowFilled(lastRow)) {
       setTableData(prevData => [...prevData, createEmptyRow()]);
     }
-  }, [tableData, isRowFilled]); // Add isRowFilled to dependencies if needed
+  }, [tableData, isRowFilled]);
 
   useEffect(() => {
     tableData.forEach(row => {
@@ -501,12 +521,12 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
               onItemSubmit={values =>
                 handleNewItem(
                   values,
-                  setItemOptionsMap, // << map setter
+                  setItemOptionsMap,
                   activeItemRow,
                   setTableData,
                   setActiveItemRow,
                   setIsItemModalOpen,
-                  selectedCatId!, // << current category
+                  selectedCatId!,
                 )
               }
             />

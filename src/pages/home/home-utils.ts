@@ -9,7 +9,6 @@ import { createSupplier } from '../supplier/util';
 import { createProformaCategory, createProformaStuff } from './util';
 
 export function round2(n: number): number {
-  // +Number.EPSILON guards against floating-point weirdness
   return Math.round((n + Number.EPSILON) * 100) / 100;
 }
 
@@ -70,7 +69,7 @@ export const handleCellChange = (
         const updatedRow = { ...row, [dataIndex]: value };
 
         if (dataIndex === 'items') {
-          updatedRow.unitCost = ''; // Clear unitCost for the new item
+          updatedRow.unitCost = '';
         }
 
         if (
@@ -105,27 +104,13 @@ export const handleCellChange = (
 
           updatedRow.itemTotalPrice = round2(itemTotalPrice);
 
-          // مبلغ بیمه برای هر رکورد
-          // const insurancePriceForRecord = updatedRow.itemTotalPrice * Number(updatedRow.footerInsuranceCoefficient);
-
-          // updatedRow.insurancePriceForRecord = round2(insurancePriceForRecord);
-
           const totalCost = totalCostOfRows || 1;
           const qtyNumber = qty || 1;
-
-          // const sumOfItemTotalPrice = tableData.reduce(
-          //   (sum: number, row: any) => sum + (parseFloat(row.itemTotalPrice) || 0),
-          //   0,
-          // );
-
-          // console.log(sumOfItemTotalPrice);
           const shareOfTaxAndInsModulo = insurancePrice / totalCost / qtyNumber;
 
           // سهم آیتم از بیمه و مالیات
           const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115 * itemTotalPrice;
-          // const shareOfTaxAndIns = shareOfTaxAndInsModulo * 0.115;
 
-          // updatedRow.itemShareOfTaxAndIns = Math.ceil(shareOfTaxAndIns);
           updatedRow.itemShareOfTaxAndIns = parseFloat(shareOfTaxAndIns.toFixed(4));
 
           // قیمت فروش آیتم
@@ -181,7 +166,6 @@ export const handleNewCustomer = async (
   setHeaderData: Dispatch<any>,
   updateEditedRow: (field: string, value: any) => void,
 ) => {
-  // console.log('values for new customer', values);
   const newCustomer = {
     label: values['personTypeTitle'] === '1' ? values['Name'] + ' ' + values['Family'] : values['Title'],
     value: values['personTypeTitle'],
@@ -233,37 +217,10 @@ export const handleNewSupplier = async (
   setIsSupplierModalOpen: Dispatch<SetStateAction<boolean>>,
   locale: Locale,
 ) => {
-  // console.log(values);
-  // const newSupplier = {
-  //   label: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
-  //   value: locale === 'en_US' ? values['name'] + values['family'] : values['namePersian'] + values['familyPersian'],
-  //   personTypeCode: Number(values['personTypeCode']),
-  //   namePersian: values['namePersian'],
-  //   familyPersian: values['familyPersian'],
-  //   name: values['name'],
-  //   family: values['family'],
-  //   title: values['title'],
-  //   titlePersian: values['titlePersian'],
-  //   email: values['email'],
-  //   mobile: values['mobile'],
-  //   telephone: values['telephone'],
-  //   codeNational: values['codeNational'],
-  //   provinceID: values['provinceID'],
-  //   cityID: values['cityID'],
-  //   address: values['address'],
-  //   zipCode: values['zipCode'],
-  //   isActive: values['isActive'],
-  //   isActiveSuplier: values['isActiveSuplier'],
-  //   isSuplier: values['isSuplier'],
-  //   isActiveCustomer: values['isActiveCustomer'],
-  //   isCustomer: values['isCustomer'],
-  // };
-
   const newId = await createSupplier(values);
   const newLabel = values.personTypeCode === '1' ? `${values.name} ${values.family}` : `${values.title}`;
   const newOption = { label: newLabel, value: newId };
 
-  // console.log('newLable', newLabel);
   setSupplierOptions(prev => [...prev, newOption]);
 
   if (activeSupplierRow !== null) {
@@ -289,8 +246,6 @@ export const handleNewGroup = async (
   setTableData: Dispatch<SetStateAction<any[]>>,
   setActiveGroupingRow: Dispatch<SetStateAction<number | null>>,
 ) => {
-  // console.log('Group submitted:', values);
-
   const newGroup = {
     label: values['Title'],
     value: values['Title'],
@@ -314,13 +269,11 @@ export const handleNewGroup = async (
 
 export const handleNewItem = async (
   values: any,
-  // ← now a map-of-arrays setter:
   setItemOptionsMap: Dispatch<SetStateAction<Record<string, any[]>>>,
   activeItemRow: number | null,
   setTableData: Dispatch<SetStateAction<any[]>>,
   setActiveItemRow: Dispatch<SetStateAction<number | null>>,
   setIsItemModalOpen: Dispatch<SetStateAction<boolean>>,
-  // ← you need to pass in the categoryId for this row:
   categoryId: string,
 ) => {
   const newItem = {
@@ -334,8 +287,6 @@ export const handleNewItem = async (
   const newId = await createProformaStuff(newItem);
   const newLabel = values.title;
 
-  // console.log(newLabel);
-
   setItemOptionsMap(prev => ({
     ...prev,
     [categoryId]: [...(prev[categoryId] || []), { label: newLabel, value: newId?.toString() }],
@@ -348,7 +299,6 @@ export const handleNewItem = async (
     setActiveItemRow(null);
   }
 
-  // createProformaStuff(newItem);
   setIsItemModalOpen(false);
 };
 

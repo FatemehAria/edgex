@@ -328,31 +328,6 @@ export const EditColumns = (
         />
       ),
     },
-    // ******************Modal*********************
-    // {
-    //   title: `${formatMessage({ id: 'app.home.detailInfo.table.factorValue' })}`,
-    //   dataIndex: 'factorValue',
-    //   key: 'factorValue',
-    //   render: (text: string, record: any) => (
-    //     <div>
-    //       <FontAwesomeIcon
-    //         icon={faUpRightFromSquare}
-    //         onClick={() => showModal(record.key)}
-    //         style={{ cursor: 'pointer' }}
-    //       />
-    //       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-    //         <FormLayout
-    //           form={modalForm}
-    //           FormOptions={modalFormOptions}
-    //           isGrid={true}
-    //           layoutDir="vertical"
-    //           showButton={false}
-    //           submitForm={handleModalFormSubmit}
-    //         />
-    //       </Modal>
-    //     </div>
-    //   ),
-    // },
     {
       title: (
         <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.primarySalesPrice' })}</span>
@@ -433,17 +408,11 @@ export const EditColumns = (
       key: 'copy',
       render: (_: any, record: any) => (
         <span className="center-align">
-          {/* <Tooltip
-            title={formatMessage({
-              id: 'gloabal.tips.copyAndAddRow',
-            })}
-          > */}
           <FontAwesomeIcon
             icon={faCopy}
             onClick={() => copyRow(record)}
             style={{ cursor: 'pointer', marginRight: 8 }}
           />
-          {/* </Tooltip> */}
         </span>
       ),
     },
