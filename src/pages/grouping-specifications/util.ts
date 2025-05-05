@@ -55,7 +55,7 @@ export const updateGroup = async (endpoint: string, value: any, id: string) => {
       id,
       title: value.Title,
       titlePersian: value['TitlePersian'],
-      existenceCode: value['ExistenceCode'],
+      existenceCode: 1,
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
@@ -85,7 +85,7 @@ export const createCategory = async (values: any) => {
     const { data } = await customAxiosInstance.post('/ExistenceCategory/create', {
       titlePersian: values['TitlePersian'] ? values['TitlePersian'] : null,
       title: values['Title'] ? values['Title'] : null,
-      existenceCode: values['ExistenceCode'],
+      existenceCode: 1,
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));

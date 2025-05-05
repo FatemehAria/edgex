@@ -47,6 +47,7 @@ function GroupForm({ initialValues = {}, showButton = false, onSubmit, onCancel 
         defaultValue: initialValues['ExistenceCode'],
       },
       options: existanceList,
+      hidden: true,
     },
   ];
 
