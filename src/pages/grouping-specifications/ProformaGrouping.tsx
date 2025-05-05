@@ -40,6 +40,7 @@ function ProformaGrouping({ onGroupSubmit }: ProformaGroupingProps) {
       type: 'select',
       innerProps: { placeholder: `${formatMessage({ id: 'app.grouping.existance.placeholder' })}` },
       options: existanceList,
+      hidden: true,
     },
   ];
 

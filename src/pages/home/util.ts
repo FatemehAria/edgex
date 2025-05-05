@@ -515,7 +515,7 @@ export const createProformaCategory = async (values: any) => {
     const { data } = await customAxiosInstance.post('/PerformaInvoiceHeader/createModalExistenceCategory', {
       title: values['Title'],
       titlePersian: values['grp-specification-title-persian'],
-      existenceCode: Number(values['ExistenceCode']),
+      existenceCode: 1,
     });
 
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
