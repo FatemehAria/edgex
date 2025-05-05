@@ -179,6 +179,8 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false, o
       label: `${formatMessage({ id: 'app.personComapnyInfo.province' })}`,
       type: 'select',
       innerProps: {
+        showSearch: true,
+        filterOption: (input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase()),
         placeholder: '',
         onChange: (value: string) => {
           getCity(setCityList, value);
@@ -193,6 +195,8 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false, o
       label: `${formatMessage({ id: 'app.personComapnyInfo.city' })}`,
       type: 'select',
       innerProps: {
+        showSearch: true,
+        filterOption: (input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase()),
         placeholder: '',
         onChange: (value: any) => {
           // console.log('City changed:', value);

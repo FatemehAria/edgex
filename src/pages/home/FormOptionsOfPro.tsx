@@ -46,6 +46,8 @@ export const ProformaFormOptions = (
       initialValue: headerData?.CustomerTitle,
       // initialValue: customerOptions.find(opt => opt.value === headerData?.CustomerTitle) || headerData?.CustomerTitle,
       innerProps: {
+        // showSearch: true,
+        // filterOption: (input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase()),
         placeholder: `${formatMessage({ id: 'app.home.headerInfo.costumer.placeholder' })}`,
         // onChange: (value: any) => {
         //   if (value === 'add-new') {
