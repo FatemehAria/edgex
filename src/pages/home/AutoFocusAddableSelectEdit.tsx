@@ -382,6 +382,18 @@ const AutoFocusAddableSelectEdit = ({
         onDropdownVisibleChange={open => setDropdownVisible(open)}
         open={dropdownVisible}
         optionLabelProp="label"
+        showSearch
+        filterOption={(input, option) => {
+          // Find original option data using the option's value
+          const originalOption = options.find(opt => opt.value === option.value);
+          if (!originalOption) return false;
+
+          const inputLower = input.toLowerCase();
+          return (
+            originalOption.label.toLowerCase().includes(inputLower) ||
+            originalOption.value.toLowerCase().includes(inputLower)
+          );
+        }}
         // labelInValue
       />
       {isEditModalVisible && (
