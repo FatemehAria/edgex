@@ -58,7 +58,6 @@ const AutoFocusAddableSelect = ({
   totalCostOfRows,
 }: AutoFocusAddableSelectProps) => {
   const { formatMessage } = useLocale();
-  const prevOptions = usePrevious(initialOptions);
   const prevCategory = usePrevious(record.category);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const ID_PREFIX = `editedOption-${dataIndex}-`;
@@ -145,25 +144,12 @@ const AutoFocusAddableSelect = ({
 
         if (dataIndex === 'category') {
           setSelectedCatId?.(defaultVal);
-          // clear the items cell
           handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
           localStorage.setItem('category-initialValue', defaultVal);
         }
       }
     }
   }, [initialOptions, text, dataIndex]);
-
-  // useEffect(() => {
-  //   if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
-  //     const firstVal = initialOptions[0].value;
-
-  //     handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
-
-  //     localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
-
-  //     setSelected(firstVal);
-  //   }
-  // }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
 
   useEffect(() => {
     if (dataIndex !== 'items') return;
@@ -239,8 +225,6 @@ const AutoFocusAddableSelect = ({
         handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
         localStorage.setItem('category-initialValue', categoryId);
       }
-
-      // console.log('selected', selected);
     }
 
     if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
@@ -290,54 +274,59 @@ const AutoFocusAddableSelect = ({
       localStorage.setItem(`${ID_PREFIX}${editingOption.originalValue}`, editedValue);
       onOptionEdited?.();
       setOptions(prev => prev.map(opt => (opt.value === editingOption.value ? { ...opt, label: editedValue } : opt)));
-      // for not resetting the editted label in ui
-      // handleCellChange(editedValue, record.key, dataIndex, setTableData, tableData);
 
       setIsEditModalVisible(false);
     }
   };
 
-  // useEffect(() => {
-  //   console.log('selected state updated:', selected);
-  // }, [selected]);
-
   const transformedOptions = useMemo(() => {
     return editableOptions
-      ? options.map(opt => ({
+      ? options.map(opt => {
+          const displayedLabel = localStorage.getItem(`${ID_PREFIX}${opt.value}`) ?? opt.label;
+          const rawText = typeof displayedLabel === 'string' ? displayedLabel : String(displayedLabel);
+
+          return {
+            ...opt,
+            label: (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span>{displayedLabel}</span>
+                <EditOutlined onClick={e => handleEditClick(opt, e)} />
+              </div>
+            ),
+            _searchText: rawText.toLowerCase(),
+          };
+        })
+      : options.map(opt => ({
           ...opt,
-          label: (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <span>{localStorage.getItem(`${ID_PREFIX}${opt.value}`) ?? opt.label}</span>
-              <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
-            </div>
-          ),
-        }))
-      : options;
+          _searchText: String(opt.label).toLowerCase(),
+        }));
   }, [options, ID_PREFIX, editableOptions, editVersion]);
 
-  // const transformedOptions = editableOptions
-  //   ? options.map(opt => ({
-  //       ...opt,
-  //       label: (
-  //         <div
-  //           style={{
-  //             display: 'flex',
-  //             justifyContent: 'space-between',
-  //             alignItems: 'center',
-  //           }}
-  //         >
-  //           <span>{localStorage.getItem(`editedOption-${dataIndex}-${opt.value}`) ?? opt.label}</span>
-  //           <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
-  //         </div>
-  //       ),
-  //     }))
-  //   : options;
+  // const transformedOptions = useMemo(() => {
+  //   return editableOptions
+  //     ? options.map(opt => ({
+  //         ...opt,
+  //         label: (
+  //           <div
+  //             style={{
+  //               display: 'flex',
+  //               justifyContent: 'space-between',
+  //               alignItems: 'center',
+  //             }}
+  //           >
+  //             <span>{localStorage.getItem(`${ID_PREFIX}${opt.value}`) ?? opt.label}</span>
+  //             <EditOutlined onClick={e => handleEditClick(opt, e)} style={{ cursor: 'pointer' }} />
+  //           </div>
+  //         ),
+  //       }))
+  //     : options;
+  // }, [options, ID_PREFIX, editableOptions, editVersion]);
 
   return (
     <>
@@ -352,7 +341,12 @@ const AutoFocusAddableSelect = ({
         onDropdownVisibleChange={open => setDropdownVisible(open)}
         open={dropdownVisible}
         optionLabelProp="label"
-        // labelInValue
+        showSearch
+        filterOption={(input, option: any) => {
+          const rawValue = typeof option.label === 'string' ? option.label : (option as any)._searchText || '';
+
+          return rawValue.toLowerCase().includes(input.toLowerCase());
+        }}
       />
       {isEditModalVisible && (
         <Modal
