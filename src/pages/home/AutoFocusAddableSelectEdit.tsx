@@ -58,7 +58,6 @@ const AutoFocusAddableSelectEdit = ({
   totalCostOfRows,
 }: AutoFocusAddableSelectEditProps) => {
   const { formatMessage } = useLocale();
-  const prevOptions = usePrevious(initialOptions);
   const prevCategory = usePrevious(record.category);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const ID_PREFIX = `editedOption-${dataIndex}-`;
@@ -162,25 +161,12 @@ const AutoFocusAddableSelectEdit = ({
 
         if (dataIndex === 'category') {
           setSelectedCatId?.(defaultVal);
-          // clear the items cell
           handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
           localStorage.setItem('category-initialValue', defaultVal);
         }
       }
     }
   }, [initialOptions, text, dataIndex]);
-
-  // useEffect(() => {
-  //   if (dataIndex === 'items' && initialOptions.length > 0 && prevOptions !== initialOptions) {
-  //     const firstVal = initialOptions[0].value;
-
-  //     handleCellChange(firstVal, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
-
-  //     localStorage.setItem(`${dataIndex}-initialValue`, firstVal);
-
-  //     setSelected(firstVal);
-  //   }
-  // }, [initialOptions, dataIndex, record.key, setTableData, tableData, prevOptions]);
 
   useEffect(() => {
     if (dataIndex !== 'items') return;
@@ -214,7 +200,6 @@ const AutoFocusAddableSelectEdit = ({
       localStorage.setItem(localStorageKey, value);
 
       if (dataIndex === 'category') {
-        // console.log('category changed to', value); // ← debug check
         setSelectedCatId?.(value); // ← parent effect watches this
         handleCellChange(
           '',
@@ -257,14 +242,6 @@ const AutoFocusAddableSelectEdit = ({
           setOptions([...options, { label: latestValue, value: latestValue }]);
         }
       }
-
-      // if (dataIndex === 'category') {
-      //   const categoryId = newValue.length > 0 ? newValue[newValue.length - 1] : '';
-
-      //   setSelectedCatId && setSelectedCatId(categoryId);
-      //   handleCellChange('', record.key, 'items', setTableData, tableData, insurancePrice, totalCostOfRows);
-      //   localStorage.setItem('category-initialValue', categoryId);
-      // }
 
       if (dataIndex === 'category') {
         setSelectedCatId?.(value);
@@ -325,10 +302,8 @@ const AutoFocusAddableSelectEdit = ({
 
   const handleEditSubmit = () => {
     if (editingOption) {
-      // Determine which modified field to update
       const modifiedField = dataIndex === 'category' ? 'existenceCategoryTitleModified' : 'stuffParentTitleModified';
 
-      // Update the record's modified field
       handleCellChange(
         editedValue,
         record.key,
@@ -344,10 +319,6 @@ const AutoFocusAddableSelectEdit = ({
       setIsEditModalVisible(false);
     }
   };
-
-  // useEffect(() => {
-  //   console.log('selected state updated:', selected);
-  // }, [selected]);
 
   const transformedOptions = useMemo(() => {
     return editableOptions
@@ -383,12 +354,13 @@ const AutoFocusAddableSelectEdit = ({
         open={dropdownVisible}
         optionLabelProp="label"
         showSearch
-        filterOption={(input, option) => {
-          // Find original option data using the option's value
+        filterOption={(input, option: any) => {
           const originalOption = options.find(opt => opt.value === option.value);
+
           if (!originalOption) return false;
 
           const inputLower = input.toLowerCase();
+
           return (
             originalOption.label.toLowerCase().includes(inputLower) ||
             originalOption.value.toLowerCase().includes(inputLower)

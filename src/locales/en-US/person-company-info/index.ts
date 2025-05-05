@@ -15,6 +15,7 @@ export const enUS_personCompanyInfo = {
   'app.personComapnyInfo.city': `City:`,
   'app.personComapnyInfo.address': `Address:`,
   'app.personComapnyInfo.postalCode': `PostalCode:`,
+  'app.personComapnyInfo.registrationCode': `Registration Code:`,
   'app.personComapnyInfo.status': `Status:`,
   'app.personComapnyInfo.status.active': `Active`,
   'app.personComapnyInfo.status.deactive': `Deactive`,

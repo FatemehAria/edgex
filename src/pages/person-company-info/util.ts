@@ -79,6 +79,9 @@ export const createCostumer = async (values?: any) => {
       address: localStorage.getItem('person-company-address')
         ? JSON.parse(localStorage.getItem('person-company-address')!)
         : safeValues['address'],
+      // registrationCode: localStorage.getItem('RegistrationCode')
+      //   ? JSON.parse(localStorage.getItem('RegistrationCode')!)
+      //   : safeValues['RegistrationCode'],
       isActiveSuplier: activeSupplierLocal !== null ? activeSupplierLocal : false,
       isActiveCustomer: activeCustomerLocal !== null ? activeCustomerLocal : false,
       isCustomer: isCustomerLocal !== null ? isCustomerLocal : false,
@@ -91,6 +94,7 @@ export const createCostumer = async (values?: any) => {
     // console.log('Response data:', data);
     toast.success(translate({ id: 'gloabal.tips.toastSuccess', defaultMessage: 'Operation succeeded' }));
   } catch (error) {
+    console.log(error);
     toast.error(translate({ id: 'gloabal.tips.toastError', defaultMessage: 'Operation failed' }));
   } finally {
     [
@@ -114,6 +118,7 @@ export const createCostumer = async (values?: any) => {
       'costumer-info-active',
       'costumer-info-isCostumer',
       'supplier-isSupplier',
+      'RegistrationCode',
     ].forEach(key => localStorage.removeItem(key));
   }
 };
@@ -163,6 +168,7 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       zipCode: value['ZipCode'],
       personTypeCode: value['personTypeTitle'] === 'حقیقی' ? 1 : 2,
       address: value['Address'],
+      // registrationCode: value['RegistrationCode'],
       isActiveSuplier: localStorage.getItem('supplier-status')
         ? JSON.parse(localStorage.getItem('supplier-status')!)
         : value['IsActiveSuplier'] === 'True'
@@ -212,6 +218,7 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       'costumer-info-active',
       'costumer-info-isCostumer',
       'supplier-isSupplier',
+      'RegistrationCode',
     ].forEach(key => localStorage.removeItem(key));
   }
 };

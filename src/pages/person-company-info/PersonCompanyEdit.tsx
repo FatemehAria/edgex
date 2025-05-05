@@ -226,6 +226,17 @@ function PersonCompanyEdit({ initialValues = {}, onSubmit, showButton = false, o
         defaultValue: initialValues['ZipCode'],
       },
     },
+    // کد ثبت
+    {
+      name: 'RegistrationCode',
+      label: `${formatMessage({ id: 'app.personComapnyInfo.registrationCode' })}`,
+      type: 'input',
+      innerProps: {
+        placeholder: '',
+        onChange: (value: any) => localStorage.setItem('RegistrationCode', JSON.stringify(value.target.value)),
+        defaultValue: initialValues['RegistrationCode'],
+      },
+    },
     {
       name: 'IsActive',
       label: `${formatMessage({ id: 'app.personComapnyInfo.status' })}`,

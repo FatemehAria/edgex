@@ -15,6 +15,7 @@ export const faIR_personCompanyInfo = {
   'app.personComapnyInfo.city': `شهر:`,
   'app.personComapnyInfo.address': `آدرس:`,
   'app.personComapnyInfo.postalCode': `کدپستی:`,
+  'app.personComapnyInfo.registrationCode': `کد ثبت:`,
   'app.personComapnyInfo.status': `وضعیت:`,
   'app.personComapnyInfo.status.active': `فعال`,
   'app.personComapnyInfo.status.deactive': `غیرفعال`,
