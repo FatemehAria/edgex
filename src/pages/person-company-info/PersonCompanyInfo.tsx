@@ -227,13 +227,13 @@ function PersonCompanyInfo({ initialValues = {}, onSubmit, showButton = false }:
     },
     // کد ثبت
     {
-      name: 'RegistrationCode',
+      name: 'NumberRegistration',
       label: `${formatMessage({ id: 'app.personComapnyInfo.registrationCode' })}`,
       type: 'input',
       innerProps: {
         placeholder: '',
         onChange: (value: any) => localStorage.setItem('RegistrationCode', JSON.stringify(value.target.value)),
-        defaultValue: initialValues['RegistrationCode'],
+        defaultValue: initialValues['NumberRegistration'],
       },
     },
     {

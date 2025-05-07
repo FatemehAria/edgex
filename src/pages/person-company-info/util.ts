@@ -79,9 +79,9 @@ export const createCostumer = async (values?: any) => {
       address: localStorage.getItem('person-company-address')
         ? JSON.parse(localStorage.getItem('person-company-address')!)
         : safeValues['address'],
-      // registrationCode: localStorage.getItem('RegistrationCode')
-      //   ? JSON.parse(localStorage.getItem('RegistrationCode')!)
-      //   : safeValues['RegistrationCode'],
+      NumberRegistration: localStorage.getItem('RegistrationCode')
+        ? JSON.parse(localStorage.getItem('RegistrationCode')!)
+        : safeValues['NumberRegistration'],
       isActiveSuplier: activeSupplierLocal !== null ? activeSupplierLocal : false,
       isActiveCustomer: activeCustomerLocal !== null ? activeCustomerLocal : false,
       isCustomer: isCustomerLocal !== null ? isCustomerLocal : false,
@@ -168,7 +168,7 @@ export const updateValues = async (endpoint: string, value: any, id: string) => 
       zipCode: value['ZipCode'],
       personTypeCode: value['personTypeTitle'] === 'حقیقی' ? 1 : 2,
       address: value['Address'],
-      // registrationCode: value['RegistrationCode'],
+      NumberRegistration: value['NumberRegistration'],
       isActiveSuplier: localStorage.getItem('supplier-status')
         ? JSON.parse(localStorage.getItem('supplier-status')!)
         : value['IsActiveSuplier'] === 'True'
