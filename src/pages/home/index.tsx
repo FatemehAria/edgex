@@ -286,15 +286,15 @@ function Home() {
     updateEditedRow,
   );
 
-  // useLayoutEffect(() => {
-  //   // skip on the very first mount
-  //   if ((window as any)._lastLocale && (window as any)._lastLocale !== locale) {
-  //     // this will fire before React paints the language switch
-  //     window.location.reload();
-  //   }
+  useLayoutEffect(() => {
+    // skip on the very first mount
+    if ((window as any)._lastLocale && (window as any)._lastLocale !== locale) {
+      // this will fire before React paints the language switch
+      window.location.reload();
+    }
 
-  //   (window as any)._lastLocale = locale;
-  // }, [locale]);
+    (window as any)._lastLocale = locale;
+  }, [locale]);
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
@@ -340,21 +340,21 @@ function Home() {
       style: panelStyle,
     },
   ];
-  const last = sessionStorage.getItem('lastLocale');
+  // const last = sessionStorage.getItem('lastLocale');
 
-  if (last && last !== locale) {
-    // We know we've already asked to reload ONCE,
-    // so clear the flag and let React render normally
-    sessionStorage.removeItem('lastLocale');
-    // Don’t return null here — we’ve already reloaded
-  } else if (!last && locale) {
-    // First time seeing this locale in *this* session:
-    // store it, then kick off a reload BEFORE painting
-    sessionStorage.setItem('lastLocale', locale);
-    window.location.reload();
+  // if (last && last !== locale) {
+  //   // We know we've already asked to reload ONCE,
+  //   // so clear the flag and let React render normally
+  //   sessionStorage.removeItem('lastLocale');
+  //   // Don’t return null here — we’ve already reloaded
+  // } else if (!last && locale) {
+  //   // First time seeing this locale in *this* session:
+  //   // store it, then kick off a reload BEFORE painting
+  //   sessionStorage.setItem('lastLocale', locale);
+  //   window.location.reload();
 
-    return null;
-  }
+  //   return null;
+  // }
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur, overflow: 'auto' }}>
