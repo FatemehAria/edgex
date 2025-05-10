@@ -25,7 +25,7 @@ const LayoutPage: FC = () => {
   const [openKey, setOpenkey] = useState<string>();
   const [selectedKey, setSelectedKey] = useState<string>(location.pathname);
   const [menuList, setMenuList] = useState<MenuList>([]);
-  const { device, collapsed, locale } = useSelector(state => state.user);
+  const { device, collapsed } = useSelector(state => state.user);
   const token = antTheme.useToken();
 
   const isMobile = device === 'MOBILE';
@@ -94,21 +94,6 @@ const LayoutPage: FC = () => {
     };
   }, [dispatch]);
 
-  const last = sessionStorage.getItem('lastLocale');
-
-  if (last && last !== locale) {
-    // We know we've already asked to reload ONCE,
-    // so clear the flag and let React render normally
-    sessionStorage.removeItem('lastLocale');
-    // Don’t return null here — we’ve already reloaded
-  } else if (!last && locale) {
-    // First time seeing this locale in *this* session:
-    // store it, then kick off a reload BEFORE painting
-    sessionStorage.setItem('lastLocale', locale);
-    window.location.reload();
-
-    return null;
-  }
   return (
     <Layout className="layout-page">
       <HeaderComponent collapsed={collapsed} toggle={toggle} />
