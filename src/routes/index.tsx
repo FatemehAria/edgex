@@ -9,10 +9,10 @@ import { createCategory } from '@/pages/grouping-specifications/util';
 import ListOfProforma from '@/pages/home/ListOfProforma';
 import { createFactor } from '@/pages/inc-dec-factors/util';
 import LayoutPage from '@/pages/layout';
+import ApprovedProformaReports from '@/pages/reports/ApprovedProformaReports';
 
 import WrapperRouteComponent from './config';
 import PublicRoute from './publicRoute';
-import ApprovedProformaReports from '@/pages/reports/ApprovedProformaReports';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const ReportsPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/reports'));

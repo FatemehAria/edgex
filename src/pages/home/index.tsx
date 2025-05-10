@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
@@ -286,6 +286,16 @@ function Home() {
     updateEditedRow,
   );
 
+  // useLayoutEffect(() => {
+  //   // skip on the very first mount
+  //   if ((window as any)._lastLocale && (window as any)._lastLocale !== locale) {
+  //     // this will fire before React paints the language switch
+  //     window.location.reload();
+  //   }
+
+  //   (window as any)._lastLocale = locale;
+  // }, [locale]);
+
   const panelStyle: CSSProperties = {
     marginBottom: 24,
     background: token.colorFillAlter,
@@ -330,6 +340,18 @@ function Home() {
       style: panelStyle,
     },
   ];
+  const last = (window as any)._lastLocale;
+
+  if (last && last !== locale) {
+    (window as any)._lastLocale = locale;
+    // this kicks in *during* render, so React never paints the old→new UI
+    window.location.reload();
+
+    return null; // bail out of render
+  }
+
+  // on first mount (or when same locale), just record it
+  (window as any)._lastLocale = locale;
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: token.colorBgBlur, overflow: 'auto' }}>

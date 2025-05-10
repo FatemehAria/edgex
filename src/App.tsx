@@ -6,7 +6,7 @@ import faIR from 'antd/es/locale/fa_IR';
 import { JalaliLocaleListener } from 'antd-jalali';
 import dayjs from 'dayjs';
 import { Suspense, useEffect } from 'react';
-import {  useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { history, HistoryRouter } from '@/routes/history';
