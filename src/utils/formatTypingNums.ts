@@ -27,8 +27,13 @@ export const handleValueChange = (
   tableData: any,
   insurancePrice: number,
   totalCostOfRows: number,
+  // markUnitAsEdited?: (rowKey: number) => void,
 ) => {
   const formatted = formatValue(value);
+
+  // if (dataIndex === 'unitCost' && markUnitAsEdited) {
+  //   markUnitAsEdited(record.key);
+  // }
 
   handleCellChange(formatted, record.key, dataIndex, setTableData, tableData, insurancePrice, totalCostOfRows);
 };

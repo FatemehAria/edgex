@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Form, Modal, theme } from 'antd';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
@@ -74,6 +74,11 @@ function Home() {
   const { setHeaderData } = useContext(IsEdittingProformaContext);
   const [selectedCatId, setSelectedCatId] = useState(localStorage.getItem('category-initialValue'));
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
+  // const [userEditedUnits, setUserEditedUnits] = useState<Set<number>>(new Set());
+
+  // const markUnitAsEdited = (rowKey: number) => {
+  //   setUserEditedUnits(prev => new Set(prev.add(rowKey)));
+  // };
 
   const openCustomerModal = () => {
     setIsCustomerModalOpen(true);
@@ -128,6 +133,7 @@ function Home() {
   const [itemOptionsMap, setItemOptionsMap] = useState<Record<string, { label: string; value: string }[]>>({});
   const [activeItemRow, setActiveItemRow] = useState<number | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+  const prevItemsRef = useRef<Record<string, string>>({});
 
   const openItemModal = () => {
     setIsItemModalOpen(true);
@@ -209,14 +215,26 @@ function Home() {
     tableData.forEach(row => {
       const itemId = row.items;
       const rowKey = row.key;
+      const prevItemId = prevItemsRef.current[rowKey];
+      const currItemId = row.items;
+
+      // if (userEditedUnits.has(rowKey)) return;
 
       if (processedItems.has(`${rowKey}-${itemId}`) && row.unitCost === '') {
-        setProcessedItems(prev => {
-          const newSet = new Set(prev);
+        // setProcessedItems(prev => {
+        //   const newSet = new Set(prev);
+        //   newSet.delete(`${rowKey}-${itemId}`);
+        //   return newSet;
+        // });
+      }
 
-          newSet.delete(`${rowKey}-${itemId}`);
+      if (currItemId && currItemId !== prevItemId) {
+        setProcessedItems(flags => {
+          const next = new Set(flags);
 
-          return newSet;
+          next.delete(`${rowKey}-${currItemId}`);
+
+          return next;
         });
       }
 
@@ -230,8 +248,11 @@ function Home() {
           }
         });
       }
+
+      prevItemsRef.current[rowKey] = currItemId;
     });
   }, [tableData, processedItems, setTableData]);
+  // }, [tableData, processedItems, setTableData,userEditedUnits]);
 
   const columns = Columns(
     formatMessage,
@@ -250,6 +271,7 @@ function Home() {
     setSelectedCatId,
     insurancePrice,
     totalCostOfRows,
+    // markUnitAsEdited,
   );
 
   const updateEditedRow = (field: string, value: any) => {

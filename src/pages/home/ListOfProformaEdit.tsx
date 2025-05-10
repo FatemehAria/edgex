@@ -46,6 +46,7 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
   const [tableData, setTableData] = useState<any[]>([]);
   const [form] = Form.useForm();
   const [processedItems, setProcessedItems] = useState<Set<string>>(new Set());
+  const prevItemsRef = useRef<Record<string, string>>({});
 
   useEffect(() => {
     const incoming: any[] = Array.isArray(singleProformaInfo) ? singleProformaInfo : [];
@@ -288,14 +289,24 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
     tableData.forEach(row => {
       const itemId = row.items;
       const rowKey = row.key;
+      const prevItemId = prevItemsRef.current[rowKey];
+      const currItemId = row.items;
 
       if (processedItems.has(`${rowKey}-${itemId}`) && row.unitCost === '') {
-        setProcessedItems(prev => {
-          const newSet = new Set(prev);
+        // setProcessedItems(prev => {
+        //   const newSet = new Set(prev);
+        //   newSet.delete(`${rowKey}-${itemId}`);
+        //   return newSet;
+        // });
+      }
 
-          newSet.delete(`${rowKey}-${itemId}`);
+      if (currItemId && currItemId !== prevItemId) {
+        setProcessedItems(flags => {
+          const next = new Set(flags);
 
-          return newSet;
+          next.delete(`${rowKey}-${currItemId}`);
+
+          return next;
         });
       }
 
@@ -315,6 +326,8 @@ function ListOfProformaEdit({ updateEditedRow, onCancel }: { updateEditedRow?: a
           }
         });
       }
+
+      prevItemsRef.current[rowKey] = currItemId;
     });
   }, [tableData, processedItems, setTableData, insurancePrice, totalCostOfRows]);
 

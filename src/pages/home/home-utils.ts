@@ -95,7 +95,7 @@ export const handleCellChange = (
           } = updatedRow.modalValues || {};
 
           // قیمت فروش اولیه
-          const primarySalesPrice = Number(updatedRow.recordProfitMargin) * unitCost + unitCost;
+          const primarySalesPrice = Number(updatedRow.recordProfitMargin / 100) * unitCost + unitCost;
 
           updatedRow.primarySalesPrice = round2(primarySalesPrice);
 

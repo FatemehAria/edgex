@@ -421,8 +421,33 @@ export const EditColumns = (
       title: <span className="center-align">{formatMessage({ id: 'app.home.detailInfo.table.actions' })}</span>,
       dataIndex: 'actions',
       key: 'actions',
+      // render: (_: any, record: any) => {
+      //   const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
+
+      //   return (
+      //     <span className="center-align">
+      //       <FontAwesomeIcon
+      //         icon={faTrashCan}
+      //         onClick={() => {
+      //           if (!isDisabled) {
+      //             deleteRow(record.key, setTableData);
+      //           }
+      //         }}
+      //         style={{
+      //           cursor: isDisabled ? 'not-allowed' : 'pointer',
+      //           marginRight: 8,
+      //           opacity: isDisabled ? 0.4 : 1,
+      //         }}
+      //         className="delete-icon"
+      //       />
+      //     </span>
+      //   );
+      // },
       render: (_: any, record: any) => {
-        const isDisabled = record.key === tableData[0].key && !isRowFilled(record);
+        const isFirstRow = record.key === tableData[0].key;
+        const isLastRow = record.key === tableData[tableData.length - 1].key;
+        const isRowEmpty = !isRowFilled(record);
+        const isDisabled = (isFirstRow || isLastRow) && isRowEmpty;
 
         return (
           <span className="center-align">
