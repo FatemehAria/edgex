@@ -1,12 +1,12 @@
 import type { CSSProperties } from 'react';
 
 import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, Form, Modal, theme } from 'antd';
+import { Collapse, Form, Modal, Spin, theme } from 'antd';
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import RedirectionButton from '@/components/custom/RedirectionButton';
-import { useLocale } from '@/locales';
+import { LocaleFormatter, useLocale } from '@/locales';
 
 import ProformaCostumer from '../costumer-info/ProformaCostumer';
 import { getCustomersList } from '../costumer-info/util';
@@ -285,16 +285,42 @@ function Home() {
     setHeaderData,
     updateEditedRow,
   );
+  const [allowRender, setAllowRender] = useState(false);
+  // const { theme } = useSelector(state => state.global);
 
   useLayoutEffect(() => {
-    // skip on the very first mount
-    if ((window as any)._lastLocale && (window as any)._lastLocale !== locale) {
-      // this will fire before React paints the language switch
-      window.location.reload();
-    }
+    const justReloaded = sessionStorage.getItem('_home_reloaded');
 
-    (window as any)._lastLocale = locale;
+    if (!justReloaded) {
+      // First time seeing this locale in *this* session:
+      // 1) set a flag so we know not to reload the next time
+      sessionStorage.setItem('_home_reloaded', '1');
+      // 2) trigger the actual page reload
+      window.location.reload();
+      // we don’t call setAllowRender(true) because we're reloading
+    } else {
+      // We’ve just reloaded once, clear the flag and allow the UI to show
+      sessionStorage.removeItem('_home_reloaded');
+      setAllowRender(true);
+    }
   }, [locale]);
+
+  if (!allowRender) {
+    // either return null for a blank page, or show a spinner:
+    const spinnerStyle: CSSProperties = {
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: 'var(--antd-token-color-bg-container)', // or a hard-coded color
+    };
+
+    return (
+      <div style={spinnerStyle}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   const panelStyle: CSSProperties = {
     marginBottom: 24,
